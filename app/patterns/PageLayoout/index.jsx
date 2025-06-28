@@ -7,8 +7,8 @@ import {CartMain} from '~/patterns/CartMain';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,
-} from '~/patterns/SearchFormPredictive';
-import {SearchResultsPredictive} from '~/patterns/SearchResultsPredictive';
+} from '~/patterns/Search/SearchFormPredictive';
+import {SearchResultsPredictive} from '~/patterns/Search/SearchResultsPredictive';
 
 /**
  * @param {PageLayoutProps}

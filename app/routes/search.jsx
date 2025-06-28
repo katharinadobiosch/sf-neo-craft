@@ -1,7 +1,7 @@
 import {useLoaderData} from 'react-router';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
-import {SearchForm} from '~/patterns/SearchForm';
-import {SearchResults} from '~/patterns/SearchResults';
+import {SearchForm} from '~/patterns/Search/SearchForm';
+import {SearchResults} from '~/patterns/Search/SearchResults';
 import {getEmptyPredictiveSearchResult} from '~/lib/search';
 
 /**

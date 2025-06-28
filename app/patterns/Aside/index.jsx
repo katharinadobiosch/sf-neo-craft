@@ -1,4 +1,5 @@
 import {createContext, useContext, useEffect, useState} from 'react';
+import './aside.scss';
 
 /**
  * A side bar component with Overlay

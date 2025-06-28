@@ -1,6 +1,8 @@
 import {Link} from 'react-router';
 import {Image, Money, Pagination} from '@shopify/hydrogen';
 import {urlWithTrackingParams} from '~/lib/search';
+import './search.scss';
+
 
 /**
  * @param {Omit<SearchResultsProps, 'error' | 'type'>}

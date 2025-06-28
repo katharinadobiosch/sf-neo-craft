@@ -1,6 +1,8 @@
 import {Suspense} from 'react';
 import {Await, NavLink} from 'react-router';
 
+import './footer.scss';
+
 /**
  * @param {FooterProps}
  */
