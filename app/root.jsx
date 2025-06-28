@@ -68,7 +68,6 @@ export function links() {
     {rel: 'stylesheet', href: searchStyles},
     {rel: 'stylesheet', href: asideStyles},
     {rel: 'stylesheet', href: cartStyles},
-    {rel: 'stylesheet', href: introStyles},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
