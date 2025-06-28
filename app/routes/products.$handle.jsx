@@ -7,9 +7,9 @@ import {
   getAdjacentAndFirstAvailableVariants,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
-import {ProductPrice} from '~/components/ProductPrice';
-import {ProductImage} from '~/components/ProductImage';
-import {ProductForm} from '~/components/ProductForm';
+import {ProductPrice} from '~/patterns/ProductPrice';
+import {ProductImage} from '~/patterns/ProductImage';
+import {ProductForm} from '~/patterns/ProductForm';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 
 /**

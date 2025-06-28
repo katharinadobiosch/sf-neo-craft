@@ -1,7 +1,7 @@
 import {useLoaderData} from 'react-router';
 import {CartForm} from '@shopify/hydrogen';
 import {data} from '@shopify/remix-oxygen';
-import {CartMain} from '~/components/CartMain';
+import {CartMain} from '~/patterns/CartMain';
 
 /**
  * @type {MetaFunction}

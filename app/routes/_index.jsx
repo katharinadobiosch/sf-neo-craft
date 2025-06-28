@@ -1,7 +1,7 @@
 import {Await, useLoaderData, Link} from 'react-router';
 import {Suspense} from 'react';
 import {Image} from '@shopify/hydrogen';
-import {ProductItem} from '~/components/ProductItem';
+import {ProductItem} from '~/patterns/ProductItem';
 
 /**
  * @type {MetaFunction}

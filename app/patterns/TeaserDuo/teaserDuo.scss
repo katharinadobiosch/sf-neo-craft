@@ -1,0 +1,23 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.teaser-duo {
+  background: white;
+
+  &__image-container {
+    width: 100%;
+    display: flex;
+    justify-content: row;
+  }
+
+  &__image {
+    width: 50%;
+    height: auto;
+    object-fit: cover;
+    border: 2px solid green;
+    height: 500px;
+  }
+  p {
+    padding: 50px 100px;
+  }
+}

@@ -1,6 +1,6 @@
 import {useLoaderData, Link} from 'react-router';
 import {getPaginationVariables, Image} from '@shopify/hydrogen';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {PaginatedResourceSection} from '~/patterns/PaginatedResourceSection';
 
 /**
  * @param {LoaderFunctionArgs} args

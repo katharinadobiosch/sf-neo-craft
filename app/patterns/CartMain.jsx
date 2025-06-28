@@ -1,7 +1,7 @@
 import {useOptimisticCart} from '@shopify/hydrogen';
 import {Link} from 'react-router';
-import {useAside} from '~/components/Aside';
-import {CartLineItem} from '~/components/CartLineItem';
+import {useAside} from '~/patterns/Aside';
+import {CartLineItem} from '~/patterns/CartLineItem';
 import {CartSummary} from './CartSummary';
 
 /**

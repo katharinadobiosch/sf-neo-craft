@@ -1,7 +1,7 @@
 import {useLoaderData} from 'react-router';
 import {getPaginationVariables} from '@shopify/hydrogen';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
-import {ProductItem} from '~/components/ProductItem';
+import {PaginatedResourceSection} from '~/patterns/PaginatedResourceSection';
+import {ProductItem} from '~/patterns/ProductItem';
 
 /**
  * @type {MetaFunction<typeof loader>}
