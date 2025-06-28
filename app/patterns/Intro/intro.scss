@@ -1,0 +1,129 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  overflow: visible;
+  z-index: 9999;
+
+  .letter {
+    position: absolute;
+    font-size: 4rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: typeIn 0.5s forwards;
+    animation-delay: calc(var(--i) * 0.1s);
+  }
+
+  // Tipp-Effekt -> Buchstabe sichtbar machen
+  @keyframes typeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  // Nach Tipp-Phase: Disperse starten
+  .letter {
+    animation:
+      typeIn 0.5s forwards,
+      disperse 2s ease-in forwards;
+    animation-delay: calc(var(--i) * 0.1s), 2s;
+  }
+
+  // Für N & C: Eigene Bewegung
+  .n {
+    animation:
+      typeIn 0.5s forwards,
+      moveN 2s ease-in forwards;
+    animation-delay: calc(var(--i) * 0.1s), 2s;
+  }
+
+  .c {
+    animation:
+      typeIn 0.5s forwards,
+      moveC 2s ease-in forwards;
+    animation-delay: calc(var(--i) * 0.1s), 2s;
+  }
+
+  // Buchstaben zerstreuen (5 Varianten)
+  .disperse-1 {
+    animation-name: typeIn, disperse-1;
+  }
+  .disperse-2 {
+    animation-name: typeIn, disperse-2;
+  }
+  .disperse-3 {
+    animation-name: typeIn, disperse-3;
+  }
+  .disperse-4 {
+    animation-name: typeIn, disperse-4;
+  }
+  .disperse-5 {
+    animation-name: typeIn, disperse-5;
+  }
+
+  // Keyframes: Zufallsbewegungen
+  @keyframes disperse-1 {
+    to {
+      transform: translate(-200%, -200%) rotate(720deg) scale(0.5);
+      opacity: 0;
+    }
+  }
+  @keyframes disperse-2 {
+    to {
+      transform: translate(200%, -200%) rotate(-720deg) scale(0.5);
+      opacity: 0;
+    }
+  }
+  @keyframes disperse-3 {
+    to {
+      transform: translate(-200%, 200%) rotate(720deg) scale(0.5);
+      opacity: 0;
+    }
+  }
+  @keyframes disperse-4 {
+    to {
+      transform: translate(200%, 200%) rotate(-720deg) scale(0.5);
+      opacity: 0;
+    }
+  }
+  @keyframes disperse-5 {
+    to {
+      transform: translate(0%, -300%) rotate(1080deg) scale(0.5);
+      opacity: 0;
+    }
+  }
+
+  // N fliegt oben links & wird groß
+  @keyframes moveN {
+    to {
+      transform: translate(-50vw, -45vh) scale(8);
+      opacity: 1;
+    }
+  }
+
+  // C fliegt oben rechts & wird groß
+  @keyframes moveC {
+    to {
+      transform: translate(50vw, -45vh) scale(8);
+      opacity: 1;
+    }
+  }
+
+  // Ganzes Intro ausblenden
+  animation: fadeout 0.5s ease forwards;
+  animation-delay: 4s;
+
+  @keyframes fadeout {
+    to {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}
