@@ -1,6 +1,7 @@
 import {useFetcher, useNavigate} from 'react-router';
 import React, {useRef, useEffect} from 'react';
-import {useAside} from './Aside';
+import {useAside} from '~/patterns/Aside';
+import './search.scss';
 
 export const SEARCH_ENDPOINT = '/search';
 

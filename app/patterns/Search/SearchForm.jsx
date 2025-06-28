@@ -1,5 +1,7 @@
 import {useRef, useEffect} from 'react';
 import {Form} from 'react-router';
+import './search.scss';
+
 
 /**
  * Search form component that sends search requests to the `/search` route.

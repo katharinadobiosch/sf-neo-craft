@@ -5,7 +5,8 @@ import {
   getEmptyPredictiveSearchResult,
   urlWithTrackingParams,
 } from '~/lib/search';
-import {useAside} from './Aside';
+import {useAside} from '~/patterns/Aside';
+import './search.scss';
 
 /**
  * Component that renders predictive search results

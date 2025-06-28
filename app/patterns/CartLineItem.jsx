@@ -2,7 +2,7 @@ import {CartForm, Image} from '@shopify/hydrogen';
 import {useVariantUrl} from '~/lib/variants';
 import {Link} from 'react-router';
 import {ProductPrice} from './ProductPrice';
-import {useAside} from './Aside';
+import {useAside} from '~/patterns/Aside';
 
 /**
  * A single line item in the cart. It displays the product image, title, price.
