@@ -13,6 +13,8 @@ import favicon from '~/assets/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
+import headerStyles from '~/patterns/Header/header.scss?url';
+
 import {PageLayout} from './patterns/PageLayoout';
 
 /**
@@ -54,6 +56,9 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
+    {rel: 'stylesheet', href: resetStyles},
+    {rel: 'stylesheet', href: appStyles},
+    {rel: 'stylesheet', href: headerStyles},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
