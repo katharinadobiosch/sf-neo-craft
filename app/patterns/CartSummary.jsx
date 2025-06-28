@@ -197,5 +197,5 @@ function UpdateGiftCardForm({giftCardCodes, saveAppliedCode, children}) {
  */
 
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
-/** @typedef {import('~/components/CartMain').CartLayout} CartLayout */
+/** @typedef {import('~/patterns/CartMain').CartLayout} CartLayout */
 /** @typedef {import('@shopify/hydrogen').OptimisticCart} OptimisticCart */

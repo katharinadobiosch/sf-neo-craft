@@ -6,6 +6,14 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [hydrogen(), oxygen(), reactRouter(), tsconfigPaths()],
+  css: {
+    preprocessorOptions: {
+      sscss: {
+        includePaths: ['./app'],
+        additionalData: `@use "styles/variables" as *;\n`,
+      },
+    },
+  },
   build: {
     // Allow a strict Content-Security-Policy
     // withtout inlining assets as base64:

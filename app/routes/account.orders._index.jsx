@@ -5,7 +5,7 @@ import {
   flattenConnection,
 } from '@shopify/hydrogen';
 import {CUSTOMER_ORDERS_QUERY} from '~/graphql/customer-account/CustomerOrdersQuery';
-import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {PaginatedResourceSection} from '~/patterns/PaginatedResourceSection';
 
 /**
  * @type {MetaFunction}

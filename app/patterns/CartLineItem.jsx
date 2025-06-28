@@ -162,6 +162,6 @@ function getUpdateKey(lineIds) {
 /** @typedef {OptimisticCartLine<CartApiQueryFragment>} CartLine */
 
 /** @typedef {import('@shopify/hydrogen/storefront-api-types').CartLineUpdateInput} CartLineUpdateInput */
-/** @typedef {import('~/components/CartMain').CartLayout} CartLayout */
+/** @typedef {import('~/patterns/CartMain').CartLayout} CartLayout */
 /** @typedef {import('@shopify/hydrogen').OptimisticCartLine} OptimisticCartLine */
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */

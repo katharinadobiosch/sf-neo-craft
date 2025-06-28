@@ -1,0 +1,12 @@
+@import './variables';
+@import './mixins';
+
+body {
+  background: blue;
+  color: $primary-color;
+}
+
+.hero {
+  @include flex-center;
+  padding: 2rem;
+}
