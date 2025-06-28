@@ -2,7 +2,7 @@
 
 .header {
   align-items: center;
-  background: #fff;
+  background: var(--sf-primary);
   display: flex;
   height: var(--header-height);
   padding: 0 1rem;

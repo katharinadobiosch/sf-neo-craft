@@ -17,6 +17,8 @@ import footerStyles from '~/patterns/Footer/footer.scss?url';
 import searchStyles from '~/patterns/Search/search.scss?url';
 import asideStyles from '~/patterns/Aside/aside.scss?url';
 import cartStyles from '~/patterns/Cart/cart.scss?url';
+import introStyles from '~/patterns/Intro/intro.scss?url';
+
 import appStyles from '~/styles/main.scss?url';
 
 import {PageLayout} from './patterns/PageLayoout';
@@ -67,6 +69,7 @@ export function links() {
     {rel: 'stylesheet', href: searchStyles},
     {rel: 'stylesheet', href: asideStyles},
     {rel: 'stylesheet', href: cartStyles},
+    {rel: 'stylesheet', href: introStyles},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
