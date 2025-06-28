@@ -3,7 +3,7 @@ import {Suspense, useId} from 'react';
 import {Aside} from '~/patterns/Aside';
 import {Footer} from '~/patterns/Footer';
 import {Header, HeaderMenu} from '~/patterns/Header';
-import {CartMain} from '~/patterns/CartMain';
+import {CartMain} from '~/patterns/Cart/CartMain';
 import {
   SEARCH_ENDPOINT,
   SearchFormPredictive,

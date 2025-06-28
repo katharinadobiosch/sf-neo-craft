@@ -1,5 +1,7 @@
 import {CartForm, Money} from '@shopify/hydrogen';
 import {useRef} from 'react';
+import './cart.scss';
+
 
 /**
  * @param {CartSummaryProps}
@@ -197,5 +199,5 @@ function UpdateGiftCardForm({giftCardCodes, saveAppliedCode, children}) {
  */
 
 /** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
-/** @typedef {import('~/patterns/CartMain').CartLayout} CartLayout */
+/** @typedef {import('~/patterns/Cart/CartMain').CartLayout} CartLayout */
 /** @typedef {import('@shopify/hydrogen').OptimisticCart} OptimisticCart */
