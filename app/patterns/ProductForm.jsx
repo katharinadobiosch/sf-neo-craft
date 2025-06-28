@@ -1,5 +1,5 @@
 import {Link, useNavigate} from 'react-router';
-import {AddToCartButton} from './AddToCartButton';
+import {AddToCartButton} from './Cart/AddToCartButton';
 import {useAside} from '~/patterns/Aside';
 
 /**

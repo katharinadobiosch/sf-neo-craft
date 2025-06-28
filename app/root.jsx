@@ -12,11 +12,12 @@ import {
 import favicon from '~/assets/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
-import appStyles from '~/styles/app.css?url';
 import headerStyles from '~/patterns/Header/header.scss?url';
 import footerStyles from '~/patterns/Footer/footer.scss?url';
 import searchStyles from '~/patterns/Search/search.scss?url';
 import asideStyles from '~/patterns/Aside/aside.scss?url';
+import cartStyles from '~/patterns/Cart/cart.scss?url';
+import appStyles from '~/styles/main.scss?url';
 
 import {PageLayout} from './patterns/PageLayoout';
 
@@ -65,6 +66,7 @@ export function links() {
     {rel: 'stylesheet', href: footerStyles},
     {rel: 'stylesheet', href: searchStyles},
     {rel: 'stylesheet', href: asideStyles},
+    {rel: 'stylesheet', href: cartStyles},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
