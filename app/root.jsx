@@ -17,7 +17,6 @@ import footerStyles from '~/patterns/Footer/footer.scss?url';
 import searchStyles from '~/patterns/Search/search.scss?url';
 import asideStyles from '~/patterns/Aside/aside.scss?url';
 import cartStyles from '~/patterns/Cart/cart.scss?url';
-import introStyles from '~/patterns/Intro/intro.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
 

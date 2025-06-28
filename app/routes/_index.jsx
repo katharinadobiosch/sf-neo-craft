@@ -2,7 +2,6 @@ import {Await, useLoaderData, Link} from 'react-router';
 import {Suspense} from 'react';
 import {Image} from '@shopify/hydrogen';
 import {ProductItem} from '~/patterns/ProductItem';
-import {Intro} from '~/patterns/Intro';
 
 /**
  * @type {MetaFunction}
@@ -65,9 +64,8 @@ export default function Homepage() {
   const data = useLoaderData();
   return (
     <div className="home">
-      <Intro />
-      {/* <FeaturedCollection collection={data.featuredCollection} /> */}
-      {/* <RecommendedProducts products={data.recommendedProducts} /> */}
+      <FeaturedCollection collection={data.featuredCollection} />
+      <RecommendedProducts products={data.recommendedProducts} />
     </div>
   );
 }
