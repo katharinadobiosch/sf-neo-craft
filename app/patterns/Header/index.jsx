@@ -1,4 +1,4 @@
-import {Suspense} from 'react';
+import {Suspense, useState} from 'react';
 import {Await, NavLink, useAsyncValue} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/patterns/Aside';
@@ -8,23 +8,61 @@ import './header.scss';
 /**
  * @param {HeaderProps}
  */
-export function Header({header, isLoggedIn, cart, publicStoreDomain}) {
-  const {shop, menu} = header;
+
+export function Header({header}) {
+  const {menu} = header;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
-      </NavLink>
-      <HeaderMenu
-        menu={menu}
-        viewport="desktop"
-        primaryDomainUrl={header.shop.primaryDomain.url}
-        publicStoreDomain={publicStoreDomain}
-      />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+      <div className="header__container">
+        <div className="header__left">
+          <NavLink to="/">NEO</NavLink>
+        </div>
+
+        <div className="header__center">
+          <button
+            className={`burger ${isMenuOpen ? 'active' : ''}`}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+        <div className="header__right">
+          <NavLink to="/">CRAFT</NavLink>
+        </div>
+      </div>
+
+      <div className={`header__overlay ${isMenuOpen ? 'open' : ''}`}>
+        <nav className="header__overlay__menu">
+          {(menu || FALLBACK_HEADER_MENU).items.map((item) => (
+            <NavLink
+              key={item.id}
+              to={item.url}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {item.title}
+            </NavLink>
+          ))}
+        </nav>
+      </div>
     </header>
   );
 }
+
+const FALLBACK_HEADER_MENU = {
+  items: [
+    {id: '1', title: 'COLLECTION', url: '/collections'},
+    {id: '2', title: 'PROJECTS', url: '/projects'},
+    {id: '3', title: 'BESPOKE', url: '/bespoke'},
+    {id: '4', title: 'MATERIALS', url: '/materials'},
+    {id: '5', title: 'ABOUT', url: '/about'},
+  ],
+};
 
 /**
  * @param {{
@@ -42,6 +80,7 @@ export function HeaderMenu({
 }) {
   const className = `header-menu-${viewport}`;
   const {close} = useAside();
+  console.log('menu', menu);
 
   return (
     <nav className={className} role="navigation">
@@ -170,47 +209,47 @@ function CartBanner() {
   return <CartBadge count={cart?.totalQuantity ?? 0} />;
 }
 
-const FALLBACK_HEADER_MENU = {
-  id: 'gid://shopify/Menu/199655587896',
-  items: [
-    {
-      id: 'gid://shopify/MenuItem/461609500728',
-      resourceId: null,
-      tags: [],
-      title: 'Collections',
-      type: 'HTTP',
-      url: '/collections',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609533496',
-      resourceId: null,
-      tags: [],
-      title: 'Blog',
-      type: 'HTTP',
-      url: '/blogs/journal',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609566264',
-      resourceId: null,
-      tags: [],
-      title: 'Policies',
-      type: 'HTTP',
-      url: '/policies',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461609599032',
-      resourceId: 'gid://shopify/Page/92591030328',
-      tags: [],
-      title: 'About',
-      type: 'PAGE',
-      url: '/pages/about',
-      items: [],
-    },
-  ],
-};
+// const FALLBACK_HEADER_MENU = {
+//   id: 'gid://shopify/Menu/199655587896',
+//   items: [
+//     {
+//       id: 'gid://shopify/MenuItem/461609500728',
+//       resourceId: null,
+//       tags: [],
+//       title: 'Collections',
+//       type: 'HTTP',
+//       url: '/collections',
+//       items: [],
+//     },
+//     {
+//       id: 'gid://shopify/MenuItem/461609533496',
+//       resourceId: null,
+//       tags: [],
+//       title: 'Blog',
+//       type: 'HTTP',
+//       url: '/blogs/journal',
+//       items: [],
+//     },
+//     {
+//       id: 'gid://shopify/MenuItem/461609566264',
+//       resourceId: null,
+//       tags: [],
+//       title: 'Policies',
+//       type: 'HTTP',
+//       url: '/policies',
+//       items: [],
+//     },
+//     {
+//       id: 'gid://shopify/MenuItem/461609599032',
+//       resourceId: 'gid://shopify/Page/92591030328',
+//       tags: [],
+//       title: 'About',
+//       type: 'PAGE',
+//       url: '/pages/about',
+//       items: [],
+//     },
+//   ],
+// };
 
 /**
  * @param {{
