@@ -9,7 +9,6 @@ import {
   SearchFormPredictive,
 } from '~/patterns/Search/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/patterns/Search/SearchResultsPredictive';
-import {Intro} from '../Intro';
 
 /**
  * @param {PageLayoutProps}
@@ -27,7 +26,6 @@ export function PageLayout({
       <CartAside cart={cart} />
       <SearchAside />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
-      {/* <Intro /> */}
       {header && (
         <Header
           header={header}
