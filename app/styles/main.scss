@@ -12,10 +12,6 @@
   --sf-tertiary: #fb5f5f;
 }
 
-img {
-  border-radius: 4px;
-}
-
 /*
 * --------------------------------------------------
 * Non anchor links
@@ -68,21 +64,33 @@ img {
 * routes/collections._index.tsx
 * --------------------------------------------------
 */
-.collections {
-}
+
 .collections-grid {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
   width: 100%;
-  border: 2px solid blue;
   flex-wrap: wrap;
+  position: relative; /* wichtig */
 }
 
-.collection-item {
-  border: 2px solid red;
-  width: 49%;
+.collections-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background-color: #000; /* oder deine Wunschfarbe */
+  transform: translateX(-0.5px); /* exakt mittig */
+  z-index: 1;
+}
+
+.collections-grid h4 {
+  padding: 6px 0 18px 18px;
+  font-weight: 400;
+}
+
+.product-item {
+  width: 50%;
 }
 
 .collection-item img {
