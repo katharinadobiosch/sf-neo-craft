@@ -68,11 +68,21 @@ img {
 * routes/collections._index.tsx
 * --------------------------------------------------
 */
+.collections {
+}
 .collections-grid {
-  display: grid;
-  grid-gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(var(--grid-item-width), 1fr));
-  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  border: 2px solid blue;
+  flex-wrap: wrap;
+}
+
+.collection-item {
+  border: 2px solid red;
+  width: 49%;
 }
 
 .collection-item img {
