@@ -80,7 +80,6 @@ export function HeaderMenu({
 }) {
   const className = `header-menu-${viewport}`;
   const {close} = useAside();
-  console.log('menu', menu);
 
   return (
     <nav className={className} role="navigation">

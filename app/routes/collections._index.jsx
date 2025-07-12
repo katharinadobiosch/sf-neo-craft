@@ -21,18 +21,28 @@ export async function loader(args) {
  * @param {LoaderFunctionArgs}
  */
 async function loadCriticalData({context, request}) {
-  const paginationVariables = getPaginationVariables(request, {
-    pageBy: 4,
-  });
+  const {collection} = await context.storefront.query(
+    COLLECTION_BY_HANDLE_QUERY,
+    {
+      variables: {
+        handle: 'main-collection', // oder dein eigener Handle
+      },
+    },
+  );
 
-  const [{collections}] = await Promise.all([
-    context.storefront.query(COLLECTIONS_QUERY, {
-      variables: paginationVariables,
-    }),
-    // Add other queries here, so that they are loaded in parallel
-  ]);
+  return {collection};
+  // const paginationVariables = getPaginationVariables(request, {
+  //   pageBy: 20,
+  // });
 
-  return {collections};
+  // const [{collections}] = await Promise.all([
+  //   context.storefront.query(COLLECTIONS_QUERY, {
+  //     variables: paginationVariables,
+  //   }),
+  //   // Add other queries here, so that they are loaded in parallel
+  // ]);
+
+  // return {collections};
 }
 
 /**
@@ -45,28 +55,72 @@ function loadDeferredData({context}) {
   return {};
 }
 
+function ProductItem({product}) {
+  return (
+    <Link
+      to={`/products/${product.handle}`}
+      className="product-item"
+      prefetch="intent"
+    >
+      {product.featuredImage && (
+        <Image
+          data={product.featuredImage}
+          alt={product.featuredImage.altText || product.title}
+          aspectRatio="1/1"
+          sizes="(min-width: 45em) 300px, 100vw"
+        />
+      )}
+      <h4>{product.title}</h4>
+    </Link>
+  );
+}
+
 export default function Collections() {
-  /** @type {LoaderReturnData} */
-  const {collections} = useLoaderData();
+  const {collection} = useLoaderData();
 
   return (
     <div className="collections">
-      {/* <h1>Collections</h1> */}
-      <PaginatedResourceSection
-        connection={collections}
-        resourcesClassName="collections-grid"
-      >
-        {({node: collection, index}) => (
-          <CollectionItem
-            key={collection.id}
-            collection={collection}
-            index={index}
-          />
-        )}
-      </PaginatedResourceSection>
+      {/* <h2>{collection.title}</h2> */}
+
+      <div className="collections-grid">
+        {collection.products?.nodes?.map((product, index) => (
+          <ProductItem key={product.id} product={product} />
+        ))}
+      </div>
     </div>
   );
 }
+
+// export default function Collections() {
+//   /** @type {LoaderReturnData} */
+//   const {collection} = useLoaderData();
+//   console.log('collections', collection);
+
+//   return (
+//     <div className="collections">
+//       <div className="collections-grid">
+//         <CollectionItem collection={collection} index={0} />
+//       </div>
+
+//       {/* <h1>Collections</h1>
+//       <PaginatedResourceSection
+//         connection={collection}
+//         resourcesClassName="collections-grid"
+//       >
+//         {
+//           ({node: collection, index}) => (
+//             <CollectionItem
+//               key={collection.id}
+//               collection={collection}
+//               index={index}
+//             />
+//           )
+//           // )
+//         }
+//       </PaginatedResourceSection> */}
+//     </div>
+//   );
+// }
 
 /**
  * @param {{
@@ -74,30 +128,75 @@ export default function Collections() {
  *   index: number;
  * }}
  */
-function CollectionItem({collection, index}) {
-  return (
-    <Link
-      className="collection-item"
-      key={collection.id}
-      to={`/collections/${collection.handle}`}
-      prefetch="intent"
-    >
-      {collection?.image && (
-        <Image
-          alt={collection.image.altText || collection.title}
-          aspectRatio="1/1"
-          data={collection.image}
-          loading={index < 3 ? 'eager' : undefined}
-          sizes="(min-width: 45em) 400px, 100vw"
-        />
-      )}
-      <h5>{collection.title}</h5>
-    </Link>
-  );
-}
+// function CollectionItem({collection, index}) {
+//   return (
+//     <Link
+//       className="collection-item"
+//       key={collection.id}
+//       to={`/collections/${collection.handle}`}
+//       prefetch="intent"
+//     >
+//       {collection?.image && (
+//         <Image
+//           alt={collection.image.altText || collection.title}
+//           aspectRatio="1/1"
+//           data={collection.image}
+//           loading={index < 3 ? 'eager' : undefined}
+//           sizes="(min-width: 45em) 400px, 100vw"
+//         />
+//       )}
+//       <h5>{collection.title}</h5>
+//     </Link>
+//   );
+// }
 
-const COLLECTIONS_QUERY = `#graphql
-  fragment Collection on Collection {
+// const COLLECTIONS_QUERY = `#graphql
+//   fragment Collection on Collection {
+//     id
+//     title
+//     handle
+//     image {
+//       id
+//       url
+//       altText
+//       width
+//       height
+//     }
+//   }
+//   query StoreCollections(
+//     $country: CountryCode
+//     $endCursor: String
+//     $first: Int
+//     $language: LanguageCode
+//     $last: Int
+//     $startCursor: String
+//   ) @inContext(country: $country, language: $language) {
+//     collections(
+//       first: $first,
+//       last: $last,
+//       before: $startCursor,
+//       after: $endCursor
+//     ) {
+//       nodes {
+//         ...Collection
+//       }
+//       pageInfo {
+//         hasNextPage
+//         hasPreviousPage
+//         startCursor
+//         endCursor
+//       }
+//     }
+//   }
+// `;
+
+const COLLECTION_BY_HANDLE_QUERY = `#graphql
+  query CollectionByHandle(
+  $handle: String!
+  $country: CountryCode
+  $language: LanguageCode
+) @inContext(country: $country, language: $language) {
+  collection(handle: $handle) {
     id
     title
     handle
@@ -108,32 +207,21 @@ const COLLECTIONS_QUERY = `#graphql
       width
       height
     }
-  }
-  query StoreCollections(
-    $country: CountryCode
-    $endCursor: String
-    $first: Int
-    $language: LanguageCode
-    $last: Int
-    $startCursor: String
-  ) @inContext(country: $country, language: $language) {
-    collections(
-      first: $first,
-      last: $last,
-      before: $startCursor,
-      after: $endCursor
-    ) {
+    products(first: 20) {
       nodes {
-        ...Collection
-      }
-      pageInfo {
-        hasNextPage
-        hasPreviousPage
-        startCursor
-        endCursor
+        id
+        title
+        handle
+        featuredImage {
+          url
+          altText
+          width
+          height
+        }
       }
     }
   }
+}
 `;
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
