@@ -17,7 +17,7 @@ export function Header({header, variant = 'default'}) {
     <header className={`header ${variant ? `header--${variant}` : ''}`}>
       <div className="header__container">
         <div className="header__left">
-          <NavLink to="/">NEO</NavLink>
+          <NavLink to="/">N</NavLink>
         </div>
 
         <div className="header__center">
@@ -33,7 +33,7 @@ export function Header({header, variant = 'default'}) {
         </div>
 
         <div className="header__right">
-          <NavLink to="/">CRAFT</NavLink>
+          <NavLink to="/">C</NavLink>
         </div>
       </div>
 
