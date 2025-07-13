@@ -1,9 +1,13 @@
+html {
+  font-size: 62.5%;
+}
+
 :root {
   --aside-width: 400px;
   --cart-aside-summary-height-with-discount: 300px;
   --cart-aside-summary-height: 250px;
   --grid-item-width: 355px;
-  --header-height: 64px;
+  --header-height: 60.4rem;
   --color-dark: #000;
   --sf-white: #fff;
   --text-default: #000000;
@@ -78,7 +82,7 @@
   top: 0;
   bottom: 0;
   left: 50%;
-  width: 1px;
+  width: 0.1rem;
   background-color: #000; /* oder deine Wunschfarbe */
   transform: translateX(-0.5px); /* exakt mittig */
   z-index: 1;
