@@ -1,16 +1,17 @@
 import './teaserDuo.scss';
 
+
 export function TeaserDuo() {
   return (
     <div className="teaser-duo">
       <div className="teaser-duo__image-container">
         <img
-          src="https://via.placeholder.com/150"
+          src="https://placehold.co/600x400"
           alt="Teaser"
           className="teaser-duo__image"
         />
         <img
-          src="https://via.placeholder.com/150"
+          src="https://placehold.co/600x400"
           alt="Teaser"
           className="teaser-duo__image"
         />
