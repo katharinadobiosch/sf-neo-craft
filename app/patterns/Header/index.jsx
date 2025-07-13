@@ -13,16 +13,8 @@ export function Header({header, variant = 'default'}) {
   const {menu} = header;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const variantClass = {
-    default: 'bg-transparent',
-    white: 'bg-white',
-    purple: 'bg-[#9098FF]',
-    orange:"bg-[#FFB657]",
-    image: 'bg-[url("/header-image.jpg")] bg-cover',
-  }[variant];
-
   return (
-    <header className={`header relative z-50 ${variantClass}`}>
+    <header className="header">
       <div className="header__container">
         <div className="header__left">
           <NavLink to="/">NEO</NavLink>

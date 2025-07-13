@@ -20,7 +20,6 @@ export function PageLayout({
   header,
   isLoggedIn,
   publicStoreDomain,
-  headerVariant = 'default',
 }) {
   return (
     <Aside.Provider>
@@ -33,7 +32,6 @@ export function PageLayout({
           cart={cart}
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
-          variant={headerVariant}
         />
       )}
       <main>{children}</main>

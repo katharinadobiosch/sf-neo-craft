@@ -21,22 +21,6 @@
     justify-self: end;
   }
 
-  &--white {
-    background: var(--sf-white);
-    // color: black;
-  }
-  &--purple {
-    background: var(--sf-purple);
-    // color: white;
-  }
-  &--orange {
-    background: var(--sf-orange);
-  }
-  &--image {
-    background: url('/header-image.jpg') center/cover no-repeat;
-    color: white;
-  }
-
   // === Burger ===
   .burger {
     position: relative;
