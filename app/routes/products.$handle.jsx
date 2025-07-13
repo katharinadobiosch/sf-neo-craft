@@ -1,16 +1,8 @@
 import {useLoaderData} from 'react-router';
-import {
-  getSelectedProductOptions,
-  Analytics,
-  useOptimisticVariant,
-  getProductOptions,
-  getAdjacentAndFirstAvailableVariants,
-  useSelectedOptionInUrlParam,
-} from '@shopify/hydrogen';
-import {ProductPrice} from '~/patterns/ProductPrice';
-import {ProductImage} from '~/patterns/ProductImage';
-import {ProductForm} from '~/patterns/ProductForm';
+import {getSelectedProductOptions, Analytics} from '@shopify/hydrogen';
+
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import {ProductDetailInformation} from '../patterns/ProductDetailInformation/ProductDetailInformation';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -87,63 +79,28 @@ export default function Product() {
   /** @type {LoaderReturnData} */
   const {product} = useLoaderData();
 
-  // Optimistically selects a variant with given available variant information
-  const selectedVariant = useOptimisticVariant(
-    product.selectedOrFirstAvailableVariant,
-    getAdjacentAndFirstAvailableVariants(product),
-  );
-
-  // Sets the search param to the selected variant without navigation
-  // only when no search params are set in the url
-  useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
-
-  // Get the product options array
-  const productOptions = getProductOptions({
-    ...product,
-    selectedOrFirstAvailableVariant: selectedVariant,
-  });
-
-  const {title, descriptionHtml} = product;
-
   return (
-    <div className="product">
-      <ProductImage image={selectedVariant?.image} />
-      <div className="product-main">
-        <h1>{title}</h1>
-        <ProductPrice
-          price={selectedVariant?.price}
-          compareAtPrice={selectedVariant?.compareAtPrice}
-        />
-        <br />
-        <ProductForm
-          productOptions={productOptions}
-          selectedVariant={selectedVariant}
-        />
-        <br />
-        <br />
-        <p>
-          <strong>Description</strong>
-        </p>
-        <br />
-        <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
-        <br />
-      </div>
+    <>
+      <ProductDetailInformation product={product} />
+
       <Analytics.ProductView
         data={{
           products: [
             {
               id: product.id,
               title: product.title,
-              price: selectedVariant?.price.amount || '0',
+              price:
+                product.selectedOrFirstAvailableVariant?.price.amount ?? '0',
               vendor: product.vendor,
-              variantId: selectedVariant?.id || '',
-              variantTitle: selectedVariant?.title || '',
+              variantId: product.selectedOrFirstAvailableVariant?.id ?? '',
+              variantTitle:
+                product.selectedOrFirstAvailableVariant?.title ?? '',
               quantity: 1,
             },
           ],
         }}
       />
-    </div>
+    </>
   );
 }
 
