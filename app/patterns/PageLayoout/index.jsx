@@ -46,6 +46,7 @@ export function PageLayout({
           cart={cart}
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
+          primaryDomainUrl={header?.shop?.primaryDomain?.url}
           variant={headerVariant}
         />
       )}
