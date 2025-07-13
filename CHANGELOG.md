@@ -821,8 +821,8 @@
                       to={`/products/${handle}?${variantUriQuery}`}
                       style={{
                         border: selected
-                          ? "1px solid black"
-                          : "1px solid transparent",
+                          ? "0.1rem solid black"
+                          : "0.1rem solid transparent",
                         opacity: available ? 1 : 0.3,
                       }}
                     >
@@ -844,8 +844,8 @@
                       key={option.name + name}
                       style={{
                         border: selected
-                          ? "1px solid black"
-                          : "1px solid transparent",
+                          ? "0.1rem solid black"
+                          : "0.1rem solid transparent",
                         opacity: available ? 1 : 0.3,
                       }}
                       disabled={!exists}

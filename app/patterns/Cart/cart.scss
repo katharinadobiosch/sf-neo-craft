@@ -28,11 +28,11 @@
 
 .cart-summary-aside {
   background: white;
-  border-top: 1px solid var(--color-dark);
+  border-top: 0.1rem solid var(--color-dark);
   bottom: 0;
   padding-top: 0.75rem;
   position: absolute;
-  width: calc(var(--aside-width) - 40px);
+  width: calc(var(--aside-width) - 4rem);
 }
 
 .cart-line-quantity {

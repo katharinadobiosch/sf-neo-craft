@@ -27,7 +27,7 @@ export function ProductItem({product, loading}) {
           aspectRatio="1/1"
           data={image}
           loading={loading}
-          sizes="(min-width: 45em) 400px, 100vw"
+          sizes="(min-width: 45em) 40rem, 100vw"
         />
       )}
       <h4>{product.title}</h4>
