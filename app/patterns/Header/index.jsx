@@ -2,14 +2,19 @@ import {Suspense, useState} from 'react';
 import {Await, NavLink, useAsyncValue} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/patterns/Aside';
-
+import {normalizeMenuUrl} from 'utils/normalizeMenuUrl';
 import './header.scss';
 
 /**
  * @param {HeaderProps}
  */
 
-export function Header({header, variant = 'default'}) {
+export function Header({
+  header,
+  variant = 'default',
+  publicStoreDomain,
+  primaryDomainUrl,
+}) {
   const {menu} = header;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -39,15 +44,22 @@ export function Header({header, variant = 'default'}) {
 
       <div className={`header__overlay ${isMenuOpen ? 'open' : ''}`}>
         <nav className="header__overlay__menu">
-          {(menu || FALLBACK_HEADER_MENU).items.map((item) => (
-            <NavLink
-              key={item.id}
-              to={item.url}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {item.title}
-            </NavLink>
-          ))}
+          {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+            const url = normalizeMenuUrl(
+              item.url,
+              publicStoreDomain,
+              primaryDomainUrl,
+            );
+            return (
+              <NavLink
+                key={item.id}
+                to={url}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.title}
+              </NavLink>
+            );
+          })}
         </nav>
       </div>
     </header>
