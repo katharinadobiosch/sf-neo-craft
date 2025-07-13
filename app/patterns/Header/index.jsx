@@ -14,7 +14,7 @@ export function Header({header, variant = 'default'}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="header">
+    <header className={`header ${variant ? `header--${variant}` : ''}`}>
       <div className="header__container">
         <div className="header__left">
           <NavLink to="/">NEO</NavLink>
