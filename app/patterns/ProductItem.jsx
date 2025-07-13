@@ -21,7 +21,14 @@ export function ProductItem({product, loading}) {
       prefetch="intent"
       to={variantUrl}
     >
-      {image && (
+      <img
+        src={image.url}
+        alt={image.altText || product.title}
+        loading={loading}
+        style={{width: '100%', aspectRatio: '1 / 1', objectFit: 'cover'}}
+      />
+
+      {/* {image && (
         <Image
           alt={image.altText || product.title}
           aspectRatio="1/1"
@@ -29,7 +36,7 @@ export function ProductItem({product, loading}) {
           loading={loading}
           sizes="(min-width: 45em) 40rem, 100vw"
         />
-      )}
+      )} */}
       <h4>{product.title}</h4>
       <small>
         <Money data={product.priceRange.minVariantPrice} />
