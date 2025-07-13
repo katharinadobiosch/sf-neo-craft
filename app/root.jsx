@@ -11,7 +11,13 @@ import {
 } from 'react-router';
 import favicon from '~/assets/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
-import resetStyles from '~/styles/reset.css?url';
+import baseStyles from '~/styles/base/_base.scss?url';
+import formStyles from '~//styles/base/_form.scss?url';
+import resetStyles from '~/styles/base/_reset.scss?url';
+import typographyStyles from '~/styles/base/_typography.scss?url';
+import structureStyles from '~/styles/layout/_structure.scss?url';
+import variablesStyles from '~/styles/utils/_variables.scss?url';
+
 import headerStyles from '~/patterns/Header/header.scss?url';
 import footerStyles from '~/patterns/Footer/footer.scss?url';
 import searchStyles from '~/patterns/Search/search.scss?url';
@@ -68,6 +74,11 @@ export function links() {
     {rel: 'stylesheet', href: searchStyles},
     {rel: 'stylesheet', href: asideStyles},
     {rel: 'stylesheet', href: cartStyles},
+    {rel: 'stylesheet', href: baseStyles},
+    {rel: 'stylesheet', href: formStyles},
+    {rel: 'stylesheet', href: typographyStyles},
+    {rel: 'stylesheet', href: structureStyles},
+    {rel: 'stylesheet', href: variablesStyles},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
