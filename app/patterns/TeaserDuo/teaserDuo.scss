@@ -5,15 +5,26 @@
     width: 100%;
     display: flex;
     justify-content: row;
-    border: 2px solid purple;
   }
 
   &__image {
     width: 50%;
-    height: 50rem; // ❗️Feste Höhe
+    height: 91.7rem;
     object-fit: cover;
+  }
+
+  &__text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
   p {
     padding: 5rem 10rem;
+    font-family: GTF Good Sans TRIAL;
+    font-weight: 300;
+    font-size: 2.2rem;
+    line-height: 3.4rem;
+    width: 60%;
   }
 }
