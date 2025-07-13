@@ -8,7 +8,7 @@
 
 aside {
   background: var(--sf-white);
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5rem rgba(0, 0, 0, 0.3);
   height: 100vh;
   width: min(var(--aside-width), 100vw);
   position: fixed;
@@ -19,11 +19,11 @@ aside {
 
 aside header {
   align-items: center;
-  border-bottom: 1px solid var(--color-dark);
+  border-bottom: 0.1rem solid var(--color-dark);
   display: flex;
   height: var(--header-height);
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0 2rem;
 }
 
 aside header h3 {
@@ -35,7 +35,7 @@ aside header .close {
   opacity: 0.8;
   text-decoration: none;
   transition: all 200ms;
-  width: 20px;
+  width: 2rem;
 }
 
 aside header .close:hover {

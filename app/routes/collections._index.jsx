@@ -67,7 +67,7 @@ function ProductItem({product}) {
           data={product.featuredImage}
           alt={product.featuredImage.altText || product.title}
           aspectRatio="1/1"
-          sizes="(min-width: 45em) 300px, 100vw"
+          sizes="(min-width: 45em) 30rem, 100vw"
         />
       )}
       <h4>{product.title}</h4>
