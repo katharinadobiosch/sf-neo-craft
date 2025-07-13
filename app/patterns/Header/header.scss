@@ -1,6 +1,7 @@
 .header {
-  position: relative;
+  position: fixed;
   z-index: 10;
+  width: 100%;
 
   &__container {
     display: grid;
