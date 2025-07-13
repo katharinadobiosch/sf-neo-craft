@@ -23,6 +23,7 @@ export default async function handleRequest(
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
   });
+  const extendedHeader = `${header}; img-src 'self' https://placehold.co https://upload.wikimedia.org data:`;
 
   const body = await renderToReadableStream(
     <NonceProvider>
@@ -47,7 +48,7 @@ export default async function handleRequest(
   }
 
   responseHeaders.set('Content-Type', 'text/html');
-  responseHeaders.set('Content-Security-Policy', header);
+  responseHeaders.set('Content-Security-Policy', extendedHeader);
 
   return new Response(body, {
     headers: responseHeaders,
