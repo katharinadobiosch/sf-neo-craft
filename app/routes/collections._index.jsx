@@ -79,15 +79,17 @@ export default function Collections() {
   const {collection} = useLoaderData();
 
   return (
-    <div className="collections">
-      {/* <h2>{collection.title}</h2> */}
+    <>
+      <div className="vertical-divider" />
 
-      <div className="collections-grid">
-        {collection.products?.nodes?.map((product, index) => (
-          <ProductItem key={product.id} product={product} />
-        ))}
+      <div className="collections">
+        <div className="collections-grid">
+          {collection.products?.nodes?.map((product, index) => (
+            <ProductItem key={product.id} product={product} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
