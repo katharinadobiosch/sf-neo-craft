@@ -1,21 +1,16 @@
 import './teaserDuo.scss';
 
+import teaserImageRight from './teaser1.jpg';
+import teaserImageLeft from './teaser2.jpg';
+
 export function TeaserDuo() {
   return (
     <div className="teaser-duo">
-      <div className="teaser-duo__image-container">
-        <img
-          src="https://via.placeholder.com/150"
-          alt="Teaser"
-          className="teaser-duo__image"
-        />
-        <img
-          src="https://via.placeholder.com/150"
-          alt="Teaser"
-          className="teaser-duo__image"
-        />
+      <div className="teaser-duo__image">
+        <img src={teaserImageLeft} alt="" />
+        <img src={teaserImageRight} alt="" />
       </div>
-      <div>
+      <div className="teaser-duo__content">
         <p>
           NEO CRAFT is a Berlin-based furniture label founded by designer
           Sebastian Scherer in 2015. It is dedicated to merging traditional

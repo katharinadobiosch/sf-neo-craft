@@ -2,22 +2,27 @@ import {Suspense, useState} from 'react';
 import {Await, NavLink, useAsyncValue} from 'react-router';
 import {useAnalytics, useOptimisticCart} from '@shopify/hydrogen';
 import {useAside} from '~/patterns/Aside';
-
+import {normalizeMenuUrl} from 'utils/normalizeMenuUrl';
 import './header.scss';
 
 /**
  * @param {HeaderProps}
  */
 
-export function Header({header}) {
+export function Header({
+  header,
+  variant = 'default',
+  publicStoreDomain,
+  primaryDomainUrl,
+}) {
   const {menu} = header;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="header">
+    <header className={`header ${variant ? `header--${variant}` : ''}`}>
       <div className="header__container">
         <div className="header__left">
-          <NavLink to="/">NEO</NavLink>
+          <NavLink to="/">N</NavLink>
         </div>
 
         <div className="header__center">
@@ -33,21 +38,28 @@ export function Header({header}) {
         </div>
 
         <div className="header__right">
-          <NavLink to="/">CRAFT</NavLink>
+          <NavLink to="/">C</NavLink>
         </div>
       </div>
 
       <div className={`header__overlay ${isMenuOpen ? 'open' : ''}`}>
         <nav className="header__overlay__menu">
-          {(menu || FALLBACK_HEADER_MENU).items.map((item) => (
-            <NavLink
-              key={item.id}
-              to={item.url}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {item.title}
-            </NavLink>
-          ))}
+          {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+            const url = normalizeMenuUrl(
+              item.url,
+              publicStoreDomain,
+              primaryDomainUrl,
+            );
+            return (
+              <NavLink
+                key={item.id}
+                to={url}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.title}
+              </NavLink>
+            );
+          })}
         </nav>
       </div>
     </header>

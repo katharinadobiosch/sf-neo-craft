@@ -9,6 +9,7 @@ import {
   SearchFormPredictive,
 } from '~/patterns/Search/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/patterns/Search/SearchResultsPredictive';
+import {useLocation} from 'react-router';
 
 /**
  * @param {PageLayoutProps}
@@ -21,6 +22,19 @@ export function PageLayout({
   isLoggedIn,
   publicStoreDomain,
 }) {
+  const location = useLocation();
+  const path = location.pathname;
+
+  console.log('path', path);
+
+  function getHeaderVariant(pathname) {
+    if (pathname.startsWith('/collections')) return 'purple';
+    if (pathname.startsWith('/about')) return 'pink';
+    if (pathname === '/') return 'transparent';
+    return 'default';
+  }
+  const headerVariant = getHeaderVariant(location.pathname);
+
   return (
     <Aside.Provider>
       <CartAside cart={cart} />
@@ -32,6 +46,8 @@ export function PageLayout({
           cart={cart}
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
+          primaryDomainUrl={header?.shop?.primaryDomain?.url}
+          variant={headerVariant}
         />
       )}
       <main>{children}</main>
