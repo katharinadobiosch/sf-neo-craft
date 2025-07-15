@@ -51,6 +51,9 @@
 * --------------------------------------------------
 */
 
+.collections {
+  margin-top: 8.1rem;
+}
 .collections-grid {
   display: flex;
   width: 100%;
@@ -81,6 +84,17 @@
 
 .collection-item img {
   height: auto;
+}
+
+.vertical-divider {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 0.1rem;
+  background-color: black;
+  transform: translateX(-50%);
+  z-index: 0; /* hinter Content, ggf. anpassen */
 }
 
 /*
@@ -114,6 +128,7 @@
 * --------------------------------------------------
 */
 .product {
+  margin-top: 8.1rem;
   display: grid;
   @media (min-width: 45em) {
     grid-template-columns: 1fr 1fr;
