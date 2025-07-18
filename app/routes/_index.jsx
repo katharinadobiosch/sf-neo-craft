@@ -2,7 +2,9 @@ import {Await, useLoaderData, Link} from 'react-router';
 import {Suspense} from 'react';
 import {Image} from '@shopify/hydrogen';
 import {ProductItem} from '~/patterns/ProductItem';
-import {TeaserDuo} from '~/patterns/TeaserDuo';
+import {TeaserDuoHomepage} from '~/patterns/TeaserDuoHomepage';
+import teaserImageRight from '../patterns/TeaserDuo/teaser1.jpg';
+import teaserImageLeft from '../patterns/TeaserDuo/teaser2.jpg';
 
 /**
  * @type {MetaFunction}
@@ -67,7 +69,11 @@ export default function Homepage() {
     <div className="home">
       {/* <FeaturedCollection collection={data.featuredCollection} /> */}
       {/* <RecommendedProducts products={data.recommendedProducts} /> */}
-      <TeaserDuo />
+      <TeaserDuoHomepage
+        teaserImageLeft={teaserImageLeft}
+        teaserImageRight={teaserImageRight}
+        content="NEO CRAFT is a Berlin-based furniture label founded by designer Sebastian Scherer in 2015. It is dedicated to merging traditional craftsmanship with contemporary production techniques. NEO/CRAFT challenges conventional ideas of material, form, and function, reinterpreting them to create innovative and unexpected designs. At the heart of NEO/CRAFT lies a distinctive approach to material exploration and development. While the current focus is on metal, glass, and wood, the search for new directions and fresh perspectives remains a fundamental part of the brand’s philosophy."
+      />
     </div>
   );
 }

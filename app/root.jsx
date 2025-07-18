@@ -23,6 +23,7 @@ import footerStyles from '~/patterns/Footer/footer.scss?url';
 import searchStyles from '~/patterns/Search/search.scss?url';
 import asideStyles from '~/patterns/Aside/aside.scss?url';
 import cartStyles from '~/patterns/Cart/cart.scss?url';
+import teaserDuoHomepageStyles from '~/patterns/TeaserDuoHomepage/teaserDuoHomepage.scss?url';
 import teaserDuoStyles from '~/patterns/TeaserDuo/teaserDuo.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
@@ -80,6 +81,7 @@ export function links() {
     {rel: 'stylesheet', href: typographyStyles},
     {rel: 'stylesheet', href: structureStyles},
     {rel: 'stylesheet', href: variablesStyles},
+    {rel: 'stylesheet', href: teaserDuoHomepageStyles},
     {rel: 'stylesheet', href: teaserDuoStyles},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
