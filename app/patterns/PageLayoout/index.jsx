@@ -29,7 +29,7 @@ export function PageLayout({
 
   function getHeaderVariant(pathname) {
     if (pathname.startsWith('/collections')) return 'purple';
-    if (pathname.startsWith('/about')) return 'pink';
+    if (pathname.startsWith('/about')) return 'orange';
     if (pathname === '/') return 'transparent';
     return 'default';
   }
