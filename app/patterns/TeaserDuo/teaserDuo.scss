@@ -1,10 +1,9 @@
 .teaser-duo {
   position: relative;
   margin-inline: -5rem;
-  width: 100%
+  width: calc(100% + 10rem);
 
   &__image {
-  
     left: 0;
     display: flex;
     width: 100%;
