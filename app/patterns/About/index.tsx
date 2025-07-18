@@ -1,6 +1,6 @@
 import {TeaserDuo} from '../TeaserDuo';
+import aboutImageRight from './aboutImageRight.jpg';
 import aboutImageLeft from './aboutImageLeft.jpg';
-import aboutImageRight from '../About/aboutImageRight.jpg';
 
 export default function About() {
   return (
