@@ -2,7 +2,7 @@ import {Await, useLoaderData, Link} from 'react-router';
 import {Suspense} from 'react';
 import {Image} from '@shopify/hydrogen';
 import {ProductItem} from '~/patterns/ProductItem';
-import {TeaserDuo} from '~/patterns/TeaserDuo';
+import {TeaserDuoHomepage} from '~/patterns/TeaserDuoHomepage';
 
 /**
  * @type {MetaFunction}
@@ -67,7 +67,7 @@ export default function Homepage() {
     <div className="home">
       {/* <FeaturedCollection collection={data.featuredCollection} /> */}
       {/* <RecommendedProducts products={data.recommendedProducts} /> */}
-      <TeaserDuo />
+      <TeaserDuoHomepage />
     </div>
   );
 }
