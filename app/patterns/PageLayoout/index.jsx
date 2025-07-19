@@ -28,7 +28,8 @@ export function PageLayout({
   console.log('path', path);
 
   function getHeaderVariant(pathname) {
-    if (pathname.startsWith('/collections')) return 'purple';
+    if (pathname.startsWith('/collections') || pathname.startsWith('/products'))
+      return 'purple';
     if (pathname.startsWith('/about')) return 'orange';
     if (pathname === '/') return 'transparent';
     return 'default';
