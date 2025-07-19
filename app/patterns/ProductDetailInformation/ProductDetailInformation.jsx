@@ -7,6 +7,8 @@ import {
   getProductOptions,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
+import './productDetailInformation.scss';
+import {TeaserDuo} from '../TeaserDuo';
 
 export function ProductDetailInformation({product}) {
   const selectedVariant = useOptimisticVariant(
@@ -22,8 +24,14 @@ export function ProductDetailInformation({product}) {
   });
 
   return (
-    <div className="product">
-      <ProductImage image={selectedVariant?.image} />
+    <div className="product-detail-information">
+      <TeaserDuo
+        teaserImageLeft={<ProductImage image={selectedVariant?.image} />}
+        teaserImageRight={<ProductImage image={selectedVariant?.image} />}
+      />
+      {/* <ProductImage image={selectedVariant?.image} />
+      <ProductImage image={selectedVariant?.image} /> */}
+
       <div className="product-main">
         <h1>{product.title}</h1>
         <ProductPrice

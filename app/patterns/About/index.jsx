@@ -1,8 +1,8 @@
 import {TeaserDuo} from '../TeaserDuo';
 import {HeroSplit} from '../HeroSplit';
 
-import aboutImageRight from './aboutImageRight.jpg';
 import aboutImageLeft from './aboutImageLeft.jpg';
+import aboutImageRight from './aboutImageRight.jpg';
 import aboutHeroImage from './aboutHero.jpg';
 
 export default function About() {
@@ -15,7 +15,6 @@ export default function About() {
       />
       <HeroSplit
         imageLeftTop={aboutImageLeft}
-        imageLeftBottom={aboutImageRight}
         imageRight={aboutHeroImage}
         content="GOBA is about simplicity with character—a piece that invites interaction and creates presence without overwhelming the space."
       />
