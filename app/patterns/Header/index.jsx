@@ -17,6 +17,7 @@ export function Header({
 }) {
   const {menu} = header;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  console.log('menu', menu);
 
   return (
     <header className={`header ${variant ? `header--${variant}` : ''}`}>
@@ -110,12 +111,12 @@ export function HeaderMenu({
         if (!item.url) return null;
 
         // if the url is internal, we strip the domain
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
+        const url = normalizeMenuUrl(
+          item.url,
+          publicStoreDomain,
+          primaryDomainUrl,
+        );
+
         return (
           <NavLink
             className="header-menu-item"
