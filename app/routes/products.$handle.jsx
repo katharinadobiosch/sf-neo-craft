@@ -2,7 +2,7 @@ import {useLoaderData} from 'react-router';
 import {getSelectedProductOptions, Analytics} from '@shopify/hydrogen';
 
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
-import {ProductDetailInformation} from '../patterns/ProductDetailInformation/ProductDetailInformation';
+import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
 
 /**
  * @type {MetaFunction<typeof loader>}

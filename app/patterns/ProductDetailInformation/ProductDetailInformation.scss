@@ -1,11 +1,14 @@
-.product-detail-information {
-  border: 2px solid red;
+.pdp {
   display: flex;
   flex-direction: column;
-}
 
-.product-detail-information h1 {
-  margin-top: 0;
+  h1 {
+    margin-top: 0;
+  }
+  .teaser-duo {
+    margin-inline: 0;
+    width: 100%;
+  }
 }
 
 .product-image img {
