@@ -1,5 +1,6 @@
 import {ProductPrice} from '~/patterns/ProductPrice';
 import {ProductForm} from '~/patterns/ProductForm';
+import {MediaGallery} from '~/patterns/MediaGallery';
 import {
   useOptimisticVariant,
   getAdjacentAndFirstAvailableVariants,
@@ -22,24 +23,25 @@ export function ProductMain({product}) {
   });
   return (
     <div className="product-main">
-      <h1>{product.title}</h1>
-      <ProductPrice
-        price={selectedVariant?.price}
-        compareAtPrice={selectedVariant?.compareAtPrice}
-      />
-      <br />
-      <ProductForm
-        productOptions={productOptions}
-        selectedVariant={selectedVariant}
-      />
-      <br />
-      <br />
-      <p>
-        <strong>Description</strong>
-      </p>
-      <br />
-      <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
-      <br />
+      <div className="product-main__info">
+        {' '}
+        <h1>{product.title}</h1>
+        <ProductPrice
+          price={selectedVariant?.price}
+          compareAtPrice={selectedVariant?.compareAtPrice}
+        />
+        <ProductForm
+          productOptions={productOptions}
+          selectedVariant={selectedVariant}
+        />
+        <p>
+          <strong>Description</strong>
+        </p>
+        <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
+      </div>
+      <div className="product-main__media">
+        <MediaGallery />
+      </div>
     </div>
   );
 }
