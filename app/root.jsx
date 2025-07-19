@@ -25,6 +25,7 @@ import asideStyles from '~/patterns/Aside/aside.scss?url';
 import cartStyles from '~/patterns/Cart/cart.scss?url';
 import teaserDuoHomepageStyles from '~/patterns/TeaserDuoHomepage/teaserDuoHomepage.scss?url';
 import teaserDuoStyles from '~/patterns/TeaserDuo/teaserDuo.scss?url';
+import heroSplit from '~/patterns/HeroSplit/heroSplit.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
 
@@ -83,6 +84,7 @@ export function links() {
     {rel: 'stylesheet', href: variablesStyles},
     {rel: 'stylesheet', href: teaserDuoHomepageStyles},
     {rel: 'stylesheet', href: teaserDuoStyles},
+    {rel: 'stylesheet', href: heroSplit},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
