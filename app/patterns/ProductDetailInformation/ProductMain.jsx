@@ -8,6 +8,7 @@ import {
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
 import './productDetailInformation.scss';
+import {Configurator} from '../Configurator';
 
 export function ProductMain({product}) {
   const selectedVariant = useOptimisticVariant(
@@ -24,8 +25,8 @@ export function ProductMain({product}) {
   return (
     <div className="product-main">
       <div className="product-main__info">
-        {' '}
         <h1>{product.title}</h1>
+        <Configurator />
         <ProductPrice
           price={selectedVariant?.price}
           compareAtPrice={selectedVariant?.compareAtPrice}

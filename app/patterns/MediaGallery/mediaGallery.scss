@@ -1,0 +1,20 @@
+.media-gallery {
+  height: 500px; // hast du schon gemacht
+  .swiper {
+    height: 100%;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block; // sehr wichtig bei img ohne Alt-Text!
+  }
+}

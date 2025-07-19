@@ -27,6 +27,7 @@ import teaserDuoHomepageStyles from '~/patterns/TeaserDuoHomepage/teaserDuoHomep
 import teaserDuoStyles from '~/patterns/TeaserDuo/teaserDuo.scss?url';
 import heroSplitStyles from '~/patterns/HeroSplit/heroSplit.scss?url';
 import pdpStyles from '~/patterns/ProductDetailInformation/productDetailInformation.scss?url';
+import mediaGalleryStyles from '~/patterns/MediaGallery/mediaGallery.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
 
@@ -87,6 +88,7 @@ export function links() {
     {rel: 'stylesheet', href: teaserDuoStyles},
     {rel: 'stylesheet', href: heroSplitStyles},
     {rel: 'stylesheet', href: pdpStyles},
+    {rel: 'stylesheet', href: mediaGalleryStyles},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
