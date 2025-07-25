@@ -41,7 +41,7 @@ export function ProductMain({product}) {
         <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
       </div>
       <div className="product-main__media">
-        <MediaGallery />
+        <MediaGallery product={product} />
       </div>
     </div>
   );
