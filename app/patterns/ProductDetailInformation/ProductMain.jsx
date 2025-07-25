@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react';
 import {ProductPrice} from '~/patterns/ProductPrice';
 import {ProductForm} from '~/patterns/ProductForm';
 import {MediaGallery} from '~/patterns/MediaGallery';
@@ -15,6 +16,23 @@ export function ProductMain({product}) {
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
+  
+  const [selectedOptions, setSelectedOptions] = useState({
+    size: selectedVariant.selectedOptions.find((o) => o.name === 'Size')?.value,
+    glass: selectedVariant.selectedOptions.find(
+      (o) => o.name === 'Glass coating',
+    )?.value,
+    metal: selectedVariant.selectedOptions.find(
+      (o) => o.name === 'Metal surfaces & cable colour',
+    )?.value,
+    plug: 'EU',
+    oled: '00',
+  });
+
+  function handleChange(name, value) {
+    setSelectedOptions((prev) => ({...prev, [name]: value}));
+    // optional: Matching Variant raussuchen und `setSelectedVariant(...)`
+  }
 
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
@@ -22,11 +40,31 @@ export function ProductMain({product}) {
     ...product,
     selectedOrFirstAvailableVariant: selectedVariant,
   });
+
+  useEffect(() => {
+    const matched = product.adjacentVariants.find((variant) =>
+      variant.selectedOptions.every(
+        (opt) => selectedOptions[opt.name.toLowerCase()] === opt.value,
+      ),
+    );
+    if (matched) {
+      setSelectedVariant(matched);
+    }
+  }, [selectedOptions]);
+
   return (
     <div className="product-main">
       <div className="product-main__info">
         <h1>{product.title}</h1>
-        <Configurator />
+        <Configurator
+          options={{
+            glass: productOptions['Glass coating']?.values,
+            metal: productOptions['Metal surfaces & cable colour']?.values,
+            size: productOptions['Size']?.values,
+          }}
+          selected={selectedOptions}
+          onChange={handleChange}
+        />
         <ProductPrice
           price={selectedVariant?.price}
           compareAtPrice={selectedVariant?.compareAtPrice}
