@@ -1,47 +1,80 @@
-import {OptionGroup} from './OptionGroup';
+import './configurator.scss';
 
-export function Configurator({options, selected, onChange}) {
+const glassColorMap = {
+  'gold-indigo': '#d5c89f',
+  'blue-orange': '#b17852',
+  'pink-green': '#d48cb2',
+  'cyan-Magenta': '#7ec2ce',
+  'silver-lilac': '#d6d4db',
+  clear: '#e0e0e0',
+};
+
+const metalColorMap = {
+  steel: '#d4d4d4',
+  brass: '#a38a4b',
+};
+
+export function Configurator({productOptions, navigate}) {
+  const getMappedColor = (name) =>
+    glassColorMap[name] || metalColorMap[name] || null;
+
+  const renderOption = (option) => {
+    const isColorOption =
+      option.name === 'Glass coating' ||
+      option.name === 'Metal surfaces & cable colour';
+    const label =
+      option.name === 'Glass coating'
+        ? 'Color Glass'
+        : option.name === 'Metal surfaces & cable colour'
+          ? 'Color Metal'
+          : option.name;
+
+    return (
+      <div className="configurator-options-group" key={option.name}>
+        <h5>{label}</h5>
+        <div className="configurator-options-grid">
+          {option.optionValues.map((value) => (
+            <button
+              key={value.name}
+              className={`configurator-options-item${value.selected ? ' selected' : ''}`}
+              style={{
+                border: value.selected
+                  ? '0.1rem solid black'
+                  : '0.1rem solid transparent',
+                opacity: value.available ? 1 : 0.3,
+              }}
+              disabled={!value.exists}
+              onClick={() => {
+                if (!value.selected) {
+                  navigate(`?${value.variantUriQuery}`, {
+                    replace: true,
+                    preventScrollReset: true,
+                  });
+                }
+              }}
+            >
+              {isColorOption ? (
+                <div
+                  className="configurator-options-label-swatch"
+                  style={{
+                    backgroundColor: getMappedColor(value.name),
+                  }}
+                  aria-label={value.name}
+                />
+              ) : (
+                value.name.replace('ø ', '')
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="configurator">
       <h3>Configurator</h3>
-
-      <OptionGroup
-        label="Color Glass"
-        name="glass"
-        values={options.glass}
-        selected={selected.glass}
-        onChange={onChange}
-      />
-      <OptionGroup
-        label="Color Metal"
-        name="metal"
-        values={options.metal}
-        selected={selected.metal}
-        onChange={onChange}
-      />
-      <OptionGroup
-        label="Size"
-        name="size"
-        values={options.size}
-        selected={selected.size}
-        onChange={onChange}
-      />
-
-      {/* Optionale UI-Felder */}
-      <OptionGroup
-        label="Plug"
-        name="plug"
-        values={['EU', 'US', 'UK', 'AUS', 'CN', 'KOR', 'JPN']}
-        selected={selected.plug}
-        onChange={onChange}
-      />
-      <OptionGroup
-        label="Extra OLED panel"
-        name="oled"
-        values={['00']}
-        selected={selected.oled}
-        onChange={onChange}
-      />
+      {productOptions.map(renderOption)}
     </div>
   );
 }

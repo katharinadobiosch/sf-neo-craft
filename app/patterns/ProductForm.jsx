@@ -1,6 +1,7 @@
-import {Link, useNavigate} from 'react-router';
+import { useNavigate} from 'react-router';
 import {AddToCartButton} from './Cart/AddToCartButton';
 import {useAside} from '~/patterns/Aside';
+import {Configurator} from './Configurator';
 
 /**
  * @param {{
@@ -9,11 +10,16 @@ import {useAside} from '~/patterns/Aside';
  * }}
  */
 export function ProductForm({productOptions, selectedVariant}) {
+  console.log('ProductForm', {productOptions, selectedVariant});
   const navigate = useNavigate();
   const {open} = useAside();
   return (
     <div className="product-form">
-      {productOptions.map((option) => {
+      <div className="product-form">
+        <Configurator productOptions={productOptions} navigate={navigate} />
+        {/* Optional: AddToCartButton hier */}
+      </div>
+      {/* {productOptions.map((option) => {
         // If there is only a single value in the option values, don't display the option
         if (option.optionValues.length === 1) return null;
 
@@ -94,7 +100,7 @@ export function ProductForm({productOptions, selectedVariant}) {
             <br />
           </div>
         );
-      })}
+      })} */}
       <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
