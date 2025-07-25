@@ -1,5 +1,7 @@
 import {Image} from '@shopify/hydrogen';
 
+import './productDetailInformation.scss';
+
 /**
  * @param {{
  *   image: ProductVariantFragment['image'];

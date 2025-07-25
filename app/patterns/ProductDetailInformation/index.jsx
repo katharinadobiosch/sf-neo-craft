@@ -1,12 +1,12 @@
 import {ProductImage} from '~/patterns/ProductImage';
-
 import {
   useOptimisticVariant,
   getAdjacentAndFirstAvailableVariants,
 } from '@shopify/hydrogen';
-import './productDetailInformation.scss';
 import {TeaserDuo} from '../TeaserDuo';
 import {ProductMain} from './ProductMain';
+
+import './productDetailInformation.scss';
 
 export function ProductDetailInformation({product}) {
   const selectedVariant = useOptimisticVariant(
