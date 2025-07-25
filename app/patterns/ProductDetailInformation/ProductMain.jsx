@@ -8,11 +8,11 @@ import {
   getProductOptions,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
-import {Configurator} from '../Configurator';
 
 import './productDetailInformation.scss';
 
 export function ProductMain({product}) {
+  console.log('ProductMain', {product});
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
@@ -57,15 +57,7 @@ export function ProductMain({product}) {
     <div className="product-main">
       <div className="product-main__info">
         <h1>{product.title}</h1>
-        {/* <Configurator
-          options={{
-            glass: productOptions['Glass coating']?.values,
-            metal: productOptions['Metal surfaces & cable colour']?.values,
-            size: productOptions['Size']?.values,
-          }}
-          selected={selectedOptions}
-          onChange={handleChange}
-        /> */}
+
         {/* <ProductPrice
           price={selectedVariant?.price}
           compareAtPrice={selectedVariant?.compareAtPrice}
