@@ -57,7 +57,7 @@ export function ProductMain({product}) {
     <div className="product-main">
       <div className="product-main__info">
         <h1>{product.title}</h1>
-        <Configurator
+        {/* <Configurator
           options={{
             glass: productOptions['Glass coating']?.values,
             metal: productOptions['Metal surfaces & cable colour']?.values,
@@ -65,19 +65,19 @@ export function ProductMain({product}) {
           }}
           selected={selectedOptions}
           onChange={handleChange}
-        />
-        <ProductPrice
+        /> */}
+        {/* <ProductPrice
           price={selectedVariant?.price}
           compareAtPrice={selectedVariant?.compareAtPrice}
-        />
+        /> */}
         <ProductForm
           productOptions={productOptions}
           selectedVariant={selectedVariant}
         />
-        <p>
+        {/* <p>
           <strong>Description</strong>
-        </p>
-        <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} />
+        </p> */}
+        {/* <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} /> */}
       </div>
       <div className="product-main__media">
         <MediaGallery product={product} />
