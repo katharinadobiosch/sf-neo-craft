@@ -14,9 +14,11 @@ export function ProductImage({image}) {
       <Image
         alt={image.altText || 'Product Image'}
         // aspectRatio="1/1"
+        aspectRatio=""
         data={image}
         // key={image.id}
         // sizes="(min-width: 45em) 50vw, 100vw"
+        sizes=""
       />
       <Image
         alt={image.altText || 'Product Image'}
