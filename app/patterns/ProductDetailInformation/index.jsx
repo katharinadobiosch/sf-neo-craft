@@ -13,6 +13,8 @@ export function ProductDetailInformation({product}) {
     getAdjacentAndFirstAvailableVariants(product),
   );
 
+  // console.log('ProductDetailInformation product', product);
+
   return (
     <div className="pdp">
       <TeaserDuo
