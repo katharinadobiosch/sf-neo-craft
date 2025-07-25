@@ -8,7 +8,7 @@ import {
   getProductOptions,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
-import './productDetailInformation.scss';
+import '../ProductDetailInformation/productDetailInformation.scss';
 import {Configurator} from '../Configurator';
 
 export function ProductMain({product}) {
@@ -16,7 +16,7 @@ export function ProductMain({product}) {
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
-  
+
   const [selectedOptions, setSelectedOptions] = useState({
     size: selectedVariant.selectedOptions.find((o) => o.name === 'Size')?.value,
     glass: selectedVariant.selectedOptions.find(
