@@ -30,51 +30,60 @@ export function Configurator({productOptions, navigate}) {
           : option.name;
 
     return (
-      <div className="configurator-options-group" key={option.name}>
-        <h5>{label}</h5>
-        <div className="configurator-options-grid">
-          {option.optionValues.map((value) => (
-            <button
-              key={value.name}
-              className={`configurator-options-item${value.selected ? ' selected' : ''}`}
-              style={{
-                border: value.selected
-                  ? '0.1rem solid black'
-                  : '0.1rem solid transparent',
-                opacity: value.available ? 1 : 0.3,
-              }}
-              disabled={!value.exists}
-              onClick={() => {
-                if (!value.selected) {
-                  navigate(`?${value.variantUriQuery}`, {
-                    replace: true,
-                    preventScrollReset: true,
-                  });
-                }
-              }}
-            >
-              {isColorOption ? (
-                <div
-                  className="configurator-options-label-swatch"
-                  style={{
-                    backgroundColor: getMappedColor(value.name),
-                  }}
-                  aria-label={value.name}
-                />
-              ) : (
-                value.name.replace('ø ', '')
-              )}
-            </button>
-          ))}
+      <>
+        <div className="configurator-options-group" key={option.name}>
+          <h5>{label}</h5>
+          <div className="configurator-options-grid">
+            {option.optionValues.map((value) => (
+              <button
+                key={value.name}
+                className={`configurator-options-item${value.selected ? ' selected' : ''}`}
+                style={{
+                  border: value.selected
+                    ? '0.1rem solid black'
+                    : '0.1rem solid transparent',
+                  opacity: value.available ? 1 : 0.3,
+                }}
+                disabled={!value.exists}
+                onClick={() => {
+                  if (!value.selected) {
+                    navigate(`?${value.variantUriQuery}`, {
+                      replace: true,
+                      preventScrollReset: true,
+                    });
+                  }
+                }}
+              >
+                {isColorOption ? (
+                  <div
+                    className="configurator-options-label-swatch"
+                    style={{
+                      backgroundColor: getMappedColor(value.name),
+                    }}
+                    aria-label={value.name}
+                  />
+                ) : (
+                  value.name.replace('ø ', '')
+                )}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      </>
     );
   };
 
   return (
     <div className="configurator">
-      <h3>Configurator</h3>
-      {productOptions.map(renderOption)}
+      <div className="configurator-columns">
+        <div className="configurator-label-column">
+          <h3>Configurator</h3>
+          <div>X</div>
+        </div>
+        <div className="configurator-options-column">
+          {productOptions.map(renderOption)}
+        </div>
+      </div>
     </div>
   );
 }
