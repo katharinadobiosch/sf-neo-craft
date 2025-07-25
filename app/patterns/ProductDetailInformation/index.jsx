@@ -1,4 +1,5 @@
 import {ProductImage} from '~/patterns/ProductImage';
+
 import {
   useOptimisticVariant,
   getAdjacentAndFirstAvailableVariants,
