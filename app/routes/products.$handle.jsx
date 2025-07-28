@@ -178,6 +178,30 @@ const PRODUCT_FRAGMENT = `#graphql
       description
       title
     }
+metafields(identifiers: [{namespace: "custom", key: "tech_drawings"}]) {
+  key
+  type
+  references {
+    nodes {
+      ... on Metaobject {
+        type
+        fields {
+          key
+          value
+          reference {
+            ... on MediaImage {
+              image {
+                url
+                altText
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
   }
   ${PRODUCT_VARIANT_FRAGMENT}
 `;
