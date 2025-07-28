@@ -12,7 +12,7 @@ import {
 import './productDetailInformation.scss';
 
 export function ProductMain({product}) {
-  console.log('ProductMain', {product});
+  console.log('ProductMain', product.metafields);
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),

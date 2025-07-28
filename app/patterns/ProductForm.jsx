@@ -10,7 +10,7 @@ import {Configurator} from './Configurator';
  * }}
  */
 export function ProductForm({productOptions, selectedVariant}) {
-  console.log('ProductForm', {productOptions, selectedVariant});
+  // console.log('ProductForm', {productOptions, selectedVariant});
   const navigate = useNavigate();
   const {open} = useAside();
   return (
