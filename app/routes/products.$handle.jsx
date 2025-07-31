@@ -1,6 +1,15 @@
 import {useLoaderData} from 'react-router';
-import {getSelectedProductOptions, Analytics} from '@shopify/hydrogen';
-
+import {
+  getSelectedProductOptions,
+  Analytics,
+  useOptimisticVariant,
+  getProductOptions,
+  getAdjacentAndFirstAvailableVariants,
+  useSelectedOptionInUrlParam,
+} from '@shopify/hydrogen';
+// import {ProductPrice} from '~/components/Product/ProductPrice';
+// import {ProductImage} from '~/components/Product/ProductImage';
+// import {ProductForm} from '~/components/Product/ProductForm';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
 
@@ -79,28 +88,64 @@ export default function Product() {
   /** @type {LoaderReturnData} */
   const {product} = useLoaderData();
 
-  return (
-    <>
-      <ProductDetailInformation product={product} />
+  // Optimistically selects a variant with given available variant information
+  const selectedVariant = useOptimisticVariant(
+    product.selectedOrFirstAvailableVariant,
+    getAdjacentAndFirstAvailableVariants(product),
+  );
 
+  // Sets the search param to the selected variant without navigation
+  // only when no search params are set in the url
+  useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
+
+  // Get the product options array
+  const productOptions = getProductOptions({
+    ...product,
+    selectedOrFirstAvailableVariant: selectedVariant,
+  });
+
+  const {title, descriptionHtml} = product;
+
+  return (
+    <div className="product">
+      <ProductDetailInformation product={product} />
+      {/* <ProductImage image={selectedVariant?.image} /> */}
+      {/* <div className="product-main">
+        <h1>{title}</h1>
+        <ProductPrice
+          price={selectedVariant?.price}
+          compareAtPrice={selectedVariant?.compareAtPrice}
+        />
+        <br />
+        <ProductForm
+          productOptions={productOptions}
+          selectedVariant={selectedVariant}
+        />
+        <br />
+        <br />
+        <p>
+          <strong>Description</strong>
+        </p>
+        <br />
+        <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
+        <br />
+      </div> */}
       <Analytics.ProductView
         data={{
           products: [
             {
               id: product.id,
               title: product.title,
-              price:
-                product.selectedOrFirstAvailableVariant?.price.amount ?? '0',
+              price: selectedVariant?.price.amount || '0',
               vendor: product.vendor,
-              variantId: product.selectedOrFirstAvailableVariant?.id ?? '',
-              variantTitle:
-                product.selectedOrFirstAvailableVariant?.title ?? '',
+              variantId: selectedVariant?.id || '',
+              variantTitle: selectedVariant?.title || '',
               quantity: 1,
             },
           ],
         }}
       />
-    </>
+    </div>
   );
 }
 
@@ -168,40 +213,62 @@ const PRODUCT_FRAGMENT = `#graphql
         }
       }
     }
-    selectedOrFirstAvailableVariant(selectedOptions: $selectedOptions, ignoreUnknownOptions: true, caseInsensitiveMatch: true) {
+    selectedOrFirstAvailableVariant(
+      selectedOptions: $selectedOptions,
+      ignoreUnknownOptions: true,
+      caseInsensitiveMatch: true
+    ) {
       ...ProductVariant
     }
-    adjacentVariants (selectedOptions: $selectedOptions) {
+    adjacentVariants(selectedOptions: $selectedOptions) {
       ...ProductVariant
     }
     seo {
       description
       title
     }
-metafields(identifiers: [{namespace: "custom", key: "tech_drawings"}]) {
-  key
-  type
-  references {
-    nodes {
-      ... on Metaobject {
-        type
-        fields {
-          key
-          value
-          reference {
-            ... on MediaImage {
-              image {
-                url
-                altText
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
 
+    metafields(identifiers: [
+       {namespace: "custom", key: "color_base"},
+  {namespace: "custom", key: "color_cable"},
+  {namespace: "custom", key: "color_frame"},
+  {namespace: "custom", key: "diameter"},
+  {namespace: "custom", key: "dichroic_coating"},
+  {namespace: "custom", key: "dichroic_glass"},
+  {namespace: "custom", key: "finish"},
+  {namespace: "custom", key: "frame"},
+  {namespace: "custom", key: "glass"},
+  {namespace: "custom", key: "glass_coating"},
+  {namespace: "custom", key: "glass_color"},
+  {namespace: "custom", key: "height"},
+  {namespace: "custom", key: "lampshade_ceiling_cap"},
+  {namespace: "custom", key: "length"},
+  {namespace: "custom", key: "marble"},
+  {namespace: "custom", key: "marble_fixture"},
+  {namespace: "custom", key: "material"},
+  {namespace: "custom", key: "metal_surfaces_cable_colour"},
+  {namespace: "custom", key: "metal"},
+  {namespace: "custom", key: "mirror_color"},
+  {namespace: "custom", key: "mirror_glass"},
+  {namespace: "custom", key: "powder_coated_steel"},
+  {namespace: "custom", key: "size"},
+  {namespace: "custom", key: "steel"},
+  {namespace: "custom", key: "steel_color"},
+  {namespace: "custom", key: "table_top_solid_wood"},
+  {namespace: "custom", key: "trestles"},
+  {namespace: "custom", key: "type"},
+  {namespace: "custom", key: "wallclock"},
+  {namespace: "custom", key: "wood"}
+    ]) {
+      namespace
+      key
+      value
+      type
+      # Optional:
+      # definition {
+      #   name
+      # }
+    }
   }
   ${PRODUCT_VARIANT_FRAGMENT}
 `;

@@ -1,4 +1,4 @@
-import { useNavigate} from 'react-router';
+import {useNavigate} from 'react-router';
 import {AddToCartButton} from './Cart/AddToCartButton';
 import {useAside} from '~/patterns/Aside';
 import {Configurator} from './Configurator';
@@ -9,14 +9,19 @@ import {Configurator} from './Configurator';
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
  * }}
  */
-export function ProductForm({productOptions, selectedVariant}) {
+export function ProductForm({productOptions, selectedVariant, product}) {
+  // console.log('ProductForm', {productOptions, selectedVariant, product});
   // console.log('ProductForm', {productOptions, selectedVariant});
   const navigate = useNavigate();
   const {open} = useAside();
   return (
     <div className="product-form">
       <div className="product-form">
-        <Configurator productOptions={productOptions} navigate={navigate} />
+        <Configurator
+          productOptions={productOptions}
+          navigate={navigate}
+          // metafields={product.metafields}
+        />
         {/* Optional: AddToCartButton hier */}
       </div>
       {/* {productOptions.map((option) => {
