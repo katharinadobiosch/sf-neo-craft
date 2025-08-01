@@ -743,6 +743,14 @@ export type ProductFragment = Pick<
   | 'encodedVariantExistence'
   | 'encodedVariantAvailability'
 > & {
+  images: {
+    edges: Array<{
+      node: Pick<
+        StorefrontAPI.Image,
+        'id' | 'url' | 'altText' | 'width' | 'height'
+      >;
+    }>;
+  };
   options: Array<
     Pick<StorefrontAPI.ProductOption, 'name'> & {
       optionValues: Array<
@@ -862,6 +870,14 @@ export type ProductQuery = {
       | 'encodedVariantExistence'
       | 'encodedVariantAvailability'
     > & {
+      images: {
+        edges: Array<{
+          node: Pick<
+            StorefrontAPI.Image,
+            'id' | 'url' | 'altText' | 'width' | 'height'
+          >;
+        }>;
+      };
       options: Array<
         Pick<StorefrontAPI.ProductOption, 'name'> & {
           optionValues: Array<
@@ -1236,7 +1252,7 @@ interface GeneratedQueryTypes {
     return: PoliciesQuery;
     variables: PoliciesQueryVariables;
   };
-  '#graphql\n  query Product(\n    $country: CountryCode\n    $handle: String!\n    $language: LanguageCode\n    $selectedOptions: [SelectedOptionInput!]!\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      ...Product\n    }\n  }\n  #graphql\n  fragment Product on Product {\n    id\n    title\n    vendor\n    handle\n    descriptionHtml\n    description\n    encodedVariantExistence\n    encodedVariantAvailability\n    options {\n      name\n      optionValues {\n        name\n        firstSelectableVariant {\n          ...ProductVariant\n        }\n        swatch {\n          color\n          image {\n            previewImage {\n              url\n            }\n          }\n        }\n      }\n    }\n    selectedOrFirstAvailableVariant(\n      selectedOptions: $selectedOptions,\n      ignoreUnknownOptions: true,\n      caseInsensitiveMatch: true\n    ) {\n      ...ProductVariant\n    }\n    adjacentVariants(selectedOptions: $selectedOptions) {\n      ...ProductVariant\n    }\n    seo {\n      description\n      title\n    }\n\n    metafields(identifiers: [\n       {namespace: "custom", key: "color_base"},\n  {namespace: "custom", key: "color_cable"},\n  {namespace: "custom", key: "color_frame"},\n  {namespace: "custom", key: "diameter"},\n  {namespace: "custom", key: "dichroic_coating"},\n  {namespace: "custom", key: "dichroic_glass"},\n  {namespace: "custom", key: "finish"},\n  {namespace: "custom", key: "frame"},\n  {namespace: "custom", key: "glass"},\n  {namespace: "custom", key: "glass_coating"},\n  {namespace: "custom", key: "glass_color"},\n  {namespace: "custom", key: "height"},\n  {namespace: "custom", key: "lampshade_ceiling_cap"},\n  {namespace: "custom", key: "length"},\n  {namespace: "custom", key: "marble"},\n  {namespace: "custom", key: "marble_fixture"},\n  {namespace: "custom", key: "material"},\n  {namespace: "custom", key: "metal_surfaces_cable_colour"},\n  {namespace: "custom", key: "metal"},\n  {namespace: "custom", key: "mirror_color"},\n  {namespace: "custom", key: "mirror_glass"},\n  {namespace: "custom", key: "powder_coated_steel"},\n  {namespace: "custom", key: "size"},\n  {namespace: "custom", key: "steel"},\n  {namespace: "custom", key: "steel_color"},\n  {namespace: "custom", key: "table_top_solid_wood"},\n  {namespace: "custom", key: "trestles"},\n  {namespace: "custom", key: "type"},\n  {namespace: "custom", key: "wallclock"},\n  {namespace: "custom", key: "wood"}\n    ]) {\n      namespace\n      key\n      value\n      type\n      # Optional:\n      # definition {\n      #   name\n      # }\n    }\n  }\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice {\n      amount\n      currencyCode\n    }\n    id\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price {\n      amount\n      currencyCode\n    }\n    product {\n      title\n      handle\n    }\n    selectedOptions {\n      name\n      value\n    }\n    sku\n    title\n    unitPrice {\n      amount\n      currencyCode\n    }\n  }\n\n\n': {
+  '#graphql\n  query Product(\n    $country: CountryCode\n    $handle: String!\n    $language: LanguageCode\n    $selectedOptions: [SelectedOptionInput!]!\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      ...Product\n    }\n  }\n  #graphql\n  fragment Product on Product {\n    id\n    title\n    vendor\n    handle\n    descriptionHtml\n    description\n    images(first: 10) {\n      edges {\n        node {\n          id\n          url\n          altText\n          width\n          height\n        }\n      }\n    }\n    encodedVariantExistence\n    encodedVariantAvailability\n    options {\n      name\n      optionValues {\n        name\n        firstSelectableVariant {\n          ...ProductVariant\n        }\n        swatch {\n          color\n          image {\n            previewImage {\n              url\n            }\n          }\n        }\n      }\n    }\n    selectedOrFirstAvailableVariant(\n      selectedOptions: $selectedOptions,\n      ignoreUnknownOptions: true,\n      caseInsensitiveMatch: true\n    ) {\n      ...ProductVariant\n    }\n    adjacentVariants(selectedOptions: $selectedOptions) {\n      ...ProductVariant\n    }\n    seo {\n      description\n      title\n    }\n\n    metafields(identifiers: [\n       {namespace: "custom", key: "color_base"},\n  {namespace: "custom", key: "color_cable"},\n  {namespace: "custom", key: "color_frame"},\n  {namespace: "custom", key: "diameter"},\n  {namespace: "custom", key: "dichroic_coating"},\n  {namespace: "custom", key: "dichroic_glass"},\n  {namespace: "custom", key: "finish"},\n  {namespace: "custom", key: "frame"},\n  {namespace: "custom", key: "glass"},\n  {namespace: "custom", key: "glass_coating"},\n  {namespace: "custom", key: "glass_color"},\n  {namespace: "custom", key: "height"},\n  {namespace: "custom", key: "lampshade_ceiling_cap"},\n  {namespace: "custom", key: "length"},\n  {namespace: "custom", key: "marble"},\n  {namespace: "custom", key: "marble_fixture"},\n  {namespace: "custom", key: "material"},\n  {namespace: "custom", key: "metal_surfaces_cable_colour"},\n  {namespace: "custom", key: "metal"},\n  {namespace: "custom", key: "mirror_color"},\n  {namespace: "custom", key: "mirror_glass"},\n  {namespace: "custom", key: "powder_coated_steel"},\n  {namespace: "custom", key: "size"},\n  {namespace: "custom", key: "steel"},\n  {namespace: "custom", key: "steel_color"},\n  {namespace: "custom", key: "table_top_solid_wood"},\n  {namespace: "custom", key: "trestles"},\n  {namespace: "custom", key: "type"},\n  {namespace: "custom", key: "wallclock"},\n  {namespace: "custom", key: "wood"}\n    ]) {\n      namespace\n      key\n      value\n      type\n      # Optional:\n      # definition {\n      #   name\n      # }\n    }\n  }\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice {\n      amount\n      currencyCode\n    }\n    id\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price {\n      amount\n      currencyCode\n    }\n    product {\n      title\n      handle\n    }\n    selectedOptions {\n      name\n      value\n    }\n    sku\n    title\n    unitPrice {\n      amount\n      currencyCode\n    }\n  }\n\n\n': {
     return: ProductQuery;
     variables: ProductQueryVariables;
   };
