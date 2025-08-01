@@ -1,7 +1,9 @@
 import {useState, useEffect} from 'react';
-// import {ProductPrice} from '~/patterns/ProductPrice';
+import {ProductPrice} from '~/patterns/ProductPrice';
 import {ProductForm} from '~/patterns/ProductForm';
 import {MediaGallery} from '~/patterns/MediaGallery';
+import {HeroSplit} from '../HeroSplit';
+
 import {
   useOptimisticVariant,
   getAdjacentAndFirstAvailableVariants,
@@ -53,27 +55,42 @@ export function ProductMain({product}) {
     }
   }, [selectedOptions]);
 
-  return (
-    <div className="product-main">
-      <div className="product-main__info">
-        <h1>{product.title}</h1>
+  const imageNodes = product.images?.edges?.map((edge) => edge.node) || [];
 
-        {/* <ProductPrice
-          price={selectedVariant?.price}
-          compareAtPrice={selectedVariant?.compareAtPrice}
-        /> */}
-        <ProductForm
-          productOptions={productOptions}
-          selectedVariant={selectedVariant}
-        />
+  const mainImage = imageNodes[0].url;
+  const secondImage = imageNodes[1].url;
+
+  console.log('mainImage', mainImage);
+  console.log('secondImage', secondImage);
+
+  return (
+    <>
+      <div className="product-main">
+        <div className="product-main__info">
+          <h1>{product.title}</h1>
+          <ProductPrice
+            price={selectedVariant?.price}
+            compareAtPrice={selectedVariant?.compareAtPrice}
+          />
+          <ProductForm
+            productOptions={productOptions}
+            selectedVariant={selectedVariant}
+          />
+        </div>
         {/* <p>
           <strong>Description</strong>
         </p> */}
         {/* <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} /> */}
+        <div className="product-main__media">
+          {/* <MediaGallery product={product} /> */}
+        </div>
       </div>
-      <div className="product-main__media">
-        <MediaGallery product={product} />
-      </div>
-    </div>
+      <HeroSplit
+        className="pdp__hero-split"
+        imageLeftTop={secondImage}
+        imageRight={mainImage}
+        content="The GOBA table lamp, made from mouth-blown crystal glass and stainless steel, draws inspiration from the captivating process of mushroom growth. Available in three sizes and glass types—clear, opal, and frosted—it offers versatile lighting options. The integrated OLED light source provides soft, dimmable illumination via touch control. The slightly protruding metal base, in stainless steel or brass, adds a bold accent. Perfect for use individually or in groups, GOBA enhances any space with its unique aesthetic and ambiance."
+      />
+    </>
   );
 }
