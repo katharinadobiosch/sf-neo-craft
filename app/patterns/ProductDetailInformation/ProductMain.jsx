@@ -57,11 +57,11 @@ export function ProductMain({product}) {
 
   const imageNodes = product.images?.edges?.map((edge) => edge.node) || [];
 
-  const mainImage = imageNodes[0].url;
-  const secondImage = imageNodes[1].url;
+  const mainImage = imageNodes[3].url;
+  const thirdImage = imageNodes[2].url;
 
   console.log('mainImage', mainImage);
-  console.log('secondImage', secondImage);
+  console.log('thirdImage', thirdImage);
 
   return (
     <>
@@ -87,7 +87,7 @@ export function ProductMain({product}) {
       </div>
       <HeroSplit
         className="pdp__hero-split"
-        imageLeftTop={secondImage}
+        imageLeftTop={thirdImage}
         imageRight={mainImage}
         content="The GOBA table lamp, made from mouth-blown crystal glass and stainless steel, draws inspiration from the captivating process of mushroom growth. Available in three sizes and glass types—clear, opal, and frosted—it offers versatile lighting options. The integrated OLED light source provides soft, dimmable illumination via touch control. The slightly protruding metal base, in stainless steel or brass, adds a bold accent. Perfect for use individually or in groups, GOBA enhances any space with its unique aesthetic and ambiance."
       />
