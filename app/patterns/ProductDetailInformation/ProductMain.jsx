@@ -82,7 +82,7 @@ export function ProductMain({product}) {
         </p> */}
         {/* <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} /> */}
         <div className="product-main__media">
-          {/* <MediaGallery product={product} /> */}
+          <MediaGallery product={product} />
         </div>
       </div>
       <HeroSplit
