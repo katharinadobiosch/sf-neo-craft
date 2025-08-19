@@ -5,40 +5,79 @@
   --chip-bg: #f3f3f3;
   --chip-bg-hover: #ececec;
   --ring: #111;
-  --cta-bg: #8ea0ff; /* Figma */
+  --cta-bg: #8ea0ff;
   --cta-text: #0a0a0a;
+
   color: var(--text);
-  .cfg-head {
+
+  /* Header mit + */
+  .cfg-toggle {
+    all: unset;
+    width: 190px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    h3 {
-      margin: 0;
-      font-size: 1rem;
-      letter-spacing: 0.08em;
-      font-weight: 600;
-    }
-    .cfg-close {
-      all: unset;
-      cursor: pointer;
-      font-size: 1rem;
-      padding: 0.25rem 0.4rem;
-    }
+    padding: 0.75rem 0;
   }
-  .cfg-divider {
-    border: 0;
-    border-top: 1px solid var(--divider);
-    margin: 0.75rem 0 1.25rem;
+  .cfg-title {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    font-weight: 600;
   }
+  /* Plus/Minus Icon */
+  .cfg-plus {
+    position: relative;
+    width: 18px;
+    height: 18px;
+  }
+  .cfg-plus::before,
+  .cfg-plus::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 2px;
+    background: #111;
+    transform: translate(-50%, -50%);
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+  .cfg-plus::after {
+    transform: translate(-50%, -50%) rotate(90deg); /* vertikal */
+  }
+  &.is-open .cfg-plus::after {
+    transform: translate(-50%, -50%) rotate(0deg); /* wird zu Minus */
+  }
+
+  /* Collapsible Panel */
+  .cfg-panel {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition:
+      max-height 0.35s ease,
+      opacity 0.2s ease;
+  }
+  &.is-open .cfg-panel {
+    opacity: 1;
+  }
+  .cfg-panel-inner {
+    padding-top: 1rem;
+  }
+
   .cfg-row {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 0.4rem 0;
+    padding: 0.5rem 0;
     & + .cfg-row {
       border-top: 1px solid var(--divider);
     }
   }
+
   .cfg-label {
     width: 160px;
     min-width: 160px;
@@ -47,11 +86,14 @@
     color: var(--muted);
     text-transform: uppercase;
   }
+
   .cfg-values {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem 0.75rem;
-  } /* Size-Chips */
+  }
+
+  /* Size Chips */
   .cfg-item.is-chip {
     all: unset;
     display: inline-flex;
@@ -77,7 +119,9 @@
       opacity: 0.35;
       cursor: not-allowed;
     }
-  } /* Swatch-Dots */
+  }
+
+  /* Swatch Dots */
   .cfg-item.is-color {
     all: unset;
     cursor: pointer;
@@ -112,7 +156,9 @@
       opacity: 0.35;
       cursor: not-allowed;
     }
-  } /* CTA-Balken (links, wie im Figma) */
+  }
+
+  /* CTA-Balken */
   .cfg-cta {
     margin-top: 1rem;
     display: flex;
@@ -130,7 +176,7 @@
       font-size: 1.05rem;
       margin-right: auto;
     }
-    .cta-button {
+    form > button {
       all: unset;
       cursor: pointer;
       background: #000;
@@ -139,27 +185,13 @@
       border-radius: 0.6rem;
       font-weight: 600;
     }
-    .cta-button-wrap {
-      /* form > button kommt vom AddToCartButton */
-      form > button {
-        all: unset;
-        cursor: pointer;
-        background: #000;
-        color: #fff;
-        padding: 0.65rem 1rem;
-        border-radius: 0.6rem;
-        font-weight: 600;
-      } /* disabled-State vom AddToCartButton */
-      form > button:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
+    form > button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
     }
   }
+
   @media (max-width: 960px) {
-    .cfg-grid {
-      grid-template-columns: 1fr;
-    }
     .cfg-label {
       width: 130px;
       min-width: 130px;
