@@ -41,17 +41,12 @@ import {PageLayout} from './patterns/PageLayoout';
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
  */
-export const shouldRevalidate = ({
-  formMethod,
-  currentUrl,
-  nextUrl,
-  defaultShouldRevalidate,
-}) => {
+export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
   if (formMethod && formMethod !== 'GET') return true;
   if (currentUrl.toString() === nextUrl.toString()) return true;
-  if (currentUrl.search !== nextUrl.search) return true;
+  if (currentUrl.search !== nextUrl.search) return true; // <— wichtig
   if (currentUrl.pathname !== nextUrl.pathname) return true;
-  return defaultShouldRevalidate; // hier wird der mitgelieferte Default genutzt
+  return false;
 };
 
 /**

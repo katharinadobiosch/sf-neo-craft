@@ -55,7 +55,7 @@ const money = (num, currency = 'USD') =>
   );
 
 // ---------- Component ----------
-export function Configurator({productOptions, navigate, product}) {
+export function Configurator({productOptions, navigate}) {
   const {open} = useAside(); // optional
 
   // Aktuelle Variante aus der Selektion ableiten (bei dir steckt sie in jedem selected optionValue.variant)

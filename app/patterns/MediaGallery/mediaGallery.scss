@@ -1,38 +1,66 @@
 .media-gallery {
+  /* Bühne */
+  --stage-bg: #e9e9ee; /* grauer Hintergrund wie im Figma */
+  --stage-pad: clamp(16px, 2.5vw, 40px);
+  --stage-max-w: 860px; /* maximale Breite der Bildbühne */
+  --stage-min-h: 420px;
+  --stage-max-h: 900px;
+
+  /* Höhe an den Viewport koppeln */
+  height: clamp(var(--stage-min-h), 75vh, var(--stage-max-h));
   width: 100%;
+
+  display: grid;
+  place-items: center;
+
+  /* Hintergrundfläche (optional) */
+  background: var(--stage-bg);
+  border-radius: 0;
+  padding: var(--stage-pad);
+}
+
+.media-gallery .swiper {
+  /* Bühne nicht randlos breit ziehen */
+  width: min(100%, var(--stage-max-w));
   height: 100%;
-  background-color: #f5f5f5;
+}
 
-  .swiper {
-    width: 100%;
-    height: 100%;
-  }
+.media-gallery .swiper-wrapper {
+  /* Fix für gelegentliches „vertikal stapeln“ bei fehlender Höhe */
+  align-items: center;
+}
 
-  .swiper-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-  }
+.media-gallery .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
 
-  img {
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: contain;
-    display: block;
-  }
+.media-gallery .swiper-slide img {
+  /* sauber einpassen – nie verzerren */
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
 
-  .swiper-pagination {
-    bottom: 0.75rem;
-    text-align: center;
-  }
+/* Pagination wie im Figma knapp unter dem Bild */
+.media-gallery .swiper-pagination {
+  position: absolute;
+  bottom: clamp(8px, 1.8vh, 18px);
+  left: 0;
+  right: 0;
+  text-align: center;
+}
 
-  .swiper-pagination-bullet {
-    background: #000;
-    opacity: 0.3;
-  }
+.media-gallery .swiper-pagination-bullet {
+  width: 6px;
+  height: 6px;
+  background: #000;
+  opacity: 0.28;
+}
 
-  .swiper-pagination-bullet-active {
-    opacity: 1;
-  }
+.media-gallery .swiper-pagination-bullet-active {
+  opacity: 1;
 }
