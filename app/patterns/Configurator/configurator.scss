@@ -35,17 +35,6 @@
   }
 
   /* 2-spaltiges Layout wie im Figma: links schmaler, rechts groß */
-  .cfg-grid {
-    display: grid;
-    grid-template-columns: 0.42fr 0.58fr;
-    gap: 2rem;
-  }
-  .cfg-left {
-    padding-right: 1rem;
-  }
-  .cfg-right {
-    /* media area */
-  }
 
   /* Zeilen */
   .cfg-row {

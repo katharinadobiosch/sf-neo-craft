@@ -29,6 +29,9 @@ import heroSplitStyles from '~/patterns/HeroSplit/heroSplit.scss?url';
 import pdpStyles from '~/patterns/ProductDetailInformation/productDetailInformation.scss?url';
 import mediaGalleryStyles from '~/patterns/MediaGallery/mediaGallery.scss?url';
 import configuratorStyles from '~/patterns/Configurator/configurator.scss?url';
+import swiperCss from 'swiper/css?url';
+import swiperPaginationCss from 'swiper/css/pagination?url';
+import mediaGalleryCss from '~/patterns/MediaGallery/mediaGallery.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
 
@@ -38,19 +41,17 @@ import {PageLayout} from './patterns/PageLayoout';
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
  */
-export const shouldRevalidate = ({formMethod, currentUrl, nextUrl}) => {
-  // revalidate when a mutation is performed e.g add to cart, login...
+export const shouldRevalidate = ({
+  formMethod,
+  currentUrl,
+  nextUrl,
+  defaultShouldRevalidate,
+}) => {
   if (formMethod && formMethod !== 'GET') return true;
-
-  // revalidate when manually revalidating via useRevalidator
   if (currentUrl.toString() === nextUrl.toString()) return true;
-
-  // Defaulting to no revalidation for root loader data to improve performance.
-  // When using this feature, you risk your UI getting out of sync with your server.
-  // Use with caution. If you are uncomfortable with this optimization, update the
-  // line below to `return defaultShouldRevalidate` instead.
-  // For more details see: https://remix.run/docs/en/main/route/should-revalidate
-  return false;
+  if (currentUrl.search !== nextUrl.search) return true;
+  if (currentUrl.pathname !== nextUrl.pathname) return true;
+  return defaultShouldRevalidate; // hier wird der mitgelieferte Default genutzt
 };
 
 /**
@@ -91,6 +92,9 @@ export function links() {
     {rel: 'stylesheet', href: pdpStyles},
     {rel: 'stylesheet', href: mediaGalleryStyles},
     {rel: 'stylesheet', href: configuratorStyles},
+    {rel: 'stylesheet', href: swiperCss},
+    {rel: 'stylesheet', href: swiperPaginationCss},
+    {rel: 'stylesheet', href: mediaGalleryCss},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
