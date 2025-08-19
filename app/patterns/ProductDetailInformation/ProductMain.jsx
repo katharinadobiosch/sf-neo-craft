@@ -75,6 +75,7 @@ export function ProductMain({product}) {
           <ProductForm
             productOptions={productOptions}
             selectedVariant={selectedVariant}
+            product={product}
           />
         </div>
         {/* <p>
