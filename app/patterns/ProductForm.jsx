@@ -18,10 +18,8 @@ export function ProductForm({productOptions, product}) {
         <Configurator
           productOptions={productOptions}
           navigate={navigate}
-          // metafields={product.metafields}
         />
         <ProductMetaAccordion metafields={product?.metafields} />
-        {/* Optional: AddToCartButton hier */}
       </div>
       {/* {productOptions.map((option) => {
         // If there is only a single value in the option values, don't display the option

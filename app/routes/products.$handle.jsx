@@ -194,92 +194,65 @@ const PRODUCT_FRAGMENT = `#graphql
     handle
     descriptionHtml
     description
+
     images(first: 10) {
-      edges {
-        node {
-          id
-          url
-          altText
-          width
-          height
-        }
-      }
+      edges { node { id url altText width height } }
     }
+
     encodedVariantExistence
     encodedVariantAvailability
+
     options {
       name
       optionValues {
         name
-        firstSelectableVariant {
-          ...ProductVariant
-        }
-        swatch {
-          color
-          image {
-            previewImage {
-              url
-            }
-          }
-        }
+        firstSelectableVariant { ...ProductVariant }
+        swatch { color image { previewImage { url } } }
       }
     }
-    selectedOrFirstAvailableVariant(
-      selectedOptions: $selectedOptions,
-      ignoreUnknownOptions: true,
-      caseInsensitiveMatch: true
-    ) {
-      ...ProductVariant
-    }
-    adjacentVariants(selectedOptions: $selectedOptions) {
-      ...ProductVariant
-    }
-    seo {
-      description
-      title
-    }
 
+    selectedOrFirstAvailableVariant(
+      selectedOptions: $selectedOptions
+      ignoreUnknownOptions: true
+      caseInsensitiveMatch: true
+    ) { ...ProductVariant }
+
+    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }
+
+    seo { description title }
+
+    # WICHTIG: identifiers verwenden (kein first/edges)
     metafields(identifiers: [
-       {namespace: "custom", key: "color_base"},
-  {namespace: "custom", key: "color_cable"},
-  {namespace: "custom", key: "color_frame"},
-  {namespace: "custom", key: "diameter"},
-  {namespace: "custom", key: "dichroic_coating"},
+  {namespace: "custom", key: "plug_type"},
+  {namespace: "custom", key: "metal_colour"},
+  {namespace: "custom", key: "cable_colour"},
+  {namespace: "custom", key: "frame_colour"},
+  {namespace: "custom", key: "glass_colour"},
+  {namespace: "custom", key: "ceiling_cap"},
   {namespace: "custom", key: "dichroic_glass"},
-  {namespace: "custom", key: "finish"},
-  {namespace: "custom", key: "frame"},
-  {namespace: "custom", key: "glass"},
-  {namespace: "custom", key: "glass_coating"},
-  {namespace: "custom", key: "glass_color"},
-  {namespace: "custom", key: "height"},
-  {namespace: "custom", key: "lampshade_ceiling_cap"},
-  {namespace: "custom", key: "length"},
-  {namespace: "custom", key: "marble"},
-  {namespace: "custom", key: "marble_fixture"},
-  {namespace: "custom", key: "material"},
-  {namespace: "custom", key: "metal_surfaces_cable_colour"},
-  {namespace: "custom", key: "metal"},
-  {namespace: "custom", key: "mirror_color"},
-  {namespace: "custom", key: "mirror_glass"},
-  {namespace: "custom", key: "powder_coated_steel"},
+  {namespace: "custom", key: "table_top"},
   {namespace: "custom", key: "size"},
-  {namespace: "custom", key: "steel"},
-  {namespace: "custom", key: "steel_color"},
-  {namespace: "custom", key: "table_top_solid_wood"},
-  {namespace: "custom", key: "trestles"},
-  {namespace: "custom", key: "type"},
-  {namespace: "custom", key: "wallclock"},
-  {namespace: "custom", key: "wood"}
-    ]) {
-      namespace
-      key
-      value
-      type
-      # Optional:
-      # definition {
-      #   name
-      # }
-    }
+  {namespace: "custom", key: "length"},
+  {namespace: "custom", key: "width"},
+  {namespace: "custom", key: "height"},
+  {namespace: "custom", key: "diameter"},
+  {namespace: "custom", key: "marble_fixture"},
+  {namespace: "custom", key: "mirror_glass_type"},
+  {namespace: "custom", key: "wood_type"},
+  {namespace: "custom", key: "marble_type"},
+  {namespace: "custom", key: "metal_finish"},
+  {namespace: "custom", key: "option"},
+  {namespace: "custom", key: "surcharge"},
+  {namespace: "custom", key: "oled_exchange_panel"},
+  {namespace: "custom", key: "material"}
+]) {
+  namespace
+  key
+  type
+  value
+  description
+}
+
   }
   ${PRODUCT_VARIANT_FRAGMENT}
 `;
