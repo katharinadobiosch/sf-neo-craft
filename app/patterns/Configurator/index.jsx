@@ -1,7 +1,7 @@
 import {useMemo} from 'react';
-import {AddToCartButton} from './Cart/AddToCartButton';
+import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
 import {useAside} from '~/patterns/Aside'; // ⬅️ optional, für Cart-Drawer
-import './configurator.scss';
+// import './configurator.scss';
 import colors from './colors.json';
 
 // ---------- Helpers ----------
