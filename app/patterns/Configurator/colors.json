@@ -1,0 +1,282 @@
+ [
+    {
+        "name": "gold-indigo",
+        "hex": "#d5c89f"
+    },
+    {
+        "name": "blue-orange",
+        "hex": "#b17852"
+    },
+    {
+        "name": "pink-green",
+        "hex": "#d48cb2"
+    },
+    {
+        "name": "cyan-magenta",
+        "hex": "#7ec2ce"
+    },
+    {
+        "name": "silver-lilac",
+        "hex": "#d6d4db"
+    },
+    {
+        "name": "clear",
+        "hex": "#e0e0e0"
+    },
+    {
+        "name": "clear black",
+        "hex": "#808080"
+    },
+    {
+        "name": "clear blue",
+        "hex": "#87CEEB"
+    },
+    {
+        "name": "clear bronze",
+        "hex": "#CD7F32"
+    },
+    {
+        "name": "clear green",
+        "hex": "#9FD39F"
+    },
+    {
+        "name": "clear multi",
+        "hex": "#B3A7F7"
+    },
+    {
+        "name": "clear transparent",
+        "hex": "#00000000"
+    },
+    {
+        "name": "satin glass black",
+        "hex": "#3a3a3a"
+    },
+    {
+        "name": "satin glass blue",
+        "hex": "#6aa7d6"
+    },
+    {
+        "name": "satin glass bronze",
+        "hex": "#b08d57"
+    },
+    {
+        "name": "satin glass green",
+        "hex": "#7ab97a"
+    },
+    {
+        "name": "satin glass multi",
+        "hex": "#bca8f2"
+    },
+    {
+        "name": "satin glass white",
+        "hex": "#f2f2f2"
+    },
+    {
+        "name": "bronze clear glass",
+        "hex": "#b17a4b"
+    },
+    {
+        "name": "bronze satin glass",
+        "hex": "#b08d57"
+    },
+    {
+        "name": "bronze opal glass",
+        "hex": "#c9a67e"
+    },
+    {
+        "name": "dark bronze",
+        "hex": "#5d473a"
+    },
+    {
+        "name": "brass",
+        "hex": "#a38a4b"
+    },
+    {
+        "name": "high gloss brass",
+        "hex": "#d1b05f"
+    },
+    {
+        "name": "stainless steel",
+        "hex": "#b0b7c1"
+    },
+    {
+        "name": "high gloss stainless steel",
+        "hex": "#c9d0d8"
+    },
+    {
+        "name": "steel",
+        "hex": "#a8a8a8"
+    },
+    {
+        "name": "raw aluminium",
+        "hex": "#c7c7c7"
+    },
+    {
+        "name": "raw",
+        "hex": "#bdbdbd"
+    },
+    {
+        "name": "mirror black",
+        "hex": "#1c1c1c"
+    },
+    {
+        "name": "mirror brass",
+        "hex": "#b08d57"
+    },
+    {
+        "name": "mirror gold",
+        "hex": "#d4af37"
+    },
+    {
+        "name": "mirror silver",
+        "hex": "#c0c0c0"
+    },
+    {
+        "name": "mirror steel",
+        "hex": "#b5b5b5"
+    },
+    {
+        "name": "opaque mirror",
+        "hex": "#2e2e2e"
+    },
+    {
+        "name": "ink black",
+        "hex": "#0d1117"
+    },
+    {
+        "name": "deep black",
+        "hex": "#0a0a0a"
+    },
+    {
+        "name": "jet black",
+        "hex": "#111111"
+    },
+    {
+        "name": "black",
+        "hex": "#000000"
+    },
+    {
+        "name": "signal white",
+        "hex": "#F4F4F4"
+    },
+    {
+        "name": "snow white",
+        "hex": "#FFFAFA"
+    },
+    {
+        "name": "cream white",
+        "hex": "#F8F5E6"
+    },
+    {
+        "name": "chalk white",
+        "hex": "#F2F2EA"
+    },
+    {
+        "name": "white",
+        "hex": "#FFFFFF"
+    },
+    {
+        "name": "graphite grey",
+        "hex": "#45484D"
+    },
+    {
+        "name": "quartz grey",
+        "hex": "#6C6F70"
+    },
+    {
+        "name": "silk grey",
+        "hex": "#BDBDB2"
+    },
+    {
+        "name": "silver-grey",
+        "hex": "#BFBFBF"
+    },
+    {
+        "name": "silver grey",
+        "hex": "#BFBFBF"
+    },
+    {
+        "name": "lemon yellow",
+        "hex": "#F3E500"
+    },
+    {
+        "name": "sun yellow",
+        "hex": "#F7B500"
+    },
+    {
+        "name": "clay orange",
+        "hex": "#C76D3A"
+    },
+    {
+        "name": "coral red",
+        "hex": "#FF6F61"
+    },
+    {
+        "name": "rust red",
+        "hex": "#8B3A3A"
+    },
+    {
+        "name": "moss green",
+        "hex": "#6A8455"
+    },
+    {
+        "name": "ocean blue",
+        "hex": "#0077BE"
+    },
+    {
+        "name": "space blue",
+        "hex": "#1B3B6F"
+    },
+    {
+        "name": "indigo blue",
+        "hex": "#3F51B5"
+    },
+    {
+        "name": "blue galvanized",
+        "hex": "#7FA2C9"
+    },
+    {
+        "name": "yellow galvanized",
+        "hex": "#C8B94E"
+    },
+    {
+        "name": "natural oak",
+        "hex": "#C8A165"
+    },
+    {
+        "name": "oak",
+        "hex": "#C3A572"
+    },
+    {
+        "name": "oak black stained",
+        "hex": "#3B2F2F"
+    },
+    {
+        "name": "white stained ash",
+        "hex": "#E7E1D8"
+    },
+    {
+        "name": "black ash",
+        "hex": "#3A3A3A"
+    },
+    {
+        "name": "white ash",
+        "hex": "#EDE9E0"
+    },
+    {
+        "name": "walnut",
+        "hex": "#7B5E57"
+    },
+    {
+        "name": "american walnut",
+        "hex": "#6D4C41"
+    },
+    {
+        "name": "rosé",
+        "hex": "#E6A5B0"
+    },
+    {
+        "name": "light sand",
+        "hex": "#E8E1D4"
+    }
+]

@@ -1,91 +1,179 @@
 .configurator {
-  padding: 2rem 0;
-  width: 100%;
+  --text: #111;
+  --muted: #6b6b6b;
+  --divider: #d9d9d9;
+  --chip-bg: #f3f3f3;
+  --chip-bg-hover: #ececec;
+  --ring: #111;
+  --cta-bg: #8ea0ff; /* Figma */
+  --cta-text: #0a0a0a;
 
-  .configurator-columns {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-  }
+  color: var(--text);
 
-  .configurator-label-column {
-    width: 25%;
+  .cfg-head {
     display: flex;
-    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
-
     h3 {
-      font-size: 1.5rem;
       margin: 0;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      font-weight: 600;
     }
-
-    div {
+    .cfg-close {
+      all: unset;
       cursor: pointer;
-      color: #007bff;
-      font-size: 1.25rem;
-      align-self: flex-start;
+      font-size: 1rem;
+      padding: 0.25rem 0.4rem;
     }
   }
 
-  .configurator-options-column {
-    display: flex;
-    flex-direction: column;
+  .cfg-divider {
+    border: 0;
+    border-top: 1px solid var(--divider);
+    margin: 0.75rem 0 1.25rem;
+  }
+
+  /* 2-spaltiges Layout wie im Figma: links schmaler, rechts groß */
+  .cfg-grid {
+    display: grid;
+    grid-template-columns: 0.42fr 0.58fr;
     gap: 2rem;
-    width: 75%;
-    // margin-top: 5rem;
+  }
+  .cfg-left {
+    padding-right: 1rem;
+  }
+  .cfg-right {
+    /* media area */
   }
 
-  .configurator-options-group {
+  /* Zeilen */
+  .cfg-row {
     display: flex;
-    flex-direction: row;
-    width: 100%;
-
-    h5 {
-      margin-bottom: 0.5rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      width: 20%;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.4rem 0;
+    & + .cfg-row {
+      border-top: 1px solid var(--divider);
     }
+  }
 
-    .configurator-options-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      width: 70%;
+  .cfg-label {
+    width: 160px;
+    min-width: 160px;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .cfg-values {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+  }
+
+  /* Size-Chips */
+  .cfg-item.is-chip {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    cursor: pointer;
+    background: var(--chip-bg);
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+    .chip-text {
+      font-size: 0.88rem;
     }
+    &:hover {
+      background: var(--chip-bg-hover);
+    }
+    &.is-selected {
+      border-color: var(--ring);
+      background: #fff;
+    }
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
 
-    .configurator-options-item {
-      width: 2.25rem;
-      height: 2.25rem;
-      border-radius: 50%;
-      background: transparent;
-      display: flex;
+  /* Swatch-Dots */
+  .cfg-item.is-color {
+    all: unset;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    .dot-ring {
+      width: 22px;
+      height: 22px;
+      border: 1px solid #cfcfcf;
+      border-radius: 999px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border: 1px solid transparent;
-
-      &.selected {
-        border-color: black;
-      }
-
-      &:not(:has(.configurator-options-label-swatch)) {
-        width: auto;
-        height: auto;
-        border-radius: 9999px;
-        padding: 0.5rem 0.75rem;
-        background: #f7f7f7;
-      }
+      background: #fff;
     }
+    .dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+    }
+    &.is-selected .dot-ring {
+      border-color: var(--ring);
+      box-shadow:
+        0 0 0 2px #fff,
+        0 0 0 3px var(--ring);
+    }
+    &:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+  }
 
-    .configurator-options-label-swatch {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 1px solid #ccc;
+  /* CTA-Balken (links, wie im Figma) */
+  .cfg-cta {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--cta-bg);
+    color: var(--cta-text);
+    border-top: 1px solid #000;
+    padding: 1rem 1.25rem;
+    .cta-arrow {
+      font-size: 1.1rem;
+    }
+    .cta-price {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-right: auto;
+    }
+    .cta-button {
+      all: unset;
+      cursor: pointer;
+      background: #000;
+      color: #fff;
+      padding: 0.65rem 1rem;
+      border-radius: 0.6rem;
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 960px) {
+    .cfg-grid {
+      grid-template-columns: 1fr;
+    }
+    .cfg-label {
+      width: 130px;
+      min-width: 130px;
     }
   }
 }
