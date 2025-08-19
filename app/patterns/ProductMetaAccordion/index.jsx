@@ -1,80 +1,82 @@
+// schlanke Konfig – nutze exakt die Keys aus deiner GraphQL-Query
+const FIELD_CONFIG = [
+  {key: 'metal_colour', label: 'Metal Colour'},
+  {key: 'cable_colour', label: 'Cable Colour'},
+  {key: 'plug_type', label: 'Plug Type'},
+  {key: 'frame_colour', label: 'Frame Colour'},
+  {key: 'glass_colour', label: 'Glass Colour'},
+  {key: 'ceiling_cap', label: 'Ceiling Cap'},
+  {key: 'dichroic_glass', label: 'Dichroic Glass'},
+  {key: 'table_top', label: 'Table Top'},
+  {key: 'material', label: 'Material'},
+  {key: 'metal_finish', label: 'Metal Finish'},
+  {key: 'size', label: 'Size'},
+  {key: 'length', label: 'Length', unit: ' cm'},
+  {key: 'width', label: 'Width', unit: ' cm'},
+  {key: 'height', label: 'Height', unit: ' cm'},
+  {key: 'diameter', label: 'Diameter', unit: ' cm'},
+  {key: 'marble_fixture', label: 'Marble Fixture'},
+  {key: 'mirror_glass_type', label: 'Mirror Glass Type'},
+  {key: 'wood_type', label: 'Wood Type'},
+  {key: 'marble_type', label: 'Marble Type'},
+  {key: 'oled_exchange_panel', label: 'OLED Exchange Panel'},
+  {key: 'option', label: 'Option'},
+  {key: 'surcharge', label: 'Surcharge'},
+];
+
+// Hilfen
+const norm = (s = '') => s.toLowerCase().replace(/[^a-z0-9._-]/g, '');
+const isNumberType = (t = '') => /number|integer|decimal/i.test(t);
+const isListType = (t = '') => t.startsWith('list.');
+
+const formatVal = (mf, unit = '') => {
+  let v = `${mf?.value ?? ''}`.trim();
+  if (!v) return '';
+  if (isListType(mf.type)) {
+    try {
+      const arr = JSON.parse(v);
+      if (Array.isArray(arr)) v = arr.filter(Boolean).join(', ');
+    } catch {}
+  }
+  if (unit && isNumberType(mf.type) && !Number.isNaN(Number(v)))
+    return `${v}${unit}`;
+  return v;
+};
+
 export function ProductMetaAccordion({metafields}) {
-  console.log('metafields', metafields);
-
-  const norm = (s = '') => s.toLowerCase().replace(/[^a-z0-9]/g, '');
-
-  // --- Eingabe vereinheitlichen & säubern ---
-  const flat = Array.isArray(metafields?.edges)
-    ? metafields.edges.map((e) => e?.node).filter(Boolean)
-    : Array.isArray(metafields)
-      ? metafields.filter(Boolean)
-      : [];
-
-  // Nix da? dann gar nichts rendern
+  // flatten
+  const flat = Array.isArray(metafields) ? metafields.filter(Boolean) : [];
   if (!flat.length) return null;
 
-  // Reihenfolge/Labels + Keys (wie zuvor)
-  const MF_DEFS = [
-    {label: 'Material', keys: ['material']},
-    {label: 'Metal Finish', keys: ['metalfinish']},
-    {
-      label: 'Metal Colour',
-      keys: ['metalcolour', 'metalcolor', 'metal_color', 'metal_colour'],
-    },
-    {
-      label: 'Cable Colour',
-      keys: ['cablecolour', 'cablecolor', 'cable_color', 'cable_colour'],
-    },
-    {label: 'Frame Colour', keys: ['framecolour', 'framecolor', 'frame_color']},
-    {label: 'Glass Colour', keys: ['glasscolour', 'glasscolor']},
-    {label: 'Ceiling Cap', keys: ['ceilingcap', 'canopy']},
-    {label: 'Dichroic Glass', keys: ['dichroicglass', 'dichroic']},
-    {label: 'Table Top', keys: ['tabletop', 'table_top']},
-    {label: 'Plug Type', keys: ['plugtype', 'plug']},
-    {
-      label: 'OLED Exchange Panel',
-      keys: ['oledexchangepanel', 'oledexchange', 'oledpanel'],
-    },
-    {label: 'Option', keys: ['option']},
-    {label: 'Surcharge', keys: ['surcharge']},
-    {label: 'Size', keys: ['size']},
-    {label: 'Length', keys: ['length'], unit: ' cm'},
-    {label: 'Width', keys: ['width'], unit: ' cm'},
-    {label: 'Height', keys: ['height'], unit: ' cm'},
-    {label: 'Diameter', keys: ['diameter'], unit: ' cm'},
-    {label: 'Marble Fixture', keys: ['marblefixture']},
-    {label: 'Mirror Glass Type', keys: ['mirrorglasstype']},
-    {label: 'Wood Type', keys: ['woodtype']},
-    {label: 'Marble Type', keys: ['marbletype']},
-  ];
-
-  // Index für schnelle Suche
+  // index nach key & namespace.key
   const byKey = new Map();
   for (const mf of flat) {
-    const k = mf?.key ? norm(mf.key) : null;
+    const k = norm(mf.key);
     if (k) byKey.set(k, mf);
-    if (mf?.namespace && mf?.key)
+    if (mf.namespace && mf.key)
       byKey.set(norm(`${mf.namespace}.${mf.key}`), mf);
-    if (mf?.definition?.name) byKey.set(norm(mf.definition.name), mf);
   }
 
-  const isNumberType = (t = '') => /number|integer|decimal/i.test(t);
-
-  const formatVal = (mf, unit = '') => {
-    if (!mf) return '';
-    const raw = `${mf.value ?? ''}`.trim();
-    if (!raw) return '';
-    return unit && isNumberType(mf.type) ? `${raw}${unit}` : raw;
-  };
-
-  const items = MF_DEFS.map((def) => {
-    const mf = def.keys
-      .map((k) => byKey.get(k))
-      .find((m) => m && `${m.value ?? ''}`.trim() !== '');
+  // bekannte Felder in gewünschter Reihenfolge
+  const used = new Set();
+  const knownItems = FIELD_CONFIG.map((cfg) => {
+    const mf = byKey.get(cfg.key) || byKey.get(`custom.${cfg.key}`);
     if (!mf) return null;
-    return {label: def.label, value: formatVal(mf, def.unit)};
+    const value = formatVal(mf, cfg.unit);
+    if (!value) return null;
+    used.add(mf);
+    return {label: cfg.label, value};
   }).filter(Boolean);
 
+  // unbekannte Felder (optional) hinten anhängen
+  const unknownItems = flat
+    .filter((mf) => !used.has(mf) && `${mf.value ?? ''}`.trim() !== '')
+    .map((mf) => ({
+      label: mf.key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+      value: formatVal(mf),
+    }));
+
+  const items = [...knownItems, ...unknownItems];
   if (!items.length) return null;
 
   return (
