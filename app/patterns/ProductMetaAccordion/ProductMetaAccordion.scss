@@ -1,48 +1,102 @@
+/* ===== Meta Accordion – Figma Look ===== */
 .meta-accordion {
-  display: grid;
-  gap: 8px;
-  margin-top: 20px;
-  border-top: 1px solid #d9d9d9;
+  margin-top: 2rem;
+  border-top: 1px solid #e9e9ed;
+
+  .acc-item {
+    border-bottom: 1px solid #e9e9ed;
+
+    /* default marker entfernen */
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 190px;
+      gap: 1rem;
+      min-height: 56px;
+      padding: 0.75rem 0;
+      cursor: pointer;
+      user-select: none;
+
+      /* Label-Style wie Figma */
+      .acc-title {
+        font-size: 0.75rem; /* 12px */
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #161616;
+      }
+
+      .acc-icon {
+        font-size: 1.25rem; /* 20px */
+        line-height: 1;
+        font-weight: 700;
+        width: 24px;
+        height: 24px;
+        text-align: center;
+        transition: transform 0.18s ease;
+      }
+    }
+
+    /* aufgeklappt: + leicht gedreht => wirkt wie × */
+    &[open] .acc-icon {
+      transform: rotate(45deg);
+    }
+
+    .acc-panel {
+      padding: 0 0 1rem 0; /* enger, wie im Figma */
+      color: #222;
+      font-size: 0.9375rem; /* 15px */
+      line-height: 1.5;
+
+      p {
+        margin: 0.25rem 0 0.5rem;
+      }
+    }
+  }
 }
 
-.meta-accordion .acc-item {
-  border-bottom: 1px solid #d9d9d9;
-  padding: 8px 0;
+/* ===== Optional: Abstand/Trennung zur CTA-Bar angleichen ===== */
+.configurator .cfg-cta {
+  margin-top: 1.25rem;
 }
 
-.meta-accordion summary {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  user-select: none;
-  padding: 10px 0;
+/* ===== Optional: Section-Abstände wie im Figma links angleichen ===== */
+// .configurator,
+// .meta-accordion {
+//   max-width: 560px; /* engerer Lesebereich */
+// }
+
+/* ===== Optional: feiner Divider unter der Config-Section ===== */
+.cfg-divider {
+  border: 0;
+  height: 1px;
+  background: #e9e9ed;
+  margin: 0.75rem 0 1rem;
 }
 
-.meta-accordion summary::-webkit-details-marker {
-  display: none;
+.meta-accordion {
+  margin-top: 1rem;
 }
 
-.meta-accordion .acc-title {
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
+.section-block {
+  border-top: 1px solid #e9e9ed;
+  padding: 1rem 0;
 
-.meta-accordion .acc-icon {
-  font-size: 18px;
-  line-height: 1;
-  transition: transform 0.2s ease;
-}
+  .section-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
 
-.meta-accordion details[open] .acc-icon {
-  transform: rotate(45deg);
-}
-
-.meta-accordion .acc-panel {
-  padding: 6px 0 12px;
-  color: #222;
-  font-size: 14px;
-  line-height: 1.5;
+  .section-body {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
 }

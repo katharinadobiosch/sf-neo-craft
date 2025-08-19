@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react';
-import {ProductPrice} from '~/patterns/ProductPrice';
 import {ProductForm} from '~/patterns/ProductForm';
 import {MediaGallery} from '~/patterns/MediaGallery';
 import {HeroSplit} from '../HeroSplit';

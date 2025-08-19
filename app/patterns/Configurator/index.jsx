@@ -1,8 +1,6 @@
 import {useMemo} from 'react';
 import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
 import {useAside} from '~/patterns/Aside';
-import {MediaGallery} from '~/patterns/MediaGallery';
-
 import colors from './colors.json';
 
 // ---------- Helpers ----------
@@ -41,8 +39,13 @@ const getHex = (name) => {
 const getSwatchStyle = (name) => {
   const hex = getHex(name);
   if (hex) return {backgroundColor: hex};
+
   const g = gradients[norm(name)];
-  if (g) return {backgroundImage: `linear-gradient(135deg, ${g[0]}, ${g[1]})`};
+  if (g)
+    return {
+      backgroundImage: `linear-gradient(135deg, ${g[0]}, ${g[1]})`,
+    };
+
   return {
     backgroundImage: 'repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%)',
     backgroundSize: '10px 10px',
@@ -50,15 +53,16 @@ const getSwatchStyle = (name) => {
 };
 
 const money = (num, currency = 'USD') =>
-  new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
-    Number(num || 0),
-  );
+  new Intl.NumberFormat(undefined, {
+    style: 'currency',
+    currency,
+  }).format(Number(num || 0));
 
 // ---------- Component ----------
 export function Configurator({productOptions, navigate}) {
   const {open} = useAside(); // optional
 
-  // Aktuelle Variante aus der Selektion ableiten (bei dir steckt sie in jedem selected optionValue.variant)
+  // Aktuelle Variante aus der Selektion ableiten
   const currentVariant = useMemo(() => {
     for (const opt of productOptions || []) {
       const sel = opt.optionValues?.find((v) => v.selected);
@@ -85,7 +89,6 @@ export function Configurator({productOptions, navigate}) {
     return (
       <div className="cfg-row" key={option.name}>
         <div className="cfg-label">{label}</div>
-
         <div className="cfg-values">
           {option.optionValues.map((value) => {
             const selected = !!value.selected;
@@ -94,7 +97,9 @@ export function Configurator({productOptions, navigate}) {
             return (
               <button
                 key={value.name}
-                className={`cfg-item ${colorish ? 'is-color' : 'is-chip'} ${selected ? 'is-selected' : ''}`}
+                className={`cfg-item ${
+                  colorish ? 'is-color' : 'is-chip'
+                } ${selected ? 'is-selected' : ''}`}
                 disabled={disabled}
                 title={value.name}
                 onClick={() => {
@@ -141,18 +146,23 @@ export function Configurator({productOptions, navigate}) {
 
       <div className="cfg-flex">
         {productOptions?.map(renderOption)}
+
         {/* CTA-Leiste nur in der linken Spalte */}
         <div className="cfg-cta">
           <span className="cta-arrow">→</span>
           <span className="cta-price">{money(price, currency)}</span>
-
           <div className="cta-button-wrap">
             <AddToCartButton
               disabled={!currentVariant || !currentVariant.availableForSale}
               onClick={() => open('cart')} // optional: Cart-Aside öffnen
               lines={
                 currentVariant
-                  ? [{merchandiseId: currentVariant.id, quantity: 1}]
+                  ? [
+                      {
+                        merchandiseId: currentVariant.id,
+                        quantity: 1,
+                      },
+                    ]
                   : []
               }
             >
