@@ -85,9 +85,7 @@ export function ProductMetaAccordion({metafields}) {
         <details key={label} className="acc-item">
           <summary>
             <span className="acc-title">{label}</span>
-            <span className="acc-icon" aria-hidden>
-              +
-            </span>
+            <span className="acc-plus" aria-hidden />
           </summary>
           <div className="acc-panel">
             <p>{value}</p>
