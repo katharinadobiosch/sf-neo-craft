@@ -32,6 +32,7 @@ import configuratorStyles from '~/patterns/Configurator/configurator.scss?url';
 import swiperCss from 'swiper/css?url';
 import swiperPaginationCss from 'swiper/css/pagination?url';
 import mediaGalleryCss from '~/patterns/MediaGallery/mediaGallery.scss?url';
+import ProductMetaAccordionCss from '~/patterns/ProductMetaAccordion/ProductMetaAccordion.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
 
@@ -90,6 +91,7 @@ export function links() {
     {rel: 'stylesheet', href: swiperCss},
     {rel: 'stylesheet', href: swiperPaginationCss},
     {rel: 'stylesheet', href: mediaGalleryCss},
+    {rel: 'stylesheet', href: ProductMetaAccordionCss},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }

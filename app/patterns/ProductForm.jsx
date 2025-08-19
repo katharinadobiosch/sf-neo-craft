@@ -1,5 +1,6 @@
 import {useNavigate} from 'react-router';
 import {Configurator} from './Configurator';
+import {ProductMetaAccordion} from './ProductMetaAccordion';
 
 /**
  * @param {{
@@ -7,7 +8,7 @@ import {Configurator} from './Configurator';
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
  * }}
  */
-export function ProductForm({productOptions}) {
+export function ProductForm({productOptions, product}) {
   // console.log('ProductForm', {productOptions, selectedVariant, product});
   // console.log('ProductForm', {productOptions, selectedVariant});
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export function ProductForm({productOptions}) {
           navigate={navigate}
           // metafields={product.metafields}
         />
+        <ProductMetaAccordion metafields={product?.metafields} />
         {/* Optional: AddToCartButton hier */}
       </div>
       {/* {productOptions.map((option) => {
