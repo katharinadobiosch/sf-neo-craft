@@ -114,7 +114,7 @@ export default function Product() {
         <h1>{title}</h1>
         <ProductPrice
           price={selectedVariant?.price}
-          compareAtPrice={selectedVariant?.compareAtPrice}
+          compareAtPrice={selec  tedVariant?.compareAtPrice}
         />
         <br />
         <ProductForm

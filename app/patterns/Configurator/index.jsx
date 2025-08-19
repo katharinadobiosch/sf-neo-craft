@@ -1,7 +1,8 @@
 import {useMemo} from 'react';
 import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
-import {useAside} from '~/patterns/Aside'; // ⬅️ optional, für Cart-Drawer
-// import './configurator.scss';
+import {useAside} from '~/patterns/Aside';
+import {MediaGallery} from '~/patterns/MediaGallery';
+
 import colors from './colors.json';
 
 // ---------- Helpers ----------
@@ -54,7 +55,7 @@ const money = (num, currency = 'USD') =>
   );
 
 // ---------- Component ----------
-export function Configurator({productOptions, navigate}) {
+export function Configurator({productOptions, navigate, product}) {
   const {open} = useAside(); // optional
 
   // Aktuelle Variante aus der Selektion ableiten (bei dir steckt sie in jedem selected optionValue.variant)
@@ -78,6 +79,8 @@ export function Configurator({productOptions, navigate}) {
         ? 'COLOR METAL'
         : 'COLOR GLASS'
       : option.name.toUpperCase();
+
+    console.log(currentVariant?.title, currentVariant?.image?.id);
 
     return (
       <div className="cfg-row" key={option.name}>
@@ -136,31 +139,26 @@ export function Configurator({productOptions, navigate}) {
 
       <hr className="cfg-divider" />
 
-      <div className="cfg-grid">
-        <div className="cfg-left">
-          {productOptions?.map(renderOption)}
-          {/* CTA-Leiste nur in der linken Spalte */}
-          <div className="cfg-cta">
-            <span className="cta-arrow">→</span>
-            <span className="cta-price">{money(price, currency)}</span>
+      <div className="cfg-flex">
+        {productOptions?.map(renderOption)}
+        {/* CTA-Leiste nur in der linken Spalte */}
+        <div className="cfg-cta">
+          <span className="cta-arrow">→</span>
+          <span className="cta-price">{money(price, currency)}</span>
 
-            <div className="cta-button-wrap">
-              <AddToCartButton
-                disabled={!currentVariant || !currentVariant.availableForSale}
-                onClick={() => open('cart')} // optional: Cart-Aside öffnen
-                lines={
-                  currentVariant
-                    ? [{merchandiseId: currentVariant.id, quantity: 1}]
-                    : []
-                }
-              >
-                {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
-              </AddToCartButton>
-            </div>
+          <div className="cta-button-wrap">
+            <AddToCartButton
+              disabled={!currentVariant || !currentVariant.availableForSale}
+              onClick={() => open('cart')} // optional: Cart-Aside öffnen
+              lines={
+                currentVariant
+                  ? [{merchandiseId: currentVariant.id, quantity: 1}]
+                  : []
+              }
+            >
+              {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
+            </AddToCartButton>
           </div>
-        </div>
-        <div className="cfg-right">
-          {/* Dein Bild/Swiper bleibt hier außerhalb dieses Components */}
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ import {Configurator} from './Configurator';
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
  * }}
  */
-export function ProductForm({productOptions}) {
+export function ProductForm({productOptions, product}) {
   // console.log('ProductForm', {productOptions, selectedVariant, product});
   // console.log('ProductForm', {productOptions, selectedVariant});
   const navigate = useNavigate();
