@@ -1,115 +1,99 @@
-import './configurator.scss';
 import {useMemo} from 'react';
+import {AddToCartButton} from './Cart/AddToCartButton';
+import {useAside} from '~/patterns/Aside'; // ⬅️ optional, für Cart-Drawer
+import './configurator.scss';
+import colors from './colors.json';
 
-// Swatch-Farbzuordnung (fallback-neutral wenn kein Treffer)
-const glassColorMap = {
-  'gold-indigo': '#d5c89f',
-  'blue-orange': '#b17852',
-  'pink-green': '#d48cb2',
-  'cyan-magenta': '#7ec2ce',
-  'silver-lilac': '#d6d4db',
-  clear: '#e0e0e0',
-  bronze: '#b08d57', // grober Bronze-Fallback für "bronze ... glass"
-};
-const metalColorMap = {steel: '#d4d4d4', brass: '#a38a4b'};
-
-const money = (num, currency = 'EUR') =>
-  new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
-    Number(num || 0),
-  );
-
-// z.B. "Metal surfaces & cable colour" -> "metal surfaces cable colour"
-const normalize = (s = '') =>
+// ---------- Helpers ----------
+const norm = (s = '') =>
   s
     .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
-    .replace(/[^\w]+/g, ' ')
     .trim();
 
-const isGlassOptionName = (name) => {
-  const n = normalize(name);
-  return /(glass|coating)/.test(n);
-};
-const isMetalOptionName = (name) => {
-  const n = normalize(name);
-  return /(metal|colour base|color base|base)/.test(n);
-};
-
-// versucht, für einen Wertnamen eine Farbe zu finden
-const mapSwatchColor = (valueName) => {
-  const key = normalize(valueName);
-  // exakte Treffer
-  if (glassColorMap[key]) return glassColorMap[key];
-  if (metalColorMap[key]) return metalColorMap[key];
-  // heuristiken (z. B. "bronze satin glass" -> "bronze")
-  if (/bronze/.test(key)) return glassColorMap['bronze'];
-  if (/steel/.test(key)) return metalColorMap['steel'];
-  if (/brass/.test(key)) return metalColorMap['brass'];
-  if (/cyan.?magenta/.test(key)) return glassColorMap['cyan-magenta'];
-  return null;
+const isColorOption = (name) => {
+  const n = norm(name);
+  return (
+    n.includes('glass') ||
+    n.includes('metal') ||
+    n.includes('colour base') ||
+    n.includes('color base') ||
+    n.includes('mirror')
+  );
 };
 
-export function Configurator({product, productOptions, navigate}) {
-  // 1) Aktuelle Auswahl je Option
-  const selectedByOption = useMemo(() => {
-    const map = {};
-    for (const opt of productOptions) {
-      const sel =
-        opt.optionValues.find((v) => v.selected) || opt.optionValues[0];
-      map[opt.name] = sel?.name;
-    }
-    return map;
-  }, [productOptions]);
+const gradients = {
+  'gold-indigo': ['#d4af37', '#4b0082'],
+  'blue-orange': ['#1e90ff', '#ff8c00'],
+  'pink-green': ['#ff7aa2', '#6ccf84'],
+  'cyan-magenta': ['#00bcd4', '#ff00a8'],
+  'silver-lilac': ['#c0c0c0', '#c8a2c8'],
+};
 
-  // 2) Aktuelle Variante: nimm den "variant" des aktuell selektierten Values irgendeiner Option
-  //    (bei deinen Daten ist das immer die Kombi aus allen selections)
+const getHex = (name) => {
+  const lower = norm(name);
+  const m = colors.find((c) => norm(c.name) === lower);
+  return m?.hex || null;
+};
+
+const getSwatchStyle = (name) => {
+  const hex = getHex(name);
+  if (hex) return {backgroundColor: hex};
+  const g = gradients[norm(name)];
+  if (g) return {backgroundImage: `linear-gradient(135deg, ${g[0]}, ${g[1]})`};
+  return {
+    backgroundImage: 'repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%)',
+    backgroundSize: '10px 10px',
+  };
+};
+
+const money = (num, currency = 'USD') =>
+  new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
+    Number(num || 0),
+  );
+
+// ---------- Component ----------
+export function Configurator({productOptions, navigate}) {
+  const {open} = useAside(); // optional
+
+  // Aktuelle Variante aus der Selektion ableiten (bei dir steckt sie in jedem selected optionValue.variant)
   const currentVariant = useMemo(() => {
-    for (const opt of productOptions) {
-      const sel = opt.optionValues.find((v) => v.selected);
+    for (const opt of productOptions || []) {
+      const sel = opt.optionValues?.find((v) => v.selected);
       if (sel?.variant) return sel.variant;
     }
-    // Fallback: first selectable, falls (theoretisch) noch nichts gewählt
-    const first = productOptions[0]?.optionValues?.[0];
+    const first = productOptions?.[0]?.optionValues?.[0];
     return first?.variant || first?.firstSelectableVariant || null;
   }, [productOptions]);
 
-  const currency =
-    currentVariant?.price?.currencyCode ||
-    product?.variants?.nodes?.[0]?.price?.currencyCode ||
-    'EUR';
-  const basePrice = Number(currentVariant?.price?.amount || 0);
+  const currency = currentVariant?.price?.currencyCode || 'USD';
+  const price = Number(currentVariant?.price?.amount || 0);
 
   const renderOption = (option) => {
-    const isGlass = isGlassOptionName(option.name);
-    const isMetal = isMetalOptionName(option.name);
-    const label = isGlass
-      ? 'Color Glass'
-      : isMetal
-        ? 'Color Metal'
-        : option.name;
+    const colorish = isColorOption(option.name);
+    const label = colorish
+      ? norm(option.name).includes('metal') ||
+        norm(option.name).includes('base')
+        ? 'COLOR METAL'
+        : 'COLOR GLASS'
+      : option.name.toUpperCase();
 
     return (
-      <div className="configurator-options-group" key={option.name}>
-        <h5>{label}</h5>
-        <div className="configurator-options-grid">
+      <div className="cfg-row" key={option.name}>
+        <div className="cfg-label">{label}</div>
+
+        <div className="cfg-values">
           {option.optionValues.map((value) => {
             const selected = !!value.selected;
             const disabled = !value.exists;
-            const swatchColor =
-              isGlass || isMetal ? mapSwatchColor(value.name) : null;
 
             return (
               <button
                 key={value.name}
-                className={`configurator-options-item${selected ? ' selected' : ''}`}
-                style={{
-                  border: selected
-                    ? '0.1rem solid black'
-                    : '0.1rem solid transparent',
-                  opacity: value.available ? 1 : 0.3,
-                }}
+                className={`cfg-item ${colorish ? 'is-color' : 'is-chip'} ${selected ? 'is-selected' : ''}`}
                 disabled={disabled}
+                title={value.name}
                 onClick={() => {
                   if (!selected) {
                     navigate(`?${value.variantUriQuery}`, {
@@ -119,17 +103,19 @@ export function Configurator({product, productOptions, navigate}) {
                   }
                 }}
                 aria-pressed={selected}
-                title={value.name}
               >
-                {(isGlass || isMetal) && swatchColor ? (
-                  <div
-                    className="configurator-options-label-swatch"
-                    style={{backgroundColor: swatchColor}}
-                    aria-label={value.name}
-                  />
+                {colorish ? (
+                  <span className="dot-ring">
+                    <span
+                      className="dot"
+                      style={getSwatchStyle(value.name)}
+                      aria-label={value.name}
+                    />
+                  </span>
                 ) : (
-                  // Bei Größen hübsch "ø 25" etc. belassen
-                  value.name
+                  <span className="chip-text">
+                    {value.name.replace('ø ', '')}
+                  </span>
                 )}
               </button>
             );
@@ -141,24 +127,40 @@ export function Configurator({product, productOptions, navigate}) {
 
   return (
     <div className="configurator">
-      <div className="configurator-columns">
-        <div className="configurator-label-column">
-          <h3>Configurator</h3>
+      <div className="cfg-head">
+        <h3>Configurator</h3>
+        <button className="cfg-close" aria-label="Close">
+          ×
+        </button>
+      </div>
 
-          {/* Preisbox */}
-          <div className="configurator-price">
-            <div className="configurator-price-label">Gesamt</div>
-            <div className="configurator-price-value">
-              {money(basePrice, currency)}
+      <hr className="cfg-divider" />
+
+      <div className="cfg-grid">
+        <div className="cfg-left">
+          {productOptions?.map(renderOption)}
+          {/* CTA-Leiste nur in der linken Spalte */}
+          <div className="cfg-cta">
+            <span className="cta-arrow">→</span>
+            <span className="cta-price">{money(price, currency)}</span>
+
+            <div className="cta-button-wrap">
+              <AddToCartButton
+                disabled={!currentVariant || !currentVariant.availableForSale}
+                onClick={() => open('cart')} // optional: Cart-Aside öffnen
+                lines={
+                  currentVariant
+                    ? [{merchandiseId: currentVariant.id, quantity: 1}]
+                    : []
+                }
+              >
+                {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
+              </AddToCartButton>
             </div>
-            {currentVariant && !currentVariant.availableForSale && (
-              <div className="configurator-price-hint">Nicht verfügbar</div>
-            )}
           </div>
         </div>
-
-        <div className="configurator-options-column">
-          {productOptions.map(renderOption)}
+        <div className="cfg-right">
+          {/* Dein Bild/Swiper bleibt hier außerhalb dieses Components */}
         </div>
       </div>
     </div>

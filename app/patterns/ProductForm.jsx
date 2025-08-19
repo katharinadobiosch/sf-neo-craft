@@ -1,5 +1,5 @@
 import {useNavigate} from 'react-router';
-import {AddToCartButton} from './Cart/AddToCartButton';
+// import {AddToCartButton} from './Cart/AddToCartButton';
 import {useAside} from '~/patterns/Aside';
 import {Configurator} from './Configurator';
 
@@ -106,7 +106,7 @@ export function ProductForm({productOptions, selectedVariant, product}) {
           </div>
         );
       })} */}
-      <AddToCartButton
+      {/* <AddToCartButton
         disabled={!selectedVariant || !selectedVariant.availableForSale}
         onClick={() => {
           open('cart');
@@ -124,7 +124,7 @@ export function ProductForm({productOptions, selectedVariant, product}) {
         }
       >
         {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
-      </AddToCartButton>
+      </AddToCartButton> */}
     </div>
   );
 }
