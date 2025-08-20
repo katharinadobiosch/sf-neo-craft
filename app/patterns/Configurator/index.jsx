@@ -3,6 +3,58 @@ import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
 import {useAside} from '~/patterns/Aside';
 import colors from './colors.json';
 
+const hexToRgba = (hex) => {
+  const h = hex.replace('#', '');
+  const hasAlpha = h.length === 8;
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  const a = hasAlpha ? parseInt(h.slice(6, 8), 16) / 255 : 1;
+  return {r, g, b, a};
+};
+const relLum = ({r, g, b}) => {
+  const f = (u) => {
+    u /= 255;
+    return u <= 0.03928 ? u / 12.92 : Math.pow((u + 0.055) / 1.055, 2.4);
+  };
+  return 0.2126 * f(r) + 0.7152 * f(g) + 0.0722 * f(b);
+};
+const needsChecker = (hex) => {
+  const {r, g, b, a} = hexToRgba(hex);
+  return a < 0.999 || relLum({r, g, b}) > 0.85; // transparent ODER sehr hell
+};
+const checkerBg = {
+  backgroundImage: 'repeating-conic-gradient(#e5e5e5 0% 25%, #ffffff 0% 50%)',
+  backgroundSize: '10px 10px',
+};
+
+const getSwatchStyle = (name) => {
+  const key = norm(name);
+
+  // (optional) Gradients zuerst
+  const g = gradients[key];
+  if (g) {
+    return {
+      ...checkerBg,
+      backgroundImage: `linear-gradient(135deg, ${g[0]}, ${g[1]})`,
+    };
+  }
+
+  const hex = getHex(name);
+  if (hex) {
+    return needsChecker(hex)
+      ? {
+          ...checkerBg,
+          backgroundColor: hex,
+          boxShadow: 'inset 0 0 0 1px #cfcfcf',
+        }
+      : {backgroundColor: hex};
+  }
+
+  // Fallback
+  return checkerBg;
+};
+
 // ---------- Helpers ----------
 const norm = (s = '') =>
   s
@@ -34,17 +86,6 @@ const getHex = (name) => {
   const lower = norm(name);
   const m = colors.find((c) => norm(c.name) === lower);
   return m?.hex || null;
-};
-
-const getSwatchStyle = (name) => {
-  const hex = getHex(name);
-  if (hex) return {backgroundColor: hex};
-  const g = gradients[norm(name)];
-  if (g) return {backgroundImage: `linear-gradient(135deg, ${g[0]}, ${g[1]})`};
-  return {
-    backgroundImage: 'repeating-conic-gradient(#eee 0% 25%, #fff 0% 50%)',
-    backgroundSize: '10px 10px',
-  };
 };
 
 const money = (num, currency = 'USD') =>
