@@ -30,11 +30,6 @@ export function ProductMain({product}) {
     oled: '00',
   });
 
-  function handleChange(name, value) {
-    setSelectedOptions((prev) => ({...prev, [name]: value}));
-    // optional: Matching Variant raussuchen und `setSelectedVariant(...)`
-  }
-
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
   const productOptions = getProductOptions({

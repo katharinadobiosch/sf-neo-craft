@@ -18,5 +18,5 @@
     "app/patterns/TeaserDuoHomepage/index.jsx",
     "app/patterns/TeaserDuo/index.jsx",
     "remix.config.mjs"
-  ]
+, "app/patterns/HeroSplit/index.jsx"  ]
 }

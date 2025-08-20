@@ -1,28 +1,36 @@
+/* Basis (Desktop) */
 .teaser-duo {
   position: relative;
   margin-inline: -5rem;
   width: calc(100% + 10rem);
 
   &__images {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr; // 50%/50%
     width: 100%;
+    height: 480px; // fixe Höhe Desktop
     z-index: 1;
+  }
 
-    .teaser-duo__image {
+  .teaser-duo__image {
+    position: relative;
+    overflow: hidden;
+    min-width: 0;
+
+    > img,
+    > picture,
+    > video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
       height: 100%;
-      width: 50%;
-
-      // Vererbt object-fit an Kinder-Bilder
-      > * {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
+      display: block;
+      object-fit: cover; // kein Stretching
+      object-position: center;
     }
   }
 
   &__content {
-    position: relative;
     padding-top: 8rem;
     padding-bottom: 10rem;
     display: flex;
@@ -37,4 +45,57 @@
       width: 80%;
     }
   }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .teaser-duo {
+    margin-inline: -3rem;
+    width: calc(100% + 6rem);
+  }
+  .teaser-duo__images {
+    height: 380px; // etwas niedriger
+  }
+  .teaser-duo__content p {
+    width: 88%;
+    font-size: 2rem;
+    line-height: 3.2rem;
+  }
+}
+
+/* Mobile: Bilder untereinander, definierte Höhe/Ratio */
+@media (max-width: 768px) {
+  .teaser-duo {
+    margin-inline: -1.5rem;
+    width: calc(100% + 3rem);
+  }
+
+  .teaser-duo__images {
+    display: block; // stapeln
+    height: auto;
+  }
+
+  .teaser-duo__image {
+    height: 62vw; // responsive Höhe (≈ Ratio 16:10)
+    /* Alternativ statt fixer Höhe: aspect-ratio: 16 / 10; */
+  }
+
+  .teaser-duo__content {
+    padding-top: 4rem;
+    padding-bottom: 6rem;
+  }
+
+  .teaser-duo__content p {
+    width: 92%;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+  }
+}
+
+/* Feintuning der Bildausrichtung je Seite (optional) */
+.teaser-duo__image:first-child > img {
+  object-position: left center;
+}
+.teaser-duo__image:last-child > img {
+  object-position: right center;
 }

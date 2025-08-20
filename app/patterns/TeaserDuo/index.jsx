@@ -1,5 +1,3 @@
-import './teaserDuo.scss';
-
 export function TeaserDuo({teaserImageLeft, teaserImageRight, content}) {
   const renderImage = (image) => {
     if (typeof image === 'string') {
