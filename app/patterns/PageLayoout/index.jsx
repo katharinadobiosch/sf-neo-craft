@@ -34,7 +34,7 @@ export function PageLayout({
     if (pathname === '/') return 'transparent';
     return 'default';
   }
-  const headerVariant = getHeaderVariant(location.pathname);
+  const bgColor = getHeaderVariant(location.pathname);
 
   return (
     <Aside.Provider>
@@ -48,7 +48,7 @@ export function PageLayout({
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
           primaryDomainUrl={header?.shop?.primaryDomain?.url}
-          variant={headerVariant}
+          variant={bgColor}
         />
       )}
       <main>{children}</main>
@@ -56,6 +56,7 @@ export function PageLayout({
         footer={footer}
         header={header}
         publicStoreDomain={publicStoreDomain}
+        variant={bgColor}
       />
     </Aside.Provider>
   );
