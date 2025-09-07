@@ -6,12 +6,17 @@ import './footer.scss';
 /**
  * @param {FooterProps}
  */
-export function Footer({footer: footerPromise, header, publicStoreDomain}) {
+export function Footer({
+  footer: footerPromise,
+  header,
+  publicStoreDomain,
+  variant = 'default',
+}) {
   return (
     <Suspense>
       <Await resolve={footerPromise}>
         {(mainFooter) => (
-          <footer className="footer">
+          <footer className={`footer ${variant ? `footer--${variant}` : ''}`}>
             {mainFooter?.menu && header.shop.primaryDomain?.url && (
               <FooterMenu
                 menu={mainFooter.menu}

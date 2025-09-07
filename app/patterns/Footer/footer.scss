@@ -7,14 +7,26 @@
   border-top: 0.1rem solid var(--color-dark);
   padding: 1.6rem 5rem;
   z-index: 10;
-}
 
-.footer-menu {
-  justify-content: space-between;
-  display: flex;
-  flex-wrap: wrap;
-}
+  &--white {
+    background: var(--sf-white);
+    // color: black;
+  }
+  &--purple {
+    background: var(--sf-purple);
+    // color: white;
+  }
+  &--orange {
+    background: var(--sf-orange);
+  }
 
-.footer-menu a {
-  min-width: fit-content;
+  .footer-menu {
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .footer-menu a {
+    min-width: fit-content;
+  }
 }
