@@ -3,8 +3,8 @@ import {Suspense} from 'react';
 import {Image} from '@shopify/hydrogen';
 import {ProductItem} from '~/patterns/ProductItem';
 import {TeaserDuoHomepage} from '~/patterns/TeaserDuoHomepage';
-import teaserImageRight from '../patterns/TeaserDuo/teaser1.jpg';
-import teaserImageLeft from '../patterns/TeaserDuo/teaser2.jpg';
+import teaserImageRight from '../patterns/TeaserDuoHomepage/NC_HR_Rho_Detail_01_2.png';
+import teaserImageLeft from '../patterns/TeaserDuoHomepage/NC_LR_Dia_Detail_02_2.png';
 
 /**
  * @type {MetaFunction}

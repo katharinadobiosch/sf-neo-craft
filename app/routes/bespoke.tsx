@@ -1,3 +1,9 @@
-export default function BespokePage() {
-  return <div>Bespoke Seite</div>;
+import Bespoke from '../patterns/Bespoke';
+
+export default function AboutPageWithProps() {
+  return (
+    <>
+      <Bespoke />
+    </>
+  );
 }
