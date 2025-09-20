@@ -17,6 +17,9 @@
     ".react-router/types/**/*",
     "app/patterns/TeaserDuoHomepage/index.jsx",
     "app/patterns/TeaserDuo/index.jsx",
-    "remix.config.mjs"
-, "app/patterns/HeroSplit/index.jsx"  ]
+    "remix.config.mjs",
+    "app/patterns/HeroSplit/index.jsx",
+    "app/patterns/Project/index.tsx",
+    "app/patterns/Highlights/index.tsx"
+  ]
 }
