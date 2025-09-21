@@ -42,37 +42,45 @@ function loadDeferredData({context}) {
   return {};
 }
 
-function ProductItem({product}) {
+function ProductItem({product, isReversed}) {
   return (
     <Link
       to={`/products/${product.handle}`}
-      className="product-item"
+      className={`material-card ${isReversed ? 'material-card--reverse' : ''}`}
       prefetch="intent"
     >
       {product.featuredImage && (
         <Image
           data={product.featuredImage}
           alt={product.featuredImage.altText || product.title}
-          aspectRatio="1/1"
-          sizes="(min-width: 45em) 30rem, 100vw"
+          className="material-card__image"
+          sizes="(min-width: 60rem) 40rem, 100vw"
         />
       )}
-      <h4>{product.title}</h4>
+      <div className="material-card__content">
+        <h3 className="material-card__title">{product.title}</h3>
+        <span className="material-card__cta">→ Order your Sample</span>
+      </div>
     </Link>
   );
 }
 
-export default function Collections() {
+export default function Materials() {
   const {collection} = useLoaderData();
 
   return (
     <>
+      {/* feine Trennlinie oben wie im Screen */}
       <div className="vertical-divider" />
 
-      <div className="collections">
-        <div className="collections-gridTEST">
-          {collection.products?.nodes?.map((product, index) => (
-            <ProductItem key={product.id} product={product} />
+      <div className="materials">
+        <div className="materials-grid">
+          {collection.products?.nodes?.map((product, i) => (
+            <ProductItem
+              key={product.id}
+              product={product}
+              isReversed={i % 2 === 1} // jede zweite Karte spiegeln
+            />
           ))}
         </div>
       </div>
