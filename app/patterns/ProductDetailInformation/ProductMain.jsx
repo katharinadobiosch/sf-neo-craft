@@ -10,7 +10,6 @@ import {
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
 
-import './productDetailInformation.scss';
 
 export function ProductMain({product}) {
   const selectedVariant = useOptimisticVariant(
