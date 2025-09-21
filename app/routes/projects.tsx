@@ -1,3 +1,5 @@
+
+
 import type {LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {useLoaderData} from 'react-router';
 import {Image} from '@shopify/hydrogen';
