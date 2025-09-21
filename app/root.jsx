@@ -34,7 +34,7 @@ import swiperPaginationCss from 'swiper/css/pagination?url';
 import mediaGalleryCss from '~/patterns/MediaGallery/mediaGallery.scss?url';
 import ProductMetaAccordionCss from '~/patterns/ProductMetaAccordion/ProductMetaAccordion.scss?url';
 import bespokeStyles from '~/patterns/Bespoke/bespoke.scss?url';
-import highlightsStyles from '~/patterns/Highlights/highlights.scss?url';
+import highlightsStyles from '~//patterns/Highlights/highlights.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
 
@@ -143,7 +143,7 @@ async function loadCriticalData({context}) {
     storefront.query(HEADER_QUERY, {
       cache: storefront.CacheLong(),
       variables: {
-        headerMenuHandle: 'main-menu-1', // Adjust to your header menu handle
+        headerMenuHandle: 'new-shop__main-menu', // Adjust to your header menu handle
       },
     }),
     // Add other queries here, so that they are loaded in parallel

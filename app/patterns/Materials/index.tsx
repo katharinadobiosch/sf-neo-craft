@@ -1,7 +1,7 @@
 import type {LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {useLoaderData} from 'react-router';
 import {Image} from '@shopify/hydrogen';
-import './highlights.scss';
+import './materials.scss';
 
 type Img = {url: string; width?: number; height?: number; altText?: string};
 
@@ -77,10 +77,10 @@ const PROJECTS_QUERY = `#graphql
 export default function ProjectsPage() {
   const {items} = useLoaderData<typeof loader>();
   return (
-    <main className="highlights">
-      <ul className="highlights__grid">
+    <main className="materials">
+      <ul className="materials__grid">
         {items.map((it: any) => (
-          <li key={it.id} className="highlights__item">
+          <li key={it.id} className="materials__item">
             <FigureCard image={it.image} overlay={it.overlay} />
           </li>
         ))}
