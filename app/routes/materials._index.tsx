@@ -1,7 +1,6 @@
-// app/routes/highlights.tsx
-import Highlights, {loader as highlightsLoader} from '../patterns/Highlights';
+import Materials, {loader as materialsLoader} from '../patterns/Materials';
 
-export const loader = highlightsLoader; // <— wichtig
-export default function HighlightsPageWithProps() {
-  return <Highlights />;
+export const loader = materialsLoader; // <— wichtig
+export default function MaterialsPageWithProps() {
+  return <Materials />;
 }
