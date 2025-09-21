@@ -1,5 +1,5 @@
 import {useLoaderData, Link} from 'react-router';
-import {getPaginationVariables, Image} from '@shopify/hydrogen';
+import {Image} from '@shopify/hydrogen';
 
 /**
  * @param {LoaderFunctionArgs} args
@@ -70,7 +70,7 @@ export default function Collections() {
       <div className="vertical-divider" />
 
       <div className="collections">
-        <div className="collections-grid">
+        <div className="collections-gridTEST">
           {collection.products?.nodes?.map((product, index) => (
             <ProductItem key={product.id} product={product} />
           ))}

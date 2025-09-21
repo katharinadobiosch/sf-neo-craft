@@ -1,5 +1,5 @@
 import {useLoaderData, Link} from 'react-router';
-import {Image} from '@shopify/hydrogen';
+import {getPaginationVariables, Image} from '@shopify/hydrogen';
 
 /**
  * @param {LoaderFunctionArgs} args
@@ -24,7 +24,7 @@ async function loadCriticalData({context, request}) {
     COLLECTION_BY_HANDLE_QUERY,
     {
       variables: {
-        handle: 'main-collection', // oder dein eigener Handle
+        handle: 'materials', // oder dein eigener Handle
       },
     },
   );
@@ -70,7 +70,7 @@ export default function Collections() {
       <div className="vertical-divider" />
 
       <div className="collections">
-        <div className="collections-grid">
+        <div className="collections-gridTEST">
           {collection.products?.nodes?.map((product, index) => (
             <ProductItem key={product.id} product={product} />
           ))}
@@ -86,6 +86,7 @@ export default function Collections() {
  *   index: number;
  * }}
  */
+
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
   query CollectionByHandle(
   $handle: String!
