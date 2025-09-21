@@ -6,8 +6,6 @@ import {
 import {TeaserDuo} from '../TeaserDuo';
 import {ProductMain} from './ProductMain';
 
-import './productDetailInformation.scss';
-
 export function ProductDetailInformation({product}) {
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
