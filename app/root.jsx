@@ -26,7 +26,7 @@ import cartStyles from '~/patterns/Cart/cart.scss?url';
 import teaserDuoHomepageStyles from '~/patterns/TeaserDuoHomepage/teaserDuoHomepage.scss?url';
 import teaserDuoStyles from '~/patterns/TeaserDuo/teaserDuo.scss?url';
 import heroSplitStyles from '~/patterns/HeroSplit/heroSplit.scss?url';
-import pdpStyles from '~/patterns/ProductDetailInformation/productDetailInformation.scss?url';
+import pdpStyles from '~//patterns/ProductDetailInformation/ProductDetailInformation.scss?url';
 import mediaGalleryStyles from '~/patterns/MediaGallery/mediaGallery.scss?url';
 import configuratorStyles from '~/patterns/Configurator/configurator.scss?url';
 import swiperCss from 'swiper/css?url';
