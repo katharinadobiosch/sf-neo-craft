@@ -1,4 +1,3 @@
-import {useState, useEffect} from 'react';
 import {ProductForm} from '~/patterns/ProductForm';
 import {MediaGallery} from '~/patterns/MediaGallery';
 import {HeroSplit} from '../HeroSplit';
@@ -16,35 +15,12 @@ export function ProductMain({product}) {
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  const [selectedOptions, setSelectedOptions] = useState({
-    size: selectedVariant.selectedOptions.find((o) => o.name === 'Size')?.value,
-    glass: selectedVariant.selectedOptions.find(
-      (o) => o.name === 'Glass coating',
-    )?.value,
-    metal: selectedVariant.selectedOptions.find(
-      (o) => o.name === 'Metal surfaces & cable colour',
-    )?.value,
-    plug: 'EU',
-    oled: '00',
-  });
-
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
   const productOptions = getProductOptions({
     ...product,
     selectedOrFirstAvailableVariant: selectedVariant,
   });
-
-  useEffect(() => {
-    const matched = product.adjacentVariants.find((variant) =>
-      variant.selectedOptions.every(
-        (opt) => selectedOptions[opt.name.toLowerCase()] === opt.value,
-      ),
-    );
-    if (matched) {
-      setSelectedVariant(matched);
-    }
-  }, [selectedOptions]);
 
   const imageNodes = product.images?.edges?.map((edge) => edge.node) ?? [];
 
