@@ -1,4 +1,3 @@
-// app/routes/main-collection.jsx
 import MainCollection, {
   loader as mainCollectionLoader,
 } from '../patterns/MainCollection';
