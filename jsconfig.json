@@ -20,6 +20,7 @@
     "remix.config.mjs",
     "app/patterns/HeroSplit/index.jsx",
     "app/patterns/Project/index.tsx",
-    "app/patterns/Highlights/index.tsx"
-, "app/routes/collections.materials.tsx"  ]
+    "app/patterns/Highlights/index.tsx",
+    "app/routes/collections.materials.jsx"
+  ]
 }
