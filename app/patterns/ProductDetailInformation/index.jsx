@@ -4,15 +4,16 @@ import {
   getAdjacentAndFirstAvailableVariants,
 } from '@shopify/hydrogen';
 import {TeaserDuo} from '../TeaserDuo';
-import {ProductMain} from './ProductMain';
+import {ProductDetail} from './ProductDetail';
 
 export function ProductDetailInformation({product}) {
+  // in Product (routes/products.$handle.jsx)
+
+
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
-
-  console.log('product pdp', product);
 
   const imageNodes = product.images?.edges?.map((edge) => edge.node) || [];
 
@@ -29,7 +30,7 @@ export function ProductDetailInformation({product}) {
         }
       />
 
-      <ProductMain product={product} selectedVariant={selectedVariant} />
+      <ProductDetail product={product} selectedVariant={selectedVariant} />
     </div>
   );
 }

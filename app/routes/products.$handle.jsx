@@ -12,6 +12,7 @@ import {
 // import {ProductForm} from '~/components/Product/ProductForm';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
+import {MaterialDetail} from '../patterns/ProductDetailInformation/MaterialDetail';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -104,10 +105,18 @@ export default function Product() {
     selectedOrFirstAvailableVariant: selectedVariant,
   });
 
-  const {title, descriptionHtml} = product;
+  const {title, descriptionHtml, metafields} = product;
+
+  const isMaterial =
+    product.metafields?.find(
+      (m) => m?.namespace === 'custom' && m?.key === '"materialBoolean"',
+    )?.value === 'true';
+
+  console.log('materialBoolean', isMaterial);
 
   return (
     <div className="product">
+      {isMaterial && <MaterialDetail product={product} />}
       <ProductDetailInformation product={product} />
       {/* <ProductImage image={selectedVariant?.image} /> */}
       {/* <div className="product-main">
@@ -245,6 +254,8 @@ const PRODUCT_FRAGMENT = `#graphql
   {namespace: "custom", key: "surcharge"},
   {namespace: "custom", key: "oled_exchange_panel"},
   {namespace: "custom", key: "material"}
+  {namespace: "custom", key: "materialBoolean"}
+
 ]) {
   namespace
   key

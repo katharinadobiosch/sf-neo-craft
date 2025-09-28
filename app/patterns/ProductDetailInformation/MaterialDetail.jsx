@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react';
 import {ProductForm} from '~/patterns/ProductForm';
 import {MediaGallery} from '~/patterns/MediaGallery';
 import {HeroSplit} from '../HeroSplit';
@@ -9,7 +10,7 @@ import {
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
 
-export function ProductMain({product}) {
+export function MaterialDetail({product}) {
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
@@ -31,9 +32,6 @@ export function ProductMain({product}) {
     imageNodes?.[1]?.url ??
     imageNodes?.[0]?.url ??
     null;
-
-  console.log('mainImage', mainImage);
-  console.log('thirdImage', thirdImage);
 
   return (
     <>
