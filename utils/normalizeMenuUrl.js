@@ -17,6 +17,7 @@ export function normalizeMenuUrl(url, publicDomain, primaryDomain) {
       '/pages/impressum': '/impressum',
       '/pages/bespoke': '/bespoke',
       '/pages/materials': '/materials',
+      '/pages/main-collection': '/main-collection',
       '/blogs/projects': '/projects',
       // beliebig erweiterbar
     };
