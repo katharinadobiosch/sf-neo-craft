@@ -42,21 +42,49 @@ function loadDeferredData({context}) {
   return {};
 }
 
+function getTileImages(product: any) {
+  const refs =
+    product.metafield?.references?.nodes
+      ?.map((n: any) => n?.image)
+      .filter(Boolean) ?? [];
+
+  return {
+    main: refs[0] || product.featuredImage || null,
+    hover: refs[1] || null,
+  };
+}
+
 function ProductItem({product}) {
+  const {main, hover} = getTileImages(product);
+  console.log('product item', product, main, hover);
+
   return (
     <Link
       to={`/products/${product.handle}`}
       className="product-item"
       prefetch="intent"
     >
-      {product.featuredImage && (
-        <Image
-          data={product.featuredImage}
-          alt={product.featuredImage.altText || product.title}
-          aspectRatio="1/1"
-          sizes="(min-width: 45em) 30rem, 100vw"
-        />
-      )}
+      <div className="product-media">
+        {main && (
+          <Image
+            data={main}
+            alt={main.altText || product.title}
+            className="img-main"
+            aspectRatio="1/1"
+            sizes="(min-width: 45em) 30rem, 100vw"
+          />
+        )}
+        {hover && (
+          <Image
+            data={hover}
+            alt={hover.altText || product.title}
+            className="img-hover"
+            aspectRatio="1/1"
+            sizes="(min-width: 45em) 30rem, 100vw"
+            loading="lazy"
+          />
+        )}
+      </div>
       <h4>{product.title}</h4>
     </Link>
   );
@@ -88,36 +116,51 @@ export default function Collections() {
  */
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
   query CollectionByHandle(
-  $handle: String!
-  $country: CountryCode
-  $language: LanguageCode
-) @inContext(country: $country, language: $language) {
-  collection(handle: $handle) {
-    id
-    title
-    handle
-    image {
+    $handle: String!
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    collection(handle: $handle) {
       id
-      url
-      altText
-      width
-      height
-    }
-    products(first: 20) {
-      nodes {
+      title
+      handle
+      image {
         id
-        title
-        handle
-        featuredImage {
-          url
-          altText
-          width
-          height
+        url
+        altText
+        width
+        height
+      }
+      products(first: 20) {
+        nodes {
+          id
+          title
+          handle
+          featuredImage {
+            url
+            altText
+            width
+            height
+          }
+          metafield(namespace: "custom", key: "product_tile") {
+            type
+            references(first: 2) {
+              nodes {
+                ... on MediaImage {
+                  image {
+                    url
+                    altText
+                    width
+                    height
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
   }
-}
 `;
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
