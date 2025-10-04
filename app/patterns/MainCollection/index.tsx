@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {useLoaderData, Link} from 'react-router';
 import {Image} from '@shopify/hydrogen';
 
@@ -42,21 +43,72 @@ function loadDeferredData({context}) {
   return {};
 }
 
+function getTileImages(product: any) {
+  const refs =
+    product.metafield?.references?.nodes
+      ?.map((n: any) => n?.image)
+      .filter(Boolean) ?? [];
+  return {
+    main: refs[0] || product.featuredImage || null,
+    hover: refs[1] || null,
+  };
+}
+
 function ProductItem({product}) {
+  const {main, hover} = getTileImages(product);
+  const [isHover, setIsHover] = useState(false);
+  const showHover = Boolean(hover && isHover);
+
   return (
     <Link
       to={`/products/${product.handle}`}
       className="product-item"
       prefetch="intent"
     >
-      {product.featuredImage && (
-        <Image
-          data={product.featuredImage}
-          alt={product.featuredImage.altText || product.title}
-          aspectRatio="1/1"
-          sizes="(min-width: 45em) 30rem, 100vw"
-        />
-      )}
+      <div
+        className="product-media"
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+        onFocus={() => setIsHover(true)}
+        onBlur={() => setIsHover(false)}
+        // 1) Fläche reservieren & Positionierungs-Kontext
+        style={{position: 'relative', aspectRatio: '1 / 1'}}
+      >
+        {main && (
+          <Image
+            data={main}
+            alt={main.altText || product.title}
+            // 2) absolut & vollflächig
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              opacity: showHover ? 0 : 1, // 3) Sichtbarkeit
+              transition: 'opacity .25s ease',
+            }}
+            sizes="(min-width: 45em) 30rem, 100vw"
+          />
+        )}
+        {hover && (
+          <Image
+            data={hover}
+            alt={hover.altText || product.title}
+            loading="lazy"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              opacity: showHover ? 1 : 0,
+              transition: 'opacity .25s ease',
+            }}
+            sizes="(min-width: 45em) 30rem, 100vw"
+          />
+        )}
+      </div>
       <h4>{product.title}</h4>
     </Link>
   );
@@ -86,38 +138,38 @@ export default function Collections() {
  *   index: number;
  * }}
  */
+// app/patterns/MainCollection/index.tsx
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
   query CollectionByHandle(
-  $handle: String!
-  $country: CountryCode
-  $language: LanguageCode
-) @inContext(country: $country, language: $language) {
-  collection(handle: $handle) {
-    id
-    title
-    handle
-    image {
+    $handle: String!
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    collection(handle: $handle) {
       id
-      url
-      altText
-      width
-      height
-    }
-    products(first: 20) {
-      nodes {
-        id
-        title
-        handle
-        featuredImage {
-          url
-          altText
-          width
-          height
+      title
+      handle
+      image { id url altText width height }
+      products(first: 20) {
+        nodes {
+          id
+          title
+          handle
+          featuredImage { url altText width height }
+          metafield(namespace: "custom", key: "product_tile") {
+            type
+            references(first: 2) {
+              nodes {
+                ... on MediaImage {
+                  image { url altText width height }
+                }
+              }
+            }
+          }
         }
       }
     }
   }
-}
 `;
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
