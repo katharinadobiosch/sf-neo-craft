@@ -43,6 +43,7 @@ function loadDeferredData({context}) {
 }
 
 function ProductItem({product}) {
+  console.log('PRODUCT', product);
   return (
     <Link
       to={`/products/${product.handle}`}
@@ -66,6 +67,7 @@ export default function Collections() {
   const {collection} = useLoaderData();
 
   return (
+    // MAIN COLLECTION RENDERING
     <>
       <div className="vertical-divider" />
 
