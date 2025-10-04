@@ -12,7 +12,7 @@ export function ProductDetailInformation({product}) {
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  console.log('product', product);
+  console.log('product pdp', product);
 
   const imageNodes = product.images?.edges?.map((edge) => edge.node) || [];
 
@@ -24,7 +24,9 @@ export function ProductDetailInformation({product}) {
       <TeaserDuo
         teaserImageLeft={<ProductImage image={mainImage} />}
         teaserImageRight={<ProductImage image={secondImage} />}
-        content="The GOBA table lamp, made from mouth-blown crystal glass and stainless steel, draws inspiration from the captivating process of mushroom growth. Available in three sizes and glass types—clear, opal, and frosted—it offers versatile lighting options. The integrated OLED light source provides soft, dimmable illumination via touch control. The slightly protruding metal base, in stainless steel or brass, adds a bold accent. Perfect for use individually or in groups, GOBA enhances any space with its unique aesthetic and ambiance."
+        content={
+          <div dangerouslySetInnerHTML={{__html: product.description}} />
+        }
       />
 
       <ProductMain product={product} selectedVariant={selectedVariant} />
