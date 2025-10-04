@@ -9,12 +9,10 @@
 }
 
 /* ===== Seite & Grid ===== */
-.materials {
-  padding: 0 var(--gap) 5rem;
-}
+
 .materials-grid {
   display: grid;
-  gap: 2rem;
+  gap: 4rem;
 }
 
 /* ===== Karte (Mobil: Bild über Text) ===== */
@@ -144,4 +142,8 @@
     display: flex;
     align-items: flex-end;
   }
+}
+
+.materials {
+  font-size: 22px;
 }
