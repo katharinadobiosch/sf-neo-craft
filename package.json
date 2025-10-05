@@ -15,6 +15,7 @@
   "dependencies": {
     "@react-router/dev": "^7.9.2",
     "@react-router/fs-routes": "^7.9.2",
+    "@remix-run/react": "2.16.6",
     "@shopify/hydrogen": "^2025.7.0",
     "@shopify/remix-oxygen": "^3.0.1",
     "fs": "^0.0.1-security",

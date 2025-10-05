@@ -75,7 +75,6 @@
   grid-area: content;
   display: grid;
   grid-template-rows: auto auto 1fr auto; /* CTA unten andocken */
-  gap: 0.75rem;
   background: var(--bg);
 }
 .material-card__title {
@@ -90,30 +89,41 @@
 
 .material-card__swatches {
   display: flex;
-  gap: 0.6rem;
-  list-style: none;
-  margin: 0.25rem 0 0;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
   padding: 0;
-  align-self: start;
+  list-style: none;
+  margin-bottom: 1.5rem;
 }
+
+.material-card__swatches li {
+  list-style: none;
+}
+
 .material-card__swatch {
-  width: 12px;
-  height: 12px;
+  display: inline-block; /* <- wichtig */
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: 1px solid rgba(0, 0, 0, 0.12);
+  flex: 0 0 12px; /* fixiert die Größe im Flex-Layout */
 }
 
 /* schwarze CTA-Bar */
 .material-card__ctaBar {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 1rem;
   background: #101010;
   color: #fff;
   margin-top: auto;
+  padding-left: 7.5rem;
+  height: 6rem;
 }
 .material-card__ctaIcon {
   font-weight: 600;
+  padding-right: 1rem;
 }
 
 /* ===== Desktop: Bild rechts / links abwechselnd ===== */
@@ -142,7 +152,6 @@
 
   ul {
     padding: 0 7.5rem 0 7.5rem;
-    height: 100%;
     display: flex;
     align-items: flex-end;
   }
