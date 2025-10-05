@@ -17,7 +17,6 @@ export function Header({
 }) {
   const {menu} = header;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // console.log('menu', menu);
 
   return (
     <header className={`header ${variant ? `header--${variant}` : ''}`}>

@@ -421,6 +421,47 @@ export type CollectionByHandle_MaterialsQuery = {
                 }>;
               }
             >;
+            neoColorProduct?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Metafield, 'type'> & {
+                references?: StorefrontAPI.Maybe<{
+                  nodes: Array<
+                    Pick<StorefrontAPI.Metaobject, 'id'> & {
+                      hex?: StorefrontAPI.Maybe<
+                        Pick<StorefrontAPI.MetaobjectField, 'value'>
+                      >;
+                      label?: StorefrontAPI.Maybe<
+                        Pick<StorefrontAPI.MetaobjectField, 'value'>
+                      >;
+                      image?: StorefrontAPI.Maybe<
+                        Pick<StorefrontAPI.MetaobjectField, 'value'>
+                      >;
+                    }
+                  >;
+                }>;
+              }
+            >;
+            variants: {
+              nodes: Array<
+                Pick<StorefrontAPI.ProductVariant, 'id'> & {
+                  neoColorVariants?: StorefrontAPI.Maybe<
+                    Pick<StorefrontAPI.Metafield, 'type'> & {
+                      references?: StorefrontAPI.Maybe<{
+                        nodes: Array<
+                          Pick<StorefrontAPI.Metaobject, 'id'> & {
+                            hex?: StorefrontAPI.Maybe<
+                              Pick<StorefrontAPI.MetaobjectField, 'value'>
+                            >;
+                            label?: StorefrontAPI.Maybe<
+                              Pick<StorefrontAPI.MetaobjectField, 'value'>
+                            >;
+                          }
+                        >;
+                      }>;
+                    }
+                  >;
+                }
+              >;
+            };
           }
         >;
       };
@@ -1291,7 +1332,7 @@ interface GeneratedQueryTypes {
     return: CollectionByHandle_MainCollectionQuery;
     variables: CollectionByHandle_MainCollectionQueryVariables;
   };
-  '#graphql\n  query CollectionByHandle_Materials(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      handle\n      image { id url altText width height }\n      products(first: 20) {\n        nodes {\n          id\n          title\n          handle\n          featuredImage { url altText width height }\n          metafield(namespace: "custom", key: "product_tile") {\n            type\n            references(first: 2) {\n              nodes {\n                ... on MediaImage {\n                  image { url altText width height }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
+  '#graphql\n#graphql\nquery CollectionByHandle_Materials(\n  $handle: String!\n  $country: CountryCode\n  $language: LanguageCode\n) @inContext(country: $country, language: $language) {\n  collection(handle: $handle) {\n    id\n    title\n    handle\n    image { id url altText width height }\n    products(first: 20) {\n      nodes {\n        id\n        title\n        handle\n        featuredImage { url altText width height }\n\n        # Bilder für die Kachel (unverändert)\n        metafield(namespace: "custom", key: "product_tile") {\n          type\n          references(first: 2) {\n            nodes {\n              ... on MediaImage {\n                image { url altText width height }\n              }\n            }\n          }\n        }\n\n        # ✅ Produkt-Ebene: Liste von Neo-Color Metaobjekten\n        neoColorProduct: metafield(namespace: "custom", key: "neo_color_product") {\n          type\n          references(first: 50) {\n            nodes {\n              ... on Metaobject {\n                id\n                hex:   field(key: "hex_code") { value }\n                label: field(key: "label")    { value }\n                image: field(key: "image")    { value }\n              }\n            }\n          }\n        }\n\n        # 🛟 Fallback: Varianten-Ebene (Definition heißt bei dir custom.color)\n        variants(first: 50) {\n          nodes {\n            id\n            neoColorVariants: metafield(namespace: "custom", key: "color") {\n              type\n              references(first: 50) {\n                nodes {\n                  ... on Metaobject {\n                    id\n                    hex:   field(key: "hex_code") { value }\n                    label: field(key: "label")    { value }\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n': {
     return: CollectionByHandle_MaterialsQuery;
     variables: CollectionByHandle_MaterialsQueryVariables;
   };
