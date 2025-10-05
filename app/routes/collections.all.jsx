@@ -53,28 +53,28 @@ function loadDeferredData({context}) {
   return {};
 }
 
-export default function Collection() {
-  /** @type {LoaderReturnData} */
-  const {products} = useLoaderData();
+// export default function Collection() {
+//   /** @type {LoaderReturnData} */
+//   const {products} = useLoaderData();
 
-  return (
-    <div className="collection">
-      <h1>Products</h1>
-      <PaginatedResourceSection
-        connection={products}
-        resourcesClassName="products-grid"
-      >
-        {({node: product, index}) => (
-          <ProductItem
-            key={product.id}
-            product={product}
-            loading={index < 8 ? 'eager' : undefined}
-          />
-        )}
-      </PaginatedResourceSection>
-    </div>
-  );
-}
+//   return (
+//     <div className="collection">
+//       <h1>Products</h1>
+//       <PaginatedResourceSection
+//         connection={products}
+//         resourcesClassName="products-grid"
+//       >
+//         {({node: product, index}) => (
+//           <ProductItem
+//             key={product.id}
+//             product={product}
+//             loading={index < 8 ? 'eager' : undefined}
+//           />
+//         )}
+//       </PaginatedResourceSection>
+//     </div>
+//   );
+// }
 
 const COLLECTION_ITEM_FRAGMENT = `#graphql
   fragment MoneyCollectionItem on MoneyV2 {

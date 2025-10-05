@@ -25,7 +25,7 @@ async function loadCriticalData({context, request}) {
     COLLECTION_BY_HANDLE_QUERY,
     {
       variables: {
-        handle: 'main-collection', // oder dein eigener Handle
+        handle: 'materials', // oder dein eigener Handle
       },
     },
   );
@@ -54,7 +54,7 @@ function getTileImages(product: any) {
   };
 }
 
-function ProductItem({product}) {
+function ProductItem({product, isReversed}) {
   const {main, hover} = getTileImages(product);
   const [isHover, setIsHover] = useState(false);
   const showHover = Boolean(hover && isHover);
@@ -62,7 +62,7 @@ function ProductItem({product}) {
   return (
     <Link
       to={`/products/${product.handle}`}
-      className="product-item"
+      className={`material-card ${isReversed ? 'material-card--reverse' : ''}`}
       prefetch="intent"
     >
       <div
@@ -71,31 +71,31 @@ function ProductItem({product}) {
         onMouseLeave={() => setIsHover(false)}
         onFocus={() => setIsHover(true)}
         onBlur={() => setIsHover(false)}
-        // 1) Fläche reservieren & Positionierungs-Kontext
-        style={{position: 'relative', aspectRatio: '1 / 1'}}
+        style={{position: 'relative', aspectRatio: '1 / 1', overflow: 'hidden'}}
       >
         {main && (
           <Image
             data={main}
             alt={main.altText || product.title}
-            // 2) absolut & vollflächig
+            className="material-card__image"
+            sizes="(min-width: 60rem) 40rem, 100vw"
             style={{
               position: 'absolute',
               inset: 0,
-              width: '100%',
+              width: '100%', // ⬅️ füllt die Fläche sicher
               height: '100%',
               objectFit: 'cover',
-              opacity: showHover ? 0 : 1, // 3) Sichtbarkeit
+              opacity: showHover ? 0 : 1,
               transition: 'opacity .25s ease',
             }}
-            sizes="(min-width: 45em) 30rem, 100vw"
           />
         )}
         {hover && (
           <Image
             data={hover}
             alt={hover.altText || product.title}
-            loading="lazy"
+            className="material-card__image"
+            sizes="(min-width: 60rem) 40rem, 100vw"
             style={{
               position: 'absolute',
               inset: 0,
@@ -105,26 +105,61 @@ function ProductItem({product}) {
               opacity: showHover ? 1 : 0,
               transition: 'opacity .25s ease',
             }}
-            sizes="(min-width: 45em) 30rem, 100vw"
+            loading="lazy"
           />
         )}
       </div>
-      <h4>{product.title}</h4>
+
+      <div className="material-card__content">
+        <h3 id={`title-${product.id}`} className="material-card__title">
+          {product.title}
+        </h3>
+
+        <p className="material-card__description">
+          Ein Material voller Magie: Dichroisches Glas verändert je nach
+          Blickwinkel und Lichteinfall seine Farbe – schillernd, lebendig, immer
+          im Wandel.
+        </p>
+
+        {/* Swatches – erstmal als Platzhalter */}
+        <ul className="material-card__swatches" aria-label="Farbvarianten">
+          {['#c9b8a6', '#d7cfbf', '#b78de4', '#79d6f6', '#a7e16f'].map(
+            (c, i) => (
+              <li
+                key={i}
+                className="material-card__swatch"
+                style={{background: c}}
+              />
+            ),
+          )}
+        </ul>
+
+        {/* schwarze CTA-Bar, bleibt innerhalb des großen Links */}
+        <span className="material-card__ctaBar" aria-hidden="true">
+          <span className="material-card__ctaIcon" aria-hidden="true">
+            →
+          </span>
+          Order your Sample
+        </span>
+      </div>
     </Link>
   );
 }
 
-export default function Collections() {
+export default function Materials() {
   const {collection} = useLoaderData();
 
   return (
     <>
-      <div className="vertical-divider" />
-
-      <div className="collections">
-        <div className="collections-grid">
-          {collection.products?.nodes?.map((product, index) => (
-            <ProductItem key={product.id} product={product} />
+      ´
+      <div className="materials">
+        <div className="materials-grid">
+          {collection.products?.nodes?.map((product, i) => (
+            <ProductItem
+              key={product.id}
+              product={product}
+              isReversed={i % 2 === 1} // jede zweite Karte spiegeln
+            />
           ))}
         </div>
       </div>
@@ -138,9 +173,9 @@ export default function Collections() {
  *   index: number;
  * }}
  */
-// app/patterns/MainCollection/index.tsx
+
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
-  query CollectionByHandle_MainCollection(
+  query CollectionByHandle_Materials(
     $handle: String!
     $country: CountryCode
     $language: LanguageCode
