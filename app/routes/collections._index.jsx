@@ -1,4 +1,4 @@
-import {useLoaderData, Link} from 'react-router';
+import {useLoaderData, Link} from '@remix-run/react';
 import {Image} from '@shopify/hydrogen';
 
 /**
@@ -62,23 +62,23 @@ function ProductItem({product}) {
   );
 }
 
-// export default function Collections() {
-//   const {collection} = useLoaderData();
+export default function CollectionsIndex() {
+  const {collection} = useLoaderData();
 
-//   return (
-//     <>
-//       <div className="vertical-divider" />
+  return (
+    <>
+      <div className="vertical-divider" />
 
-//       <div className="collections">
-//         <div className="collections-grid">
-//           {collection.products?.nodes?.map((product, index) => (
-//             <ProductItem key={product.id} product={product} />
-//           ))}
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
+      <div className="collections">
+        <div className="collections-grid">
+          {collection.products?.nodes?.map((product, index) => (
+            <ProductItem key={product.id} product={product} />
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
 
 /**
  * @param {{
