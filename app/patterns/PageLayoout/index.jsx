@@ -23,9 +23,6 @@ export function PageLayout({
   publicStoreDomain,
 }) {
   const location = useLocation();
-  const path = location.pathname;
-
-  // console.log('path', path);
 
   function getHeaderVariant(pathname) {
     if (pathname.startsWith('/collections') || pathname.startsWith('/products'))

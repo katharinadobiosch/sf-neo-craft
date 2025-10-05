@@ -52,11 +52,6 @@ function getTileImages(product: any) {
     main: refs[0] || product.featuredImage || null,
     hover: refs[1] || null,
   };
-  console.log('PRODUCT', product.title);
-  console.log(
-    'neoColorProduct raw',
-    product.neoColorProduct?.references?.nodes,
-  );
 }
 
 function mapColorNodes(nodes: any[]) {
@@ -105,15 +100,6 @@ function ProductItem({product, isReversed}) {
   const showHover = Boolean(hover && isHover);
 
   const colors = getProductColors(product);
-
-  console.log('PRODUCT', product);
-
-  console.log('PRODUCT', product.title);
-  console.log(
-    'neoColorProduct raw',
-    product.neoColorProduct?.references?.nodes,
-  );
-  console.log('colors mapped', colors);
 
   return (
     <Link
