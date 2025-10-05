@@ -1,12 +1,60 @@
 html {
-  font-size: 62.5%;
+  font-size: 62.5%; // 1rem = 10px
 }
 
 body {
-    font-family: 'GTF Good Sans', sans-serif;
-  font-size: 1.2rem;
+  font-family: 'GTF Good Sans', sans-serif;
+  font-size: 1.6rem; // 16px Basis
+  line-height: 1.5;
+  color: var(--color-text);
 }
 
-// .home {
-//   position: relative;
-// }
+/* Paragraph */
+p {
+  font-size: 1.6rem; // 16px
+  margin: 0 0 1.6rem;
+}
+
+span {
+  font-size: inherit;
+}
+
+/* Headings */
+h1 {
+  font-size: 3.6rem; // 36px
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 2.4rem 0 1.6rem;
+}
+
+h2 {
+  font-size: 3rem; // 30px
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 2rem 0 1.2rem;
+}
+
+h3 {
+  font-size: 2.4rem; // 24px
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 1.6rem 0 1rem;
+}
+
+h4 {
+  font-size: 2rem; // 20px
+  font-weight: 500;
+  margin: 1.2rem 0 0.8rem;
+}
+
+h5 {
+  font-size: 1.6rem; // 16px
+  font-weight: 500;
+  margin: 1rem 0 0.6rem;
+}
+
+h6 {
+  font-size: 1.4rem; // 14px
+  font-weight: 500;
+  margin: 0.8rem 0 0.4rem;
+}

@@ -349,13 +349,14 @@ export type ProjectsQuery = {
   };
 };
 
-export type CollectionByHandleQueryVariables = StorefrontAPI.Exact<{
-  handle: StorefrontAPI.Scalars['String']['input'];
-  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
-  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
-}>;
+export type CollectionByHandle_MainCollectionQueryVariables =
+  StorefrontAPI.Exact<{
+    handle: StorefrontAPI.Scalars['String']['input'];
+    country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+    language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+  }>;
 
-export type CollectionByHandleQuery = {
+export type CollectionByHandle_MainCollectionQuery = {
   collection?: StorefrontAPI.Maybe<
     Pick<StorefrontAPI.Collection, 'id' | 'title' | 'handle'> & {
       image?: StorefrontAPI.Maybe<
@@ -366,6 +367,59 @@ export type CollectionByHandleQuery = {
           Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
             featuredImage?: StorefrontAPI.Maybe<
               Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+            metafield?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Metafield, 'type'> & {
+                references?: StorefrontAPI.Maybe<{
+                  nodes: Array<{
+                    image?: StorefrontAPI.Maybe<
+                      Pick<
+                        StorefrontAPI.Image,
+                        'url' | 'altText' | 'width' | 'height'
+                      >
+                    >;
+                  }>;
+                }>;
+              }
+            >;
+          }
+        >;
+      };
+    }
+  >;
+};
+
+export type CollectionByHandle_MaterialsQueryVariables = StorefrontAPI.Exact<{
+  handle: StorefrontAPI.Scalars['String']['input'];
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type CollectionByHandle_MaterialsQuery = {
+  collection?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Collection, 'id' | 'title' | 'handle'> & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+            metafield?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Metafield, 'type'> & {
+                references?: StorefrontAPI.Maybe<{
+                  nodes: Array<{
+                    image?: StorefrontAPI.Maybe<
+                      Pick<
+                        StorefrontAPI.Image,
+                        'url' | 'altText' | 'width' | 'height'
+                      >
+                    >;
+                  }>;
+                }>;
+              }
             >;
           }
         >;
@@ -565,6 +619,32 @@ export type BlogsQuery = {
       }
     >;
   };
+};
+
+export type CollectionByHandle__CollectionsRouteQueryVariables =
+  StorefrontAPI.Exact<{
+    handle: StorefrontAPI.Scalars['String']['input'];
+    country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+    language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+  }>;
+
+export type CollectionByHandle__CollectionsRouteQuery = {
+  collection?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Collection, 'id' | 'title' | 'handle'> & {
+      image?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
+      >;
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+          }
+        >;
+      };
+    }
+  >;
 };
 
 export type MoneyCollectionItemFragment = Pick<
@@ -1207,9 +1287,13 @@ interface GeneratedQueryTypes {
     return: ProjectsQuery;
     variables: ProjectsQueryVariables;
   };
-  '#graphql\n  query CollectionByHandle(\n  $handle: String!\n  $country: CountryCode\n  $language: LanguageCode\n) @inContext(country: $country, language: $language) {\n  collection(handle: $handle) {\n    id\n    title\n    handle\n    image {\n      id\n      url\n      altText\n      width\n      height\n    }\n    products(first: 20) {\n      nodes {\n        id\n        title\n        handle\n        featuredImage {\n          url\n          altText\n          width\n          height\n        }\n      }\n    }\n  }\n}\n': {
-    return: CollectionByHandleQuery;
-    variables: CollectionByHandleQueryVariables;
+  '#graphql\n  query CollectionByHandle_MainCollection(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      handle\n      image { id url altText width height }\n      products(first: 20) {\n        nodes {\n          id\n          title\n          handle\n          featuredImage { url altText width height }\n          metafield(namespace: "custom", key: "product_tile") {\n            type\n            references(first: 2) {\n              nodes {\n                ... on MediaImage {\n                  image { url altText width height }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
+    return: CollectionByHandle_MainCollectionQuery;
+    variables: CollectionByHandle_MainCollectionQueryVariables;
+  };
+  '#graphql\n  query CollectionByHandle_Materials(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      handle\n      image { id url altText width height }\n      products(first: 20) {\n        nodes {\n          id\n          title\n          handle\n          featuredImage { url altText width height }\n          metafield(namespace: "custom", key: "product_tile") {\n            type\n            references(first: 2) {\n              nodes {\n                ... on MediaImage {\n                  image { url altText width height }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
+    return: CollectionByHandle_MaterialsQuery;
+    variables: CollectionByHandle_MaterialsQueryVariables;
   };
   '#graphql\n  query StoreRobots($country: CountryCode, $language: LanguageCode)\n   @inContext(country: $country, language: $language) {\n    shop {\n      id\n    }\n  }\n': {
     return: StoreRobotsQuery;
@@ -1234,6 +1318,10 @@ interface GeneratedQueryTypes {
   '#graphql\n  query Blogs(\n    $country: CountryCode\n    $endCursor: String\n    $first: Int\n    $language: LanguageCode\n    $last: Int\n    $startCursor: String\n  ) @inContext(country: $country, language: $language) {\n    blogs(\n      first: $first,\n      last: $last,\n      before: $startCursor,\n      after: $endCursor\n    ) {\n      pageInfo {\n        hasNextPage\n        hasPreviousPage\n        startCursor\n        endCursor\n      }\n      nodes {\n        title\n        handle\n        seo {\n          title\n          description\n        }\n      }\n    }\n  }\n': {
     return: BlogsQuery;
     variables: BlogsQueryVariables;
+  };
+  '#graphql\n  query CollectionByHandle__CollectionsRoute(\n  $handle: String!\n  $country: CountryCode\n  $language: LanguageCode\n) @inContext(country: $country, language: $language) {\n  collection(handle: $handle) {\n    id\n    title\n    handle\n    image {\n      id\n      url\n      altText\n      width\n      height\n    }\n    products(first: 20) {\n      nodes {\n        id\n        title\n        handle\n        featuredImage {\n          url\n          altText\n          width\n          height\n        }\n      }\n    }\n  }\n}\n': {
+    return: CollectionByHandle__CollectionsRouteQuery;
+    variables: CollectionByHandle__CollectionsRouteQueryVariables;
   };
   '#graphql\n  query Catalog(\n    $country: CountryCode\n    $language: LanguageCode\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {\n      nodes {\n        ...CollectionItem\n      }\n      pageInfo {\n        hasPreviousPage\n        hasNextPage\n        startCursor\n        endCursor\n      }\n    }\n  }\n  #graphql\n  fragment MoneyCollectionItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CollectionItem on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyCollectionItem\n      }\n      maxVariantPrice {\n        ...MoneyCollectionItem\n      }\n    }\n  }\n\n': {
     return: CatalogQuery;
