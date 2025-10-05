@@ -89,12 +89,49 @@
 
 .material-card__swatches {
   display: flex;
-  gap: 8px;
+  gap: 1.5rem;
   align-items: center;
-  margin-top: 8px;
+  margin: 8px 0 1.5rem;
   padding: 0;
   list-style: none;
   margin-bottom: 1.5rem;
+}
+
+.material-card__swatches li {
+  list-style: none;
+}
+
+/* Base swatch */
+.material-card__swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  /* no fixed flex-basis so scaling can breathe */
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+  transform-origin: center;
+  will-change: transform;
+}
+
+/* Enlarge on hover + keyboard focus (focus ring included) */
+.material-card__swatches li:hover .material-card__swatch,
+.material-card__swatches li:focus-within .material-card__swatch,
+.material-card__swatch:focus {
+  transform: scale(2);
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 3px rgba(0, 0, 0, 0.25);
+  outline: none; /* box-shadow acts as focus ring */
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .material-card__swatch {
+    transition: none;
+  }
 }
 
 .material-card__swatches li {
@@ -115,12 +152,18 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: #101010;
-  color: #fff;
+  background: #fff;
+  color: #101010;
   margin-top: auto;
   padding-left: 7.5rem;
   height: 6rem;
 }
+
+.material-card__ctaBar:hover {
+  background: #101010;
+  color: #fff;
+}
+
 .material-card__ctaIcon {
   font-weight: 600;
   padding-right: 1rem;

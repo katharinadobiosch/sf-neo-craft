@@ -97,6 +97,7 @@ function getProductColors(product: any) {
 function ProductItem({product, isReversed}) {
   const {main, hover} = getTileImages(product);
   const [isHover, setIsHover] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const showHover = Boolean(hover && isHover);
 
   const colors = getProductColors(product);
@@ -170,10 +171,11 @@ function ProductItem({product, isReversed}) {
               <li key={`${c.hex}-${i}`}>
                 <span
                   className="material-card__swatch"
-                  style={{background: c.hex}}
+                  style={{backgroundColor: c.hex}}
                   title={c.label}
                   aria-label={c.label}
                   role="img"
+                  tabIndex={0}
                 />
               </li>
             ))}
