@@ -19,13 +19,15 @@ export function ProductDetailInformation({product}) {
 
   return (
     <div className="pdp">
-      <TeaserDuo
-        teaserImageLeft={<ProductImage image={mainImage} />}
-        teaserImageRight={<ProductImage image={secondImage} />}
-        content={
-          <div dangerouslySetInnerHTML={{__html: product.description}} />
-        }
-      />
+      <div className="square-variant">
+        <TeaserDuo
+          teaserImageLeft={<ProductImage image={mainImage} />}
+          teaserImageRight={<ProductImage image={secondImage} />}
+          content={
+            <div dangerouslySetInnerHTML={{__html: product.description}} />
+          }
+        />
+      </div>
 
       <ProductMain product={product} selectedVariant={selectedVariant} />
     </div>

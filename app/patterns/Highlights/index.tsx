@@ -5,22 +5,37 @@ import './highlights.scss';
 
 type Img = {url: string; width?: number; height?: number; altText?: string};
 
+// loader
 export async function loader({context}: LoaderFunctionArgs) {
   const data = await context.storefront.query(PROJECTS_QUERY, {
     variables: {first: 50},
   });
+
   const items =
     data?.metaobjects?.nodes?.map((n: any) => {
       const get = (k: string) => n.fields.find((f: any) => f.key === k);
-      const textSingle: string = get('text')?.value ?? '';
-      const captionRich: string = get('caption')?.value ?? '';
-      const overlay =
-        textSingle ||
-        (typeof captionRich === 'string'
-          ? captionRich.replace(/<[^>]+>/g, ' ').trim()
-          : '');
 
-      // image (reference/references)
+      const title = get('title')?.value ?? '';
+
+      // Overlay mit JSON-Fallback
+      const overlayRaw = get('overlay')?.value ?? '';
+      let overlay = '';
+      try {
+        const parsed = JSON.parse(overlayRaw);
+        overlay = parsed?.children
+          ?.map((p: any) =>
+            p.children?.map((c: any) => c.value ?? '').join(' '),
+          )
+          .join('\n')
+          ?.trim();
+      } catch {
+        overlay =
+          typeof overlayRaw === 'string'
+            ? overlayRaw.replace(/<[^>]+>/g, ' ').trim()
+            : '';
+      }
+
+      // image
       const img = get('image');
       let image: Img | null = null;
       const r = img?.reference;
@@ -44,24 +59,24 @@ export async function loader({context}: LoaderFunctionArgs) {
           };
       }
 
-      const pos = Number(get('position')?.value ?? 0);
       return {
         id: n.id,
-        updatedAt: n.updatedAt ?? null,
-        position: Number.isFinite(pos) ? pos : 0,
         image,
+        title,
         overlay,
       };
     }) ?? [];
 
-  items.sort(
-    (a: any, b: any) =>
-      (a.position ?? 0) - (b.position ?? 0) ||
-      (b.updatedAt ? +new Date(b.updatedAt) : 0) -
-        (a.updatedAt ? +new Date(a.updatedAt) : 0),
+  console.log('items length', items.length);
+  console.log(
+    'no image',
+    items.filter((x: any) => !x.image).map((x: any) => x.id),
   );
+
   return Response.json({items});
 }
+
+// Query bleibt gleich – du holst ja bereits key/value/refs aller Felder
 
 const PROJECTS_QUERY = `#graphql
   query Projects($first: Int!) {
@@ -74,6 +89,7 @@ const PROJECTS_QUERY = `#graphql
   }
 `;
 
+// Page
 export default function ProjectsPage() {
   const {items} = useLoaderData<typeof loader>();
   return (
@@ -81,7 +97,11 @@ export default function ProjectsPage() {
       <ul className="highlights__grid">
         {items.map((it: any) => (
           <li key={it.id} className="highlights__item">
-            <FigureCard image={it.image} overlay={it.overlay} />
+            <FigureCard
+              image={it.image}
+              overlay={it.overlay}
+              title={it.title}
+            />
           </li>
         ))}
       </ul>
@@ -89,15 +109,33 @@ export default function ProjectsPage() {
   );
 }
 
-function FigureCard({image, overlay}: {image: Img | null; overlay: string}) {
-  if (!image) return null;
+function FigureCard({
+  image,
+  overlay,
+  title,
+}: {
+  image: Img | null;
+  overlay: string;
+  title?: string;
+}) {
+  // if (!image) return null;
 
   const imageData = {
-    url: image.url,
-    altText: image.altText ?? '',
-    width: image.width,
-    height: image.height,
+    url: image?.url,
+    altText: image?.altText ?? '',
+    width: image?.width,
+    height: image?.height,
   };
+
+  console.log('image data', imageData);
+
+  if (!image) {
+    return (
+      <figure className="card">
+        <figcaption>Kein Bild</figcaption>
+      </figure>
+    );
+  }
 
   return (
     <figure className="card">
@@ -108,11 +146,17 @@ function FigureCard({image, overlay}: {image: Img | null; overlay: string}) {
           sizes="(min-width:1200px) 33vw, (min-width:768px) 47vw, 100vw"
           loading="lazy"
         />
-        <figcaption className="card__overlay">
-          <span className="card__overlayText">{overlay}</span>
-        </figcaption>
+        {overlay && (
+          <figcaption className="card__overlay">
+            <span className="card__overlayText">{overlay}</span>
+          </figcaption>
+        )}
       </div>
-      <figcaption className="card__caption">{overlay}</figcaption>
+
+      {/* Titel ausgeben; Overlay als Fallback, falls kein Titel gepflegt */}
+      <figcaption className="card__caption">
+        {title?.trim() || overlay}
+      </figcaption>
     </figure>
   );
 }

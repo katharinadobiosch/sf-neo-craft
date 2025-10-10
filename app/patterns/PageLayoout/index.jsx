@@ -33,6 +33,8 @@ export function PageLayout({
   }
   const bgColor = getHeaderVariant(location.pathname);
 
+  
+
   return (
     <Aside.Provider>
       <CartAside cart={cart} />
