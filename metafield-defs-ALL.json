@@ -1,0 +1,409 @@
+[
+  {
+    "namespace": "custom_slider",
+    "key": "content",
+    "name": "Custom Slider",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "shopify",
+    "key": "bulb-size",
+    "name": "Bulb size",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "shopify",
+    "key": "bulb-type",
+    "name": "Bulb type",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "marble_fixture",
+    "name": "Marble Fixture",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "material",
+    "name": "Material",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "size",
+    "name": "Size",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "length",
+    "name": "Length",
+    "type": {
+      "name": "list.number_decimal"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "width",
+    "name": "Width",
+    "type": {
+      "name": "list.number_decimal"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "height",
+    "name": "Height",
+    "type": {
+      "name": "list.number_decimal"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "mirror_glass_type",
+    "name": "Mirror Glass Type ",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "wood_type",
+    "name": "Wood Type ",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "marble_type",
+    "name": "Marble Type ",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "metal_finish",
+    "name": "Metal Finish",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "option",
+    "name": "Option ",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "oled_exchange_panel",
+    "name": "OLED Exchange Panel",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "surcharge",
+    "name": "Surcharge ",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "diameter",
+    "name": "Diameter",
+    "type": {
+      "name": "list.number_decimal"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "table_top",
+    "name": "Table Top",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "dichroic_glass",
+    "name": "Dichroic Glass",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "ceiling_cap",
+    "name": "Ceiling Cap",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "plug_type",
+    "name": "Plug Type",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "measurements",
+    "name": "Measurements File",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "teaser_duo_top",
+    "name": "Teaser Duo Top Left + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "teaser_duo_bottom",
+    "name": "Teaser Duo Bottom Left + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "hero_split_images",
+    "name": "Hero Split Images Left + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "hero_split_text",
+    "name": "Hero Split Text",
+    "type": {
+      "name": "multi_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "hero_split_images_right",
+    "name": "Hero Split Images Right + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "teaser_duo_bottom_right",
+    "name": "Teaser Duo Bottom Right + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "teaser_duo_top_right",
+    "name": "Teaser Duo Top Right + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "materialBoolean",
+    "name": "Materialprobe",
+    "type": {
+      "name": "boolean"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "product_tile",
+    "name": "Product Tile + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "metal_color",
+    "name": "Metal Color",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "cable_color",
+    "name": "Cable Color",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "frame_color",
+    "name": "Frame Color",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "glass_color",
+    "name": "Glass Color",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "shopify",
+    "key": "connection-type",
+    "name": "Connection type",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  },
+  {
+    "namespace": "custom",
+    "key": "neo_color_product",
+    "name": "Neo Color Product",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    }
+  }
+]

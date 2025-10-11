@@ -12,6 +12,9 @@ import {
 // import {ProductForm} from '~/components/Product/ProductForm';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
+import PRODUCT_CUSTOM_METAFIELDS_FRAGMENT from '../../';
+
+// product - metafields.fragment.graphql;
 
 /**
  * @type {MetaFunction<typeof loader>}

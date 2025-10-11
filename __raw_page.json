@@ -1,0 +1,540 @@
+{
+  "data": {
+    "metafieldDefinitions": {
+      "edges": [
+        {
+          "cursor": "eyJsYXN0X2lkIjo4MTk0NDc0MDEwNCwibGFzdF92YWx1ZSI6IjgxOTQ0NzQwMTA0In0=",
+          "node": {
+            "namespace": "custom_slider",
+            "key": "content",
+            "name": "Custom Slider",
+            "type": {
+              "name": "list.file_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo4MjUxNDM0NjI0OCwibGFzdF92YWx1ZSI6IjgyNTE0MzQ2MjQ4In0=",
+          "node": {
+            "namespace": "shopify",
+            "key": "bulb-size",
+            "name": "Bulb size",
+            "type": {
+              "name": "list.metaobject_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjo5MDE4MDE5MDQ3MiwibGFzdF92YWx1ZSI6IjkwMTgwMTkwNDcyIn0=",
+          "node": {
+            "namespace": "shopify",
+            "key": "bulb-type",
+            "name": "Bulb type",
+            "type": {
+              "name": "list.metaobject_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDI4MzE0MDMyNzIsImxhc3RfdmFsdWUiOiIzMDI4MzE0MDMyNzIifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "marble_fixture",
+            "name": "Marble Fixture",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDI4MzE0MzYwNDAsImxhc3RfdmFsdWUiOiIzMDI4MzE0MzYwNDAifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "material",
+            "name": "Material",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2NzkyODkwOTYsImxhc3RfdmFsdWUiOiIzMDQ2NzkyODkwOTYifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "size",
+            "name": "Size",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2NzkzMjE4NjQsImxhc3RfdmFsdWUiOiIzMDQ2NzkzMjE4NjQifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "length",
+            "name": "Length",
+            "type": {
+              "name": "list.number_decimal"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2Nzk0NTI5MzYsImxhc3RfdmFsdWUiOiIzMDQ2Nzk0NTI5MzYifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "width",
+            "name": "Width",
+            "type": {
+              "name": "list.number_decimal"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2Nzk0ODU3MDQsImxhc3RfdmFsdWUiOiIzMDQ2Nzk0ODU3MDQifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "height",
+            "name": "Height",
+            "type": {
+              "name": "list.number_decimal"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2ODEwMjU4MDAsImxhc3RfdmFsdWUiOiIzMDQ2ODEwMjU4MDAifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "mirror_glass_type",
+            "name": "Mirror Glass Type ",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2ODEwNTg1NjgsImxhc3RfdmFsdWUiOiIzMDQ2ODEwNTg1NjgifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "wood_type",
+            "name": "Wood Type ",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2ODExNTY4NzIsImxhc3RfdmFsdWUiOiIzMDQ2ODExNTY4NzIifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "marble_type",
+            "name": "Marble Type ",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2ODExODk2NDAsImxhc3RfdmFsdWUiOiIzMDQ2ODExODk2NDAifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "metal_finish",
+            "name": "Metal Finish",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2ODEzMjA3MTIsImxhc3RfdmFsdWUiOiIzMDQ2ODEzMjA3MTIifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "option",
+            "name": "Option ",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2ODEzNTM0ODAsImxhc3RfdmFsdWUiOiIzMDQ2ODEzNTM0ODAifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "oled_exchange_panel",
+            "name": "OLED Exchange Panel",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2ODEzODYyNDgsImxhc3RfdmFsdWUiOiIzMDQ2ODEzODYyNDgifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "surcharge",
+            "name": "Surcharge ",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ2ODE1MTczMjAsImxhc3RfdmFsdWUiOiIzMDQ2ODE1MTczMjAifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "diameter",
+            "name": "Diameter",
+            "type": {
+              "name": "list.number_decimal"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ3MTAwOTEwMTYsImxhc3RfdmFsdWUiOiIzMDQ3MTAwOTEwMTYifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "table_top",
+            "name": "Table Top",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ3MTA2ODA4NDAsImxhc3RfdmFsdWUiOiIzMDQ3MTA2ODA4NDAifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "dichroic_glass",
+            "name": "Dichroic Glass",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDQ3MTUwNzE3NTIsImxhc3RfdmFsdWUiOiIzMDQ3MTUwNzE3NTIifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "ceiling_cap",
+            "name": "Ceiling Cap",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDkxNjA0MTE0MDAsImxhc3RfdmFsdWUiOiIzMDkxNjA0MTE0MDAifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "plug_type",
+            "name": "Plug Type",
+            "type": {
+              "name": "list.single_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMDk2MDA4NDYwODgsImxhc3RfdmFsdWUiOiIzMDk2MDA4NDYwODgifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "measurements",
+            "name": "Measurements File",
+            "type": {
+              "name": "list.file_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMTAyMTY2NTUxMTIsImxhc3RfdmFsdWUiOiIzMTAyMTY2NTUxMTIifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "teaser_duo_top",
+            "name": "Teaser Duo Top Left + Hover",
+            "type": {
+              "name": "list.file_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMTAyMTY2ODc4ODAsImxhc3RfdmFsdWUiOiIzMTAyMTY2ODc4ODAifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "teaser_duo_bottom",
+            "name": "Teaser Duo Bottom Left + Hover",
+            "type": {
+              "name": "list.file_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMTAyMTY3NTM0MTYsImxhc3RfdmFsdWUiOiIzMTAyMTY3NTM0MTYifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "hero_split_images",
+            "name": "Hero Split Images Left + Hover",
+            "type": {
+              "name": "list.file_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMTAyMTY3ODYxODQsImxhc3RfdmFsdWUiOiIzMTAyMTY3ODYxODQifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "hero_split_text",
+            "name": "Hero Split Text",
+            "type": {
+              "name": "multi_line_text_field"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMTU2NjMxODgyMzIsImxhc3RfdmFsdWUiOiIzMTU2NjMxODgyMzIifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "hero_split_images_right",
+            "name": "Hero Split Images Right + Hover",
+            "type": {
+              "name": "list.file_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMTU2NjMzMTkzMDQsImxhc3RfdmFsdWUiOiIzMTU2NjMzMTkzMDQifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "teaser_duo_bottom_right",
+            "name": "Teaser Duo Bottom Right + Hover",
+            "type": {
+              "name": "list.file_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMTU2NjM0ODMxNDQsImxhc3RfdmFsdWUiOiIzMTU2NjM0ODMxNDQifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "teaser_duo_top_right",
+            "name": "Teaser Duo Top Right + Hover",
+            "type": {
+              "name": "list.file_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMjUwMDUyMTM5NjAsImxhc3RfdmFsdWUiOiIzMjUwMDUyMTM5NjAifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "materialBoolean",
+            "name": "Materialprobe",
+            "type": {
+              "name": "boolean"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMjc0NzY0NzgyMTYsImxhc3RfdmFsdWUiOiIzMjc0NzY0NzgyMTYifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "product_tile",
+            "name": "Product Tile + Hover",
+            "type": {
+              "name": "list.file_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMjc4MDE3NjYxNTIsImxhc3RfdmFsdWUiOiIzMjc4MDE3NjYxNTIifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "metal_color",
+            "name": "Metal Color",
+            "type": {
+              "name": "list.metaobject_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMjc4MDE4NjQ0NTYsImxhc3RfdmFsdWUiOiIzMjc4MDE4NjQ0NTYifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "cable_color",
+            "name": "Cable Color",
+            "type": {
+              "name": "list.metaobject_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMjc4MDE4OTcyMjQsImxhc3RfdmFsdWUiOiIzMjc4MDE4OTcyMjQifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "frame_color",
+            "name": "Frame Color",
+            "type": {
+              "name": "list.metaobject_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMjc4MDE5Mjk5OTIsImxhc3RfdmFsdWUiOiIzMjc4MDE5Mjk5OTIifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "glass_color",
+            "name": "Glass Color",
+            "type": {
+              "name": "list.metaobject_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMjc4MTcwNjg4MDgsImxhc3RfdmFsdWUiOiIzMjc4MTcwNjg4MDgifQ==",
+          "node": {
+            "namespace": "shopify",
+            "key": "connection-type",
+            "name": "Connection type",
+            "type": {
+              "name": "list.metaobject_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        },
+        {
+          "cursor": "eyJsYXN0X2lkIjozMjc4MTcxMDE1NzYsImxhc3RfdmFsdWUiOiIzMjc4MTcxMDE1NzYifQ==",
+          "node": {
+            "namespace": "custom",
+            "key": "neo_color_product",
+            "name": "Neo Color Product",
+            "type": {
+              "name": "list.metaobject_reference"
+            },
+            "access": {
+              "storefront": "PUBLIC_READ"
+            }
+          }
+        }
+      ],
+      "pageInfo": {
+        "hasNextPage": false
+      }
+    }
+  },
+  "extensions": {
+    "cost": {
+      "requestedQueryCost": 29,
+      "actualQueryCost": 23,
+      "throttleStatus": {
+        "maximumAvailable": 2000,
+        "currentlyAvailable": 1977,
+        "restoreRate": 100
+      }
+    }
+  }
+}

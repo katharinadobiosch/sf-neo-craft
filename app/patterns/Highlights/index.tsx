@@ -67,12 +67,6 @@ export async function loader({context}: LoaderFunctionArgs) {
       };
     }) ?? [];
 
-  console.log('items length', items.length);
-  console.log(
-    'no image',
-    items.filter((x: any) => !x.image).map((x: any) => x.id),
-  );
-
   return Response.json({items});
 }
 
@@ -127,7 +121,6 @@ function FigureCard({
     height: image?.height,
   };
 
-  console.log('image data', imageData);
 
   if (!image) {
     return (

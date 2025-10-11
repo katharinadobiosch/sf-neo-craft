@@ -48,6 +48,8 @@ export function ProductMetaAccordion({metafields}) {
   const flat = Array.isArray(metafields) ? metafields.filter(Boolean) : [];
   if (!flat.length) return null;
 
+  console.log('metafields', metafields);
+
   // index nach key & namespace.key
   const byKey = new Map();
   for (const mf of flat) {
