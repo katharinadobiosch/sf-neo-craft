@@ -1,50 +1,50 @@
 // --- Hilfen für Labels / Medien --------------------------------------------
-function labelFromMetaobject(metaobj) {
+function labelFromMetaobject(metaobj: any) {
   if (!metaobj) return '';
-  const f = (k) => metaobj.fields?.find((x) => x.key === k)?.value;
+  const f = (k: string) => metaobj.fields?.find((x: any) => x.key === k)?.value;
   return f('name') || f('title') || metaobj.handle || metaobj.id || '';
 }
 
-function mediaFromRef(ref) {
+function mediaFromRef(ref: any) {
   if (!ref) return null;
   if (ref.__typename === 'MediaImage') return ref.image || null;
-  // Video/Model3d/GenericFile ggf. hier später mit abbilden
+  // TODO: Video/Model3d/GenericFile später abbilden
   return null;
 }
 
 // --- Kern: EIN Normalizer für EIN Metafield ---------------------------------
 /**
- * Liefert ein einheitliches Objekt, egal ob Text/Number/Referenz/Liste.
- * Rückgabe-Form:
+ * Einheitliches Objekt – unabhängig von Text/Number/Referenz/Liste.
  * {
  *   key, namespace, rawType, kind,
- *   value,     // normierter Wert (string | number | object)
- *   list,      // normierte Liste (string[] | number[] | objects[])
+ *   value,     // normalisierter Einzelwert (string | number | object)
+ *   list,      // normalisierte Liste (string[] | number[] | objects[])
  *   refs,      // Original-Referenzen (falls vorhanden)
  *   display,   // menschenlesbare Ausgabe (string | string[])
+ *   mf,        // Original (debug)
  * }
  */
-export function normalizeMetafield(mf) {
+export function normalizeMetafield(mf: any) {
   if (!mf) return null;
 
-  const rawType = mf.type; // z.B. "list.metaobject_reference"
+  const rawType = mf.type as string | undefined; // z.B. "list.metaobject_reference"
   const [isList, base] = rawType?.startsWith('list.')
     ? [true, rawType.slice(5)]
     : [false, rawType];
 
-  const out = {
+  const out: any = {
     key: mf.key,
     namespace: mf.namespace,
     rawType,
-    kind: base, // z.B. "single_line_text_field" | "metaobject_reference" | "file_reference" | "number_decimal" | "multi_line_text_field"
+    kind: base, // "single_line_text_field" | "metaobject_reference" | "file_reference" | "number_decimal" | "multi_line_text_field" | ...
     value: null,
     list: null,
     refs: null,
     display: null,
-    mf, // original für Debug
+    mf, // original
   };
 
-  // Hilfsparser für JSON-Listen aus value:
+  // Hilfsparser für JSON-ähnliche Listen aus mf.value (nur für text/number sinnvoll)
   const parseList = () => {
     if (!mf.value) return [];
     try {
@@ -59,9 +59,9 @@ export function normalizeMetafield(mf) {
   };
 
   // Referenzen einsammeln (singular/list)
-  const refs = mf.references?.nodes?.length
+  const refs = mf?.references?.nodes?.length
     ? mf.references.nodes
-    : mf.reference
+    : mf?.reference
       ? [mf.reference]
       : [];
   if (refs.length) out.refs = refs;
@@ -83,16 +83,16 @@ export function normalizeMetafield(mf) {
 
     case 'number_integer':
     case 'number_decimal': {
-      const toNum = (v) => {
+      const toNum = (v: any) => {
         const n = Number(v);
         return Number.isFinite(n) ? n : null;
       };
       if (isList) {
         const list = parseList()
           .map(toNum)
-          .filter((n) => n !== null);
+          .filter((n: number | null) => n !== null);
         out.list = list; // number[]
-        out.display = list.map((n) => String(n));
+        out.display = list.map((n: number) => String(n));
       } else {
         out.value = toNum(mf.value);
         out.display = out.value != null ? String(out.value) : '';
@@ -102,7 +102,9 @@ export function normalizeMetafield(mf) {
 
     case 'metaobject_reference': {
       if (isList) {
-        const list = (refs || []).filter((r) => r.__typename === 'Metaobject');
+        const list = (refs || []).filter(
+          (r: any) => r.__typename === 'Metaobject',
+        );
         out.list = list; // Metaobject[]
         out.display = list.map(labelFromMetaobject);
       } else {
@@ -118,7 +120,7 @@ export function normalizeMetafield(mf) {
       if (isList) {
         const imgs = (refs || []).map(mediaFromRef).filter(Boolean);
         out.list = imgs; // {url, altText, ...}[]
-        out.display = imgs.map((i) => i.url);
+        out.display = imgs.map((i: any) => i.url);
       } else {
         const img = mediaFromRef(refs[0]);
         out.value = img;
@@ -127,12 +129,12 @@ export function normalizeMetafield(mf) {
       break;
     }
 
-    // Fallback – zeig raw value an
+    // Fallback – rohen value ausgeben
     default: {
       if (isList) {
         const list = parseList();
         out.list = list;
-        out.display = list.map((x) => String(x));
+        out.display = list.map((x: any) => String(x));
       } else {
         out.value = mf.value ?? '';
         out.display = String(out.value);
@@ -143,11 +145,23 @@ export function normalizeMetafield(mf) {
   return out;
 }
 
-/** Alle Metafelder auf einmal normalisieren → Map: key -> normalized */
-export function normalizeAllMetafields(metafieldsList = []) {
-  const map = {};
-  for (const mf of metafieldsList.filter(Boolean)) {
-    map[mf.key] = normalizeMetafield(mf);
+/** Alle Metafelder normalisieren → Array normalisierter Einträge */
+export function normalizeMetafields(metafields: any) {
+  // edges -> nodes oder Array -> Array, sonst []
+  const flat = Array.isArray(metafields?.edges)
+    ? metafields.edges.map((e: any) => e?.node).filter(Boolean)
+    : Array.isArray(metafields)
+      ? metafields.filter(Boolean)
+      : [];
+  return flat.map((mf: any) => normalizeMetafield(mf));
+}
+
+/** Optional: Map { key -> normalized } (praktisch für direkten Zugriff per Key) */
+export function normalizeAllMetafields(metafields: any) {
+  const arr = normalizeMetafields(metafields);
+  const map: Record<string, any> = {};
+  for (const n of arr) {
+    if (n?.key) map[n.key] = n;
   }
   return map;
 }

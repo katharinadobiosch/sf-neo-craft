@@ -11,7 +11,6 @@ import {ProductMetaAccordion} from './ProductMetaAccordion';
 export function ProductForm({productOptions, product}) {
   const navigate = useNavigate();
 
-  console.log('product', product?.metafields);
 
   return (
     <div className="product-form">
