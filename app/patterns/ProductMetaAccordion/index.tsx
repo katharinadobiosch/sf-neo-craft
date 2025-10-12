@@ -18,7 +18,7 @@ function metaobjectListToText(n) {
     const f = (k) => m?.fields?.find((x) => x.key === k)?.value;
     return f('label') || f('name') || f('title') || m?.handle || m?.id || '';
   };
-  return (n.list || []).map(get).filter(Boolean).join(', ');
+  return (n.list || []).map(get).filter(Boolean).join('\n');
 }
 
 function fileRefListToImgs(n) {
@@ -58,7 +58,7 @@ function buildItems(normalizedArray) {
     } else {
       // Text/Number/Fallback
       const val = Array.isArray(n.display)
-        ? n.display.filter(Boolean).join(', ')
+        ? n.display.filter(Boolean).join('\n')
         : (n.display ?? '');
       if (!String(val).trim()) continue;
       items.push({
@@ -79,6 +79,9 @@ export function ProductMetaAccordion({metafields, product}) {
   // 2) in UI-Items überführen
   const items = buildItems(normalized);
 
+  const imageCount =
+    items.find((it) => it.label === 'Measurements')?.images?.length ?? 0;
+
   if (!items.length) return null;
 
   return (
@@ -91,8 +94,9 @@ export function ProductMetaAccordion({metafields, product}) {
           </summary>
 
           <div className="acc-panel">
-            {it.type === 'text' && <p>{it.value}</p>}
-
+            {it.type === 'text' && (
+              <p style={{whiteSpace: 'pre-line'}}>{it.value}</p>
+            )}
             {it.type === 'images' && (
               <div className="acc-images">
                 {it.images.map((img, i) => (
@@ -101,6 +105,7 @@ export function ProductMetaAccordion({metafields, product}) {
                     src={img.url}
                     alt={img.altText || it.label}
                     loading="lazy"
+                    style={{width: `calc(100% / ${imageCount})`}}
                   />
                 ))}
               </div>

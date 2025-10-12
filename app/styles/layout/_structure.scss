@@ -1,11 +1,25 @@
-body > main {
-  margin: 8.1rem 5rem;
+/* globale Basis */
+:root {
+  --header-h: 8rem;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+body > main {
+  /* bisher: margin: 8.1rem 5rem;  */
+  margin: 0; /* Gaps vermeiden */
+  padding: var(--header-h) 5rem 0; /* Platz unter Header, rechts/links 5rem wie gehabt */
 }
+
+/* Homepage/Startseite: KEIN zusätzliches Top-Padding, 
+   weil dein .teaser-duo-homepage bereits selbst positioniert */
+.home body > main,
+.home main {
+  padding-top: 0;
+}
+
+// body {
+//   margin: 0;
+//   padding: 0;
+//   display: flex;
+//   flex-direction: column;
+//   min-height: 100vh;
+// }
