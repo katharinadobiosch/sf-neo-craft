@@ -9,7 +9,8 @@
     "dev": "shopify hydrogen dev --codegen",
     "preview": "shopify hydrogen preview --build",
     "lint": "eslint --no-error-on-unmatched-pattern .",
-    "codegen": "shopify hydrogen codegen"
+    "codegen": "shopify hydrogen codegen",
+    "export:metafields": "node graphql/product/export-product-metafields.mjs"
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
@@ -38,7 +39,7 @@
     "@react-router/fs-routes": "7.9.2",
     "@react-router/serve": "7.9.2",
     "@shopify/cli": "^3.85.4",
-    "@shopify/hydrogen-codegen": "^0.3.3",
+    "@shopify/hydrogen-codegen": "0.3.3",
     "@shopify/mini-oxygen": "^4.0.0",
     "@shopify/oxygen-workers-types": "^4.1.6",
     "@shopify/prettier-config": "^1.1.2",

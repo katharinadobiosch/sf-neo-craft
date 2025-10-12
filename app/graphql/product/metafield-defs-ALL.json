@@ -8,7 +8,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "shopify",
@@ -19,7 +20,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "shopify",
@@ -30,7 +32,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -41,7 +44,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -52,7 +56,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -63,7 +68,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -74,7 +80,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -85,7 +92,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -96,7 +104,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -107,7 +116,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -118,7 +128,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -129,7 +140,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -140,7 +152,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -151,7 +164,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -162,7 +176,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -173,7 +188,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -184,7 +200,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -195,7 +212,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -206,7 +224,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -217,7 +236,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -228,7 +248,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -239,7 +260,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -250,7 +272,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -261,7 +284,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -272,7 +296,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -283,7 +308,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -294,7 +320,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -305,7 +332,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -316,7 +344,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -327,7 +356,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -338,7 +368,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -349,7 +380,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -360,7 +392,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -371,7 +404,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -382,7 +416,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "shopify",
@@ -393,7 +428,8 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
@@ -404,6 +440,31 @@
     },
     "access": {
       "storefront": "PUBLIC_READ"
-    }
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "color",
+    "name": "Neo Color Varianten",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCTVARIANT"
+  },
+  {
+    "namespace": "custom",
+    "key": "dealer",
+    "name": "Dealer",
+    "type": {
+      "name": "json"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "SHOP"
   }
 ]
