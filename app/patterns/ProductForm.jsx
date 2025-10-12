@@ -11,6 +11,7 @@ import {ProductMetaAccordion} from './ProductMetaAccordion';
 export function ProductForm({productOptions, product}) {
   const navigate = useNavigate();
 
+
   return (
     <div className="product-form">
       <Configurator productOptions={productOptions} navigate={navigate} />

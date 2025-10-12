@@ -23,18 +23,17 @@ export function PageLayout({
   publicStoreDomain,
 }) {
   const location = useLocation();
-  const path = location.pathname;
-
-  // console.log('path', path);
 
   function getHeaderVariant(pathname) {
     if (pathname.startsWith('/collections') || pathname.startsWith('/products'))
-      return 'purple';
+      return 'white';
     if (pathname.startsWith('/about')) return 'orange';
     if (pathname === '/') return 'transparent';
     return 'default';
   }
   const bgColor = getHeaderVariant(location.pathname);
+
+  
 
   return (
     <Aside.Provider>

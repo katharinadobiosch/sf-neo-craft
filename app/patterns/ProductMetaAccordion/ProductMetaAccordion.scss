@@ -20,10 +20,8 @@
     }
 
     .acc-title {
-      font-size: 0.75rem;
+      font-size: 1.5rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
       color: #161616;
     }
 
@@ -61,10 +59,24 @@
     }
 
     .acc-panel {
-      padding: 0 0 1rem 0;
       color: #222;
       font-size: 0.9375rem;
       line-height: 1.5;
+      padding-left: 190px;
+      padding-bottom: 1rem;
+      display: flex;
+      flex-direction: row;
+
+      p {
+        font-size: 1.2rem;
+      }
+    }
+
+    .acc-images {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      height: 100%;
     }
   }
 }
@@ -99,8 +111,6 @@
   .section-title {
     font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
     margin-bottom: 0.5rem;
   }
 

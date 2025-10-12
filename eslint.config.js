@@ -23,4 +23,9 @@ export default defineConfig([
       'react/prop-types': 'off',
     },
   },
+  {
+    env: {
+      node: true,
+    },
+  },
 ]);
