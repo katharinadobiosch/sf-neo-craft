@@ -1,30 +1,16 @@
-/* Teaser */
 .teaser-duo-homepage {
-  /* exakte Werte zentral */
-  --header-h: 8rem; /* Höhe des Header-Containers */
-  --header-border: 0.1rem; /* Borderstärke am Header */
-  --image-h: 91.7rem;
   position: relative;
-  border: 2px solid red;
-
-  /* Content UNTER das Bild schieben (exakt bis unter die Bildhöhe) */
-  padding-top: calc(var(--header-h) + var(--image-h) - var(--header-border));
 
   &__image {
     position: absolute;
-    /* Bild bündig an die Linie: bis unter die Border hochziehen */
-    top: calc(var(--header-h) - var(--header-border));
     left: 0;
     width: 100%;
-    height: var(--image-h);
+    height: 78rem;
     display: flex;
     z-index: 1;
 
-    /* optional, falls bei manchen DPRs noch ein „Haar“ bleibt: */
-    /* transform: translateY(-0.5px); */
-
     img {
-      display: block; /* verhindert Inline/Baseline-Gap */
+      display: block;
       width: 50%;
       height: 100%;
       object-fit: cover;
@@ -44,7 +30,7 @@
       font-size: 2.2rem;
       line-height: 3.4rem;
       width: 80%;
-      margin-top: 2rem; /* Abstand NACH dem Bild */
+      margin: 85rem 0 10rem 0;
     }
   }
 }

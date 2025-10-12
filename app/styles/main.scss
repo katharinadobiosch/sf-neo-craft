@@ -55,6 +55,7 @@
   margin-top: 2rem;
 }
 .collections-grid {
+  background: white;
   display: flex;
   width: 100%;
   flex-wrap: wrap;
@@ -74,9 +75,9 @@
 }
 
 .collections-grid h4 {
-  padding: 0.6rem 0 1.8rem 1.8rem;
+  padding: 0rem 0 1.8rem 1.8rem;
   font-weight: 400;
-  font-size: 1.8rem;
+  font-size: 1.2rem;
 }
 
 .collections-grid > *:nth-child(odd) h4 {
