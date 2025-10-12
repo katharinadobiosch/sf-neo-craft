@@ -64,6 +64,8 @@
       line-height: 1.5;
       padding-left: 190px;
       padding-bottom: 1rem;
+      display: flex;
+      flex-direction: row;
 
       p {
         font-size: 1.2rem;
@@ -73,6 +75,8 @@
     .acc-images {
       display: flex;
       flex-direction: row;
+      align-items: flex-end;
+      height: 100%;
     }
   }
 }

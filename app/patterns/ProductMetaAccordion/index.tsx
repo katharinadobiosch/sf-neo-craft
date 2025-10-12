@@ -105,7 +105,10 @@ export function ProductMetaAccordion({metafields, product}) {
                     src={img.url}
                     alt={img.altText || it.label}
                     loading="lazy"
-                    style={{width: `calc(100% / ${imageCount})`}}
+                    style={{
+                      width: `calc(100% / ${imageCount})`,
+                      height: '100%',
+                    }}
                   />
                 ))}
               </div>
