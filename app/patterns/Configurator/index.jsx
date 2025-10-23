@@ -133,9 +133,9 @@ export function Configurator({productOptions, navigate}) {
     const label = colorish
       ? norm(option.name).includes('metal') ||
         norm(option.name).includes('base')
-        ? 'COLOR METAL'
-        : 'COLOR GLASS'
-      : option.name.toUpperCase();
+        ? 'Color Base'
+        : 'Color Glass'
+      : option.name;
 
     return (
       <div className="cfg-row" key={option.name}>
