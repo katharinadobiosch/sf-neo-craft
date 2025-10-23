@@ -28,13 +28,36 @@ export function PageLayout({
   // console.log('path', path);
 
   function getHeaderVariant(pathname) {
-    if (pathname.startsWith('/collections') || pathname.startsWith('/products'))
-      return 'purple';
+    // header orange: about
+    // sonst footer und header weiß
+
     if (pathname.startsWith('/about')) return 'orange';
     if (pathname === '/') return 'transparent';
     return 'default';
   }
-  const bgColor = getHeaderVariant(location.pathname);
+  const bgHeaderColor = getHeaderVariant(location.pathname);
+
+  function getFooterVariant(pathname) {
+    // footer purple: projects, products, materials
+    // footer black: stockists, downloads
+    // sonst footer und header weiß
+    if (
+      pathname.startsWith('/projects') ||
+      pathname.startsWith('/products') ||
+      pathname.startsWith('/materials')
+    )
+      return 'purple';
+    if (
+      pathname.startsWith('/pages/about') ||
+      pathname.startsWith('/pages/stockists') ||
+      pathname.startsWith('/pages/downloads')
+    )
+      return 'black';
+
+    if (pathname === '/') return 'transparent';
+    // return 'white';
+  }
+  const bgFooterColor = getFooterVariant(location.pathname);
 
   return (
     <Aside.Provider>
@@ -48,7 +71,7 @@ export function PageLayout({
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
           primaryDomainUrl={header?.shop?.primaryDomain?.url}
-          variant={bgColor}
+          variant={bgHeaderColor}
         />
       )}
       <main>{children}</main>
@@ -56,7 +79,7 @@ export function PageLayout({
         footer={footer}
         header={header}
         publicStoreDomain={publicStoreDomain}
-        variant={bgColor}
+        variant={bgFooterColor}
       />
     </Aside.Provider>
   );
