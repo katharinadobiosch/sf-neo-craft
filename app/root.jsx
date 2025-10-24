@@ -36,6 +36,7 @@ import ProductMetaAccordionCss from '~/patterns/ProductMetaAccordion/ProductMeta
 import bespokeStyles from '~/patterns/Bespoke/bespoke.scss?url';
 import highlightsStyles from '~//patterns/Highlights/highlights.scss?url';
 import materialStyles from '~/patterns/Materials/materials.scss?url';
+import dealersStyles from '~/patterns/Dealers/dealers.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
 
@@ -98,6 +99,7 @@ export function links() {
     {rel: 'stylesheet', href: ProductMetaAccordionCss},
     {rel: 'stylesheet', href: highlightsStyles},
     {rel: 'stylesheet', href: materialStyles},
+    {rel: 'stylesheet', href: dealersStyles},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }

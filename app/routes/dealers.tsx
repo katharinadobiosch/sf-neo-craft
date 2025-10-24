@@ -1,3 +1,9 @@
+import Dealers from '~/patterns/Dealers';
+
 export default function DealersPage() {
-  return <div>Dealers Seite</div>;
+  return (
+    <div>
+      <Dealers />
+    </div>
+  );
 }
