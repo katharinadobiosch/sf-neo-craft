@@ -71,7 +71,7 @@ function ProductItem({product, isReversed}) {
         onMouseLeave={() => setIsHover(false)}
         onFocus={() => setIsHover(true)}
         onBlur={() => setIsHover(false)}
-        style={{position: 'relative', aspectRatio: '1 / 1', overflow: 'hidden'}}
+        style={{position: 'relative', overflow: 'hidden'}}
       >
         {main && (
           <Image

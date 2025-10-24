@@ -72,7 +72,7 @@ function ProductItem({product}) {
         onFocus={() => setIsHover(true)}
         onBlur={() => setIsHover(false)}
         // 1) Fläche reservieren & Positionierungs-Kontext
-        style={{position: 'relative', aspectRatio: '1 / 1'}}
+        style={{position: 'relative', aspectRatio: '778/519'}}
       >
         {main && (
           <Image
@@ -119,8 +119,6 @@ export default function Collections() {
 
   return (
     <>
-      <div className="vertical-divider" />
-
       <div className="collections">
         <div className="collections-grid">
           {collection.products?.nodes?.map((product, index) => (
