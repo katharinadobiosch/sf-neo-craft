@@ -1,0 +1,59 @@
+/* Zweispaltiges Raster wie im Screenshot: links Land, rechts Einträge */
+.dealers-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+  border-top: 1px solid #222;
+}
+
+.country {
+  padding: 16px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #111;
+  border-right: 1px solid #222;
+  border-bottom: 1px solid #222;
+  background: #e5e8ff3b; /* leichtes Lila wie im Shot; gern anpassen */
+}
+
+.entries {
+  border-bottom: 1px solid #222;
+  padding: 8px 12px;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 3fr;
+  gap: 8px;
+  padding: 6px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.entry:first-child {
+  border-top: 0;
+}
+
+.name {
+  font-weight: 600;
+}
+.city {
+  opacity: 0.8;
+}
+.link a {
+  text-decoration: underline;
+  word-break: break-word;
+}
+
+/* Mobile: untereinander stapeln */
+@media (max-width: 720px) {
+  .dealers-grid {
+    grid-template-columns: 1fr;
+  }
+  .country {
+    border-right: 0;
+  }
+  .entry {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
