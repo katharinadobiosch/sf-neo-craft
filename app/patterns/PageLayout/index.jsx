@@ -23,6 +23,9 @@ export function PageLayout({
   publicStoreDomain,
 }) {
   const location = useLocation();
+  const path = location.pathname;
+
+  // console.log('path', path);
 
   function getHeaderVariant(pathname) {
     // header orange: about
