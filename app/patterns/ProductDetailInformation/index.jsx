@@ -12,6 +12,8 @@ export function ProductDetailInformation({product}) {
     getAdjacentAndFirstAvailableVariants(product),
   );
 
+  // console.log('product pdp', product);
+
   const imageNodes = product.images?.edges?.map((edge) => edge.node) || [];
 
   const mainImage = imageNodes[0];

@@ -32,6 +32,9 @@ export function ProductMain({product}) {
     imageNodes?.[0]?.url ??
     null;
 
+  // console.log('mainImage', mainImage);
+  // console.log('thirdImage', thirdImage);
+
   return (
     <>
       <div className="product-main">
