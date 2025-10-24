@@ -54,10 +54,53 @@ function getTileImages(product: any) {
   };
 }
 
+function mapColorNodes(nodes: any[]) {
+  return (nodes ?? [])
+    .map((n: any) => ({
+      hex: n?.hex?.value ?? null,
+      label: n?.label?.value ?? '',
+    }))
+    .filter((c) => !!c.hex);
+}
+
+function dedupeByHex(colors: {hex: string; label: string}[]) {
+  const seen = new Set<string>();
+  return colors.filter((c) => !seen.has(c.hex) && (seen.add(c.hex), true));
+}
+
+function getProductColors(product: any) {
+  // 1) Produkt-Ebene
+  const productNodes = product?.neoColorProduct?.references?.nodes ?? [];
+  const productColors = mapColorNodes(productNodes);
+
+  if (productColors.length === 0) {
+    console.warn(`no color selected (product): ${product?.title ?? 'unknown'}`);
+  } else {
+    return productColors;
+  }
+
+  // 2) Fallback: Varianten-Ebene
+  const variantNodes = (product?.variants?.nodes ?? []).flatMap(
+    (v: any) => v?.neoColorVariants?.references?.nodes ?? [],
+  );
+  const variantColors = dedupeByHex(mapColorNodes(variantNodes));
+
+  if (variantColors.length === 0) {
+    console.warn(
+      `no color selected (variants either): ${product?.title ?? 'unknown'}`,
+    );
+  }
+
+  return variantColors; // evtl. leer – dann werden keine Swatches gerendert
+}
+
 function ProductItem({product, isReversed}) {
   const {main, hover} = getTileImages(product);
   const [isHover, setIsHover] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const showHover = Boolean(hover && isHover);
+
+  const colors = getProductColors(product);
 
   return (
     <Link
@@ -71,7 +114,7 @@ function ProductItem({product, isReversed}) {
         onMouseLeave={() => setIsHover(false)}
         onFocus={() => setIsHover(true)}
         onBlur={() => setIsHover(false)}
-        style={{position: 'relative', aspectRatio: '1 / 1', overflow: 'hidden'}}
+        style={{position: 'relative', overflow: 'hidden'}}
       >
         {main && (
           <Image
@@ -121,18 +164,23 @@ function ProductItem({product, isReversed}) {
           im Wandel.
         </p>
 
-        {/* Swatches – erstmal als Platzhalter */}
-        <ul className="material-card__swatches" aria-label="Farbvarianten">
-          {['#c9b8a6', '#d7cfbf', '#b78de4', '#79d6f6', '#a7e16f'].map(
-            (c, i) => (
-              <li
-                key={i}
-                className="material-card__swatch"
-                style={{background: c}}
-              />
-            ),
-          )}
-        </ul>
+        {/* ⬇️ Swatches aus Metaobjekten */}
+        {colors?.length > 0 && (
+          <ul className="material-card__swatches" aria-label="Farbvarianten">
+            {colors.map((c: any, i: number) => (
+              <li key={`${c.hex}-${i}`}>
+                <span
+                  className="material-card__swatch"
+                  style={{backgroundColor: c.hex}}
+                  title={c.label}
+                  aria-label={c.label}
+                  role="img"
+                  tabIndex={0}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
 
         {/* schwarze CTA-Bar, bleibt innerhalb des großen Links */}
         <span className="material-card__ctaBar" aria-hidden="true">
@@ -175,28 +223,64 @@ export default function Materials() {
  */
 
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
-  query CollectionByHandle_Materials(
-    $handle: String!
-    $country: CountryCode
-    $language: LanguageCode
-  ) @inContext(country: $country, language: $language) {
-    collection(handle: $handle) {
-      id
-      title
-      handle
-      image { id url altText width height }
-      products(first: 20) {
-        nodes {
-          id
-          title
-          handle
-          featuredImage { url altText width height }
-          metafield(namespace: "custom", key: "product_tile") {
-            type
-            references(first: 2) {
-              nodes {
-                ... on MediaImage {
-                  image { url altText width height }
+#graphql
+query CollectionByHandle_Materials(
+  $handle: String!
+  $country: CountryCode
+  $language: LanguageCode
+) @inContext(country: $country, language: $language) {
+  collection(handle: $handle) {
+    id
+    title
+    handle
+    image { id url altText width height }
+    products(first: 20) {
+      nodes {
+        id
+        title
+        handle
+        featuredImage { url altText width height }
+
+        # Bilder für die Kachel (unverändert)
+        metafield(namespace: "custom", key: "product_tile") {
+          type
+          references(first: 2) {
+            nodes {
+              ... on MediaImage {
+                image { url altText width height }
+              }
+            }
+          }
+        }
+
+        # ✅ Produkt-Ebene: Liste von Neo-Color Metaobjekten
+        neoColorProduct: metafield(namespace: "custom", key: "neo_color_product") {
+          type
+          references(first: 50) {
+            nodes {
+              ... on Metaobject {
+                id
+                hex:   field(key: "hex_code") { value }
+                label: field(key: "label")    { value }
+                image: field(key: "image")    { value }
+              }
+            }
+          }
+        }
+
+        # 🛟 Fallback: Varianten-Ebene (Definition heißt bei dir custom.color)
+        variants(first: 50) {
+          nodes {
+            id
+            neoColorVariants: metafield(namespace: "custom", key: "color") {
+              type
+              references(first: 50) {
+                nodes {
+                  ... on Metaobject {
+                    id
+                    hex:   field(key: "hex_code") { value }
+                    label: field(key: "label")    { value }
+                  }
                 }
               }
             }
@@ -205,6 +289,7 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
       }
     }
   }
+}
 `;
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */

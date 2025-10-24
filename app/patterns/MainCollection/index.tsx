@@ -72,7 +72,7 @@ function ProductItem({product}) {
         onFocus={() => setIsHover(true)}
         onBlur={() => setIsHover(false)}
         // 1) Fläche reservieren & Positionierungs-Kontext
-        style={{position: 'relative', aspectRatio: '1 / 1'}}
+        style={{position: 'relative', aspectRatio: '778/519'}}
       >
         {main && (
           <Image
@@ -87,6 +87,8 @@ function ProductItem({product}) {
               objectFit: 'cover',
               opacity: showHover ? 0 : 1, // 3) Sichtbarkeit
               transition: 'opacity .25s ease',
+              borderTop: '1px solid black',
+              borderBottom: '1px solid black',
             }}
             sizes="(min-width: 45em) 30rem, 100vw"
           />
@@ -119,8 +121,6 @@ export default function Collections() {
 
   return (
     <>
-      <div className="vertical-divider" />
-
       <div className="collections">
         <div className="collections-grid">
           {collection.products?.nodes?.map((product, index) => (

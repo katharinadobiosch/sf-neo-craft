@@ -53,7 +53,7 @@ function ProductItem({product}) {
         <Image
           data={product.featuredImage}
           alt={product.featuredImage.altText || product.title}
-          aspectRatio="1/1"
+          // aspectRatio="1/1"
           sizes="(min-width: 45em) 30rem, 100vw"
         />
       )}
@@ -67,8 +67,6 @@ export default function CollectionsIndex() {
 
   return (
     <>
-      <div className="vertical-divider" />
-
       <div className="collections">
         <div className="collections-grid">
           {collection.products?.nodes?.map((product, index) => (

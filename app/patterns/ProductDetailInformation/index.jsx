@@ -12,7 +12,7 @@ export function ProductDetailInformation({product}) {
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  console.log('product pdp', product);
+  // console.log('product pdp', product);
 
   const imageNodes = product.images?.edges?.map((edge) => edge.node) || [];
 
@@ -21,13 +21,15 @@ export function ProductDetailInformation({product}) {
 
   return (
     <div className="pdp">
-      <TeaserDuo
-        teaserImageLeft={<ProductImage image={mainImage} />}
-        teaserImageRight={<ProductImage image={secondImage} />}
-        content={
-          <div dangerouslySetInnerHTML={{__html: product.description}} />
-        }
-      />
+      <div className="square-variant">
+        <TeaserDuo
+          teaserImageLeft={<ProductImage image={mainImage} />}
+          teaserImageRight={<ProductImage image={secondImage} />}
+          content={
+            <div dangerouslySetInnerHTML={{__html: product.description}} />
+          }
+        />
+      </div>
 
       <ProductMain product={product} selectedVariant={selectedVariant} />
     </div>

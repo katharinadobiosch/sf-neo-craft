@@ -1,11 +1,29 @@
-body > main {
-  margin: 8.1rem 5rem;
+:root {
+  --header-h: 7rem;
 }
 
+.collections {
+  --collections-offset: 2rem;
+} /* du hast margin-top: 2rem */
+
+.vertical-divider {
+  position: fixed;
+  top: calc(var(--header-h) + var(--collections-offset)); /* <-- hier! */
+  bottom: 0;
+  left: 50%;
+  width: 0.1rem;
+  background-color: black;
+  transform: translateX(-50%);
+  z-index: 0;
+}
+
+html,
 body {
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+}
+
+body > main {
+  margin: 0 5rem;
+  padding-top: var(--header-h);
 }

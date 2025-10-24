@@ -1,14 +1,11 @@
 /* Basis (Desktop) */
 .teaser-duo {
   position: relative;
-  margin-inline: -5rem;
-  width: calc(100% + 10rem);
 
   &__images {
     display: grid;
     grid-template-columns: 1fr 1fr; // 50%/50%
     width: 100%;
-    height: 480px; // fixe Höhe Desktop
     z-index: 1;
   }
 
@@ -16,6 +13,7 @@
     position: relative;
     overflow: hidden;
     min-width: 0;
+    aspect-ratio: 1/1;
 
     > img,
     > picture,
@@ -31,11 +29,12 @@
   }
 
   &__content {
-    padding-top: 8rem;
+    padding-top: 38rem;
     padding-bottom: 10rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--sf-purple);
 
     p {
       font-family: 'GTF Good Sans', sans-serif;

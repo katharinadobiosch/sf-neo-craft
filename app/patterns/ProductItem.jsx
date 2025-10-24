@@ -25,7 +25,7 @@ export function ProductItem({product, loading}) {
         src={image.url}
         alt={image.altText || product.title}
         loading={loading}
-        style={{width: '100%', aspectRatio: '1 / 1', objectFit: 'cover'}}
+        style={{width: '100%', aspectRatio: '', objectFit: 'cover'}}
       />
 
       {/* {image && (

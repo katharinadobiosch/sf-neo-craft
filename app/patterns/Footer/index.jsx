@@ -1,8 +1,6 @@
 import {Suspense} from 'react';
 import {Await, NavLink} from 'react-router';
 
-import './footer.scss';
-
 /**
  * @param {FooterProps}
  */
@@ -42,6 +40,7 @@ function FooterMenu({menu, primaryDomainUrl, publicStoreDomain}) {
   return (
     <nav className="footer-menu" role="navigation">
       {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
+        // console.log('Footer menu item title:', item.title);
         if (!item.url) return null;
         // if the url is internal, we strip the domain
         const url =
