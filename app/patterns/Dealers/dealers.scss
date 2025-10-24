@@ -1,59 +1,133 @@
-/* Zweispaltiges Raster wie im Screenshot: links Land, rechts Einträge */
-.dealers-grid {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 0;
-  border-top: 1px solid #222;
+/* Basis: mobile first */
+html,
+body {
+  margin: 0;
+  padding: 0;
 }
 
-.country {
-  padding: 16px 12px;
-  font-size: 12px;
+.dealers {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--sf-purple, black);
+  color: black;
+  padding-top: 2rem; /* Abstand unter Header */
+}
+
+/* Vertikale Linie: MOBIL AUS (default) */
+.dealers::before {
+  content: '';
+  display: none; /* <— wichtig: auf Mobile aus */
+  position: absolute;
+  top: 2rem; /* startet unterhalb Header-Abstand */
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: black;
+  transform: translateX(-0.5px);
+  z-index: 0;
+}
+
+/* Sektionen */
+.dealers__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1.5rem 1.5rem;
+  border-top: 1px solid black;
+  position: relative;
+  z-index: 1;
+}
+.dealers__container:last-of-type {
+  border-bottom: 1px solid black;
+}
+
+/* Typo */
+.dealers__country {
   font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #111;
-  border-right: 1px solid #222;
-  border-bottom: 1px solid #222;
-  background: #e5e8ff3b; /* leichtes Lila wie im Shot; gern anpassen */
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+.dealers__entries {
+  font-weight: 400;
+}
+.dealers__entry {
+  margin-bottom: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.dealers__line,
+.dealers__name {
+  font-weight: 400;
+}
+.dealers__name {
+  text-transform: uppercase;
+}
+.dealers__link {
+  display: inline-block;
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 1.2;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.9;
 }
 
-.entries {
-  border-bottom: 1px solid #222;
-  padding: 8px 12px;
-}
-
-.entry {
-  display: grid;
-  grid-template-columns: 2fr 1.5fr 3fr;
-  gap: 8px;
-  padding: 6px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-.entry:first-child {
-  border-top: 0;
-}
-
-.name {
-  font-weight: 600;
-}
-.city {
-  opacity: 0.8;
-}
-.link a {
-  text-decoration: underline;
-  word-break: break-word;
-}
-
-/* Mobile: untereinander stapeln */
-@media (max-width: 720px) {
-  .dealers-grid {
-    grid-template-columns: 1fr;
+/* --------------------------- */
+/* ≥768px                      */
+/* --------------------------- */
+@media (min-width: 768px) {
+  .dealers__container {
+    padding: 1.5rem 2rem;
   }
-  .country {
-    border-right: 0;
+}
+
+/* --------------------------- */
+/* ≥992px  (Tablet/Laptop)     */
+/* Zweispaltig + Linie an      */
+/* --------------------------- */
+@media (min-width: 992px) {
+  .dealers__container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+    padding: 24px 40px;
   }
-  .entry {
-    grid-template-columns: 1fr;
-    gap: 2px;
+  .dealers__country {
+    flex: 0 0 50%;
+    margin-bottom: 0;
+    padding-right: 2rem;
+  }
+  .dealers__entries {
+    flex: 0 0 50%;
+  }
+
+  .dealers::before {
+    display: block;
+  } /* <— Linie ab 992 sichtbar */
+}
+
+/* --------------------------- */
+/* ≥1200px                     */
+/* --------------------------- */
+@media (min-width: 1200px) {
+  .dealers__container {
+    padding-inline: 60px;
+  }
+}
+
+/* --------------------------- */
+/* ≥1400px                     */
+/* --------------------------- */
+@media (min-width: 1400px) {
+  .dealers__container {
+    max-width: 1400px;
+    margin-inline: auto;
   }
 }

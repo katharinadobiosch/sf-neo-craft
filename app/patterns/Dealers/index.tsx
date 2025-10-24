@@ -10,6 +10,9 @@ export type Dealer = {
 
 type Props = {items: Dealer[]};
 
+const toHref = (url: string) =>
+  /^https?:\/\//i.test(url) ? url : `https://${url}`;
+
 export default function Dealers({items}: Props) {
   if (!items?.length) {
     return (
@@ -30,44 +33,44 @@ export default function Dealers({items}: Props) {
   const countries = Object.keys(byCountry).sort((a, b) => a.localeCompare(b));
 
   return (
-    <main className="page">
-      <section className="dealers-grid">
+    <>
+      <main className="dealers">
+        <div className="" />
+
         {countries.map((country) => {
           const rows = byCountry[country]
             .slice()
             .sort((a, b) => a.name.localeCompare(b.name));
+
           return (
-            <React.Fragment key={country}>
-              <div className="country">{country.toUpperCase()}</div>
-              <div className="entries">
+            <div className="dealers__container" key={country}>
+              <div className="dealers__country">{country}</div>
+
+              <div className="dealers__entries">
                 {rows.map((d) => (
-                  <div className="entry" key={d.id}>
-                    <div className="name">{d.name}</div>
-                    <div className="city">{d.city}</div>
-                    <div className="link">
-                      {d.website ? (
-                        <a
-                          href={
-                            /^https?:\/\//i.test(d.website)
-                              ? d.website
-                              : `https://${d.website}`
-                          }
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {d.website}
-                        </a>
-                      ) : (
-                        '—'
-                      )}
+                  <div className="dealers__entry" key={d.id}>
+                    <div className="dealers__line">
+                      <span className="dealers__name">{d.name}</span>
+                      {d.city ? <span>, {d.city}</span> : null}
                     </div>
+
+                    {d.website ? (
+                      <a
+                        className="dealers__link"
+                        href={toHref(d.website)}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {d.website}
+                      </a>
+                    ) : null}
                   </div>
                 ))}
               </div>
-            </React.Fragment>
+            </div>
           );
         })}
-      </section>
-    </main>
+      </main>
+    </>
   );
 }
