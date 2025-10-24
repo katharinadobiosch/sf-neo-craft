@@ -71,6 +71,9 @@
   background-color: #000; /* oder deine Wunschfarbe */
   transform: translateX(-0.5px); /* exakt mittig */
   z-index: 1;
+  height: calc(
+    100% - 7rem
+  ); /* Höhe anpassen, hier z.B. 3rem Abstand oben/unten */
 }
 
 .collections-grid h4 {
@@ -90,8 +93,6 @@
 .collection-item img {
   height: auto;
 }
-
-
 
 /*
 * --------------------------------------------------
