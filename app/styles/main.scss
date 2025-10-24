@@ -72,6 +72,9 @@
   background-color: #000; /* oder deine Wunschfarbe */
   transform: translateX(-0.5px); /* exakt mittig */
   z-index: 1;
+  height: calc(
+    100% - 7rem
+  ); /* Höhe anpassen, hier z.B. 3rem Abstand oben/unten */
 }
 
 .collections-grid h4 {
@@ -90,17 +93,6 @@
 
 .collection-item img {
   height: auto;
-}
-
-.vertical-divider {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 0.1rem;
-  background-color: black;
-  transform: translateX(-50%);
-  z-index: 0; /* hinter Content, ggf. anpassen */
 }
 
 /*
