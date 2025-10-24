@@ -112,22 +112,3 @@ body {
     display: block;
   } /* <— Linie ab 992 sichtbar */
 }
-
-/* --------------------------- */
-/* ≥1200px                     */
-/* --------------------------- */
-@media (min-width: 1200px) {
-  .dealers__container {
-    padding-inline: 60px;
-  }
-}
-
-/* --------------------------- */
-/* ≥1400px                     */
-/* --------------------------- */
-@media (min-width: 1400px) {
-  .dealers__container {
-    max-width: 1400px;
-    margin-inline: auto;
-  }
-}
