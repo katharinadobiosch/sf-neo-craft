@@ -13,6 +13,7 @@
     position: relative;
     overflow: hidden;
     min-width: 0;
+    aspect-ratio: 1/1;
 
     > img,
     > picture,
@@ -28,7 +29,7 @@
   }
 
   &__content {
-    padding-top: 8rem;
+    padding-top: 38rem;
     padding-bottom: 10rem;
     display: flex;
     justify-content: center;
