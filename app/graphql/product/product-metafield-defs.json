@@ -433,7 +433,7 @@
   },
   {
     "namespace": "custom",
-    "key": "neo_color_product",
+    "key": "material_tile_color",
     "name": "Neo Color Product",
     "type": {
       "name": "list.metaobject_reference"

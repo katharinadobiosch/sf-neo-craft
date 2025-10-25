@@ -102,6 +102,8 @@ function ProductItem({product, isReversed}) {
 
   const colors = getProductColors(product);
 
+  console.log('PRODUCT', product);
+
   return (
     <Link
       to={`/products/${product.handle}`}
@@ -254,7 +256,7 @@ query CollectionByHandle_Materials(
         }
 
         # ✅ Produkt-Ebene: Liste von Neo-Color Metaobjekten
-        neoColorProduct: metafield(namespace: "custom", key: "neo_color_product") {
+        neoColorProduct: metafield(namespace: "custom", key: "material_tile_color") {
           type
           references(first: 50) {
             nodes {

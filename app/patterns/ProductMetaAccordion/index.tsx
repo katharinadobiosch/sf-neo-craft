@@ -6,7 +6,7 @@ const FIELD_CONFIG = [
   {key: 'cable_color', label: 'Cable Colour'},
   {key: 'frame_color', label: 'Frame Colour'},
   {key: 'glass_color', label: 'Glass Colour'},
-  {key: 'neo_color_product', label: 'Available Colours'},
+  {key: 'material_tile_color', label: 'Available Colours'},
   {key: 'measurements', label: 'Measurements'}, // file_reference (Bilder)
   {key: 'product_tile', label: 'Product Tile'}, // file_reference (Bilder)
 ];
