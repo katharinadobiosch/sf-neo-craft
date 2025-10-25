@@ -41,7 +41,8 @@ export function PageLayout({
     if (
       pathname.startsWith('/projects') ||
       pathname.startsWith('/products') ||
-      pathname.startsWith('/materials')
+      pathname.startsWith('/materials') ||
+      pathname.startsWith('/collections')
     )
       return 'purple';
     if (

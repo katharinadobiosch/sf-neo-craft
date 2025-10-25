@@ -2,10 +2,8 @@
   position: relative;
 
   &__image {
-    position: absolute;
+    // position: absolute;
     left: 0;
-    width: 100%;
-    height: 78rem;
     display: flex;
     z-index: 1;
 
@@ -14,6 +12,7 @@
       width: 50%;
       height: 100%;
       object-fit: cover;
+      aspect-ratio: 1/1;
     }
   }
 
@@ -30,7 +29,7 @@
       font-size: 2.2rem;
       line-height: 3.4rem;
       width: 80%;
-      margin: 85rem 0 10rem 0;
+      margin: 10rem 0;
     }
   }
 }

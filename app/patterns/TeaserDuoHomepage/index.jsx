@@ -1,6 +1,10 @@
 import './teaserDuoHomepage.scss';
 
-export function TeaserDuoHomepage({teaserImageLeft, teaserImageRight, content}) {
+export function TeaserDuoHomepage({
+  teaserImageLeft,
+  teaserImageRight,
+  content,
+}) {
   return (
     <div className="teaser-duo-homepage">
       <div className="teaser-duo-homepage__image">

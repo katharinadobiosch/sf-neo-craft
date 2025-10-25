@@ -216,7 +216,7 @@ const PRODUCT_QUERY = `#graphql
       {namespace: "custom", key: "material"},
       {namespace: "custom", key: "measurements"},
       {namespace: "custom", key: "product_tile"},
-      {namespace: "custom", key: "neo_color_product"}
+      {namespace: "custom", key: "material_tile_color"}
     ]) {
       namespace
       key

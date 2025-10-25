@@ -510,7 +510,7 @@
           "cursor": "eyJsYXN0X2lkIjozMjc4MTcxMDE1NzYsImxhc3RfdmFsdWUiOiIzMjc4MTcxMDE1NzYifQ==",
           "node": {
             "namespace": "custom",
-            "key": "neo_color_product",
+            "key": "material_tile_color",
             "name": "Neo Color Product",
             "type": {
               "name": "list.metaobject_reference"
