@@ -210,13 +210,20 @@ const PRODUCT_QUERY = `#graphql
     descriptionHtml
     description
 
-    images(first: 10) { edges { node { id url altText width height } } }
+images(first: 10) {
+      edges { node { id url altText width height } }
+    }
 
+    encodedVariantExistence
+    encodedVariantAvailability
     options {
       name
       optionValues {
         name
         firstSelectableVariant { ...ProductVariant }
+                swatch { color image { previewImage { url } } }
+
+
       }
     }
 
