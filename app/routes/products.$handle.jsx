@@ -14,7 +14,6 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
 import {normalizeAllMetafields} from '~/utils/metafields';
 // GANZ OBEN, nur EINMAL:
-import PRODUCT_CUSTOM_METAFIELDS_FRAGMENT from '~/graphql/product/product-metafields.fragment.graphql?raw';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -183,7 +182,8 @@ export default function Product() {
   );
 }
 
-const PRODUCT_VARIANT_FRAGMENT = `#graphql
+// Alles in EINEM GraphQL-Doc, damit Codegen keine "Unknown fragment"-Fehler wirft.
+const PRODUCT_QUERY = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
     compareAtPrice { amount currencyCode }
@@ -196,11 +196,78 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
     title
     unitPrice { amount currencyCode }
   }
-`;
 
-const PRODUCT_QUERY = `#graphql
-  ${PRODUCT_CUSTOM_METAFIELDS_FRAGMENT}
-  ${PRODUCT_VARIANT_FRAGMENT}
+  fragment ProductCustomMetafields on Product {
+    metafields(identifiers: [
+      {namespace: "custom", key: "marble_fixture"},
+      {namespace: "custom", key: "material"},
+      {namespace: "custom", key: "size"},
+      {namespace: "custom", key: "length"},
+      {namespace: "custom", key: "width"},
+      {namespace: "custom", key: "height"},
+      {namespace: "custom", key: "mirror_glass_type"},
+      {namespace: "custom", key: "wood_type"},
+      {namespace: "custom", key: "marble_type"},
+      {namespace: "custom", key: "metal_finish"},
+      {namespace: "custom", key: "option"},
+      {namespace: "custom", key: "oled_exchange_panel"},
+      {namespace: "custom", key: "surcharge"},
+      {namespace: "custom", key: "diameter"},
+      {namespace: "custom", key: "table_top"},
+      {namespace: "custom", key: "dichroic_glass"},
+      {namespace: "custom", key: "ceiling_cap"},
+      {namespace: "custom", key: "plug_type"},
+      {namespace: "custom", key: "measurements"},
+      {namespace: "custom", key: "teaser_duo_top"},
+      {namespace: "custom", key: "teaser_duo_bottom"},
+      {namespace: "custom", key: "hero_split_images"},
+      {namespace: "custom", key: "hero_split_text"},
+      {namespace: "custom", key: "hero_split_images_right"},
+      {namespace: "custom", key: "teaser_duo_bottom_right"},
+      {namespace: "custom", key: "teaser_duo_top_right"},
+      {namespace: "custom", key: "materialBoolean"},
+      {namespace: "custom", key: "product_tile"},
+      {namespace: "custom", key: "metal_color"},
+      {namespace: "custom", key: "cable_color"},
+      {namespace: "custom", key: "frame_color"},
+      {namespace: "custom", key: "glass_color"},
+      {namespace: "custom", key: "produkt_duo_top_links"},
+      {namespace: "custom", key: "produkt_duo_top_links_hover"},
+      {namespace: "custom", key: "produkt_duo_top_rechts"},
+      {namespace: "custom", key: "produkt_duo_top_rechts_hover"},
+      {namespace: "custom", key: "neo_color_product"},
+      {namespace: "custom", key: "hero_split_links"},
+      {namespace: "custom", key: "hero_split_rechts"},
+      {namespace: "custom", key: "hero_split_text"},
+      {namespace: "custom", key: "teaser_duo_bottom_links"},
+      {namespace: "custom", key: "teaser_duo_bottom_rechts"}
+    ]) {
+      namespace
+      key
+      type
+      value
+
+      reference {
+        __typename
+        ... on Metaobject { id type handle fields { key type value } }
+        ... on MediaImage { image { url altText } }
+        ... on Video { sources { url mimeType } }
+        ... on Model3d { sources { url mimeType } }
+        ... on GenericFile { url mimeType }
+      }
+
+      references(first: 50) {
+        nodes {
+          __typename
+          ... on Metaobject { id type handle fields { key type value } }
+          ... on MediaImage { image { url altText } }
+          ... on Video { sources { url mimeType } }
+          ... on Model3d { sources { url mimeType } }
+          ... on GenericFile { url mimeType }
+        }
+      }
+    }
+  }
 
   fragment Product on Product {
     id
@@ -210,20 +277,17 @@ const PRODUCT_QUERY = `#graphql
     descriptionHtml
     description
 
-images(first: 10) {
-      edges { node { id url altText width height } }
-    }
+    images(first: 10) { edges { node { id url altText width height } } }
 
     encodedVariantExistence
     encodedVariantAvailability
+
     options {
       name
       optionValues {
         name
         firstSelectableVariant { ...ProductVariant }
-                swatch { color image { previewImage { url } } }
-
-
+        swatch { color image { previewImage { url } } }
       }
     }
 
@@ -234,6 +298,7 @@ images(first: 10) {
     ) { ...ProductVariant }
 
     adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }
+
     seo { description title }
 
     ...ProductCustomMetafields
@@ -243,7 +308,7 @@ images(first: 10) {
     $country: CountryCode
     $handle: String!
     $language: LanguageCode
-    $selectedOptions: [SelectedOptionInput!]!
+    $selectedOptions: [SelectedOptionInput!]
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) { ...Product }
   }

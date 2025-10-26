@@ -12,65 +12,56 @@ const FIELD_CONFIG = [
 ];
 
 // Hilfsfunktionen zum Formatieren aus den normalisierten Werten:
+
+
 function metaobjectListToText(n) {
-  // bevorzugt "label" (deine Daten), fallback auf handle
+  if (!n || !Array.isArray(n.list)) return '';
   const get = (m) => {
     const f = (k) => m?.fields?.find((x) => x.key === k)?.value;
     return f('label') || f('name') || f('title') || m?.handle || m?.id || '';
   };
-  return (n.list || []).map(get).filter(Boolean).join('\n');
+  return n.list.map(get).filter(Boolean).join(', ');
 }
 
 function fileRefListToImgs(n) {
   // n.list enthält schon {url, altText, width, height}
-  return Array.isArray(n.list) ? n.list : [];
+  return n && Array.isArray(n.list) ? n.list : [];
 }
 
-/** Baut aus den normalisierten Metafeldern die Anzeigen-Items fürs UI */
-function buildItems(normalizedArray) {
-  // Map für schnellen Zugriff per key
-  const byKey = new Map();
-  for (const n of normalizedArray) if (n?.key) byKey.set(n.key, n);
+  function buildItems(normalizedArray) {
+    const byKey = new Map();
+    for (const n of normalizedArray) if (n?.key) byKey.set(n.key, n);
 
-  const items = [];
+    const items = [];
 
-  for (const def of FIELD_CONFIG) {
-    const n = byKey.get(def.key);
-    if (!n) continue;
+    for (const def of FIELD_CONFIG) {
+      const n = byKey.get(def.key);
+      if (!n) continue;
 
-    // je nach Typ unterschiedlich rendern/formatieren
-    if (n.kind === 'metaobject_reference') {
-      const txt = metaobjectListToText(n);
-      if (!txt) continue;
-      items.push({
-        label: def.label,
-        type: 'text',
-        value: txt,
-      });
-    } else if (n.kind === 'file_reference') {
-      const imgs = fileRefListToImgs(n);
-      if (!imgs.length) continue;
-      items.push({
-        label: def.label,
-        type: 'images',
-        images: imgs,
-      });
-    } else {
-      // Text/Number/Fallback
-      const val = Array.isArray(n.display)
-        ? n.display.filter(Boolean).join('\n')
-        : (n.display ?? '');
-      if (!String(val).trim()) continue;
-      items.push({
-        label: def.label,
-        type: 'text',
-        value: String(val),
-      });
+      if (n.kind === 'metaobject_reference') {
+        // nur wenn wirklich eine Liste vorhanden ist
+        const txt = metaobjectListToText(n);
+        if (!txt) continue;
+        items.push({label: def.label, type: 'text', value: txt});
+      } else if (n.kind === 'file_reference') {
+        const imgs = fileRefListToImgs(n);
+        if (!imgs.length) continue;
+        items.push({label: def.label, type: 'images', images: imgs});
+      } else {
+        const val = Array.isArray(n.display)
+          ? n.display.filter(Boolean).join(', ')
+          : (n.display ?? '');
+        if (!String(val).trim()) continue;
+        items.push({label: def.label, type: 'text', value: String(val)});
+      }
     }
+
+    return items;
   }
 
-  return items;
-}
+
+/** Baut aus den normalisierten Metafeldern die Anzeigen-Items fürs UI */
+
 
 /** @param {{ metafields: any, product?: any }} props */
 export function ProductMetaAccordion({metafields, product}) {

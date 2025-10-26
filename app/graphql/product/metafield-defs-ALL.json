@@ -109,70 +109,10 @@
   },
   {
     "namespace": "custom",
-    "key": "teaser_duo_bottom",
-    "name": "Teaser Duo Bottom Left + Hover",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "hero_split_images",
-    "name": "Hero Split Images Left + Hover",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
     "key": "hero_split_text",
     "name": "Hero Split Text",
     "type": {
       "name": "multi_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "hero_split_images_right",
-    "name": "Hero Split Images Right + Hover",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "teaser_duo_bottom_right",
-    "name": "Teaser Duo Bottom Right + Hover",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "teaser_duo_top_right",
-    "name": "Produkt Duo Top rechts + Hover",
-    "type": {
-      "name": "list.file_reference"
     },
     "access": {
       "storefront": "PUBLIC_READ"
@@ -373,8 +313,68 @@
   },
   {
     "namespace": "custom",
-    "key": "produkt_duo_top_links_hover",
+    "key": "produkt_duo_top_rechts",
+    "name": "Produkt Duo Top rechts + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "produkt_duo_top_links",
     "name": "Produkt Duo Top links + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "hero_split_links",
+    "name": "Hero Split links + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "hero_split_rechts",
+    "name": "Hero Split rechts + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "teaser_duo_bottom_links",
+    "name": "Teaser Duo Bottom links + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "teaser_duo_bottom_rechts",
+    "name": "Teaser Duo Bottom rechts+ Hover",
     "type": {
       "name": "list.file_reference"
     },

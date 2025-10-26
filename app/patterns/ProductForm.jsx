@@ -11,11 +11,14 @@ import {ProductMetaAccordion} from './ProductMetaAccordion';
 export function ProductForm({productOptions, product}) {
   const navigate = useNavigate();
 
-
   return (
     <div className="product-form">
       <Configurator productOptions={productOptions} navigate={navigate} />
-      <ProductMetaAccordion metafields={product?.metafields} />
+      // in ProductForm.jsx (oder wo du das Accordion renderst)
+      <ProductMetaAccordion
+        metafields={product?.metafields || []}
+        product={product}
+      />
     </div>
   );
 }

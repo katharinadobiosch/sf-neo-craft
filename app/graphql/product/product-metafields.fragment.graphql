@@ -16,12 +16,7 @@ fragment ProductCustomMetafields on Product {
         {namespace: "custom", key: "option"}  # list.single_line_text_field
         {namespace: "custom", key: "diameter"}  # list.number_decimal
         {namespace: "custom", key: "measurements"}  # list.file_reference
-        {namespace: "custom", key: "teaser_duo_bottom"}  # list.file_reference
-        {namespace: "custom", key: "hero_split_images"}  # list.file_reference
         {namespace: "custom", key: "hero_split_text"}  # multi_line_text_field
-        {namespace: "custom", key: "hero_split_images_right"}  # list.file_reference
-        {namespace: "custom", key: "teaser_duo_bottom_right"}  # list.file_reference
-        {namespace: "custom", key: "teaser_duo_top_right"}  # list.file_reference
         {namespace: "custom", key: "product_tile"}  # list.file_reference
         {namespace: "custom", key: "metal_color"}  # list.metaobject_reference
         {namespace: "custom", key: "cable_color"}  # list.metaobject_reference
@@ -38,7 +33,12 @@ fragment ProductCustomMetafields on Product {
         {namespace: "custom", key: "dichroic_glass"}  # list.metaobject_reference
         {namespace: "custom", key: "product_color"}  # list.metaobject_reference
         {namespace: "custom", key: "material_tile_color"}  # list.metaobject_reference
-        {namespace: "custom", key: "produkt_duo_top_links_hover"}  # list.file_reference
+        {namespace: "custom", key: "produkt_duo_top_rechts"}  # list.file_reference
+        {namespace: "custom", key: "produkt_duo_top_links"}  # list.file_reference
+        {namespace: "custom", key: "hero_split_links"}  # list.file_reference
+        {namespace: "custom", key: "hero_split_rechts"}  # list.file_reference
+        {namespace: "custom", key: "teaser_duo_bottom_links"}  # list.file_reference
+        {namespace: "custom", key: "teaser_duo_bottom_rechts"}  # list.file_reference
         {namespace: "custom_slider", key: "content"}  # list.file_reference
   ]) {
     namespace

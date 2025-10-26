@@ -9,20 +9,21 @@ import {useLoaderData} from 'react-router';
 
 export function ProductDetailInformation({product}) {
   const {metafields} = useLoaderData();
+  console.log('metafields in PDI', metafields);
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  console.log('metafields', metafields);
-  const obenLinks = metafields.produkt_duo_top_links_hover.list[0];
-  const obenLinksHover = metafields.produkt_duo_top_links_hover.list[1];
+  const obenLinks = metafields?.produkt_duo_top_links?.list[0];
+  const obenLinksHover = metafields?.produkt_duo_top_links_hover?.list[1];
 
-  const obenRechts = metafields.teaser_duo_top_right.list[0];
-  const obenRechtsHover = metafields.teaser_duo_top_right.list[1];
+  const obenRechts = metafields?.teaser_duo_top_rechts?.list[0];
+  const obenRechtsHover = metafields?.teaser_duo_top_rechts_hover?.list[1];
 
   console.log('obenLinks', obenLinks, obenLinksHover);
+  console.log('obenRechts', obenRechts, obenRechtsHover);
 
   return (
     <div className="pdp">
