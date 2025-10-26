@@ -1,0 +1,321 @@
+{
+    "teaser_duo_bottom": {
+        "key": "teaser_duo_bottom",
+        "namespace": "custom",
+        "rawType": "list.file_reference",
+        "kind": "file_reference",
+        "value": null,
+        "list": [
+            {
+                "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_STOOL_SUNYELLOW_72dpi.jpg?v=1758813643",
+                "altText": null
+            }
+        ],
+        "refs": [
+            {
+                "__typename": "MediaImage",
+                "image": {
+                    "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_STOOL_SUNYELLOW_72dpi.jpg?v=1758813643",
+                    "altText": null
+                }
+            }
+        ],
+        "display": [
+            "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_STOOL_SUNYELLOW_72dpi.jpg?v=1758813643"
+        ],
+        "mf": {
+            "namespace": "custom",
+            "key": "teaser_duo_bottom",
+            "type": "list.file_reference",
+            "value": "[\"gid://shopify/MediaImage/59863548035336\"]",
+            "reference": null,
+            "references": {
+                "nodes": [
+                    {
+                        "__typename": "MediaImage",
+                        "image": {
+                            "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_STOOL_SUNYELLOW_72dpi.jpg?v=1758813643",
+                            "altText": null
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "hero_split_images": {
+        "key": "hero_split_images",
+        "namespace": "custom",
+        "rawType": "list.file_reference",
+        "kind": "file_reference",
+        "value": null,
+        "list": [
+            {
+                "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_DARKBRONZE_72dpi_78636cca-9e78-412c-ae66-a52e7e9249d3.jpg?v=1760969384",
+                "altText": null
+            }
+        ],
+        "refs": [
+            {
+                "__typename": "MediaImage",
+                "image": {
+                    "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_DARKBRONZE_72dpi_78636cca-9e78-412c-ae66-a52e7e9249d3.jpg?v=1760969384",
+                    "altText": null
+                }
+            }
+        ],
+        "display": [
+            "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_DARKBRONZE_72dpi_78636cca-9e78-412c-ae66-a52e7e9249d3.jpg?v=1760969384"
+        ],
+        "mf": {
+            "namespace": "custom",
+            "key": "hero_split_images",
+            "type": "list.file_reference",
+            "value": "[\"gid://shopify/MediaImage/60969244852488\"]",
+            "reference": null,
+            "references": {
+                "nodes": [
+                    {
+                        "__typename": "MediaImage",
+                        "image": {
+                            "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_DARKBRONZE_72dpi_78636cca-9e78-412c-ae66-a52e7e9249d3.jpg?v=1760969384",
+                            "altText": null
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "hero_split_text": {
+        "key": "hero_split_text",
+        "namespace": "custom",
+        "rawType": "multi_line_text_field",
+        "kind": "multi_line_text_field",
+        "value": "test text",
+        "list": null,
+        "refs": null,
+        "display": "test text",
+        "mf": {
+            "namespace": "custom",
+            "key": "hero_split_text",
+            "type": "multi_line_text_field",
+            "value": "test text",
+            "reference": null,
+            "references": null
+        }
+    },
+    "hero_split_images_right": {
+        "key": "hero_split_images_right",
+        "namespace": "custom",
+        "rawType": "list.file_reference",
+        "kind": "file_reference",
+        "value": null,
+        "list": [
+            {
+                "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/DE87A0A2-E3DF-4C33-B3D3-02350791B2FE_1_105_c.jpg?v=1759582599",
+                "altText": null
+            }
+        ],
+        "refs": [
+            {
+                "__typename": "MediaImage",
+                "image": {
+                    "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/DE87A0A2-E3DF-4C33-B3D3-02350791B2FE_1_105_c.jpg?v=1759582599",
+                    "altText": null
+                }
+            }
+        ],
+        "display": [
+            "https://cdn.shopify.com/s/files/1/1640/6173/files/DE87A0A2-E3DF-4C33-B3D3-02350791B2FE_1_105_c.jpg?v=1759582599"
+        ],
+        "mf": {
+            "namespace": "custom",
+            "key": "hero_split_images_right",
+            "type": "list.file_reference",
+            "value": "[\"gid://shopify/MediaImage/60328442265864\"]",
+            "reference": null,
+            "references": {
+                "nodes": [
+                    {
+                        "__typename": "MediaImage",
+                        "image": {
+                            "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/DE87A0A2-E3DF-4C33-B3D3-02350791B2FE_1_105_c.jpg?v=1759582599",
+                            "altText": null
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "teaser_duo_bottom_right": {
+        "key": "teaser_duo_bottom_right",
+        "namespace": "custom",
+        "rawType": "list.file_reference",
+        "kind": "file_reference",
+        "value": null,
+        "list": [
+            {
+                "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_STOOL_DEEPBLACK_72dpi.jpg?v=1758813643",
+                "altText": null
+            }
+        ],
+        "refs": [
+            {
+                "__typename": "MediaImage",
+                "image": {
+                    "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_STOOL_DEEPBLACK_72dpi.jpg?v=1758813643",
+                    "altText": null
+                }
+            }
+        ],
+        "display": [
+            "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_STOOL_DEEPBLACK_72dpi.jpg?v=1758813643"
+        ],
+        "mf": {
+            "namespace": "custom",
+            "key": "teaser_duo_bottom_right",
+            "type": "list.file_reference",
+            "value": "[\"gid://shopify/MediaImage/59863548002568\"]",
+            "reference": null,
+            "references": {
+                "nodes": [
+                    {
+                        "__typename": "MediaImage",
+                        "image": {
+                            "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_STOOL_DEEPBLACK_72dpi.jpg?v=1758813643",
+                            "altText": null
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "teaser_duo_top_right": {
+        "key": "teaser_duo_top_right",
+        "namespace": "custom",
+        "rawType": "list.file_reference",
+        "kind": "file_reference",
+        "value": null,
+        "list": [
+            {
+                "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_INKBLACK_72dpi_76fb11c9-afeb-4954-a31f-cb5f75d7c481.jpg?v=1760969384",
+                "altText": null
+            }
+        ],
+        "refs": [
+            {
+                "__typename": "MediaImage",
+                "image": {
+                    "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_INKBLACK_72dpi_76fb11c9-afeb-4954-a31f-cb5f75d7c481.jpg?v=1760969384",
+                    "altText": null
+                }
+            }
+        ],
+        "display": [
+            "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_INKBLACK_72dpi_76fb11c9-afeb-4954-a31f-cb5f75d7c481.jpg?v=1760969384"
+        ],
+        "mf": {
+            "namespace": "custom",
+            "key": "teaser_duo_top_right",
+            "type": "list.file_reference",
+            "value": "[\"gid://shopify/MediaImage/60969244885256\"]",
+            "reference": null,
+            "references": {
+                "nodes": [
+                    {
+                        "__typename": "MediaImage",
+                        "image": {
+                            "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_INKBLACK_72dpi_76fb11c9-afeb-4954-a31f-cb5f75d7c481.jpg?v=1760969384",
+                            "altText": null
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "product_tile": {
+        "key": "product_tile",
+        "namespace": "custom",
+        "rawType": "list.file_reference",
+        "kind": "file_reference",
+        "value": null,
+        "list": [
+            {
+                "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_SUNYELLOW_72dpi_d43aaf1b-52c4-461c-b7c3-9c05f30051cb.jpg?v=1760969384",
+                "altText": null
+            }
+        ],
+        "refs": [
+            {
+                "__typename": "MediaImage",
+                "image": {
+                    "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_SUNYELLOW_72dpi_d43aaf1b-52c4-461c-b7c3-9c05f30051cb.jpg?v=1760969384",
+                    "altText": null
+                }
+            }
+        ],
+        "display": [
+            "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_SUNYELLOW_72dpi_d43aaf1b-52c4-461c-b7c3-9c05f30051cb.jpg?v=1760969384"
+        ],
+        "mf": {
+            "namespace": "custom",
+            "key": "product_tile",
+            "type": "list.file_reference",
+            "value": "[\"gid://shopify/MediaImage/60969244950792\"]",
+            "reference": null,
+            "references": {
+                "nodes": [
+                    {
+                        "__typename": "MediaImage",
+                        "image": {
+                            "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_SUNYELLOW_72dpi_d43aaf1b-52c4-461c-b7c3-9c05f30051cb.jpg?v=1760969384",
+                            "altText": null
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "produkt_duo_top_links_hover": {
+        "key": "produkt_duo_top_links_hover",
+        "namespace": "custom",
+        "rawType": "list.file_reference",
+        "kind": "file_reference",
+        "value": null,
+        "list": [
+            {
+                "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_RAWALUMINIUM_72dpi.jpg?v=1760969385",
+                "altText": null
+            }
+        ],
+        "refs": [
+            {
+                "__typename": "MediaImage",
+                "image": {
+                    "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_RAWALUMINIUM_72dpi.jpg?v=1760969385",
+                    "altText": null
+                }
+            }
+        ],
+        "display": [
+            "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_RAWALUMINIUM_72dpi.jpg?v=1760969385"
+        ],
+        "mf": {
+            "namespace": "custom",
+            "key": "produkt_duo_top_links_hover",
+            "type": "list.file_reference",
+            "value": "[\"gid://shopify/MediaImage/60969244918024\"]",
+            "reference": null,
+            "references": {
+                "nodes": [
+                    {
+                        "__typename": "MediaImage",
+                        "image": {
+                            "url": "https://cdn.shopify.com/s/files/1/1640/6173/files/NC_LOOP_CHAIR_RAWALUMINIUM_72dpi.jpg?v=1760969385",
+                            "altText": null
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

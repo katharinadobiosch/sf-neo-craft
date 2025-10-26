@@ -15,22 +15,33 @@ export function ProductDetailInformation({product}) {
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  console.log('ProductDetailInformation render', {product, metafields});
+  console.log('metafields', metafields);
+  const obenLinks = metafields.produkt_duo_top_links_hover.list[0];
+  const obenLinksHover = metafields.produkt_duo_top_links_hover.list[1];
 
-  const imageNodes = product.images?.edges?.map((edge) => edge.node) || [];
+  const obenRechts = metafields.teaser_duo_top_right.list[0];
+  const obenRechtsHover = metafields.teaser_duo_top_right.list[1];
 
-  const mainImage = imageNodes[0];
-  const secondImage = imageNodes[1];
+  console.log('obenLinks', obenLinks, obenLinksHover);
 
   return (
     <div className="pdp">
       <div className="square-variant">
         <TeaserDuo
-          teaserImageLeft={<ProductImage image={mainImage} />}
-          teaserImageRight={<ProductImage image={secondImage} />}
+          teaserImageLeft={
+            <div className="hover-wrap">
+              <ProductImage image={obenLinks} />
+              <ProductImage image={obenLinksHover} className="hover-img" />
+            </div>
+          }
+          teaserImageRight={
+            <div className="hover-wrap">
+              <ProductImage image={obenRechts} />
+              <ProductImage image={obenRechtsHover} className="hover-img" />
+            </div>
+          }
           content={
-            <div>test</div>
-            // <div dangerouslySetInnerHTML={{__html: product.description}} />
+            <div dangerouslySetInnerHTML={{__html: product.description}} />
           }
         />
       </div>
