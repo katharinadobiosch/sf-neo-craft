@@ -13,6 +13,8 @@ import {
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
 import {normalizeAllMetafields} from '~/utils/metafields';
+// GANZ OBEN, nur EINMAL:
+import PRODUCT_CUSTOM_METAFIELDS_FRAGMENT from '~/graphql/product/product-metafields.fragment.graphql?raw';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -45,6 +47,35 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {LoaderFunctionArgs}
  */
+// async function loadCriticalData({context, params, request}) {
+//   const {handle} = params;
+//   const {storefront} = context;
+
+//   if (!handle) {
+//     throw new Error('Expected product handle to be defined');
+//   }
+
+//   const [{product}] = await Promise.all([
+//     storefront.query(PRODUCT_QUERY, {
+//       variables: {handle, selectedOptions: getSelectedProductOptions(request)},
+//     }),
+//     // Add other queries here, so that they are loaded in parallel
+//   ]);
+
+//   if (!product?.id) {
+//     throw new Response(null, {status: 404});
+//   }
+
+//   // The API handle might be localized, so redirect to the localized handle
+//   redirectIfHandleIsLocalized(request, {handle, data: product});
+
+//   return {
+//     product,
+//   };
+// }
+
+// app/routes/products.$handle.jsx
+
 async function loadCriticalData({context, params, request}) {
   const {handle} = params;
   const {storefront} = context;
@@ -57,18 +88,20 @@ async function loadCriticalData({context, params, request}) {
     storefront.query(PRODUCT_QUERY, {
       variables: {handle, selectedOptions: getSelectedProductOptions(request)},
     }),
-    // Add other queries here, so that they are loaded in parallel
   ]);
 
   if (!product?.id) {
     throw new Response(null, {status: 404});
   }
 
-  // The API handle might be localized, so redirect to the localized handle
   redirectIfHandleIsLocalized(request, {handle, data: product});
+
+  // 👉 Metafelder normalisieren (aus dem rohen Array wird eine Key→Objekt-Map)
+  const metafields = normalizeAllMetafields(product.metafields);
 
   return {
     product,
+    metafields,
   };
 }
 
@@ -153,98 +186,21 @@ export default function Product() {
 const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
-    compareAtPrice {
-      amount
-      currencyCode
-    }
+    compareAtPrice { amount currencyCode }
     id
-    image {
-      __typename
-      id
-      url
-      altText
-      width
-      height
-    }
-    price {
-      amount
-      currencyCode
-    }
-    product {
-      title
-      handle
-    }
-    selectedOptions {
-      name
-      value
-    }
+    image { __typename id url altText width height }
+    price { amount currencyCode }
+    product { title handle }
+    selectedOptions { name value }
     sku
     title
-    unitPrice {
-      amount
-      currencyCode
-    }
+    unitPrice { amount currencyCode }
   }
 `;
 
-// --- Query & Fragment (inline, damit Codegen happy ist) ---
 const PRODUCT_QUERY = `#graphql
-  fragment ProductCustomMetafields on Product {
-    metafields(identifiers: [
-      {namespace: "custom", key: "plug_type"},
-      {namespace: "custom", key: "metal_color"},
-      {namespace: "custom", key: "cable_color"},
-      {namespace: "custom", key: "frame_color"},
-      {namespace: "custom", key: "glass_color"},
-      {namespace: "custom", key: "ceiling_cap"},
-      {namespace: "custom", key: "dichroic_glass"},
-      {namespace: "custom", key: "table_top"},
-      {namespace: "custom", key: "size"},
-      {namespace: "custom", key: "length"},
-      {namespace: "custom", key: "width"},
-      {namespace: "custom", key: "height"},
-      {namespace: "custom", key: "diameter"},
-      {namespace: "custom", key: "marble_fixture"},
-      {namespace: "custom", key: "mirror_glass_type"},
-      {namespace: "custom", key: "wood_type"},
-      {namespace: "custom", key: "marble_type"},
-      {namespace: "custom", key: "metal_finish"},
-      {namespace: "custom", key: "option"},
-      {namespace: "custom", key: "surcharge"},
-      {namespace: "custom", key: "oled_exchange_panel"},
-      {namespace: "custom", key: "material"},
-      {namespace: "custom", key: "measurements"},
-      {namespace: "custom", key: "product_tile"},
-      {namespace: "custom", key: "neo_color_product"}
-    ]) {
-      namespace
-      key
-      type
-      value
-
-      # Einzel-Referenz (file_reference etc.)
-      reference {
-        __typename
-        ... on Metaobject { id type handle fields { key type value } }
-        ... on MediaImage { image { url altText width height } }
-        ... on Video { sources { url mimeType } }
-        ... on Model3d { sources { url mimeType } }
-        ... on GenericFile { url mimeType }
-      }
-
-      # Listen-Referenzen (list.metaobject_reference / list.file_reference)
-      references(first: 50) {
-        nodes {
-          __typename
-          ... on Metaobject { id type handle fields { key type value } }
-          ... on MediaImage { image { url altText width height } }
-          ... on Video { sources { url mimeType } }
-          ... on Model3d { sources { url mimeType } }
-          ... on GenericFile { url mimeType }
-        }
-      }
-    }
-  }
+  ${PRODUCT_CUSTOM_METAFIELDS_FRAGMENT}
+  ${PRODUCT_VARIANT_FRAGMENT}
 
   fragment Product on Product {
     id
@@ -254,19 +210,13 @@ const PRODUCT_QUERY = `#graphql
     descriptionHtml
     description
 
-    images(first: 10) {
-      edges { node { id url altText width height } }
-    }
-
-    encodedVariantExistence
-    encodedVariantAvailability
+    images(first: 10) { edges { node { id url altText width height } } }
 
     options {
       name
       optionValues {
         name
         firstSelectableVariant { ...ProductVariant }
-        swatch { color image { previewImage { url } } }
       }
     }
 
@@ -280,19 +230,6 @@ const PRODUCT_QUERY = `#graphql
     seo { description title }
 
     ...ProductCustomMetafields
-  }
-
-  fragment ProductVariant on ProductVariant {
-    availableForSale
-    compareAtPrice { amount currencyCode }
-    id
-    image { __typename id url altText width height }
-    price { amount currencyCode }
-    product { title handle }
-    selectedOptions { name value }
-    sku
-    title
-    unitPrice { amount currencyCode }
   }
 
   query Product(
