@@ -9,21 +9,34 @@ import {useLoaderData} from 'react-router';
 
 export function ProductDetailInformation({product}) {
   const {metafields} = useLoaderData();
-  console.log('metafields in PDI', metafields);
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
 
+  //metafields
+  // product_tile;
+  // produkt_duo_top_rechts;
+  // produkt_duo_top_links;
+  // hero_split_links;
+  // hero_split_rechts;
+  // teaser_duo_bottom_links;
+  // teaser_duo_bottom_rechts;
+
+  const untenLinks = metafields?.teaser_duo_bottom_links?.list[0];
+  const untenLinksHover = metafields?.teaser_duo_bottom_links_hover?.list[1];
+
+  const untenRechts = metafields?.teaser_duo_bottom_rechts?.list[0];
+  const untenRechtsHover = metafields?.teaser_duo_bottom_rechts_hover?.list[1];
+
   const obenLinks = metafields?.produkt_duo_top_links?.list[0];
   const obenLinksHover = metafields?.produkt_duo_top_links_hover?.list[1];
+  
+  const obenRechts = metafields?.produkt_duo_top_rechts?.list[0];
+  const obenRechtsHover = metafields?.produkt_duo_top_rechts_hover?.list[1];
 
-  const obenRechts = metafields?.teaser_duo_top_rechts?.list[0];
-  const obenRechtsHover = metafields?.teaser_duo_top_rechts_hover?.list[1];
 
-  console.log('obenLinks', obenLinks, obenLinksHover);
-  console.log('obenRechts', obenRechts, obenRechtsHover);
 
   return (
     <div className="pdp">
