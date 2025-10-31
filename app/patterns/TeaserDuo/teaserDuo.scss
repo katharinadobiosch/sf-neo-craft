@@ -29,7 +29,7 @@
   }
 
   &__content {
-    padding-top: 38rem;
+    padding-top: 5rem;
     padding-bottom: 10rem;
     display: flex;
     justify-content: center;
@@ -50,7 +50,7 @@
 @media (max-width: 1024px) {
   .teaser-duo {
     margin-inline: -3rem;
-    width: calc(100% + 6rem);
+    width: calc(100% + 5.6rem);
   }
   .teaser-duo__images {
     height: 380px; // etwas niedriger

@@ -10,7 +10,7 @@
     "preview": "shopify hydrogen preview --build",
     "lint": "eslint --no-error-on-unmatched-pattern .",
     "codegen": "shopify hydrogen codegen",
-    "export:metafields": "node graphql/product/export-product-metafields.mjs"
+    "export:metafields": "node app/graphql/product/export-product-metafields.mjs"
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {

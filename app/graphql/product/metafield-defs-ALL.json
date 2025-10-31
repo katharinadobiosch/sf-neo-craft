@@ -12,42 +12,6 @@
     "ownerType": "PRODUCT"
   },
   {
-    "namespace": "shopify",
-    "key": "bulb-size",
-    "name": "Bulb size",
-    "type": {
-      "name": "list.metaobject_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "shopify",
-    "key": "bulb-type",
-    "name": "Bulb type",
-    "type": {
-      "name": "list.metaobject_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "marble_fixture",
-    "name": "Marble Fixture",
-    "type": {
-      "name": "list.single_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
     "namespace": "custom",
     "key": "material",
     "name": "Material",
@@ -109,80 +73,8 @@
   },
   {
     "namespace": "custom",
-    "key": "mirror_glass_type",
-    "name": "Mirror Glass Type ",
-    "type": {
-      "name": "list.single_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "wood_type",
-    "name": "Wood Type ",
-    "type": {
-      "name": "list.single_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "marble_type",
-    "name": "Marble Type ",
-    "type": {
-      "name": "list.single_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "metal_finish",
-    "name": "Metal Finish",
-    "type": {
-      "name": "list.single_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
     "key": "option",
     "name": "Option ",
-    "type": {
-      "name": "list.single_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "oled_exchange_panel",
-    "name": "OLED Exchange Panel",
-    "type": {
-      "name": "list.single_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "surcharge",
-    "name": "Surcharge ",
     "type": {
       "name": "list.single_line_text_field"
     },
@@ -205,92 +97,8 @@
   },
   {
     "namespace": "custom",
-    "key": "table_top",
-    "name": "Table Top",
-    "type": {
-      "name": "list.single_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "dichroic_glass",
-    "name": "Dichroic Glass",
-    "type": {
-      "name": "list.single_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "ceiling_cap",
-    "name": "Ceiling Cap",
-    "type": {
-      "name": "list.single_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "plug_type",
-    "name": "Plug Type",
-    "type": {
-      "name": "list.single_line_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
     "key": "measurements",
     "name": "Measurements File",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "teaser_duo_top",
-    "name": "Teaser Duo Top Left + Hover",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "teaser_duo_bottom",
-    "name": "Teaser Duo Bottom Left + Hover",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "hero_split_images",
-    "name": "Hero Split Images Left + Hover",
     "type": {
       "name": "list.file_reference"
     },
@@ -313,56 +121,8 @@
   },
   {
     "namespace": "custom",
-    "key": "hero_split_images_right",
-    "name": "Hero Split Images Right + Hover",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "teaser_duo_bottom_right",
-    "name": "Teaser Duo Bottom Right + Hover",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "teaser_duo_top_right",
-    "name": "Teaser Duo Top Right + Hover",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
-    "key": "materialBoolean",
-    "name": "Materialprobe",
-    "type": {
-      "name": "boolean"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
     "key": "product_tile",
-    "name": "Product Tile + Hover",
+    "name": "Collection Tile + Hover",
     "type": {
       "name": "list.file_reference"
     },
@@ -420,9 +180,21 @@
     "ownerType": "PRODUCT"
   },
   {
-    "namespace": "shopify",
-    "key": "connection-type",
-    "name": "Connection type",
+    "namespace": "custom",
+    "key": "plug_type",
+    "name": "Plug Type",
+    "type": {
+      "name": "file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "ceiling_cap",
+    "name": "Ceiling Cap",
     "type": {
       "name": "list.metaobject_reference"
     },
@@ -433,8 +205,8 @@
   },
   {
     "namespace": "custom",
-    "key": "neo_color_product",
-    "name": "Neo Color Product",
+    "key": "table_top",
+    "name": "Table Top",
     "type": {
       "name": "list.metaobject_reference"
     },
@@ -445,26 +217,170 @@
   },
   {
     "namespace": "custom",
-    "key": "color",
-    "name": "Neo Color Varianten",
+    "key": "marble_fixture",
+    "name": "Marble Fixture",
     "type": {
       "name": "list.metaobject_reference"
     },
     "access": {
       "storefront": "PUBLIC_READ"
     },
-    "ownerType": "PRODUCTVARIANT"
+    "ownerType": "PRODUCT"
   },
   {
     "namespace": "custom",
-    "key": "dealer",
-    "name": "Dealer",
+    "key": "wood_type",
+    "name": "Wood Type ",
     "type": {
-      "name": "json"
+      "name": "list.metaobject_reference"
     },
     "access": {
       "storefront": "PUBLIC_READ"
     },
-    "ownerType": "SHOP"
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "marble_type",
+    "name": "Marble Type ",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "metal_finish",
+    "name": "Metal Finish",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "mirror_glass_type",
+    "name": "Mirror Glass Type ",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "dichroic_glass",
+    "name": "Dichroic Glass",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "product_color",
+    "name": "Product Color",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "material_tile_color",
+    "name": "Material Tile Color",
+    "type": {
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "produkt_duo_top_rechts",
+    "name": "Produkt Duo Top rechts + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "produkt_duo_top_links",
+    "name": "Produkt Duo Top links + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "hero_split_links",
+    "name": "Hero Split links + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "hero_split_rechts",
+    "name": "Hero Split rechts + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "teaser_duo_bottom_links",
+    "name": "Teaser Duo Bottom links + Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "teaser_duo_bottom_rechts",
+    "name": "Teaser Duo Bottom rechts+ Hover",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
   }
 ]

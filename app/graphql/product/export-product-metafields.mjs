@@ -3,9 +3,6 @@ import 'dotenv/config';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
-/**
- * Konfiguration
- */
 const SHOP_DOMAIN =
   process.env.SHOPIFY_STORE_DOMAIN ||
   process.env.PUBLIC_STORE_DOMAIN ||
@@ -14,17 +11,11 @@ const SHOP_DOMAIN =
 const ADMIN_TOKEN =
   process.env.SHOPIFY_ADMIN_TOKEN || process.env.ADMIN_API_TOKEN;
 
+// passt bei dir zu den Types; kannst du anheben, wenn nötig
 const API_VERSION = process.env.ADMIN_API_VERSION || '2025-01';
 
-// Wohin schreiben (relativ zum Projektroot starten)
-const OUT_DIR = path.resolve('app/graphql/product');
-const ALL_FILE = path.join(OUT_DIR, 'metafield-defs-ALL.json');
-const PRODUCT_FILE = path.join(OUT_DIR, 'product-metafield-defs.json');
-const FRAGMENT_FILE = path.join(OUT_DIR, 'product-metafields.fragment.graphql');
-
 if (!SHOP_DOMAIN || !ADMIN_TOKEN) {
-  console.error('❌ Fehlt SHOP_DOMAIN oder ADMIN_TOKEN.');
-  console.error({
+  console.error('Fehlt SHOP_DOMAIN oder ADMIN_TOKEN.', {
     SHOPIFY_STORE_DOMAIN: process.env.SHOPIFY_STORE_DOMAIN,
     PUBLIC_STORE_DOMAIN: process.env.PUBLIC_STORE_DOMAIN,
     SHOP_DOMAIN: process.env.SHOP_DOMAIN,
@@ -36,11 +27,9 @@ if (!SHOP_DOMAIN || !ADMIN_TOKEN) {
 
 const endpoint = `https://${SHOP_DOMAIN}/admin/api/${API_VERSION}/graphql.json`;
 
-/**
- * Admin API Query – MetafieldDefinitions pro OwnerType
- */
-const query = `
-  query defs($ownerType: MetafieldOwnerType!, $cursor: String) {
+// Query A: inkl. access{storefront}
+const QUERY_WITH_ACCESS = `
+  query defs($cursor: String, $ownerType: MetafieldOwnerType!) {
     metafieldDefinitions(first: 100, ownerType: $ownerType, after: $cursor) {
       edges {
         cursor
@@ -50,8 +39,6 @@ const query = `
           name
           type { name }
           access { storefront }
-          # nützlich zur Nachverfolgung:
-          ownerType
         }
       }
       pageInfo { hasNextPage }
@@ -59,74 +46,95 @@ const query = `
   }
 `;
 
-/**
- * GQL Helfer
- */
-async function gql(variables = {}) {
+// Query B: konservativ (falls A in älteren Shops knallt)
+const QUERY_MINIMAL = `
+  query defs($cursor: String, $ownerType: MetafieldOwnerType!) {
+    metafieldDefinitions(first: 100, ownerType: $ownerType, after: $cursor) {
+      edges {
+        cursor
+        node {
+          namespace
+          key
+          name
+          type { name }
+        }
+      }
+      pageInfo { hasNextPage }
+    }
+  }
+`;
+
+async function gqlFetch(query, variables) {
   const res = await fetch(endpoint, {
     method: 'POST',
     headers: {
-      'X-Shopify-Access-Token': ADMIN_TOKEN,
       'Content-Type': 'application/json',
+      'X-Shopify-Access-Token': ADMIN_TOKEN,
     },
     body: JSON.stringify({query, variables}),
   });
-  if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
   const json = await res.json();
-  if (json.errors) throw new Error(JSON.stringify(json.errors));
+  if (json.errors) {
+    const msg = json.errors.map((e) => e.message).join('; ');
+    throw new Error(msg || 'GraphQL error');
+  }
   return json.data;
 }
 
-/**
- * Für welche OwnerTypes exportieren?
- * (Liste kann bei Bedarf erweitert werden)
- */
-const OWNER_TYPES = ['PRODUCT', 'PRODUCTVARIANT', 'COLLECTION', 'SHOP'];
-
-/**
- * Main
- */
-async function run() {
-  await fs.mkdir(OUT_DIR, {recursive: true});
-
-  /** 1) Alle Definitionen über mehrere OwnerTypes sammeln */
-  const allDefs = [];
-  for (const ownerType of OWNER_TYPES) {
-    let cursor = null;
-    // Seite für Seite
-    for (;;) {
-      const data = await gql({ownerType, cursor});
+async function fetchAllDefs(ownerType) {
+  let cursor = null;
+  let all = [];
+  // zuerst mit access{}
+  let query = QUERY_WITH_ACCESS;
+  for (;;) {
+    try {
+      const data = await gqlFetch(query, {ownerType, cursor});
       const page = data.metafieldDefinitions;
-      const nodes = page.edges.map((e) => ({
-        ...e.node,
-        // ownerType ist bei älteren APIs nicht immer gesetzt → anreichern
-        ownerType,
-      }));
-      allDefs.push(...nodes);
-
+      const nodes = page.edges.map((e) => ({...e.node, ownerType}));
+      all.push(...nodes);
       if (!page.pageInfo.hasNextPage) break;
       cursor = page.edges.at(-1).cursor;
+    } catch (e) {
+      // fallback ohne access{}
+      if (query === QUERY_MINIMAL) throw e;
+      query = QUERY_MINIMAL;
+      cursor = null;
+      all = [];
     }
   }
+  return all;
+}
 
-  // Schreiben: kompletter Dump
+async function main() {
+  const OUT_DIR = path.resolve('app/graphql/product');
+  const ALL_FILE = path.join(OUT_DIR, 'metafield-defs-ALL.json');
+  const PRODUCT_FILE = path.join(OUT_DIR, 'product-metafield-defs.json');
+  const FRAGMENT_FILE = path.join(
+    OUT_DIR,
+    'product-metafields.fragment.graphql',
+  );
+
+  await fs.mkdir(OUT_DIR, {recursive: true});
+
+  // 1) Alle OwnerTypes holen (hier reicht PRODUCT – kannst COLLECTION etc. ergänzen)
+  const ownerType = 'PRODUCT';
+  const allDefs = await fetchAllDefs(ownerType);
+
   await fs.writeFile(ALL_FILE, JSON.stringify(allDefs, null, 2), 'utf8');
 
-  /** 2) Nur PRODUCT-Definitionen herausfiltern */
+  // 2) Nur PRODUCT-Definitionen
   const productDefs = allDefs.filter((d) => d.ownerType === 'PRODUCT');
-
   await fs.writeFile(
     PRODUCT_FILE,
     JSON.stringify(productDefs, null, 2),
     'utf8',
   );
 
-  /** 3) Fragment bauen – nur storefront-freigegeben, Namespace "custom" zuerst */
+  // 3) Fragment bauen – nur storefront: PUBLIC_READ
   const productStorefront = productDefs.filter(
     (d) => d?.access?.storefront === 'PUBLIC_READ',
   );
 
-  // Reihenfolge: zuerst custom, dann der Rest – nur der Lesbarkeit halber
   const sorted = [
     ...productStorefront.filter((d) => d.namespace === 'custom'),
     ...productStorefront.filter((d) => d.namespace !== 'custom'),
@@ -158,7 +166,7 @@ ${identifiers}
     type
     value
 
-    # Referenzen (Dateien, Media, Metaobjekte etc.)
+    # Einzel-Referenz (file_reference etc.)
     reference {
       __typename
       ... on Metaobject { id type handle fields { key type value } }
@@ -167,26 +175,30 @@ ${identifiers}
       ... on Model3d { sources { url mimeType } }
       ... on GenericFile { url mimeType }
     }
+
+    # Listen-Referenzen
+    references(first: 50) {
+      nodes {
+        __typename
+        ... on Metaobject { id type handle fields { key type value } }
+        ... on MediaImage { image { url altText } }
+        ... on Video { sources { url mimeType } }
+        ... on Model3d { sources { url mimeType } }
+        ... on GenericFile { url mimeType }
+      }
+    }
   }
 }
 `;
-
   await fs.writeFile(FRAGMENT_FILE, fragment, 'utf8');
 
-  // Log
-  const byNs = productStorefront.reduce((acc, d) => {
-    acc[d.namespace] = (acc[d.namespace] || 0) + 1;
-    return acc;
-  }, {});
   console.log('✅ Export fertig');
   console.log('  →', path.relative(process.cwd(), ALL_FILE));
   console.log('  →', path.relative(process.cwd(), PRODUCT_FILE));
   console.log('  →', path.relative(process.cwd(), FRAGMENT_FILE));
-  console.log('Produkt-Defs (storefront):', productStorefront.length);
-  console.log('Namespaces:', byNs);
 }
 
-run().catch((err) => {
-  console.error('❌ Fehler:', err.message);
+main().catch((e) => {
+  console.error('❌ Fehler:', e?.message || e);
   process.exit(1);
 });

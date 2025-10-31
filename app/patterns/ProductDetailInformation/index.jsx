@@ -5,26 +5,48 @@ import {
 } from '@shopify/hydrogen';
 import {TeaserDuo} from '../TeaserDuo';
 import {ProductMain} from './ProductMain';
+import {useLoaderData} from 'react-router';
 
 export function ProductDetailInformation({product}) {
+  const {metafields} = useLoaderData();
+
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  // console.log('product pdp', product);
+  const productDuoTopLeft = metafields?.produkt_duo_top_links?.list[0];
+  const productDuoTopLeftHover = metafields?.produkt_duo_top_links?.list[1];
 
-  const imageNodes = product.images?.edges?.map((edge) => edge.node) || [];
+  const productDuoTopRight = metafields?.produkt_duo_top_rechts?.list[0];
+  const productDuoTopRightHover = metafields?.produkt_duo_top_rechts?.list[1];
 
-  const mainImage = imageNodes[0];
-  const secondImage = imageNodes[1];
+  console.log('hover', productDuoTopLeftHover);
 
   return (
     <div className="pdp">
       <div className="square-variant">
         <TeaserDuo
-          teaserImageLeft={<ProductImage image={mainImage} />}
-          teaserImageRight={<ProductImage image={secondImage} />}
+          teaserImageLeft={
+            <div className="hover-wrap">
+              <div className="base-img">
+                <ProductImage image={productDuoTopLeft} />
+              </div>
+              <div className="hover-img">
+                <ProductImage image={productDuoTopLeftHover} />
+              </div>
+            </div>
+          }
+          teaserImageRight={
+            <div className="hover-wrap">
+              <div className="base-img">
+                <ProductImage image={productDuoTopRight} />
+              </div>
+              <div className="hover-img">
+                <ProductImage image={productDuoTopRightHover} />
+              </div>
+            </div>
+          }
           content={
             <div dangerouslySetInnerHTML={{__html: product.description}} />
           }
