@@ -23,7 +23,7 @@ export default function Dealers({items}: Props) {
   }
 
   // 👉 Debug-Ausgabe: alle Metaobjekte so, wie sie reinkommen
-  console.log('All dealer metaobjects:', items);
+  // console.log('All dealer metaobjects:', items);
 
   // Nach Land gruppieren
   const byCountry = items.reduce<Record<string, Dealer[]>>((acc, d) => {
@@ -35,8 +35,8 @@ export default function Dealers({items}: Props) {
   // Länder alphabetisch
   const countries = Object.keys(byCountry).sort((a, b) => a.localeCompare(b));
 
-  console.log('Grouped by country:', byCountry);
-  console.log('Countries sorted:', countries);
+  // console.log('Grouped by country:', byCountry);
+  // console.log('Countries sorted:', countries);
 
   return (
     <main className="dealers">

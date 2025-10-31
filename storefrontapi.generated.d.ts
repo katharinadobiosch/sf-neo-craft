@@ -872,10 +872,7 @@ export type ProductCustomMetafieldsFragment = {
             >)
           | ({__typename: 'MediaImage'} & {
               image?: StorefrontAPI.Maybe<
-                Pick<
-                  StorefrontAPI.Image,
-                  'url' | 'altText' | 'width' | 'height'
-                >
+                Pick<StorefrontAPI.Image, 'url' | 'altText'>
               >;
             })
           | ({__typename: 'Metaobject'} & Pick<
@@ -906,10 +903,7 @@ export type ProductCustomMetafieldsFragment = {
               >)
             | ({__typename: 'MediaImage'} & {
                 image?: StorefrontAPI.Maybe<
-                  Pick<
-                    StorefrontAPI.Image,
-                    'url' | 'altText' | 'width' | 'height'
-                  >
+                  Pick<StorefrontAPI.Image, 'url' | 'altText'>
                 >;
               })
             | ({__typename: 'Metaobject'} & Pick<
@@ -1060,10 +1054,7 @@ export type ProductFragment = Pick<
             >)
           | ({__typename: 'MediaImage'} & {
               image?: StorefrontAPI.Maybe<
-                Pick<
-                  StorefrontAPI.Image,
-                  'url' | 'altText' | 'width' | 'height'
-                >
+                Pick<StorefrontAPI.Image, 'url' | 'altText'>
               >;
             })
           | ({__typename: 'Metaobject'} & Pick<
@@ -1094,10 +1085,7 @@ export type ProductFragment = Pick<
               >)
             | ({__typename: 'MediaImage'} & {
                 image?: StorefrontAPI.Maybe<
-                  Pick<
-                    StorefrontAPI.Image,
-                    'url' | 'altText' | 'width' | 'height'
-                  >
+                  Pick<StorefrontAPI.Image, 'url' | 'altText'>
                 >;
               })
             | ({__typename: 'Metaobject'} & Pick<
@@ -1132,9 +1120,9 @@ export type ProductQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
   handle: StorefrontAPI.Scalars['String']['input'];
   language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
-  selectedOptions:
-    | Array<StorefrontAPI.SelectedOptionInput>
-    | StorefrontAPI.SelectedOptionInput;
+  selectedOptions?: StorefrontAPI.InputMaybe<
+    Array<StorefrontAPI.SelectedOptionInput> | StorefrontAPI.SelectedOptionInput
+  >;
 }>;
 
 export type ProductQuery = {
@@ -1268,10 +1256,7 @@ export type ProductQuery = {
                 >)
               | ({__typename: 'MediaImage'} & {
                   image?: StorefrontAPI.Maybe<
-                    Pick<
-                      StorefrontAPI.Image,
-                      'url' | 'altText' | 'width' | 'height'
-                    >
+                    Pick<StorefrontAPI.Image, 'url' | 'altText'>
                   >;
                 })
               | ({__typename: 'Metaobject'} & Pick<
@@ -1311,10 +1296,7 @@ export type ProductQuery = {
                   >)
                 | ({__typename: 'MediaImage'} & {
                     image?: StorefrontAPI.Maybe<
-                      Pick<
-                        StorefrontAPI.Image,
-                        'url' | 'altText' | 'width' | 'height'
-                      >
+                      Pick<StorefrontAPI.Image, 'url' | 'altText'>
                     >;
                   })
                 | ({__typename: 'Metaobject'} & Pick<
@@ -1634,7 +1616,7 @@ interface GeneratedQueryTypes {
     return: PoliciesQuery;
     variables: PoliciesQueryVariables;
   };
-  '#graphql\n  fragment ProductCustomMetafields on Product {\n    metafields(identifiers: [\n      {namespace: "custom", key: "plug_type"},\n      {namespace: "custom", key: "metal_color"},\n      {namespace: "custom", key: "cable_color"},\n      {namespace: "custom", key: "frame_color"},\n      {namespace: "custom", key: "glass_color"},\n      {namespace: "custom", key: "ceiling_cap"},\n      {namespace: "custom", key: "dichroic_glass"},\n      {namespace: "custom", key: "table_top"},\n      {namespace: "custom", key: "size"},\n      {namespace: "custom", key: "length"},\n      {namespace: "custom", key: "width"},\n      {namespace: "custom", key: "height"},\n      {namespace: "custom", key: "diameter"},\n      {namespace: "custom", key: "marble_fixture"},\n      {namespace: "custom", key: "mirror_glass_type"},\n      {namespace: "custom", key: "wood_type"},\n      {namespace: "custom", key: "marble_type"},\n      {namespace: "custom", key: "metal_finish"},\n      {namespace: "custom", key: "option"},\n      {namespace: "custom", key: "surcharge"},\n      {namespace: "custom", key: "oled_exchange_panel"},\n      {namespace: "custom", key: "material"},\n      {namespace: "custom", key: "measurements"},\n      {namespace: "custom", key: "product_tile"},\n      {namespace: "custom", key: "neo_color_product"}\n    ]) {\n      namespace\n      key\n      type\n      value\n\n      # Einzel-Referenz (file_reference etc.)\n      reference {\n        __typename\n        ... on Metaobject { id type handle fields { key type value } }\n        ... on MediaImage { image { url altText width height } }\n        ... on Video { sources { url mimeType } }\n        ... on Model3d { sources { url mimeType } }\n        ... on GenericFile { url mimeType }\n      }\n\n      # Listen-Referenzen (list.metaobject_reference / list.file_reference)\n      references(first: 50) {\n        nodes {\n          __typename\n          ... on Metaobject { id type handle fields { key type value } }\n          ... on MediaImage { image { url altText width height } }\n          ... on Video { sources { url mimeType } }\n          ... on Model3d { sources { url mimeType } }\n          ... on GenericFile { url mimeType }\n        }\n      }\n    }\n  }\n\n  fragment Product on Product {\n    id\n    title\n    vendor\n    handle\n    descriptionHtml\n    description\n\n    images(first: 10) {\n      edges { node { id url altText width height } }\n    }\n\n    encodedVariantExistence\n    encodedVariantAvailability\n\n    options {\n      name\n      optionValues {\n        name\n        firstSelectableVariant { ...ProductVariant }\n        swatch { color image { previewImage { url } } }\n      }\n    }\n\n    selectedOrFirstAvailableVariant(\n      selectedOptions: $selectedOptions\n      ignoreUnknownOptions: true\n      caseInsensitiveMatch: true\n    ) { ...ProductVariant }\n\n    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }\n    seo { description title }\n\n    ...ProductCustomMetafields\n  }\n\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice { amount currencyCode }\n    id\n    image { __typename id url altText width height }\n    price { amount currencyCode }\n    product { title handle }\n    selectedOptions { name value }\n    sku\n    title\n    unitPrice { amount currencyCode }\n  }\n\n  query Product(\n    $country: CountryCode\n    $handle: String!\n    $language: LanguageCode\n    $selectedOptions: [SelectedOptionInput!]!\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) { ...Product }\n  }\n': {
+  '#graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice { amount currencyCode }\n    id\n    image { __typename id url altText width height }\n    price { amount currencyCode }\n    product { title handle }\n    selectedOptions { name value }\n    sku\n    title\n    unitPrice { amount currencyCode }\n  }\n\n  fragment ProductCustomMetafields on Product {\n    metafields(identifiers: [\n      {namespace: "custom", key: "marble_fixture"},\n      {namespace: "custom", key: "material"},\n      {namespace: "custom", key: "size"},\n      {namespace: "custom", key: "length"},\n      {namespace: "custom", key: "width"},\n      {namespace: "custom", key: "height"},\n      {namespace: "custom", key: "mirror_glass_type"},\n      {namespace: "custom", key: "wood_type"},\n      {namespace: "custom", key: "marble_type"},\n      {namespace: "custom", key: "metal_finish"},\n      {namespace: "custom", key: "option"},\n      {namespace: "custom", key: "oled_exchange_panel"},\n      {namespace: "custom", key: "surcharge"},\n      {namespace: "custom", key: "diameter"},\n      {namespace: "custom", key: "table_top"},\n      {namespace: "custom", key: "dichroic_glass"},\n      {namespace: "custom", key: "ceiling_cap"},\n      {namespace: "custom", key: "plug_type"},\n      {namespace: "custom", key: "measurements"},\n      {namespace: "custom", key: "teaser_duo_top"},\n      {namespace: "custom", key: "teaser_duo_bottom"},\n      {namespace: "custom", key: "hero_split_images"},\n      {namespace: "custom", key: "hero_split_text"},\n      {namespace: "custom", key: "hero_split_images_right"},\n      {namespace: "custom", key: "teaser_duo_bottom_right"},\n      {namespace: "custom", key: "teaser_duo_top_right"},\n      {namespace: "custom", key: "materialBoolean"},\n      {namespace: "custom", key: "product_tile"},\n      {namespace: "custom", key: "metal_color"},\n      {namespace: "custom", key: "cable_color"},\n      {namespace: "custom", key: "frame_color"},\n      {namespace: "custom", key: "glass_color"},\n      {namespace: "custom", key: "produkt_duo_top_links"},\n      {namespace: "custom", key: "produkt_duo_top_links_hover"},\n      {namespace: "custom", key: "produkt_duo_top_rechts"},\n      {namespace: "custom", key: "produkt_duo_top_rechts_hover"},\n      {namespace: "custom", key: "neo_color_product"},\n      {namespace: "custom", key: "hero_split_links"},\n      {namespace: "custom", key: "hero_split_rechts"},\n      {namespace: "custom", key: "hero_split_text"},\n      {namespace: "custom", key: "teaser_duo_bottom_links"},\n      {namespace: "custom", key: "teaser_duo_bottom_rechts"}\n    ]) {\n      namespace\n      key\n      type\n      value\n\n      reference {\n        __typename\n        ... on Metaobject { id type handle fields { key type value } }\n        ... on MediaImage { image { url altText } }\n        ... on Video { sources { url mimeType } }\n        ... on Model3d { sources { url mimeType } }\n        ... on GenericFile { url mimeType }\n      }\n\n      references(first: 50) {\n        nodes {\n          __typename\n          ... on Metaobject { id type handle fields { key type value } }\n          ... on MediaImage { image { url altText } }\n          ... on Video { sources { url mimeType } }\n          ... on Model3d { sources { url mimeType } }\n          ... on GenericFile { url mimeType }\n        }\n      }\n    }\n  }\n\n  fragment Product on Product {\n    id\n    title\n    vendor\n    handle\n    descriptionHtml\n    description\n\n    images(first: 10) { edges { node { id url altText width height } } }\n\n    encodedVariantExistence\n    encodedVariantAvailability\n\n    options {\n      name\n      optionValues {\n        name\n        firstSelectableVariant { ...ProductVariant }\n        swatch { color image { previewImage { url } } }\n      }\n    }\n\n    selectedOrFirstAvailableVariant(\n      selectedOptions: $selectedOptions\n      ignoreUnknownOptions: true\n      caseInsensitiveMatch: true\n    ) { ...ProductVariant }\n\n    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }\n\n    seo { description title }\n\n    ...ProductCustomMetafields\n  }\n\n  query Product(\n    $country: CountryCode\n    $handle: String!\n    $language: LanguageCode\n    $selectedOptions: [SelectedOptionInput!]\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) { ...Product }\n  }\n': {
     return: ProductQuery;
     variables: ProductQueryVariables;
   };

@@ -1,3 +1,8 @@
+.square-variant .teaser-duo__image > .hover-wrap {
+  position: absolute;
+  inset: 0;
+}
+
 .pdp {
   display: flex;
   flex-direction: column;
@@ -70,4 +75,24 @@
 }
 .square-variant .teaser-duo__content > p > div {
   margin: 0;
+}
+//* Hover-Bild ausblenden, Basisbild sichtbar lassen */
+.hover-wrap .hover-img {
+  opacity: 0 !important;
+  z-index: 2;
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Hover-Bild nur bei Hover einblenden */
+.hover-wrap:hover .hover-img {
+  opacity: 1 !important;
+}
+
+/* Wichtig: sicherstellen, dass das erste Bild oben liegt */
+.hover-wrap .product-image:first-child {
+  z-index: 1;
+  position: relative;
 }
