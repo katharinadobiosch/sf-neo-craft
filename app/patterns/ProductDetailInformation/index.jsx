@@ -15,28 +15,13 @@ export function ProductDetailInformation({product}) {
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  //metafields
-  // product_tile;
-  // produkt_duo_top_rechts;
-  // produkt_duo_top_links;
-  // hero_split_links;
-  // hero_split_rechts;
-  // teaser_duo_bottom_links;
-  // teaser_duo_bottom_rechts;
+  const productDuoTopLeft = metafields?.produkt_duo_top_links?.list[0];
+  const productDuoTopLeftHover = metafields?.produkt_duo_top_links?.list[1];
 
-  const untenLinks = metafields?.teaser_duo_bottom_links?.list[0];
-  const untenLinksHover = metafields?.teaser_duo_bottom_links_hover?.list[1];
+  const productDuoTopRight = metafields?.produkt_duo_top_rechts?.list[0];
+  const productDuoTopRightHover = metafields?.produkt_duo_top_rechts?.list[1];
 
-  const untenRechts = metafields?.teaser_duo_bottom_rechts?.list[0];
-  const untenRechtsHover = metafields?.teaser_duo_bottom_rechts_hover?.list[1];
-
-  const obenLinks = metafields?.produkt_duo_top_links?.list[0];
-  const obenLinksHover = metafields?.produkt_duo_top_links_hover?.list[1];
-  
-  const obenRechts = metafields?.produkt_duo_top_rechts?.list[0];
-  const obenRechtsHover = metafields?.produkt_duo_top_rechts_hover?.list[1];
-
-
+  console.log('hover', productDuoTopLeftHover);
 
   return (
     <div className="pdp">
@@ -44,14 +29,22 @@ export function ProductDetailInformation({product}) {
         <TeaserDuo
           teaserImageLeft={
             <div className="hover-wrap">
-              <ProductImage image={obenLinks} />
-              <ProductImage image={obenLinksHover} className="hover-img" />
+              <div className="base-img">
+                <ProductImage image={productDuoTopLeft} />
+              </div>
+              <div className="hover-img">
+                <ProductImage image={productDuoTopLeftHover} />
+              </div>
             </div>
           }
           teaserImageRight={
             <div className="hover-wrap">
-              <ProductImage image={obenRechts} />
-              <ProductImage image={obenRechtsHover} className="hover-img" />
+              <div className="base-img">
+                <ProductImage image={productDuoTopRight} />
+              </div>
+              <div className="hover-img">
+                <ProductImage image={productDuoTopRightHover} />
+              </div>
             </div>
           }
           content={

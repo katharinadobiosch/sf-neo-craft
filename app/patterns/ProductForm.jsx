@@ -14,7 +14,6 @@ export function ProductForm({productOptions, product}) {
   return (
     <div className="product-form">
       <Configurator productOptions={productOptions} navigate={navigate} />
-      // in ProductForm.jsx (oder wo du das Accordion renderst)
       <ProductMetaAccordion
         metafields={product?.metafields || []}
         product={product}
