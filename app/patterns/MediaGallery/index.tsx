@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useMemo, useRef} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, A11y, Pagination} from 'swiper/modules';
 
@@ -24,6 +24,8 @@ type Props = {
 };
 
 export function MediaGallery({product, variant, className}: Props) {
+  const swiperRef = useRef<SwiperType | null>(null);
+
   const slides = useMemo(() => {
     const list = [];
 
@@ -72,15 +74,35 @@ export function MediaGallery({product, variant, className}: Props) {
     },
   };
 
+  // 1) Key sorgt für sauberes Remount bei Variantenwechsel ODER Slide-Änderungen
+  const swiperKey = `${variant?.id ?? 'default'}|${slides.map((s) => s.id).join(',')}`;
+
+  // 2) Beim Variantenwechsel aktiv auf das Variantenbild springen
+  useEffect(() => {
+    if (!swiperRef.current) return;
+    const vUrl = variant?.image?.url;
+    if (!vUrl) return;
+    const idx = slides.findIndex((s) => s.url === vUrl);
+    if (idx < 0) return;
+
+    const s = swiperRef.current;
+    if (s.params.loop) {
+      s.slideToLoop(idx, 0, false);
+    } else {
+      s.slideTo(idx, 0, false);
+    }
+  }, [variant?.id, slides]); // absichtlich an id & slides gekoppelt
+
   return (
     <section className={`nc-media-gallery ${className ?? ''}`}>
       <Swiper
+        {...galleryOptions}
+        key={swiperKey} // <- remount
         modules={[Navigation, A11y]}
         className="nc-swiper-content"
-        slidesPerView={1}
-        loop={hasMultiple}
-        navigation
-        speed={500}
+        onSwiper={(inst) => {
+          swiperRef.current = inst;
+        }}
       >
         {slides.map((s) => (
           <SwiperSlide key={s.id}>
