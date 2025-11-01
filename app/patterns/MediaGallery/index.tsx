@@ -1,8 +1,29 @@
-import {useMemo} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Pagination, A11y} from 'swiper/modules';
+import {Navigation, A11y, Pagination} from 'swiper/modules';
 
-export function MediaGallery({product, variant}) {
+import classnames from 'classnames';
+import {Thumbs, Navigation} from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
+import type SwiperOptions from 'swiper';
+
+type Img = {
+  id: string;
+  url: string;
+  alt?: string | null;
+  width?: number | null;
+  height?: number | null;
+};
+
+type Props = {
+  product: any;
+  variant?: any;
+  className?: string;
+};
+
+export function MediaGallery({product, variant, className}: Props) {
   const slides = useMemo(() => {
     const list = [];
 
@@ -37,27 +58,43 @@ export function MediaGallery({product, variant}) {
 
   const hasMultiple = slides.length > 1;
 
+  const galleryOptions = {
+    slidesPerView: 1,
+    spaceBetween: 12,
+    navigation: true,
+    loop: hasMultiple,
+    pagination: hasMultiple ? {clickable: true} : undefined,
+    touchStartPreventDefault: false,
+    allowTouchMove: true,
+    speed: 500,
+    breakpoints: {
+      720: {slidesPerView: 1, spaceBetween: 30},
+    },
+  };
+
   return (
-    <div className="media-gallery">
+    <section className={`nc-media-gallery ${className ?? ''}`}>
       <Swiper
-        key={variant?.id || 'default'}
-        modules={[Pagination, A11y]}
+        modules={[Navigation, A11y]}
+        className="nc-swiper-content"
         slidesPerView={1}
         loop={hasMultiple}
-        pagination={hasMultiple ? {clickable: true} : undefined}
+        navigation
+        speed={500}
       >
         {slides.map((s) => (
           <SwiperSlide key={s.id}>
             <img
               src={s.url}
               alt={s.alt || ''}
-              width={s.width}
-              height={s.height}
+              width={s.width ?? undefined}
+              height={s.height ?? undefined}
               loading="lazy"
+              decoding="async"
             />
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </section>
   );
 }
