@@ -735,7 +735,7 @@ index 0000000..024c2ce
 +    return acc;
 +  }, {});
 +  console.log('✅ Export fertig');
-+  console.log('  →', path.relative(process.cwd(), ALL_FILE));
++  '  →', path.relative(process.cwd(), ALL_FILE));
 +  console.log('  →', path.relative(process.cwd(), PRODUCT_FILE));
 +  console.log('  →', path.relative(process.cwd(), FRAGMENT_FILE));
 +  console.log('Produkt-Defs (storefront):', productStorefront.length);

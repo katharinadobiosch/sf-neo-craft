@@ -19,6 +19,6 @@
     "remix.config.mjs",
     "app/**/*",
     "**/*.d.ts"
-  ],
+, "scripts"  ],
   "exclude": ["node_modules", "build"]
 }
