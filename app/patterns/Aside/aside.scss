@@ -15,6 +15,7 @@ aside {
   right: calc(-1 * var(--aside-width));
   top: 0;
   transition: transform 200ms ease-in-out;
+  z-index: 9999;
 }
 
 aside header {
@@ -108,6 +109,8 @@ aside li {
 /* reveal aside */
 .overlay.expanded aside {
   transform: translateX(calc(var(--aside-width) * -1));
+  border: 10px solid blue;
+  z-index: 99999;
 }
 
 button.reset {

@@ -200,10 +200,6 @@ export function Configurator({productOptions, navigate, product}) {
         className="cfg-panel"
         style={{maxHeight: open ? panelHeight : 0}}
       >
-        <ProductMetaAccordion
-          metafields={product?.metafields || []}
-          product={product}
-        />
         <div ref={panelRef} className="cfg-panel-inner">
           {productOptions?.map(renderOption)}
           <div className="cfg-cta">
