@@ -2,6 +2,9 @@
 .meta-accordion {
   margin-top: 2rem;
   border-top: 1px solid #e9e9ed;
+  border: 2px solid red;
+  overflow: scroll;
+  height: 100%;
 
   .acc-item {
     summary::-webkit-details-marker {
