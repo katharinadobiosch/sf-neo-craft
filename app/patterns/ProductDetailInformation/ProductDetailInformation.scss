@@ -15,17 +15,13 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-
+    height: 500px;
+    border: 5px solid pink;
+    
     &__info,
     &__media {
       width: 50%;
     }
-  }
-
-  .product-main {
-    display: flex;
-    flex-direction: row;
-    top: 6rem;
   }
 
   .product-price-on-sale {
