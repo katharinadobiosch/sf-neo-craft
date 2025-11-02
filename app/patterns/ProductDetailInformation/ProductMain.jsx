@@ -36,21 +36,13 @@ export function ProductMain({product}) {
     <>
       <div className="product-main">
         <div className="product-main__info">
-          {/* <h1>{product.title}</h1> */}
-          {/* <ProductPrice
-            price={selectedVariant?.price}
-            compareAtPrice={selectedVariant?.compareAtPrice}
-          /> */}
           <ProductForm
             productOptions={productOptions}
             selectedVariant={selectedVariant}
             product={product}
           />
         </div>
-        {/* <p>
-          <strong>Description</strong>
-        </p> */}
-        {/* <div dangerouslySetInnerHTML={{__html: product.descriptionHtml}} /> */}
+
         <div className="product-main__media">
           <MediaGallery product={product} variant={selectedVariant} />
         </div>
