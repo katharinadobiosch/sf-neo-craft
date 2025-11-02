@@ -13,7 +13,12 @@ export function ProductForm({productOptions, product}) {
 
   return (
     <div className="product-form">
-      <Configurator productOptions={productOptions} navigate={navigate} />
+      <Configurator
+        productOptions={productOptions}
+        navigate={navigate}
+        // product={product}
+      />
+
       <ProductMetaAccordion
         metafields={product?.metafields || []}
         product={product}

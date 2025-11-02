@@ -36,7 +36,7 @@ export function ProductMain({product}) {
     <>
       <div className="product-main">
         <div className="product-main__info">
-          <h1>{product.title}</h1>
+          {/* <h1>{product.title}</h1> */}
           {/* <ProductPrice
             price={selectedVariant?.price}
             compareAtPrice={selectedVariant?.compareAtPrice}

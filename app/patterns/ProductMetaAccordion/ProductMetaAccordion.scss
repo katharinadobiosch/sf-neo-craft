@@ -2,6 +2,8 @@
 .meta-accordion {
   margin-top: 2rem;
   border-top: 1px solid #e9e9ed;
+  overflow: scroll;
+  position: relative;
 
   .acc-item {
     summary::-webkit-details-marker {
@@ -118,4 +120,23 @@
     font-size: 0.9375rem;
     line-height: 1.5;
   }
+}
+
+.product-main .product-form {
+  height: auto;
+} // statt 100%
+
+.product-main {
+  align-items: flex-start;
+}
+
+.product-main {
+  align-items: stretch;
+}
+.product-main__media {
+  height: 740px;
+} // feste Höhe statt max-height
+.product-main .product-form {
+  height: 740px;
+  overflow: auto;
 }

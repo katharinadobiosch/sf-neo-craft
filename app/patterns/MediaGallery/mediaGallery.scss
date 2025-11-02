@@ -63,3 +63,68 @@
 .media-gallery .swiper-pagination-bullet-active {
   opacity: 1;
 }
+
+/* Bühne */
+.nc-media-gallery {
+  --stage-bg: #e9e9ee;
+  --stage-max-w: 860px;
+  --stage-min-h: 420px;
+  --stage-max-h: 900px;
+
+  width: 100%;
+  height: clamp(var(--stage-min-h), 75vh, var(--stage-max-h));
+  display: grid;
+  place-items: center;
+  background: var(--stage-bg);
+}
+
+/* Swiper-Grundflächen */
+.nc-media-gallery .swiper {
+  width: min(100%, var(--stage-max-w));
+  height: 100%;
+}
+.nc-media-gallery .swiper-wrapper {
+  align-items: center;
+}
+.nc-media-gallery .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.nc-media-gallery .swiper-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+/* Grundstil deiner Buttons */
+.nc-swiper-content .swiper-button-prev,
+.nc-swiper-content .swiper-button-next {
+  background: #fff;
+  border-radius: 9999px;
+  width: 42px;
+  height: 42px;
+  box-shadow: 0 0 6px #00000029;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  color: #222; /* <— WICHTIG: Pfeil-Farbe */
+}
+
+/* Größe des Icons (optional) */
+.nc-swiper-content .swiper-button-prev:after,
+.nc-swiper-content .swiper-button-next:after {
+  font-size: 20px;
+}
+
+/* Desktop: Pfeile nur bei Hover des Containers sichtbar */
+
+.nc-swiper-content .swiper-button-prev,
+.nc-swiper-content .swiper-button-next {
+  opacity: 0;
+}
+.nc-swiper-content:hover .swiper-button-prev,
+.nc-swiper-content:hover .swiper-button-next {
+  opacity: 1;
+}

@@ -1,5 +1,6 @@
 import {useMemo, useRef, useState, useEffect} from 'react';
 import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
+import {ProductMetaAccordion} from '~/patterns/ProductMetaAccordion';
 import {useAside} from '~/patterns/Aside';
 import colors from './colors.json';
 
@@ -94,7 +95,7 @@ const money = (num, currency = 'USD') =>
   );
 
 // ---------- Component ----------
-export function Configurator({productOptions, navigate}) {
+export function Configurator({productOptions, navigate, product}) {
   const {open: openAside} = useAside();
 
   // Accordion
