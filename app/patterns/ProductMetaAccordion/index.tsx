@@ -191,6 +191,7 @@ export function ProductMetaAccordion({
         | Extract<BuiltItem, {type: 'images'}>
         | undefined
     )?.images?.length ?? 0;
+    
 
   return (
     <div className="meta-accordion" role="region" aria-label="Product details">
