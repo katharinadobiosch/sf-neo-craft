@@ -969,6 +969,83 @@ export type ProductFragment = Pick<
     }
   >;
   seo: Pick<StorefrontAPI.Seo, 'description' | 'title'>;
+  metafields: Array<
+    StorefrontAPI.Maybe<
+      Pick<StorefrontAPI.Metafield, 'namespace' | 'key' | 'type' | 'value'> & {
+        reference?: StorefrontAPI.Maybe<
+          | {__typename: 'Collection' | 'Page' | 'Product' | 'ProductVariant'}
+          | ({__typename: 'GenericFile'} & Pick<
+              StorefrontAPI.GenericFile,
+              'url' | 'mimeType'
+            >)
+          | ({__typename: 'MediaImage'} & {
+              image?: StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Image,
+                  'url' | 'altText' | 'width' | 'height'
+                >
+              >;
+            })
+          | ({__typename: 'Metaobject'} & Pick<
+              StorefrontAPI.Metaobject,
+              'id' | 'type' | 'handle'
+            > & {
+                fields: Array<
+                  Pick<StorefrontAPI.MetaobjectField, 'key' | 'type' | 'value'>
+                >;
+              })
+          | ({__typename: 'Model3d'} & {
+              sources: Array<
+                Pick<StorefrontAPI.Model3dSource, 'url' | 'mimeType'>
+              >;
+            })
+          | ({__typename: 'Video'} & {
+              sources: Array<
+                Pick<StorefrontAPI.VideoSource, 'url' | 'mimeType'>
+              >;
+            })
+        >;
+        references?: StorefrontAPI.Maybe<{
+          nodes: Array<
+            | {__typename: 'Collection' | 'Page' | 'Product' | 'ProductVariant'}
+            | ({__typename: 'GenericFile'} & Pick<
+                StorefrontAPI.GenericFile,
+                'url' | 'mimeType'
+              >)
+            | ({__typename: 'MediaImage'} & {
+                image?: StorefrontAPI.Maybe<
+                  Pick<
+                    StorefrontAPI.Image,
+                    'url' | 'altText' | 'width' | 'height'
+                  >
+                >;
+              })
+            | ({__typename: 'Metaobject'} & Pick<
+                StorefrontAPI.Metaobject,
+                'id' | 'type' | 'handle'
+              > & {
+                  fields: Array<
+                    Pick<
+                      StorefrontAPI.MetaobjectField,
+                      'key' | 'type' | 'value'
+                    >
+                  >;
+                })
+            | ({__typename: 'Model3d'} & {
+                sources: Array<
+                  Pick<StorefrontAPI.Model3dSource, 'url' | 'mimeType'>
+                >;
+              })
+            | ({__typename: 'Video'} & {
+                sources: Array<
+                  Pick<StorefrontAPI.VideoSource, 'url' | 'mimeType'>
+                >;
+              })
+          >;
+        }>;
+      }
+    >
+  >;
 };
 
 export type ProductQueryVariables = StorefrontAPI.Exact<{
@@ -978,6 +1055,9 @@ export type ProductQueryVariables = StorefrontAPI.Exact<{
   selectedOptions?: StorefrontAPI.InputMaybe<
     Array<StorefrontAPI.SelectedOptionInput> | StorefrontAPI.SelectedOptionInput
   >;
+  metafieldIdentifiers:
+    | Array<StorefrontAPI.HasMetafieldsIdentifier>
+    | StorefrontAPI.HasMetafieldsIdentifier;
 }>;
 
 export type ProductQuery = {
@@ -1091,6 +1171,101 @@ export type ProductQuery = {
         }
       >;
       seo: Pick<StorefrontAPI.Seo, 'description' | 'title'>;
+      metafields: Array<
+        StorefrontAPI.Maybe<
+          Pick<
+            StorefrontAPI.Metafield,
+            'namespace' | 'key' | 'type' | 'value'
+          > & {
+            reference?: StorefrontAPI.Maybe<
+              | {
+                  __typename:
+                    | 'Collection'
+                    | 'Page'
+                    | 'Product'
+                    | 'ProductVariant';
+                }
+              | ({__typename: 'GenericFile'} & Pick<
+                  StorefrontAPI.GenericFile,
+                  'url' | 'mimeType'
+                >)
+              | ({__typename: 'MediaImage'} & {
+                  image?: StorefrontAPI.Maybe<
+                    Pick<
+                      StorefrontAPI.Image,
+                      'url' | 'altText' | 'width' | 'height'
+                    >
+                  >;
+                })
+              | ({__typename: 'Metaobject'} & Pick<
+                  StorefrontAPI.Metaobject,
+                  'id' | 'type' | 'handle'
+                > & {
+                    fields: Array<
+                      Pick<
+                        StorefrontAPI.MetaobjectField,
+                        'key' | 'type' | 'value'
+                      >
+                    >;
+                  })
+              | ({__typename: 'Model3d'} & {
+                  sources: Array<
+                    Pick<StorefrontAPI.Model3dSource, 'url' | 'mimeType'>
+                  >;
+                })
+              | ({__typename: 'Video'} & {
+                  sources: Array<
+                    Pick<StorefrontAPI.VideoSource, 'url' | 'mimeType'>
+                  >;
+                })
+            >;
+            references?: StorefrontAPI.Maybe<{
+              nodes: Array<
+                | {
+                    __typename:
+                      | 'Collection'
+                      | 'Page'
+                      | 'Product'
+                      | 'ProductVariant';
+                  }
+                | ({__typename: 'GenericFile'} & Pick<
+                    StorefrontAPI.GenericFile,
+                    'url' | 'mimeType'
+                  >)
+                | ({__typename: 'MediaImage'} & {
+                    image?: StorefrontAPI.Maybe<
+                      Pick<
+                        StorefrontAPI.Image,
+                        'url' | 'altText' | 'width' | 'height'
+                      >
+                    >;
+                  })
+                | ({__typename: 'Metaobject'} & Pick<
+                    StorefrontAPI.Metaobject,
+                    'id' | 'type' | 'handle'
+                  > & {
+                      fields: Array<
+                        Pick<
+                          StorefrontAPI.MetaobjectField,
+                          'key' | 'type' | 'value'
+                        >
+                      >;
+                    })
+                | ({__typename: 'Model3d'} & {
+                    sources: Array<
+                      Pick<StorefrontAPI.Model3dSource, 'url' | 'mimeType'>
+                    >;
+                  })
+                | ({__typename: 'Video'} & {
+                    sources: Array<
+                      Pick<StorefrontAPI.VideoSource, 'url' | 'mimeType'>
+                    >;
+                  })
+              >;
+            }>;
+          }
+        >
+      >;
     }
   >;
 };
@@ -1382,7 +1557,7 @@ interface GeneratedQueryTypes {
     return: PoliciesQuery;
     variables: PoliciesQueryVariables;
   };
-  '#graphql\n  #REQUIRED_VAR=ProductMetafieldsFragment\n\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice { amount currencyCode }\n    id\n    image { __typename id url altText width height }\n    price { amount currencyCode }\n    product { title handle }\n    selectedOptions { name value }\n    sku\n    title\n    unitPrice { amount currencyCode }\n  }\n\n  fragment Product on Product {\n    id\n    title\n    vendor\n    handle\n    descriptionHtml\n    description\n\n    images(first: 10) {\n      edges { node { id url altText width height } }\n    }\n\n    encodedVariantExistence\n    encodedVariantAvailability\n\n    options {\n      name\n      optionValues {\n        name\n        firstSelectableVariant { ...ProductVariant }\n        swatch { color image { previewImage { url } } }\n      }\n    }\n\n    selectedOrFirstAvailableVariant(\n      selectedOptions: $selectedOptions\n      ignoreUnknownOptions: true\n      caseInsensitiveMatch: true\n    ) { ...ProductVariant }\n\n    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }\n\n    seo { description title }\n\n    # 👇 hier kommen ALLE aus dem Script exportierten Metafelder rein\n  }\n\n  query Product(\n    $country: CountryCode\n    $handle: String!\n    $language: LanguageCode\n    $selectedOptions: [SelectedOptionInput!]\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      ...Product\n    }\n  }\n': {
+  '#graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice { amount currencyCode }\n    id\n    image { __typename id url altText width height }\n    price { amount currencyCode }\n    product { title handle }\n    selectedOptions { name value }\n    sku\n    title\n    unitPrice { amount currencyCode }\n  }\n\n  fragment Product on Product {\n    id\n    title\n    vendor\n    handle\n    descriptionHtml\n    description\n\n    images(first: 10) {\n      edges { node { id url altText width height } }\n    }\n\n    encodedVariantExistence\n    encodedVariantAvailability\n\n    options {\n      name\n      optionValues {\n        name\n        firstSelectableVariant { ...ProductVariant }\n        swatch { color image { previewImage { url } } }\n      }\n    }\n\n    selectedOrFirstAvailableVariant(\n      selectedOptions: $selectedOptions\n      ignoreUnknownOptions: true\n      caseInsensitiveMatch: true\n    ) { ...ProductVariant }\n\n    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }\n\n    seo { description title }\n\n    # 👇 dynamisch via Variable\n    metafields(identifiers: $metafieldIdentifiers) {\n      namespace\n      key\n      type\n      value\n\n      reference { __typename\n        ... on Metaobject { id type handle fields { key type value } }\n        ... on MediaImage { image { url altText width height } }\n        ... on Video { sources { url mimeType } }\n        ... on Model3d { sources { url mimeType } }\n        ... on GenericFile { url mimeType }\n      }\n\n      references(first: 50) {\n        nodes {\n          __typename\n          ... on Metaobject { id type handle fields { key type value } }\n          ... on MediaImage { image { url altText width height } }\n          ... on Video { sources { url mimeType } }\n          ... on Model3d { sources { url mimeType } }\n          ... on GenericFile { url mimeType }\n        }\n      }\n    }\n  }\n\n  query Product(\n    $country: CountryCode\n    $handle: String!\n    $language: LanguageCode\n    $selectedOptions: [SelectedOptionInput!]\n    $metafieldIdentifiers: [HasMetafieldsIdentifier!]!   # 👈 Typ-Hinweis\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      ...Product\n    }\n  }\n': {
     return: ProductQuery;
     variables: ProductQueryVariables;
   };

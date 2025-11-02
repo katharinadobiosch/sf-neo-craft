@@ -12,10 +12,17 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
 import {normalizeAllMetafields} from '~/utils/metafields';
 
-// 👉 das generierte Fragment als Raw-String importieren
-// (Hydrogen/Vite: ?raw liefert den Dateiinhalt als String)
-import ProductMetafieldsFragment from '~/graphql/product/product-metafields.fragment.graphql?raw';
+// app/routes/products.$handle.jsx
+import metafieldDefs from '~/graphql/product/product-metafield-defs.json';
 
+// nur die, die im Storefront lesbar sind & zum Produkt gehören
+const METAFIELD_IDENTIFIERS = metafieldDefs
+  .filter(
+    (d) => d.ownerType === 'PRODUCT' && d?.access?.storefront === 'PUBLIC_READ',
+  )
+  .map((d) => ({namespace: d.namespace, key: d.key}));
+
+console.log('METAFIELD_IDENTIFIERS', METAFIELD_IDENTIFIERS);
 /**
  * @type {MetaFunction<typeof loader>}
  */
@@ -48,11 +55,13 @@ async function loadCriticalData({context, params, request}) {
   }
 
   // Produkt + alle generierten Metafelder (über das importierte Fragment)
+
   const [{product}] = await Promise.all([
     storefront.query(PRODUCT_QUERY, {
       variables: {
         handle,
         selectedOptions: getSelectedProductOptions(request),
+        metafieldIdentifiers: METAFIELD_IDENTIFIERS, // 👈 HIER
       },
     }),
   ]);
@@ -130,8 +139,6 @@ export default function Product() {
  * Wichtig: Das importierte Fragment MUSS hier VOR seinem Gebrauch stehen.
  */
 const PRODUCT_QUERY = `#graphql
-  ${ProductMetafieldsFragment}
-
   fragment ProductVariant on ProductVariant {
     availableForSale
     compareAtPrice { amount currencyCode }
@@ -179,8 +186,32 @@ const PRODUCT_QUERY = `#graphql
 
     seo { description title }
 
-    # 👇 hier kommen ALLE aus dem Script exportierten Metafelder rein
-    ...ProductCustomMetafields
+    # 👇 dynamisch via Variable
+    metafields(identifiers: $metafieldIdentifiers) {
+      namespace
+      key
+      type
+      value
+
+      reference { __typename
+        ... on Metaobject { id type handle fields { key type value } }
+        ... on MediaImage { image { url altText width height } }
+        ... on Video { sources { url mimeType } }
+        ... on Model3d { sources { url mimeType } }
+        ... on GenericFile { url mimeType }
+      }
+
+      references(first: 50) {
+        nodes {
+          __typename
+          ... on Metaobject { id type handle fields { key type value } }
+          ... on MediaImage { image { url altText width height } }
+          ... on Video { sources { url mimeType } }
+          ... on Model3d { sources { url mimeType } }
+          ... on GenericFile { url mimeType }
+        }
+      }
+    }
   }
 
   query Product(
@@ -188,6 +219,7 @@ const PRODUCT_QUERY = `#graphql
     $handle: String!
     $language: LanguageCode
     $selectedOptions: [SelectedOptionInput!]
+    $metafieldIdentifiers: [HasMetafieldsIdentifier!]!   # 👈 Typ-Hinweis
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
       ...Product
