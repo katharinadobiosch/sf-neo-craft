@@ -121,7 +121,6 @@ function FigureCard({
     height: image?.height,
   };
 
-
   if (!image) {
     return (
       <figure className="card">
@@ -138,6 +137,7 @@ function FigureCard({
           className="card__img"
           sizes="(min-width:1200px) 33vw, (min-width:768px) 47vw, 100vw"
           loading="lazy"
+          style={{aspectRatio: '778/519'}}
         />
         {overlay && (
           <figcaption className="card__overlay">
