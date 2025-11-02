@@ -191,7 +191,6 @@ export function ProductMetaAccordion({
         | Extract<BuiltItem, {type: 'images'}>
         | undefined
     )?.images?.length ?? 0;
-    
 
   return (
     <div className="meta-accordion" role="region" aria-label="Product details">
@@ -206,25 +205,67 @@ export function ProductMetaAccordion({
             {item.type === 'text' && (
               <p style={{whiteSpace: 'pre-line'}}>{item.value}</p>
             )}
+            {item.type === 'images' &&
+              item.images?.length > 0 &&
+              (() => {
+                const isMeasurements =
+                  /measure/i.test(item.label) ||
+                  item.fqKey === 'custom.measurements';
 
-            {item.type === 'images' && item.images?.length > 0 && (
-              <div className="acc-images" role="group" aria-label={item.label}>
-                {item.images.map((img, i) => (
-                  <img
-                    key={`${item.fqKey}-${i}`}
-                    src={img.url}
-                    alt={img.altText?.trim() || item.label}
-                    loading="lazy"
-                    decoding="async"
-                    style={{
-                      width: imageCount ? `calc(100% / ${imageCount})` : '100%',
-                      height: '100%',
-                      objectFit: 'contain',
-                    }}
-                  />
-                ))}
-              </div>
-            )}
+                if (isMeasurements) {
+                  return (
+                    <div
+                      className="acc-images measurements"
+                      role="group"
+                      aria-label={item.label}
+                    >
+                      <div className="m-grid" data-count={item.images.length}>
+                        {item.images.map((img, i) => (
+                          <figure className="m-fig" key={`${item.fqKey}-${i}`}>
+                            <img
+                              src={img.url}
+                              alt={img.altText?.trim() || item.label}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                            {img.altText && (
+                              <figcaption className="m-cap">
+                                {img.altText}
+                              </figcaption>
+                            )}
+                          </figure>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                }
+
+                // Default-Bildliste (unverändert)
+                return (
+                  <div
+                    className="acc-images"
+                    role="group"
+                    aria-label={item.label}
+                  >
+                    {item.images.map((img, i) => (
+                      <img
+                        key={`${item.fqKey}-${i}`}
+                        src={img.url}
+                        alt={img.altText?.trim() || item.label}
+                        loading="lazy"
+                        decoding="async"
+                        style={{
+                          width: imageCount
+                            ? `calc(100% / ${imageCount})`
+                            : '100%',
+                          height: '100%',
+                          objectFit: 'contain',
+                        }}
+                      />
+                    ))}
+                  </div>
+                );
+              })()}
           </div>
         </details>
       ))}

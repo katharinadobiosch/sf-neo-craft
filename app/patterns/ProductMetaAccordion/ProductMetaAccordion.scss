@@ -1,9 +1,9 @@
 /* ===== Meta Accordion – Figma Look ===== */
 .meta-accordion {
   margin-top: 2rem;
-  border-top: 1px solid #e9e9ed;
   // overflow: scroll;
   position: relative;
+  border-top: 1px solid var(--border-color);
 
   .acc-item {
     summary::-webkit-details-marker {
@@ -64,13 +64,30 @@
       padding-bottom: 1rem;
       display: flex;
       flex-direction: row;
+
+      .measurements {
+        border: 5px solid purple;
+        width: 100%;
+
+        .m-grid {
+          display: flex;
+          gap: 50px;
+
+          align-items: flex-end;
+
+          img {
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
     }
 
     .acc-images {
       display: flex;
       flex-direction: row;
       align-items: flex-end;
-      height: 100%;
+      // height: 100%;
     }
   }
 }
