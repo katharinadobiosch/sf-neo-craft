@@ -17,11 +17,23 @@ export default async function handleRequest(
   reactRouterContext,
   context,
 ) {
+  // ⬇️ CSP-Direktiven direkt angeben (Top-Level Keys)
   const {nonce, header, NonceProvider} = createContentSecurityPolicy({
     shop: {
       checkoutDomain: context.env.PUBLIC_CHECKOUT_DOMAIN,
       storeDomain: context.env.PUBLIC_STORE_DOMAIN,
     },
+    // WICHTIG: Keys wie 'font-src' gehören auf Top-Level und die Werte sind Arrays.
+    'font-src': [
+      "'self'",
+      'https://cdn.shopify.com',
+      'https://shopify.com',
+      'data:',
+    ],
+    // Falls du weitere Quellen brauchst, hier ergänzen:
+    // 'img-src': ["'self'", 'data:', 'https://cdn.shopify.com'],
+    // 'style-src': ["'self'", "'unsafe-inline'"],
+    // etc.
   });
 
   const body = await renderToReadableStream(
@@ -47,12 +59,9 @@ export default async function handleRequest(
   }
 
   responseHeaders.set('Content-Type', 'text/html');
-  responseHeaders.set(
-    'Content-Security-Policy',
-    header +
-      "; font-src 'self' https://cdn.shopify.com https://shopify.com data:",
-  );
-  
+  // Den vom Helper erzeugten Header unverändert übernehmen
+  responseHeaders.set('Content-Security-Policy', header);
+
   return new Response(body, {
     headers: responseHeaders,
     status: responseStatusCode,

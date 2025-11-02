@@ -12,27 +12,3 @@ if (!window.location.origin.includes('webcache.googleusercontent.com')) {
     );
   });
 }
-
-export const links = () => [
-  {
-    rel: 'preload',
-    as: 'font',
-    href: '/fonts/GTFGoodSansTRIAL-Regular.otf',
-    type: 'font/otf',
-    crossOrigin: 'anonymous',
-  },
-  {
-    rel: 'preload',
-    as: 'font',
-    href: '/fonts/GTFGoodSansTRIAL-Bold.otf',
-    type: 'font/otf',
-    crossOrigin: 'anonymous',
-  },
-  {
-    rel: 'preload',
-    as: 'font',
-    href: '/fonts/GTFGoodSansTRIAL-Light.otf',
-    type: 'font/otf',
-    crossOrigin: 'anonymous',
-  },
-];
