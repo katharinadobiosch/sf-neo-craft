@@ -47,8 +47,12 @@ export default async function handleRequest(
   }
 
   responseHeaders.set('Content-Type', 'text/html');
-  responseHeaders.set('Content-Security-Policy', header);
-
+  responseHeaders.set(
+    'Content-Security-Policy',
+    header +
+      "; font-src 'self' https://cdn.shopify.com https://shopify.com data:",
+  );
+  
   return new Response(body, {
     headers: responseHeaders,
     status: responseStatusCode,
