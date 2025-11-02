@@ -125,7 +125,6 @@ button.reset > * {
 
 button.reset:not(:has(> *)) {
   height: 1.5rem;
-  line-height: 1.5rem;
 }
 
 button.reset:hover:not(:has(> *)) {

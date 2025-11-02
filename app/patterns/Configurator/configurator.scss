@@ -21,8 +21,7 @@
     padding: 0.75rem 0;
   }
   .cfg-title {
-    font-size: 1rem;
-    letter-spacing: 0.08em;
+    // letter-spacing: 0.08em;
     font-weight: 600;
   }
   /* Plus/Minus Icon */
@@ -74,16 +73,15 @@
     gap: 1rem;
     padding: 0.5rem 0;
     & + .cfg-row {
-      border-top: 1px solid var(--divider);
+      // border-top: 1px solid var(--divider);
     }
   }
 
   .cfg-label {
     width: 160px;
     min-width: 160px;
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    color: var(--muted);
+    // letter-spacing: 0.14em;
+    // color: var(--muted);
   }
 
   .cfg-values {
@@ -104,9 +102,7 @@
     background: var(--chip-bg);
     border: 1px solid transparent;
     transition: all 0.15s ease;
-    .chip-text {
-      font-size: 0.88rem;
-    }
+
     &:hover {
       background: var(--chip-bg-hover);
     }
@@ -167,13 +163,10 @@
     border-top: 1px solid #000;
     padding: 1rem 1.25rem;
     border: 5px solid orange;
+    margin-top: 1rem;
 
-    .cta-arrow {
-      font-size: 1.1rem;
-    }
     .cta-price {
       font-weight: 600;
-      font-size: 1.05rem;
       margin-right: auto;
     }
     form > button {
@@ -200,6 +193,6 @@
 
 .configurator__meta {
   // border: 20px solid purple;
-  height: 500px;
+  height: 485px;
   overflow: scroll;
 }
