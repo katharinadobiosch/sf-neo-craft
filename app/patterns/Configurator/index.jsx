@@ -192,7 +192,13 @@ export function Configurator({productOptions, navigate, product}) {
         aria-controls="cfg-panel"
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="cfg-title">Configurator</span>
+        <div class="cfg-head">
+          <button class="cfg-toggle">
+            Configurator <span class="cfg-plus" aria-hidden></span>
+          </button>
+          <div class="cfg-head__label"></div>
+          <div class="cfg-head__values"></div>
+        </div>{' '}
         <span className="cfg-plus" aria-hidden />
       </button>
 

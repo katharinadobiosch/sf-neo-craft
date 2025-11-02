@@ -76,19 +76,40 @@
       // border-top: 1px solid var(--border-color);
     }
   }
+  .cfg-row::before {
+    content: '';
+    flex: 0 0 190px; /* = Breite deines .cfg-toggle (links) */
+  }
 
   .cfg-label {
-    width: 160px;
-    min-width: 160px;
+    // width: 160px;
+    // min-width: 160px;
+    flex: 0 0 160px;
     // letter-spacing: 0.14em;
     // color: var(--muted);
   }
 
   .cfg-values {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 0.75rem;
+    flex: 1 1 auto; /* Fläche nehmen, min-width 0 für korrektes Wrapping */
+    min-width: 0;
+    // display: flex;
+    // flex-wrap: wrap;
+    // gap: 0.5rem 0.75rem;
   }
+  .cfg-head {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .cfg-head .cfg-toggle {
+    flex: 0 0 190px;
+  } /* linke Spalte */
+  .cfg-head__label {
+    flex: 0 0 160px;
+  } /* mittlere Spalte (leer) */
+  .cfg-head__values {
+    flex: 1 1 auto;
+  } /* rechte Spalte (leer) */
 
   /* Size Chips */
   .cfg-item.is-chip {
@@ -196,5 +217,3 @@
   height: 485px;
   overflow: scroll;
 }
-
-
