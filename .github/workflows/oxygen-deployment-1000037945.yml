@@ -8,34 +8,42 @@ permissions:
 jobs:
   deploy:
     name: Deploy to Oxygen
-    timeout-minutes: 30
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup node.js
+      - name: Setup Node.js
+        # LTS ist ok; Hydrogen benötigt >=18
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
           check-latest: true
 
-      - name: Cache node modules
-        id: cache-npm
-        uses: actions/cache@v4
-        env:
-          cache-name: cache-node-modules
+      # Optional: pnpm benutzen, weil dein Projekt pnpm vorgibt
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          version: 10
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        run: npm ci
+        run: |
+          if [ -f pnpm-lock.yaml ]; then pnpm install --frozen-lockfile; \
+          elif [ -f package-lock.json ]; then npm ci; \
+          else npm i; fi
 
-      - name: Build and Publish to Oxygen
-        run: npx shopify hydrogen deploy
-        env:
-          SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: eyJhY2Nlc3NfdG9rZW4iOiJhdGtuX2I4YzE4YWFkYTAwYzcyN2QzMmY0Nzk4M2U5Yjc5ZmNlNmFkYzQ0NTM4MjhjNDAzNGFjNDI3MmZlNTNjNWE4NjMiLCJleHBpcmVzX2F0IjoiMjAyNi0xMS0wMlQxMjo0MjoyOS4wNjNaIiwiY2xpZW50IjoiZ2lkOi8vb3h5Z2VuLWh1Yi9DbGllbnQvMSIsImFsbG93ZWRfcmVzb3VyY2UiOiJnaWQ6Ly9veHlnZW4taHViL0FwcC80MDkzOSIsIm5hbWVzcGFjZV9pZCI6ImdpZDovL294eWdlbi1odWIvTmFtZXNwYWNlLzQ0MTYwIiwibmFtZXNwYWNlIjoiMTY0MDYxNzMiLCJhcHBfaWQiOiJnaWQ6Ly9veHlnZW4taHViL0FwcC80MDkzOSJ9
+      - name: Build
+        run: |
+          if [ -f pnpm-lock.yaml ]; then pnpm run build; else npm run build; fi
+
+      - name: Deploy to Oxygen
+        run: npx shopify hydrogen deploy --token "${{ secrets.SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN }}"
