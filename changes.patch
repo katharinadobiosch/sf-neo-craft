@@ -1,0 +1,3177 @@
+diff --git a/__raw_page.json b/__raw_page.json
+new file mode 100644
+index 0000000..3c4832c
+--- /dev/null
++++ b/__raw_page.json
+@@ -0,0 +1,540 @@
++{
++  "data": {
++    "metafieldDefinitions": {
++      "edges": [
++        {
++          "cursor": "eyJsYXN0X2lkIjo4MTk0NDc0MDEwNCwibGFzdF92YWx1ZSI6IjgxOTQ0NzQwMTA0In0=",
++          "node": {
++            "namespace": "custom_slider",
++            "key": "content",
++            "name": "Custom Slider",
++            "type": {
++              "name": "list.file_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjo4MjUxNDM0NjI0OCwibGFzdF92YWx1ZSI6IjgyNTE0MzQ2MjQ4In0=",
++          "node": {
++            "namespace": "shopify",
++            "key": "bulb-size",
++            "name": "Bulb size",
++            "type": {
++              "name": "list.metaobject_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjo5MDE4MDE5MDQ3MiwibGFzdF92YWx1ZSI6IjkwMTgwMTkwNDcyIn0=",
++          "node": {
++            "namespace": "shopify",
++            "key": "bulb-type",
++            "name": "Bulb type",
++            "type": {
++              "name": "list.metaobject_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDI4MzE0MDMyNzIsImxhc3RfdmFsdWUiOiIzMDI4MzE0MDMyNzIifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "marble_fixture",
++            "name": "Marble Fixture",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDI4MzE0MzYwNDAsImxhc3RfdmFsdWUiOiIzMDI4MzE0MzYwNDAifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "material",
++            "name": "Material",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2NzkyODkwOTYsImxhc3RfdmFsdWUiOiIzMDQ2NzkyODkwOTYifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "size",
++            "name": "Size",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2NzkzMjE4NjQsImxhc3RfdmFsdWUiOiIzMDQ2NzkzMjE4NjQifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "length",
++            "name": "Length",
++            "type": {
++              "name": "list.number_decimal"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2Nzk0NTI5MzYsImxhc3RfdmFsdWUiOiIzMDQ2Nzk0NTI5MzYifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "width",
++            "name": "Width",
++            "type": {
++              "name": "list.number_decimal"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2Nzk0ODU3MDQsImxhc3RfdmFsdWUiOiIzMDQ2Nzk0ODU3MDQifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "height",
++            "name": "Height",
++            "type": {
++              "name": "list.number_decimal"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2ODEwMjU4MDAsImxhc3RfdmFsdWUiOiIzMDQ2ODEwMjU4MDAifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "mirror_glass_type",
++            "name": "Mirror Glass Type ",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2ODEwNTg1NjgsImxhc3RfdmFsdWUiOiIzMDQ2ODEwNTg1NjgifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "wood_type",
++            "name": "Wood Type ",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2ODExNTY4NzIsImxhc3RfdmFsdWUiOiIzMDQ2ODExNTY4NzIifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "marble_type",
++            "name": "Marble Type ",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2ODExODk2NDAsImxhc3RfdmFsdWUiOiIzMDQ2ODExODk2NDAifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "metal_finish",
++            "name": "Metal Finish",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2ODEzMjA3MTIsImxhc3RfdmFsdWUiOiIzMDQ2ODEzMjA3MTIifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "option",
++            "name": "Option ",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2ODEzNTM0ODAsImxhc3RfdmFsdWUiOiIzMDQ2ODEzNTM0ODAifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "oled_exchange_panel",
++            "name": "OLED Exchange Panel",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2ODEzODYyNDgsImxhc3RfdmFsdWUiOiIzMDQ2ODEzODYyNDgifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "surcharge",
++            "name": "Surcharge ",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ2ODE1MTczMjAsImxhc3RfdmFsdWUiOiIzMDQ2ODE1MTczMjAifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "diameter",
++            "name": "Diameter",
++            "type": {
++              "name": "list.number_decimal"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ3MTAwOTEwMTYsImxhc3RfdmFsdWUiOiIzMDQ3MTAwOTEwMTYifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "table_top",
++            "name": "Table Top",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ3MTA2ODA4NDAsImxhc3RfdmFsdWUiOiIzMDQ3MTA2ODA4NDAifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "dichroic_glass",
++            "name": "Dichroic Glass",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDQ3MTUwNzE3NTIsImxhc3RfdmFsdWUiOiIzMDQ3MTUwNzE3NTIifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "ceiling_cap",
++            "name": "Ceiling Cap",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDkxNjA0MTE0MDAsImxhc3RfdmFsdWUiOiIzMDkxNjA0MTE0MDAifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "plug_type",
++            "name": "Plug Type",
++            "type": {
++              "name": "list.single_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMDk2MDA4NDYwODgsImxhc3RfdmFsdWUiOiIzMDk2MDA4NDYwODgifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "measurements",
++            "name": "Measurements File",
++            "type": {
++              "name": "list.file_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMTAyMTY2NTUxMTIsImxhc3RfdmFsdWUiOiIzMTAyMTY2NTUxMTIifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "teaser_duo_top",
++            "name": "Teaser Duo Top Left + Hover",
++            "type": {
++              "name": "list.file_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMTAyMTY2ODc4ODAsImxhc3RfdmFsdWUiOiIzMTAyMTY2ODc4ODAifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "teaser_duo_bottom",
++            "name": "Teaser Duo Bottom Left + Hover",
++            "type": {
++              "name": "list.file_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMTAyMTY3NTM0MTYsImxhc3RfdmFsdWUiOiIzMTAyMTY3NTM0MTYifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "hero_split_images",
++            "name": "Hero Split Images Left + Hover",
++            "type": {
++              "name": "list.file_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMTAyMTY3ODYxODQsImxhc3RfdmFsdWUiOiIzMTAyMTY3ODYxODQifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "hero_split_text",
++            "name": "Hero Split Text",
++            "type": {
++              "name": "multi_line_text_field"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMTU2NjMxODgyMzIsImxhc3RfdmFsdWUiOiIzMTU2NjMxODgyMzIifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "hero_split_images_right",
++            "name": "Hero Split Images Right + Hover",
++            "type": {
++              "name": "list.file_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMTU2NjMzMTkzMDQsImxhc3RfdmFsdWUiOiIzMTU2NjMzMTkzMDQifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "teaser_duo_bottom_right",
++            "name": "Teaser Duo Bottom Right + Hover",
++            "type": {
++              "name": "list.file_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMTU2NjM0ODMxNDQsImxhc3RfdmFsdWUiOiIzMTU2NjM0ODMxNDQifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "teaser_duo_top_right",
++            "name": "Teaser Duo Top Right + Hover",
++            "type": {
++              "name": "list.file_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMjUwMDUyMTM5NjAsImxhc3RfdmFsdWUiOiIzMjUwMDUyMTM5NjAifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "materialBoolean",
++            "name": "Materialprobe",
++            "type": {
++              "name": "boolean"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMjc0NzY0NzgyMTYsImxhc3RfdmFsdWUiOiIzMjc0NzY0NzgyMTYifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "product_tile",
++            "name": "Product Tile + Hover",
++            "type": {
++              "name": "list.file_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMjc4MDE3NjYxNTIsImxhc3RfdmFsdWUiOiIzMjc4MDE3NjYxNTIifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "metal_color",
++            "name": "Metal Color",
++            "type": {
++              "name": "list.metaobject_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMjc4MDE4NjQ0NTYsImxhc3RfdmFsdWUiOiIzMjc4MDE4NjQ0NTYifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "cable_color",
++            "name": "Cable Color",
++            "type": {
++              "name": "list.metaobject_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMjc4MDE4OTcyMjQsImxhc3RfdmFsdWUiOiIzMjc4MDE4OTcyMjQifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "frame_color",
++            "name": "Frame Color",
++            "type": {
++              "name": "list.metaobject_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMjc4MDE5Mjk5OTIsImxhc3RfdmFsdWUiOiIzMjc4MDE5Mjk5OTIifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "glass_color",
++            "name": "Glass Color",
++            "type": {
++              "name": "list.metaobject_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMjc4MTcwNjg4MDgsImxhc3RfdmFsdWUiOiIzMjc4MTcwNjg4MDgifQ==",
++          "node": {
++            "namespace": "shopify",
++            "key": "connection-type",
++            "name": "Connection type",
++            "type": {
++              "name": "list.metaobject_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        },
++        {
++          "cursor": "eyJsYXN0X2lkIjozMjc4MTcxMDE1NzYsImxhc3RfdmFsdWUiOiIzMjc4MTcxMDE1NzYifQ==",
++          "node": {
++            "namespace": "custom",
++            "key": "neo_color_product",
++            "name": "Neo Color Product",
++            "type": {
++              "name": "list.metaobject_reference"
++            },
++            "access": {
++              "storefront": "PUBLIC_READ"
++            }
++          }
++        }
++      ],
++      "pageInfo": {
++        "hasNextPage": false
++      }
++    }
++  },
++  "extensions": {
++    "cost": {
++      "requestedQueryCost": 29,
++      "actualQueryCost": 23,
++      "throttleStatus": {
++        "maximumAvailable": 2000,
++        "currentlyAvailable": 1977,
++        "restoreRate": 100
++      }
++    }
++  }
++}
+\ No newline at end of file
+diff --git a/app/graphql/product/README.md b/app/graphql/product/README.md
+new file mode 100644
+index 0000000..e69de29
+diff --git a/app/graphql/product/export-product-metafields.mjs b/app/graphql/product/export-product-metafields.mjs
+new file mode 100644
+index 0000000..024c2ce
+--- /dev/null
++++ b/app/graphql/product/export-product-metafields.mjs
+@@ -0,0 +1,192 @@
++/* eslint-env node */
++import 'dotenv/config';
++import fs from 'node:fs/promises';
++import path from 'node:path';
++
++/**
++ * Konfiguration
++ */
++const SHOP_DOMAIN =
++  process.env.SHOPIFY_STORE_DOMAIN ||
++  process.env.PUBLIC_STORE_DOMAIN ||
++  process.env.SHOP_DOMAIN;
++
++const ADMIN_TOKEN =
++  process.env.SHOPIFY_ADMIN_TOKEN || process.env.ADMIN_API_TOKEN;
++
++const API_VERSION = process.env.ADMIN_API_VERSION || '2025-01';
++
++// Wohin schreiben (relativ zum Projektroot starten)
++const OUT_DIR = path.resolve('app/graphql/product');
++const ALL_FILE = path.join(OUT_DIR, 'metafield-defs-ALL.json');
++const PRODUCT_FILE = path.join(OUT_DIR, 'product-metafield-defs.json');
++const FRAGMENT_FILE = path.join(OUT_DIR, 'product-metafields.fragment.graphql');
++
++if (!SHOP_DOMAIN || !ADMIN_TOKEN) {
++  console.error('❌ Fehlt SHOP_DOMAIN oder ADMIN_TOKEN.');
++  console.error({
++    SHOPIFY_STORE_DOMAIN: process.env.SHOPIFY_STORE_DOMAIN,
++    PUBLIC_STORE_DOMAIN: process.env.PUBLIC_STORE_DOMAIN,
++    SHOP_DOMAIN: process.env.SHOP_DOMAIN,
++    SHOPIFY_ADMIN_TOKEN: !!process.env.SHOPIFY_ADMIN_TOKEN,
++    ADMIN_API_TOKEN: !!process.env.ADMIN_API_TOKEN,
++  });
++  process.exit(1);
++}
++
++const endpoint = `https://${SHOP_DOMAIN}/admin/api/${API_VERSION}/graphql.json`;
++
++/**
++ * Admin API Query – MetafieldDefinitions pro OwnerType
++ */
++const query = `
++  query defs($ownerType: MetafieldOwnerType!, $cursor: String) {
++    metafieldDefinitions(first: 100, ownerType: $ownerType, after: $cursor) {
++      edges {
++        cursor
++        node {
++          namespace
++          key
++          name
++          type { name }
++          access { storefront }
++          # nützlich zur Nachverfolgung:
++          ownerType
++        }
++      }
++      pageInfo { hasNextPage }
++    }
++  }
++`;
++
++/**
++ * GQL Helfer
++ */
++async function gql(variables = {}) {
++  const res = await fetch(endpoint, {
++    method: 'POST',
++    headers: {
++      'X-Shopify-Access-Token': ADMIN_TOKEN,
++      'Content-Type': 'application/json',
++    },
++    body: JSON.stringify({query, variables}),
++  });
++  if (!res.ok) throw new Error(`HTTP ${res.status}: ${await res.text()}`);
++  const json = await res.json();
++  if (json.errors) throw new Error(JSON.stringify(json.errors));
++  return json.data;
++}
++
++/**
++ * Für welche OwnerTypes exportieren?
++ * (Liste kann bei Bedarf erweitert werden)
++ */
++const OWNER_TYPES = ['PRODUCT', 'PRODUCTVARIANT', 'COLLECTION', 'SHOP'];
++
++/**
++ * Main
++ */
++async function run() {
++  await fs.mkdir(OUT_DIR, {recursive: true});
++
++  /** 1) Alle Definitionen über mehrere OwnerTypes sammeln */
++  const allDefs = [];
++  for (const ownerType of OWNER_TYPES) {
++    let cursor = null;
++    // Seite für Seite
++    for (;;) {
++      const data = await gql({ownerType, cursor});
++      const page = data.metafieldDefinitions;
++      const nodes = page.edges.map((e) => ({
++        ...e.node,
++        // ownerType ist bei älteren APIs nicht immer gesetzt → anreichern
++        ownerType,
++      }));
++      allDefs.push(...nodes);
++
++      if (!page.pageInfo.hasNextPage) break;
++      cursor = page.edges.at(-1).cursor;
++    }
++  }
++
++  // Schreiben: kompletter Dump
++  await fs.writeFile(ALL_FILE, JSON.stringify(allDefs, null, 2), 'utf8');
++
++  /** 2) Nur PRODUCT-Definitionen herausfiltern */
++  const productDefs = allDefs.filter((d) => d.ownerType === 'PRODUCT');
++
++  await fs.writeFile(
++    PRODUCT_FILE,
++    JSON.stringify(productDefs, null, 2),
++    'utf8',
++  );
++
++  /** 3) Fragment bauen – nur storefront-freigegeben, Namespace "custom" zuerst */
++  const productStorefront = productDefs.filter(
++    (d) => d?.access?.storefront === 'PUBLIC_READ',
++  );
++
++  // Reihenfolge: zuerst custom, dann der Rest – nur der Lesbarkeit halber
++  const sorted = [
++    ...productStorefront.filter((d) => d.namespace === 'custom'),
++    ...productStorefront.filter((d) => d.namespace !== 'custom'),
++  ];
++
++  const identifiers = sorted
++    .map(
++      (d) =>
++        `        {namespace: "${d.namespace}", key: "${d.key}"}${
++          d.type?.name ? `  # ${d.type.name}` : ''
++        }`,
++    )
++    .join('\n');
++
++  const fragment = `# Generated by graphql/product/export-product-metafields.mjs
++# Store: ${SHOP_DOMAIN}
++# API: ${API_VERSION}
++# OwnerType: PRODUCT
++# Hinweis: nur Definitionen mit storefront: PUBLIC_READ
++
++fragment ProductCustomMetafields on Product {
++  # Liefert eine Liste von Metafeldern (Einträge können null sein,
++  # wenn am Produkt kein Wert gesetzt ist)
++  metafields(identifiers: [
++${identifiers}
++  ]) {
++    namespace
++    key
++    type
++    value
++
++    # Referenzen (Dateien, Media, Metaobjekte etc.)
++    reference {
++      __typename
++      ... on Metaobject { id type handle fields { key type value } }
++      ... on MediaImage { image { url altText } }
++      ... on Video { sources { url mimeType } }
++      ... on Model3d { sources { url mimeType } }
++      ... on GenericFile { url mimeType }
++    }
++  }
++}
++`;
++
++  await fs.writeFile(FRAGMENT_FILE, fragment, 'utf8');
++
++  // Log
++  const byNs = productStorefront.reduce((acc, d) => {
++    acc[d.namespace] = (acc[d.namespace] || 0) + 1;
++    return acc;
++  }, {});
++  console.log('✅ Export fertig');
++  console.log('  →', path.relative(process.cwd(), ALL_FILE));
++  console.log('  →', path.relative(process.cwd(), PRODUCT_FILE));
++  console.log('  →', path.relative(process.cwd(), FRAGMENT_FILE));
++  console.log('Produkt-Defs (storefront):', productStorefront.length);
++  console.log('Namespaces:', byNs);
++}
++
++run().catch((err) => {
++  console.error('❌ Fehler:', err.message);
++  process.exit(1);
++});
+diff --git a/app/graphql/product/metafield-defs-ALL.json b/app/graphql/product/metafield-defs-ALL.json
+new file mode 100644
+index 0000000..f327f87
+--- /dev/null
++++ b/app/graphql/product/metafield-defs-ALL.json
+@@ -0,0 +1,470 @@
++[
++  {
++    "namespace": "custom_slider",
++    "key": "content",
++    "name": "Custom Slider",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "shopify",
++    "key": "bulb-size",
++    "name": "Bulb size",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "shopify",
++    "key": "bulb-type",
++    "name": "Bulb type",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "marble_fixture",
++    "name": "Marble Fixture",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "material",
++    "name": "Material",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "size",
++    "name": "Size",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "length",
++    "name": "Length",
++    "type": {
++      "name": "list.number_decimal"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "width",
++    "name": "Width",
++    "type": {
++      "name": "list.number_decimal"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "height",
++    "name": "Height",
++    "type": {
++      "name": "list.number_decimal"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "mirror_glass_type",
++    "name": "Mirror Glass Type ",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "wood_type",
++    "name": "Wood Type ",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "marble_type",
++    "name": "Marble Type ",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "metal_finish",
++    "name": "Metal Finish",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "option",
++    "name": "Option ",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "oled_exchange_panel",
++    "name": "OLED Exchange Panel",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "surcharge",
++    "name": "Surcharge ",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "diameter",
++    "name": "Diameter",
++    "type": {
++      "name": "list.number_decimal"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "table_top",
++    "name": "Table Top",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "dichroic_glass",
++    "name": "Dichroic Glass",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "ceiling_cap",
++    "name": "Ceiling Cap",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "plug_type",
++    "name": "Plug Type",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "measurements",
++    "name": "Measurements File",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "teaser_duo_top",
++    "name": "Teaser Duo Top Left + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "teaser_duo_bottom",
++    "name": "Teaser Duo Bottom Left + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "hero_split_images",
++    "name": "Hero Split Images Left + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "hero_split_text",
++    "name": "Hero Split Text",
++    "type": {
++      "name": "multi_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "hero_split_images_right",
++    "name": "Hero Split Images Right + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "teaser_duo_bottom_right",
++    "name": "Teaser Duo Bottom Right + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "teaser_duo_top_right",
++    "name": "Teaser Duo Top Right + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "materialBoolean",
++    "name": "Materialprobe",
++    "type": {
++      "name": "boolean"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "product_tile",
++    "name": "Product Tile + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "metal_color",
++    "name": "Metal Color",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "cable_color",
++    "name": "Cable Color",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "frame_color",
++    "name": "Frame Color",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "glass_color",
++    "name": "Glass Color",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "shopify",
++    "key": "connection-type",
++    "name": "Connection type",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "neo_color_product",
++    "name": "Neo Color Product",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "color",
++    "name": "Neo Color Varianten",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCTVARIANT"
++  },
++  {
++    "namespace": "custom",
++    "key": "dealer",
++    "name": "Dealer",
++    "type": {
++      "name": "json"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "SHOP"
++  }
++]
+\ No newline at end of file
+diff --git a/app/graphql/product/product-metafield-defs.json b/app/graphql/product/product-metafield-defs.json
+new file mode 100644
+index 0000000..f7b3e2d
+--- /dev/null
++++ b/app/graphql/product/product-metafield-defs.json
+@@ -0,0 +1,446 @@
++[
++  {
++    "namespace": "custom_slider",
++    "key": "content",
++    "name": "Custom Slider",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "shopify",
++    "key": "bulb-size",
++    "name": "Bulb size",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "shopify",
++    "key": "bulb-type",
++    "name": "Bulb type",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "marble_fixture",
++    "name": "Marble Fixture",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "material",
++    "name": "Material",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "size",
++    "name": "Size",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "length",
++    "name": "Length",
++    "type": {
++      "name": "list.number_decimal"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "width",
++    "name": "Width",
++    "type": {
++      "name": "list.number_decimal"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "height",
++    "name": "Height",
++    "type": {
++      "name": "list.number_decimal"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "mirror_glass_type",
++    "name": "Mirror Glass Type ",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "wood_type",
++    "name": "Wood Type ",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "marble_type",
++    "name": "Marble Type ",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "metal_finish",
++    "name": "Metal Finish",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "option",
++    "name": "Option ",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "oled_exchange_panel",
++    "name": "OLED Exchange Panel",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "surcharge",
++    "name": "Surcharge ",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "diameter",
++    "name": "Diameter",
++    "type": {
++      "name": "list.number_decimal"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "table_top",
++    "name": "Table Top",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "dichroic_glass",
++    "name": "Dichroic Glass",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "ceiling_cap",
++    "name": "Ceiling Cap",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "plug_type",
++    "name": "Plug Type",
++    "type": {
++      "name": "list.single_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "measurements",
++    "name": "Measurements File",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "teaser_duo_top",
++    "name": "Teaser Duo Top Left + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "teaser_duo_bottom",
++    "name": "Teaser Duo Bottom Left + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "hero_split_images",
++    "name": "Hero Split Images Left + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "hero_split_text",
++    "name": "Hero Split Text",
++    "type": {
++      "name": "multi_line_text_field"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "hero_split_images_right",
++    "name": "Hero Split Images Right + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "teaser_duo_bottom_right",
++    "name": "Teaser Duo Bottom Right + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "teaser_duo_top_right",
++    "name": "Teaser Duo Top Right + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "materialBoolean",
++    "name": "Materialprobe",
++    "type": {
++      "name": "boolean"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "product_tile",
++    "name": "Product Tile + Hover",
++    "type": {
++      "name": "list.file_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "metal_color",
++    "name": "Metal Color",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "cable_color",
++    "name": "Cable Color",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "frame_color",
++    "name": "Frame Color",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "glass_color",
++    "name": "Glass Color",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "shopify",
++    "key": "connection-type",
++    "name": "Connection type",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  },
++  {
++    "namespace": "custom",
++    "key": "neo_color_product",
++    "name": "Neo Color Product",
++    "type": {
++      "name": "list.metaobject_reference"
++    },
++    "access": {
++      "storefront": "PUBLIC_READ"
++    },
++    "ownerType": "PRODUCT"
++  }
++]
+\ No newline at end of file
+diff --git a/app/graphql/product/product-metafields.fragment.graphql b/app/graphql/product/product-metafields.fragment.graphql
+new file mode 100644
+index 0000000..7193398
+--- /dev/null
++++ b/app/graphql/product/product-metafields.fragment.graphql
+@@ -0,0 +1,64 @@
++# Generated by graphql/product/export-product-metafields.mjs
++# Store: neo-craft.myshopify.com
++# API: 2025-01
++# OwnerType: PRODUCT
++# Hinweis: nur Definitionen mit storefront: PUBLIC_READ
++
++fragment ProductCustomMetafields on Product {
++  # Liefert eine Liste von Metafeldern (Einträge können null sein,
++  # wenn am Produkt kein Wert gesetzt ist)
++  metafields(identifiers: [
++        {namespace: "custom", key: "marble_fixture"}  # list.single_line_text_field
++        {namespace: "custom", key: "material"}  # list.single_line_text_field
++        {namespace: "custom", key: "size"}  # list.single_line_text_field
++        {namespace: "custom", key: "length"}  # list.number_decimal
++        {namespace: "custom", key: "width"}  # list.number_decimal
++        {namespace: "custom", key: "height"}  # list.number_decimal
++        {namespace: "custom", key: "mirror_glass_type"}  # list.single_line_text_field
++        {namespace: "custom", key: "wood_type"}  # list.single_line_text_field
++        {namespace: "custom", key: "marble_type"}  # list.single_line_text_field
++        {namespace: "custom", key: "metal_finish"}  # list.single_line_text_field
++        {namespace: "custom", key: "option"}  # list.single_line_text_field
++        {namespace: "custom", key: "oled_exchange_panel"}  # list.single_line_text_field
++        {namespace: "custom", key: "surcharge"}  # list.single_line_text_field
++        {namespace: "custom", key: "diameter"}  # list.number_decimal
++        {namespace: "custom", key: "table_top"}  # list.single_line_text_field
++        {namespace: "custom", key: "dichroic_glass"}  # list.single_line_text_field
++        {namespace: "custom", key: "ceiling_cap"}  # list.single_line_text_field
++        {namespace: "custom", key: "plug_type"}  # list.single_line_text_field
++        {namespace: "custom", key: "measurements"}  # list.file_reference
++        {namespace: "custom", key: "teaser_duo_top"}  # list.file_reference
++        {namespace: "custom", key: "teaser_duo_bottom"}  # list.file_reference
++        {namespace: "custom", key: "hero_split_images"}  # list.file_reference
++        {namespace: "custom", key: "hero_split_text"}  # multi_line_text_field
++        {namespace: "custom", key: "hero_split_images_right"}  # list.file_reference
++        {namespace: "custom", key: "teaser_duo_bottom_right"}  # list.file_reference
++        {namespace: "custom", key: "teaser_duo_top_right"}  # list.file_reference
++        {namespace: "custom", key: "materialBoolean"}  # boolean
++        {namespace: "custom", key: "product_tile"}  # list.file_reference
++        {namespace: "custom", key: "metal_color"}  # list.metaobject_reference
++        {namespace: "custom", key: "cable_color"}  # list.metaobject_reference
++        {namespace: "custom", key: "frame_color"}  # list.metaobject_reference
++        {namespace: "custom", key: "glass_color"}  # list.metaobject_reference
++        {namespace: "custom", key: "neo_color_product"}  # list.metaobject_reference
++        {namespace: "custom_slider", key: "content"}  # list.file_reference
++        {namespace: "shopify", key: "bulb-size"}  # list.metaobject_reference
++        {namespace: "shopify", key: "bulb-type"}  # list.metaobject_reference
++        {namespace: "shopify", key: "connection-type"}  # list.metaobject_reference
++  ]) {
++    namespace
++    key
++    type
++    value
++
++    # Referenzen (Dateien, Media, Metaobjekte etc.)
++    reference {
++      __typename
++      ... on Metaobject { id type handle fields { key type value } }
++      ... on MediaImage { image { url altText } }
++      ... on Video { sources { url mimeType } }
++      ... on Model3d { sources { url mimeType } }
++      ... on GenericFile { url mimeType }
++    }
++  }
++}
+diff --git a/app/patterns/Highlights/index.tsx b/app/patterns/Highlights/index.tsx
+index c992801..ce01228 100644
+--- a/app/patterns/Highlights/index.tsx
++++ b/app/patterns/Highlights/index.tsx
+@@ -67,12 +67,6 @@ export async function loader({context}: LoaderFunctionArgs) {
+       };
+     }) ?? [];
+ 
+-  console.log('items length', items.length);
+-  console.log(
+-    'no image',
+-    items.filter((x: any) => !x.image).map((x: any) => x.id),
+-  );
+-
+   return Response.json({items});
+ }
+ 
+@@ -127,7 +121,6 @@ function FigureCard({
+     height: image?.height,
+   };
+ 
+-  console.log('image data', imageData);
+ 
+   if (!image) {
+     return (
+diff --git a/app/patterns/ProductForm.jsx b/app/patterns/ProductForm.jsx
+index e368eff..5c09637 100644
+--- a/app/patterns/ProductForm.jsx
++++ b/app/patterns/ProductForm.jsx
+@@ -11,6 +11,8 @@ import {ProductMetaAccordion} from './ProductMetaAccordion';
+ export function ProductForm({productOptions, product}) {
+   const navigate = useNavigate();
+ 
++  console.log('product', product?.metafields);
++
+   return (
+     <div className="product-form">
+       <Configurator productOptions={productOptions} navigate={navigate} />
+diff --git a/app/patterns/ProductMetaAccordion/index.jsx b/app/patterns/ProductMetaAccordion/index.jsx
+index 49d943a..896e48f 100644
+--- a/app/patterns/ProductMetaAccordion/index.jsx
++++ b/app/patterns/ProductMetaAccordion/index.jsx
+@@ -1,87 +1,11 @@
+-// schlanke Konfig – nutze exakt die Keys aus deiner GraphQL-Query
+-const FIELD_CONFIG = [
+-  {key: 'metal_colour', label: 'Metal Colour'},
+-  {key: 'cable_colour', label: 'Cable Colour'},
+-  {key: 'plug_type', label: 'Plug Type'},
+-  {key: 'frame_colour', label: 'Frame Colour'},
+-  {key: 'glass_colour', label: 'Glass Colour'},
+-  {key: 'ceiling_cap', label: 'Ceiling Cap'},
+-  {key: 'dichroic_glass', label: 'Dichroic Glass'},
+-  {key: 'table_top', label: 'Table Top'},
+-  {key: 'material', label: 'Material'},
+-  {key: 'metal_finish', label: 'Metal Finish'},
+-  {key: 'size', label: 'Size'},
+-  {key: 'length', label: 'Length', unit: ' cm'},
+-  {key: 'width', label: 'Width', unit: ' cm'},
+-  {key: 'height', label: 'Height', unit: ' cm'},
+-  {key: 'diameter', label: 'Diameter', unit: ' cm'},
+-  {key: 'marble_fixture', label: 'Marble Fixture'},
+-  {key: 'mirror_glass_type', label: 'Mirror Glass Type'},
+-  {key: 'wood_type', label: 'Wood Type'},
+-  {key: 'marble_type', label: 'Marble Type'},
+-  {key: 'oled_exchange_panel', label: 'OLED Exchange Panel'},
+-  {key: 'option', label: 'Option'},
+-  {key: 'surcharge', label: 'Surcharge'},
+-];
+-
+-// Hilfen
+-const norm = (s = '') => s.toLowerCase().replace(/[^a-z0-9._-]/g, '');
+-const isNumberType = (t = '') => /number|integer|decimal/i.test(t);
+-const isListType = (t = '') => t.startsWith('list.');
+-
+-const formatVal = (mf, unit = '') => {
+-  let v = `${mf?.value ?? ''}`.trim();
+-  if (!v) return '';
+-  if (isListType(mf.type)) {
+-    try {
+-      const arr = JSON.parse(v);
+-      if (Array.isArray(arr)) v = arr.filter(Boolean).join(', ');
+-    } catch {}
+-  }
+-  if (unit && isNumberType(mf.type) && !Number.isNaN(Number(v)))
+-    return `${v}${unit}`;
+-  return v;
+-};
+-
+ export function ProductMetaAccordion({metafields}) {
+-  // flatten
+-  const flat = Array.isArray(metafields) ? metafields.filter(Boolean) : [];
+-  if (!flat.length) return null;
+-
+-  // index nach key & namespace.key
+-  const byKey = new Map();
+-  for (const mf of flat) {
+-    const k = norm(mf.key);
+-    if (k) byKey.set(k, mf);
+-    if (mf.namespace && mf.key)
+-      byKey.set(norm(`${mf.namespace}.${mf.key}`), mf);
+-  }
+-
+-  // bekannte Felder in gewünschter Reihenfolge
+-  const used = new Set();
+-  const knownItems = FIELD_CONFIG.map((cfg) => {
+-    const mf = byKey.get(cfg.key) || byKey.get(`custom.${cfg.key}`);
+-    if (!mf) return null;
+-    const value = formatVal(mf, cfg.unit);
+-    if (!value) return null;
+-    used.add(mf);
+-    return {label: cfg.label, value};
+-  }).filter(Boolean);
+-
+-  // unbekannte Felder (optional) hinten anhängen
+-  const unknownItems = flat
+-    .filter((mf) => !used.has(mf) && `${mf.value ?? ''}`.trim() !== '')
+-    .map((mf) => ({
+-      label: mf.key.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+-      value: formatVal(mf),
+-    }));
+-
+-  const items = [...knownItems, ...unknownItems];
+-  if (!items.length) return null;
++  console.log('metafields', metafields);
+ 
+   return (
+     <div className="meta-accordion" role="region" aria-label="Product details">
+-      {items.map(({label, value}) => (
++      {/* <section>{metafields}</section> */}
++
++      {/* {items.map(({label, value}) => (
+         <details key={label} className="acc-item">
+           <summary>
+             <span className="acc-title">{label}</span>
+@@ -91,7 +15,7 @@ export function ProductMetaAccordion({metafields}) {
+             <p>{value}</p>
+           </div>
+         </details>
+-      ))}
++      ))} */}
+     </div>
+   );
+ }
+diff --git a/app/routes/graphql.d.ts b/app/routes/graphql.d.ts
+new file mode 100644
+index 0000000..22edae7
+--- /dev/null
++++ b/app/routes/graphql.d.ts
+@@ -0,0 +1,9 @@
++declare module '*.graphql' {
++  const content: string;
++  export default content;
++}
++
++declare module '*.graphql?raw' {
++  const content: string;
++  export default content;
++}
+diff --git a/app/routes/products.$handle.jsx b/app/routes/products.$handle.jsx
+index ce526fc..c129f5d 100644
+--- a/app/routes/products.$handle.jsx
++++ b/app/routes/products.$handle.jsx
+@@ -12,6 +12,7 @@ import {
+ // import {ProductForm} from '~/components/Product/ProductForm';
+ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+ import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
++import {normalizeAllMetafields} from '~/utils/metafields';
+ 
+ /**
+  * @type {MetaFunction<typeof loader>}
+@@ -29,14 +30,15 @@ export const meta = ({data}) => {
+ /**
+  * @param {LoaderFunctionArgs} args
+  */
+-export async function loader(args) {
+-  // Start fetching non-critical data without blocking time to first byte
+-  const deferredData = loadDeferredData(args);
+-
+-  // Await the critical data required to render initial state of the page
+-  const criticalData = await loadCriticalData(args);
++export async function loader({request, params, context}) {
++  const {handle} = params;
++  const {product} = await context.storefront.query(PRODUCT_QUERY, {
++    variables: {handle, selectedOptions: []},
++  });
++  if (!product) throw new Response('Not found', {status: 404});
+ 
+-  return {...deferredData, ...criticalData};
++  const metafields = normalizeAllMetafields(product.metafields);
++  return {product, metafields};
+ }
+ 
+ /**
+@@ -186,7 +188,65 @@ const PRODUCT_VARIANT_FRAGMENT = `#graphql
+   }
+ `;
+ 
+-const PRODUCT_FRAGMENT = `#graphql
++// --- Query & Fragment (inline, damit Codegen happy ist) ---
++const PRODUCT_QUERY = `#graphql
++  fragment ProductCustomMetafields on Product {
++    metafields(identifiers: [
++      {namespace: "custom", key: "plug_type"},
++      {namespace: "custom", key: "metal_color"},
++      {namespace: "custom", key: "cable_color"},
++      {namespace: "custom", key: "frame_color"},
++      {namespace: "custom", key: "glass_color"},
++      {namespace: "custom", key: "ceiling_cap"},
++      {namespace: "custom", key: "dichroic_glass"},
++      {namespace: "custom", key: "table_top"},
++      {namespace: "custom", key: "size"},
++      {namespace: "custom", key: "length"},
++      {namespace: "custom", key: "width"},
++      {namespace: "custom", key: "height"},
++      {namespace: "custom", key: "diameter"},
++      {namespace: "custom", key: "marble_fixture"},
++      {namespace: "custom", key: "mirror_glass_type"},
++      {namespace: "custom", key: "wood_type"},
++      {namespace: "custom", key: "marble_type"},
++      {namespace: "custom", key: "metal_finish"},
++      {namespace: "custom", key: "option"},
++      {namespace: "custom", key: "surcharge"},
++      {namespace: "custom", key: "oled_exchange_panel"},
++      {namespace: "custom", key: "material"},
++      {namespace: "custom", key: "measurements"},
++      {namespace: "custom", key: "product_tile"},
++      {namespace: "custom", key: "neo_color_product"}
++    ]) {
++      namespace
++      key
++      type
++      value
++
++      # Einzel-Referenz (file_reference etc.)
++      reference {
++        __typename
++        ... on Metaobject { id type handle fields { key type value } }
++        ... on MediaImage { image { url altText width height } }
++        ... on Video { sources { url mimeType } }
++        ... on Model3d { sources { url mimeType } }
++        ... on GenericFile { url mimeType }
++      }
++
++      # Listen-Referenzen (list.metaobject_reference / list.file_reference)
++      references(first: 50) {
++        nodes {
++          __typename
++          ... on Metaobject { id type handle fields { key type value } }
++          ... on MediaImage { image { url altText width height } }
++          ... on Video { sources { url mimeType } }
++          ... on Model3d { sources { url mimeType } }
++          ... on GenericFile { url mimeType }
++        }
++      }
++    }
++  }
++
+   fragment Product on Product {
+     id
+     title
+@@ -218,57 +278,32 @@ const PRODUCT_FRAGMENT = `#graphql
+     ) { ...ProductVariant }
+ 
+     adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }
+-
+     seo { description title }
+ 
+-    # WICHTIG: identifiers verwenden (kein first/edges)
+-    metafields(identifiers: [
+-  {namespace: "custom", key: "plug_type"},
+-  {namespace: "custom", key: "metal_colour"},
+-  {namespace: "custom", key: "cable_colour"},
+-  {namespace: "custom", key: "frame_colour"},
+-  {namespace: "custom", key: "glass_colour"},
+-  {namespace: "custom", key: "ceiling_cap"},
+-  {namespace: "custom", key: "dichroic_glass"},
+-  {namespace: "custom", key: "table_top"},
+-  {namespace: "custom", key: "size"},
+-  {namespace: "custom", key: "length"},
+-  {namespace: "custom", key: "width"},
+-  {namespace: "custom", key: "height"},
+-  {namespace: "custom", key: "diameter"},
+-  {namespace: "custom", key: "marble_fixture"},
+-  {namespace: "custom", key: "mirror_glass_type"},
+-  {namespace: "custom", key: "wood_type"},
+-  {namespace: "custom", key: "marble_type"},
+-  {namespace: "custom", key: "metal_finish"},
+-  {namespace: "custom", key: "option"},
+-  {namespace: "custom", key: "surcharge"},
+-  {namespace: "custom", key: "oled_exchange_panel"},
+-  {namespace: "custom", key: "material"}
+-]) {
+-  namespace
+-  key
+-  type
+-  value
+-  description
+-}
++    ...ProductCustomMetafields
++  }
+ 
++  fragment ProductVariant on ProductVariant {
++    availableForSale
++    compareAtPrice { amount currencyCode }
++    id
++    image { __typename id url altText width height }
++    price { amount currencyCode }
++    product { title handle }
++    selectedOptions { name value }
++    sku
++    title
++    unitPrice { amount currencyCode }
+   }
+-  ${PRODUCT_VARIANT_FRAGMENT}
+-`;
+ 
+-const PRODUCT_QUERY = `#graphql
+   query Product(
+     $country: CountryCode
+     $handle: String!
+     $language: LanguageCode
+     $selectedOptions: [SelectedOptionInput!]!
+   ) @inContext(country: $country, language: $language) {
+-    product(handle: $handle) {
+-      ...Product
+-    }
++    product(handle: $handle) { ...Product }
+   }
+-  ${PRODUCT_FRAGMENT}
+ `;
+ 
+ /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
+diff --git a/app/utils/metafields.ts b/app/utils/metafields.ts
+new file mode 100644
+index 0000000..fc02e55
+--- /dev/null
++++ b/app/utils/metafields.ts
+@@ -0,0 +1,153 @@
++// --- Hilfen für Labels / Medien --------------------------------------------
++function labelFromMetaobject(metaobj) {
++  if (!metaobj) return '';
++  const f = (k) => metaobj.fields?.find((x) => x.key === k)?.value;
++  return f('name') || f('title') || metaobj.handle || metaobj.id || '';
++}
++
++function mediaFromRef(ref) {
++  if (!ref) return null;
++  if (ref.__typename === 'MediaImage') return ref.image || null;
++  // Video/Model3d/GenericFile ggf. hier später mit abbilden
++  return null;
++}
++
++// --- Kern: EIN Normalizer für EIN Metafield ---------------------------------
++/**
++ * Liefert ein einheitliches Objekt, egal ob Text/Number/Referenz/Liste.
++ * Rückgabe-Form:
++ * {
++ *   key, namespace, rawType, kind,
++ *   value,     // normierter Wert (string | number | object)
++ *   list,      // normierte Liste (string[] | number[] | objects[])
++ *   refs,      // Original-Referenzen (falls vorhanden)
++ *   display,   // menschenlesbare Ausgabe (string | string[])
++ * }
++ */
++export function normalizeMetafield(mf) {
++  if (!mf) return null;
++
++  const rawType = mf.type; // z.B. "list.metaobject_reference"
++  const [isList, base] = rawType?.startsWith('list.')
++    ? [true, rawType.slice(5)]
++    : [false, rawType];
++
++  const out = {
++    key: mf.key,
++    namespace: mf.namespace,
++    rawType,
++    kind: base, // z.B. "single_line_text_field" | "metaobject_reference" | "file_reference" | "number_decimal" | "multi_line_text_field"
++    value: null,
++    list: null,
++    refs: null,
++    display: null,
++    mf, // original für Debug
++  };
++
++  // Hilfsparser für JSON-Listen aus value:
++  const parseList = () => {
++    if (!mf.value) return [];
++    try {
++      const arr = JSON.parse(mf.value);
++      return Array.isArray(arr) ? arr : [];
++    } catch {
++      return String(mf.value)
++        .split(',')
++        .map((s) => s.trim())
++        .filter(Boolean);
++    }
++  };
++
++  // Referenzen einsammeln (singular/list)
++  const refs = mf.references?.nodes?.length
++    ? mf.references.nodes
++    : mf.reference
++      ? [mf.reference]
++      : [];
++  if (refs.length) out.refs = refs;
++
++  // Routing nach Typ
++  switch (base) {
++    case 'single_line_text_field':
++    case 'multi_line_text_field': {
++      if (isList) {
++        const list = parseList(); // string[]
++        out.list = list;
++        out.display = list;
++      } else {
++        out.value = mf.value ?? '';
++        out.display = out.value;
++      }
++      break;
++    }
++
++    case 'number_integer':
++    case 'number_decimal': {
++      const toNum = (v) => {
++        const n = Number(v);
++        return Number.isFinite(n) ? n : null;
++      };
++      if (isList) {
++        const list = parseList()
++          .map(toNum)
++          .filter((n) => n !== null);
++        out.list = list; // number[]
++        out.display = list.map((n) => String(n));
++      } else {
++        out.value = toNum(mf.value);
++        out.display = out.value != null ? String(out.value) : '';
++      }
++      break;
++    }
++
++    case 'metaobject_reference': {
++      if (isList) {
++        const list = (refs || []).filter((r) => r.__typename === 'Metaobject');
++        out.list = list; // Metaobject[]
++        out.display = list.map(labelFromMetaobject);
++      } else {
++        const m =
++          refs[0] && refs[0].__typename === 'Metaobject' ? refs[0] : null;
++        out.value = m;
++        out.display = m ? labelFromMetaobject(m) : '';
++      }
++      break;
++    }
++
++    case 'file_reference': {
++      if (isList) {
++        const imgs = (refs || []).map(mediaFromRef).filter(Boolean);
++        out.list = imgs; // {url, altText, ...}[]
++        out.display = imgs.map((i) => i.url);
++      } else {
++        const img = mediaFromRef(refs[0]);
++        out.value = img;
++        out.display = img?.url || '';
++      }
++      break;
++    }
++
++    // Fallback – zeig raw value an
++    default: {
++      if (isList) {
++        const list = parseList();
++        out.list = list;
++        out.display = list.map((x) => String(x));
++      } else {
++        out.value = mf.value ?? '';
++        out.display = String(out.value);
++      }
++    }
++  }
++
++  return out;
++}
++
++/** Alle Metafelder auf einmal normalisieren → Map: key -> normalized */
++export function normalizeAllMetafields(metafieldsList = []) {
++  const map = {};
++  for (const mf of metafieldsList.filter(Boolean)) {
++    map[mf.key] = normalizeMetafield(mf);
++  }
++  return map;
++}
+diff --git a/eslint.config.js b/eslint.config.js
+index 59fd32e..0d6b1d6 100644
+--- a/eslint.config.js
++++ b/eslint.config.js
+@@ -23,4 +23,9 @@ export default defineConfig([
+       'react/prop-types': 'off',
+     },
+   },
++  {
++    env: {
++      node: true,
++    },
++  },
+ ]);
+diff --git a/package-lock.json b/package-lock.json
+index 4facf27..e796254 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -33,7 +33,7 @@
+         "@react-router/fs-routes": "7.9.2",
+         "@react-router/serve": "7.9.2",
+         "@shopify/cli": "^3.85.4",
+-        "@shopify/hydrogen-codegen": "^0.3.3",
++        "@shopify/hydrogen-codegen": "0.3.3",
+         "@shopify/mini-oxygen": "^4.0.0",
+         "@shopify/oxygen-workers-types": "^4.1.6",
+         "@shopify/prettier-config": "^1.1.2",
+@@ -1853,9 +1853,9 @@
+       }
+     },
+     "node_modules/@graphql-tools/apollo-engine-loader/node_modules/@whatwg-node/node-fetch": {
+-      "version": "0.8.0",
+-      "resolved": "https://registry.npmjs.org/@whatwg-node/node-fetch/-/node-fetch-0.8.0.tgz",
+-      "integrity": "sha512-+z00GpWxKV/q8eMETwbdi80TcOoVEVZ4xSRkxYOZpn3kbV3nej5iViNzXVke/j3v4y1YpO5zMS/CVDIASvJnZQ==",
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/@whatwg-node/node-fetch/-/node-fetch-0.8.1.tgz",
++      "integrity": "sha512-cQmQEo7IsI0EPX9VrwygXVzrVlX43Jb7/DBZSmpnC7xH4xkyOnn/HykHpTaQk7TUs7zh59A5uTGqx3p2Ouzffw==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+@@ -2071,9 +2071,9 @@
+       }
+     },
+     "node_modules/@graphql-tools/executor-http/node_modules/@whatwg-node/node-fetch": {
+-      "version": "0.8.0",
+-      "resolved": "https://registry.npmjs.org/@whatwg-node/node-fetch/-/node-fetch-0.8.0.tgz",
+-      "integrity": "sha512-+z00GpWxKV/q8eMETwbdi80TcOoVEVZ4xSRkxYOZpn3kbV3nej5iViNzXVke/j3v4y1YpO5zMS/CVDIASvJnZQ==",
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/@whatwg-node/node-fetch/-/node-fetch-0.8.1.tgz",
++      "integrity": "sha512-cQmQEo7IsI0EPX9VrwygXVzrVlX43Jb7/DBZSmpnC7xH4xkyOnn/HykHpTaQk7TUs7zh59A5uTGqx3p2Ouzffw==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+@@ -2171,9 +2171,9 @@
+       }
+     },
+     "node_modules/@graphql-tools/github-loader/node_modules/@whatwg-node/node-fetch": {
+-      "version": "0.8.0",
+-      "resolved": "https://registry.npmjs.org/@whatwg-node/node-fetch/-/node-fetch-0.8.0.tgz",
+-      "integrity": "sha512-+z00GpWxKV/q8eMETwbdi80TcOoVEVZ4xSRkxYOZpn3kbV3nej5iViNzXVke/j3v4y1YpO5zMS/CVDIASvJnZQ==",
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/@whatwg-node/node-fetch/-/node-fetch-0.8.1.tgz",
++      "integrity": "sha512-cQmQEo7IsI0EPX9VrwygXVzrVlX43Jb7/DBZSmpnC7xH4xkyOnn/HykHpTaQk7TUs7zh59A5uTGqx3p2Ouzffw==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+@@ -2372,9 +2372,9 @@
+       }
+     },
+     "node_modules/@graphql-tools/prisma-loader/node_modules/@whatwg-node/node-fetch": {
+-      "version": "0.8.0",
+-      "resolved": "https://registry.npmjs.org/@whatwg-node/node-fetch/-/node-fetch-0.8.0.tgz",
+-      "integrity": "sha512-+z00GpWxKV/q8eMETwbdi80TcOoVEVZ4xSRkxYOZpn3kbV3nej5iViNzXVke/j3v4y1YpO5zMS/CVDIASvJnZQ==",
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/@whatwg-node/node-fetch/-/node-fetch-0.8.1.tgz",
++      "integrity": "sha512-cQmQEo7IsI0EPX9VrwygXVzrVlX43Jb7/DBZSmpnC7xH4xkyOnn/HykHpTaQk7TUs7zh59A5uTGqx3p2Ouzffw==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+@@ -2472,9 +2472,9 @@
+       }
+     },
+     "node_modules/@graphql-tools/url-loader/node_modules/@whatwg-node/node-fetch": {
+-      "version": "0.8.0",
+-      "resolved": "https://registry.npmjs.org/@whatwg-node/node-fetch/-/node-fetch-0.8.0.tgz",
+-      "integrity": "sha512-+z00GpWxKV/q8eMETwbdi80TcOoVEVZ4xSRkxYOZpn3kbV3nej5iViNzXVke/j3v4y1YpO5zMS/CVDIASvJnZQ==",
++      "version": "0.8.1",
++      "resolved": "https://registry.npmjs.org/@whatwg-node/node-fetch/-/node-fetch-0.8.1.tgz",
++      "integrity": "sha512-cQmQEo7IsI0EPX9VrwygXVzrVlX43Jb7/DBZSmpnC7xH4xkyOnn/HykHpTaQk7TUs7zh59A5uTGqx3p2Ouzffw==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+@@ -2899,9 +2899,9 @@
+       }
+     },
+     "node_modules/@npmcli/git/node_modules/semver": {
+-      "version": "7.7.2",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
+-      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "version": "7.7.3",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz",
++      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
+       "license": "ISC",
+       "bin": {
+         "semver": "bin/semver.js"
+@@ -2929,9 +2929,9 @@
+       }
+     },
+     "node_modules/@npmcli/package-json/node_modules/semver": {
+-      "version": "7.7.2",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
+-      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "version": "7.7.3",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz",
++      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
+       "license": "ISC",
+       "bin": {
+         "semver": "bin/semver.js"
+@@ -3376,9 +3376,9 @@
+       }
+     },
+     "node_modules/@react-router/dev/node_modules/semver": {
+-      "version": "7.7.2",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
+-      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "version": "7.7.3",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz",
++      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
+       "license": "ISC",
+       "bin": {
+         "semver": "bin/semver.js"
+@@ -3604,15 +3604,6 @@
+         }
+       }
+     },
+-    "node_modules/@remix-run/server-runtime/node_modules/cookie": {
+-      "version": "0.7.2",
+-      "resolved": "https://registry.npmjs.org/cookie/-/cookie-0.7.2.tgz",
+-      "integrity": "sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==",
+-      "license": "MIT",
+-      "engines": {
+-        "node": ">= 0.6"
+-      }
+-    },
+     "node_modules/@repeaterjs/repeater": {
+       "version": "3.0.6",
+       "resolved": "https://registry.npmjs.org/@repeaterjs/repeater/-/repeater-3.0.6.tgz",
+@@ -3914,9 +3905,9 @@
+       "license": "MIT"
+     },
+     "node_modules/@shopify/cli": {
+-      "version": "3.85.4",
+-      "resolved": "https://registry.npmjs.org/@shopify/cli/-/cli-3.85.4.tgz",
+-      "integrity": "sha512-DuOLU3HMkc2GNXlZrgoR/Pg7ELeiuXadsvDiC3ZqSzvZoy+wisH+LSVrM+jLk4YNC1SKjc8iZc09l6+RAb/wXw==",
++      "version": "3.85.5",
++      "resolved": "https://registry.npmjs.org/@shopify/cli/-/cli-3.85.5.tgz",
++      "integrity": "sha512-XhibBk6WYUi9VadWAYh6VdOnI84tm4Jo8G9pYPIbppUobjjehXy1imkwrQ382KDd9iIRYQNYE4mQLH6fDlxbOQ==",
+       "dev": true,
+       "license": "MIT",
+       "os": [
+@@ -4197,13 +4188,13 @@
+       "license": "MIT"
+     },
+     "node_modules/@types/node": {
+-      "version": "24.6.2",
+-      "resolved": "https://registry.npmjs.org/@types/node/-/node-24.6.2.tgz",
+-      "integrity": "sha512-d2L25Y4j+W3ZlNAeMKcy7yDsK425ibcAOO2t7aPTz6gNMH0z2GThtwENCDc0d/Pw9wgyRqE5Px1wkV7naz8ang==",
++      "version": "24.7.2",
++      "resolved": "https://registry.npmjs.org/@types/node/-/node-24.7.2.tgz",
++      "integrity": "sha512-/NbVmcGTP+lj5oa4yiYxxeBjRivKQ5Ns1eSZeB99ExsEQ6rX5XYU1Zy/gGxY/ilqtD4Etx9mKyrPxZRetiahhA==",
+       "devOptional": true,
+       "license": "MIT",
+       "dependencies": {
+-        "undici-types": "~7.13.0"
++        "undici-types": "~7.14.0"
+       }
+     },
+     "node_modules/@types/prop-types": {
+@@ -4214,9 +4205,9 @@
+       "license": "MIT"
+     },
+     "node_modules/@types/react": {
+-      "version": "18.3.25",
+-      "resolved": "https://registry.npmjs.org/@types/react/-/react-18.3.25.tgz",
+-      "integrity": "sha512-oSVZmGtDPmRZtVDqvdKUi/qgCsWp5IDY29wp8na8Bj4B3cc99hfNzvNhlMkVVxctkAOGUA3Km7MMpBHAnWfcIA==",
++      "version": "18.3.26",
++      "resolved": "https://registry.npmjs.org/@types/react/-/react-18.3.26.tgz",
++      "integrity": "sha512-RFA/bURkcKzx/X9oumPG9Vp3D3JUgus/d0b67KB0t5S/raciymilkOa66olh78MUI92QLbEJevO7rvqU/kjwKA==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+@@ -4251,17 +4242,17 @@
+       }
+     },
+     "node_modules/@typescript-eslint/eslint-plugin": {
+-      "version": "8.45.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.45.0.tgz",
+-      "integrity": "sha512-HC3y9CVuevvWCl/oyZuI47dOeDF9ztdMEfMH8/DW/Mhwa9cCLnK1oD7JoTVGW/u7kFzNZUKUoyJEqkaJh5y3Wg==",
++      "version": "8.46.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/eslint-plugin/-/eslint-plugin-8.46.0.tgz",
++      "integrity": "sha512-hA8gxBq4ukonVXPy0OKhiaUh/68D0E88GSmtC1iAEnGaieuDi38LhS7jdCHRLi6ErJBNDGCzvh5EnzdPwUc0DA==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@eslint-community/regexpp": "^4.10.0",
+-        "@typescript-eslint/scope-manager": "8.45.0",
+-        "@typescript-eslint/type-utils": "8.45.0",
+-        "@typescript-eslint/utils": "8.45.0",
+-        "@typescript-eslint/visitor-keys": "8.45.0",
++        "@typescript-eslint/scope-manager": "8.46.0",
++        "@typescript-eslint/type-utils": "8.46.0",
++        "@typescript-eslint/utils": "8.46.0",
++        "@typescript-eslint/visitor-keys": "8.46.0",
+         "graphemer": "^1.4.0",
+         "ignore": "^7.0.0",
+         "natural-compare": "^1.4.0",
+@@ -4275,7 +4266,7 @@
+         "url": "https://opencollective.com/typescript-eslint"
+       },
+       "peerDependencies": {
+-        "@typescript-eslint/parser": "^8.45.0",
++        "@typescript-eslint/parser": "^8.46.0",
+         "eslint": "^8.57.0 || ^9.0.0",
+         "typescript": ">=4.8.4 <6.0.0"
+       }
+@@ -4291,16 +4282,16 @@
+       }
+     },
+     "node_modules/@typescript-eslint/parser": {
+-      "version": "8.45.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-8.45.0.tgz",
+-      "integrity": "sha512-TGf22kon8KW+DeKaUmOibKWktRY8b2NSAZNdtWh798COm1NWx8+xJ6iFBtk3IvLdv6+LGLJLRlyhrhEDZWargQ==",
++      "version": "8.46.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/parser/-/parser-8.46.0.tgz",
++      "integrity": "sha512-n1H6IcDhmmUEG7TNVSspGmiHHutt7iVKtZwRppD7e04wha5MrkV1h3pti9xQLcCMt6YWsncpoT0HMjkH1FNwWQ==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/scope-manager": "8.45.0",
+-        "@typescript-eslint/types": "8.45.0",
+-        "@typescript-eslint/typescript-estree": "8.45.0",
+-        "@typescript-eslint/visitor-keys": "8.45.0",
++        "@typescript-eslint/scope-manager": "8.46.0",
++        "@typescript-eslint/types": "8.46.0",
++        "@typescript-eslint/typescript-estree": "8.46.0",
++        "@typescript-eslint/visitor-keys": "8.46.0",
+         "debug": "^4.3.4"
+       },
+       "engines": {
+@@ -4316,14 +4307,14 @@
+       }
+     },
+     "node_modules/@typescript-eslint/project-service": {
+-      "version": "8.45.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/project-service/-/project-service-8.45.0.tgz",
+-      "integrity": "sha512-3pcVHwMG/iA8afdGLMuTibGR7pDsn9RjDev6CCB+naRsSYs2pns5QbinF4Xqw6YC/Sj3lMrm/Im0eMfaa61WUg==",
++      "version": "8.46.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/project-service/-/project-service-8.46.0.tgz",
++      "integrity": "sha512-OEhec0mH+U5Je2NZOeK1AbVCdm0ChyapAyTeXVIYTPXDJ3F07+cu87PPXcGoYqZ7M9YJVvFnfpGg1UmCIqM+QQ==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/tsconfig-utils": "^8.45.0",
+-        "@typescript-eslint/types": "^8.45.0",
++        "@typescript-eslint/tsconfig-utils": "^8.46.0",
++        "@typescript-eslint/types": "^8.46.0",
+         "debug": "^4.3.4"
+       },
+       "engines": {
+@@ -4338,14 +4329,14 @@
+       }
+     },
+     "node_modules/@typescript-eslint/scope-manager": {
+-      "version": "8.45.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-8.45.0.tgz",
+-      "integrity": "sha512-clmm8XSNj/1dGvJeO6VGH7EUSeA0FMs+5au/u3lrA3KfG8iJ4u8ym9/j2tTEoacAffdW1TVUzXO30W1JTJS7dA==",
++      "version": "8.46.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/scope-manager/-/scope-manager-8.46.0.tgz",
++      "integrity": "sha512-lWETPa9XGcBes4jqAMYD9fW0j4n6hrPtTJwWDmtqgFO/4HF4jmdH/Q6wggTw5qIT5TXjKzbt7GsZUBnWoO3dqw==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/types": "8.45.0",
+-        "@typescript-eslint/visitor-keys": "8.45.0"
++        "@typescript-eslint/types": "8.46.0",
++        "@typescript-eslint/visitor-keys": "8.46.0"
+       },
+       "engines": {
+         "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+@@ -4356,9 +4347,9 @@
+       }
+     },
+     "node_modules/@typescript-eslint/tsconfig-utils": {
+-      "version": "8.45.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/tsconfig-utils/-/tsconfig-utils-8.45.0.tgz",
+-      "integrity": "sha512-aFdr+c37sc+jqNMGhH+ajxPXwjv9UtFZk79k8pLoJ6p4y0snmYpPA52GuWHgt2ZF4gRRW6odsEj41uZLojDt5w==",
++      "version": "8.46.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/tsconfig-utils/-/tsconfig-utils-8.46.0.tgz",
++      "integrity": "sha512-WrYXKGAHY836/N7zoK/kzi6p8tXFhasHh8ocFL9VZSAkvH956gfeRfcnhs3xzRy8qQ/dq3q44v1jvQieMFg2cw==",
+       "dev": true,
+       "license": "MIT",
+       "engines": {
+@@ -4373,15 +4364,15 @@
+       }
+     },
+     "node_modules/@typescript-eslint/type-utils": {
+-      "version": "8.45.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/type-utils/-/type-utils-8.45.0.tgz",
+-      "integrity": "sha512-bpjepLlHceKgyMEPglAeULX1vixJDgaKocp0RVJ5u4wLJIMNuKtUXIczpJCPcn2waII0yuvks/5m5/h3ZQKs0A==",
++      "version": "8.46.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/type-utils/-/type-utils-8.46.0.tgz",
++      "integrity": "sha512-hy+lvYV1lZpVs2jRaEYvgCblZxUoJiPyCemwbQZ+NGulWkQRy0HRPYAoef/CNSzaLt+MLvMptZsHXHlkEilaeg==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/types": "8.45.0",
+-        "@typescript-eslint/typescript-estree": "8.45.0",
+-        "@typescript-eslint/utils": "8.45.0",
++        "@typescript-eslint/types": "8.46.0",
++        "@typescript-eslint/typescript-estree": "8.46.0",
++        "@typescript-eslint/utils": "8.46.0",
+         "debug": "^4.3.4",
+         "ts-api-utils": "^2.1.0"
+       },
+@@ -4398,9 +4389,9 @@
+       }
+     },
+     "node_modules/@typescript-eslint/types": {
+-      "version": "8.45.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/types/-/types-8.45.0.tgz",
+-      "integrity": "sha512-WugXLuOIq67BMgQInIxxnsSyRLFxdkJEJu8r4ngLR56q/4Q5LrbfkFRH27vMTjxEK8Pyz7QfzuZe/G15qQnVRA==",
++      "version": "8.46.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/types/-/types-8.46.0.tgz",
++      "integrity": "sha512-bHGGJyVjSE4dJJIO5yyEWt/cHyNwga/zXGJbJJ8TiO01aVREK6gCTu3L+5wrkb1FbDkQ+TKjMNe9R/QQQP9+rA==",
+       "dev": true,
+       "license": "MIT",
+       "engines": {
+@@ -4412,16 +4403,16 @@
+       }
+     },
+     "node_modules/@typescript-eslint/typescript-estree": {
+-      "version": "8.45.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-8.45.0.tgz",
+-      "integrity": "sha512-GfE1NfVbLam6XQ0LcERKwdTTPlLvHvXXhOeUGC1OXi4eQBoyy1iVsW+uzJ/J9jtCz6/7GCQ9MtrQ0fml/jWCnA==",
++      "version": "8.46.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/typescript-estree/-/typescript-estree-8.46.0.tgz",
++      "integrity": "sha512-ekDCUfVpAKWJbRfm8T1YRrCot1KFxZn21oV76v5Fj4tr7ELyk84OS+ouvYdcDAwZL89WpEkEj2DKQ+qg//+ucg==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/project-service": "8.45.0",
+-        "@typescript-eslint/tsconfig-utils": "8.45.0",
+-        "@typescript-eslint/types": "8.45.0",
+-        "@typescript-eslint/visitor-keys": "8.45.0",
++        "@typescript-eslint/project-service": "8.46.0",
++        "@typescript-eslint/tsconfig-utils": "8.46.0",
++        "@typescript-eslint/types": "8.46.0",
++        "@typescript-eslint/visitor-keys": "8.46.0",
+         "debug": "^4.3.4",
+         "fast-glob": "^3.3.2",
+         "is-glob": "^4.0.3",
+@@ -4467,9 +4458,9 @@
+       }
+     },
+     "node_modules/@typescript-eslint/typescript-estree/node_modules/semver": {
+-      "version": "7.7.2",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
+-      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "version": "7.7.3",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz",
++      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
+       "dev": true,
+       "license": "ISC",
+       "bin": {
+@@ -4480,16 +4471,16 @@
+       }
+     },
+     "node_modules/@typescript-eslint/utils": {
+-      "version": "8.45.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-8.45.0.tgz",
+-      "integrity": "sha512-bxi1ht+tLYg4+XV2knz/F7RVhU0k6VrSMc9sb8DQ6fyCTrGQLHfo7lDtN0QJjZjKkLA2ThrKuCdHEvLReqtIGg==",
++      "version": "8.46.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/utils/-/utils-8.46.0.tgz",
++      "integrity": "sha512-nD6yGWPj1xiOm4Gk0k6hLSZz2XkNXhuYmyIrOWcHoPuAhjT9i5bAG+xbWPgFeNR8HPHHtpNKdYUXJl/D3x7f5g==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+         "@eslint-community/eslint-utils": "^4.7.0",
+-        "@typescript-eslint/scope-manager": "8.45.0",
+-        "@typescript-eslint/types": "8.45.0",
+-        "@typescript-eslint/typescript-estree": "8.45.0"
++        "@typescript-eslint/scope-manager": "8.46.0",
++        "@typescript-eslint/types": "8.46.0",
++        "@typescript-eslint/typescript-estree": "8.46.0"
+       },
+       "engines": {
+         "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+@@ -4504,13 +4495,13 @@
+       }
+     },
+     "node_modules/@typescript-eslint/visitor-keys": {
+-      "version": "8.45.0",
+-      "resolved": "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-8.45.0.tgz",
+-      "integrity": "sha512-qsaFBA3e09MIDAGFUrTk+dzqtfv1XPVz8t8d1f0ybTzrCY7BKiMC5cjrl1O/P7UmHsNyW90EYSkU/ZWpmXelag==",
++      "version": "8.46.0",
++      "resolved": "https://registry.npmjs.org/@typescript-eslint/visitor-keys/-/visitor-keys-8.46.0.tgz",
++      "integrity": "sha512-FrvMpAK+hTbFy7vH5j1+tMYHMSKLE6RzluFJlkFNKD0p9YsUT75JlBSmr5so3QRzvMwU5/bIEdeNrxm8du8l3Q==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/types": "8.45.0",
++        "@typescript-eslint/types": "8.46.0",
+         "eslint-visitor-keys": "^4.2.1"
+       },
+       "engines": {
+@@ -5340,9 +5331,9 @@
+       }
+     },
+     "node_modules/axe-core": {
+-      "version": "4.10.3",
+-      "resolved": "https://registry.npmjs.org/axe-core/-/axe-core-4.10.3.tgz",
+-      "integrity": "sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==",
++      "version": "4.11.0",
++      "resolved": "https://registry.npmjs.org/axe-core/-/axe-core-4.11.0.tgz",
++      "integrity": "sha512-ilYanEU8vxxBexpJd8cWM4ElSQq4QctCLKih0TSfjIfCQTeyH/6zVrmIJfLPrKTKJRbiG+cfnZbQIjAlJmF1jQ==",
+       "dev": true,
+       "license": "MPL-2.0",
+       "engines": {
+@@ -5399,9 +5390,9 @@
+       "license": "MIT"
+     },
+     "node_modules/baseline-browser-mapping": {
+-      "version": "2.8.12",
+-      "resolved": "https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.8.12.tgz",
+-      "integrity": "sha512-vAPMQdnyKCBtkmQA6FMCBvU9qFIppS3nzyXnEM+Lo2IAhG4Mpjv9cCxMudhgV3YdNNJv6TNqXy97dfRVL2LmaQ==",
++      "version": "2.8.16",
++      "resolved": "https://registry.npmjs.org/baseline-browser-mapping/-/baseline-browser-mapping-2.8.16.tgz",
++      "integrity": "sha512-OMu3BGQ4E7P1ErFsIPpbJh0qvDudM/UuJeHgkAvfWe+0HFJCXh+t/l8L6fVLR55RI/UbKrVLnAXZSVwd9ysWYw==",
+       "license": "Apache-2.0",
+       "bin": {
+         "baseline-browser-mapping": "dist/cli.js"
+@@ -5690,9 +5681,9 @@
+       }
+     },
+     "node_modules/caniuse-lite": {
+-      "version": "1.0.30001747",
+-      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001747.tgz",
+-      "integrity": "sha512-mzFa2DGIhuc5490Nd/G31xN1pnBnYMadtkyTjefPI7wzypqgCEpeWu9bJr0OnDsyKrW75zA9ZAt7pbQFmwLsQg==",
++      "version": "1.0.30001750",
++      "resolved": "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001750.tgz",
++      "integrity": "sha512-cuom0g5sdX6rw00qOoLNSFCJ9/mYIsuSOA+yzpDw8eopiFqcVwQvZHqov0vmEighRxX++cfC0Vg1G+1Iy/mSpQ==",
+       "funding": [
+         {
+           "type": "opencollective",
+@@ -6116,10 +6107,9 @@
+       "license": "MIT"
+     },
+     "node_modules/cookie": {
+-      "version": "0.7.1",
+-      "resolved": "https://registry.npmjs.org/cookie/-/cookie-0.7.1.tgz",
+-      "integrity": "sha512-6DnInpx7SJ2AK3+CTUE/ZM0vWTUboZCegxhC2xiIydHR9jNuTAASBrfEpHhiGOZw/nX51bHt6YQl8jsGo4y/0w==",
+-      "devOptional": true,
++      "version": "0.7.2",
++      "resolved": "https://registry.npmjs.org/cookie/-/cookie-0.7.2.tgz",
++      "integrity": "sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==",
+       "license": "MIT",
+       "engines": {
+         "node": ">= 0.6"
+@@ -6560,9 +6550,9 @@
+       "license": "MIT"
+     },
+     "node_modules/electron-to-chromium": {
+-      "version": "1.5.230",
+-      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.230.tgz",
+-      "integrity": "sha512-A6A6Fd3+gMdaed9wX83CvHYJb4UuapPD5X5SLq72VZJzxHSY0/LUweGXRWmQlh2ln7KV7iw7jnwXK7dlPoOnHQ==",
++      "version": "1.5.234",
++      "resolved": "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.5.234.tgz",
++      "integrity": "sha512-RXfEp2x+VRYn8jbKfQlRImzoJU01kyDvVPBmG39eU2iuRVhuS6vQNocB8J0/8GrIMLnPzgz4eW6WiRnJkTuNWg==",
+       "license": "ISC"
+     },
+     "node_modules/emoji-regex": {
+@@ -7410,6 +7400,16 @@
+         "url": "https://opencollective.com/express"
+       }
+     },
++    "node_modules/express/node_modules/cookie": {
++      "version": "0.7.1",
++      "resolved": "https://registry.npmjs.org/cookie/-/cookie-0.7.1.tgz",
++      "integrity": "sha512-6DnInpx7SJ2AK3+CTUE/ZM0vWTUboZCegxhC2xiIydHR9jNuTAASBrfEpHhiGOZw/nX51bHt6YQl8jsGo4y/0w==",
++      "devOptional": true,
++      "license": "MIT",
++      "engines": {
++        "node": ">= 0.6"
++      }
++    },
+     "node_modules/express/node_modules/debug": {
+       "version": "2.6.9",
+       "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz",
+@@ -8011,9 +8011,9 @@
+       }
+     },
+     "node_modules/get-tsconfig": {
+-      "version": "4.10.1",
+-      "resolved": "https://registry.npmjs.org/get-tsconfig/-/get-tsconfig-4.10.1.tgz",
+-      "integrity": "sha512-auHyJ4AgMz7vgS8Hp3N6HXSmlMdUyhSUrfBF16w153rxtLIEOE+HGqaBppczZvnHLqQJfiHotCYpNhl0lUROFQ==",
++      "version": "4.12.0",
++      "resolved": "https://registry.npmjs.org/get-tsconfig/-/get-tsconfig-4.12.0.tgz",
++      "integrity": "sha512-LScr2aNr2FbjAjZh2C6X6BxRx1/x+aTDExct/xyq2XKbYOiG5c0aK7pMsSuyc0brz3ibr/lbQiHD9jzt4lccJw==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+@@ -8106,9 +8106,9 @@
+       }
+     },
+     "node_modules/global-agent/node_modules/semver": {
+-      "version": "7.7.2",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
+-      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "version": "7.7.3",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz",
++      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
+       "dev": true,
+       "license": "ISC",
+       "bin": {
+@@ -8795,9 +8795,9 @@
+       }
+     },
+     "node_modules/is-bun-module/node_modules/semver": {
+-      "version": "7.7.2",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
+-      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "version": "7.7.3",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz",
++      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
+       "dev": true,
+       "license": "ISC",
+       "bin": {
+@@ -10177,9 +10177,9 @@
+       }
+     },
+     "node_modules/normalize-package-data/node_modules/semver": {
+-      "version": "7.7.2",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
+-      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "version": "7.7.3",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz",
++      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
+       "license": "ISC",
+       "bin": {
+         "semver": "bin/semver.js"
+@@ -10214,9 +10214,9 @@
+       }
+     },
+     "node_modules/npm-install-checks/node_modules/semver": {
+-      "version": "7.7.2",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
+-      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "version": "7.7.3",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz",
++      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
+       "license": "ISC",
+       "bin": {
+         "semver": "bin/semver.js"
+@@ -10250,9 +10250,9 @@
+       }
+     },
+     "node_modules/npm-package-arg/node_modules/semver": {
+-      "version": "7.7.2",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
+-      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "version": "7.7.3",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz",
++      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
+       "license": "ISC",
+       "bin": {
+         "semver": "bin/semver.js"
+@@ -10277,9 +10277,9 @@
+       }
+     },
+     "node_modules/npm-pick-manifest/node_modules/semver": {
+-      "version": "7.7.2",
+-      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.2.tgz",
+-      "integrity": "sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==",
++      "version": "7.7.3",
++      "resolved": "https://registry.npmjs.org/semver/-/semver-7.7.3.tgz",
++      "integrity": "sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==",
+       "license": "ISC",
+       "bin": {
+         "semver": "bin/semver.js"
+@@ -12690,16 +12690,16 @@
+       }
+     },
+     "node_modules/typescript-eslint": {
+-      "version": "8.45.0",
+-      "resolved": "https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.45.0.tgz",
+-      "integrity": "sha512-qzDmZw/Z5beNLUrXfd0HIW6MzIaAV5WNDxmMs9/3ojGOpYavofgNAAD/nC6tGV2PczIi0iw8vot2eAe/sBn7zg==",
++      "version": "8.46.0",
++      "resolved": "https://registry.npmjs.org/typescript-eslint/-/typescript-eslint-8.46.0.tgz",
++      "integrity": "sha512-6+ZrB6y2bT2DX3K+Qd9vn7OFOJR+xSLDj+Aw/N3zBwUt27uTw2sw2TE2+UcY1RiyBZkaGbTkVg9SSdPNUG6aUw==",
+       "dev": true,
+       "license": "MIT",
+       "dependencies": {
+-        "@typescript-eslint/eslint-plugin": "8.45.0",
+-        "@typescript-eslint/parser": "8.45.0",
+-        "@typescript-eslint/typescript-estree": "8.45.0",
+-        "@typescript-eslint/utils": "8.45.0"
++        "@typescript-eslint/eslint-plugin": "8.46.0",
++        "@typescript-eslint/parser": "8.46.0",
++        "@typescript-eslint/typescript-estree": "8.46.0",
++        "@typescript-eslint/utils": "8.46.0"
+       },
+       "engines": {
+         "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+@@ -12780,9 +12780,9 @@
+       }
+     },
+     "node_modules/undici-types": {
+-      "version": "7.13.0",
+-      "resolved": "https://registry.npmjs.org/undici-types/-/undici-types-7.13.0.tgz",
+-      "integrity": "sha512-Ov2Rr9Sx+fRgagJ5AX0qvItZG/JKKoBRAVITs1zk7IqZGTJUwgUr7qoYBpWwakpWilTZFM98rG/AFRocu10iIQ==",
++      "version": "7.14.0",
++      "resolved": "https://registry.npmjs.org/undici-types/-/undici-types-7.14.0.tgz",
++      "integrity": "sha512-QQiYxHuyZ9gQUIrmPo3IA+hUl4KYk8uSA7cHrcKd/l3p1OTpZcM0Tbp9x7FAtXdAYhlasd60ncPpgu6ihG6TOA==",
+       "devOptional": true,
+       "license": "MIT"
+     },
+diff --git a/package.json b/package.json
+index 1ee5298..6abe053 100644
+--- a/package.json
++++ b/package.json
+@@ -9,7 +9,8 @@
+     "dev": "shopify hydrogen dev --codegen",
+     "preview": "shopify hydrogen preview --build",
+     "lint": "eslint --no-error-on-unmatched-pattern .",
+-    "codegen": "shopify hydrogen codegen"
++    "codegen": "shopify hydrogen codegen",
++    "export:metafields": "node graphql/product/export-product-metafields.mjs"
+   },
+   "prettier": "@shopify/prettier-config",
+   "dependencies": {
+@@ -38,7 +39,7 @@
+     "@react-router/fs-routes": "7.9.2",
+     "@react-router/serve": "7.9.2",
+     "@shopify/cli": "^3.85.4",
+-    "@shopify/hydrogen-codegen": "^0.3.3",
++    "@shopify/hydrogen-codegen": "0.3.3",
+     "@shopify/mini-oxygen": "^4.0.0",
+     "@shopify/oxygen-workers-types": "^4.1.6",
+     "@shopify/prettier-config": "^1.1.2",
+@@ -69,4 +70,4 @@
+     "node": ">=18.0.0"
+   },
+   "packageManager": "pnpm@10.17.0+sha512.fce8a3dd29a4ed2ec566fb53efbb04d8c44a0f05bc6f24a73046910fb9c3ce7afa35a0980500668fa3573345bd644644fa98338fa168235c80f4aa17aa17fbef"
+-}
++}
+\ No newline at end of file
+diff --git a/storefrontapi.generated.d.ts b/storefrontapi.generated.d.ts
+index 99d0eb3..a0d253f 100644
+--- a/storefrontapi.generated.d.ts
++++ b/storefrontapi.generated.d.ts
+@@ -846,6 +846,86 @@ export type ProductVariantFragment = Pick<
+   >;
+ };
+ 
++export type ProductCustomMetafieldsFragment = {
++  metafields: Array<
++    StorefrontAPI.Maybe<
++      Pick<StorefrontAPI.Metafield, 'namespace' | 'key' | 'type' | 'value'> & {
++        reference?: StorefrontAPI.Maybe<
++          | {__typename: 'Collection' | 'Page' | 'Product' | 'ProductVariant'}
++          | ({__typename: 'GenericFile'} & Pick<
++              StorefrontAPI.GenericFile,
++              'url' | 'mimeType'
++            >)
++          | ({__typename: 'MediaImage'} & {
++              image?: StorefrontAPI.Maybe<
++                Pick<
++                  StorefrontAPI.Image,
++                  'url' | 'altText' | 'width' | 'height'
++                >
++              >;
++            })
++          | ({__typename: 'Metaobject'} & Pick<
++              StorefrontAPI.Metaobject,
++              'id' | 'type' | 'handle'
++            > & {
++                fields: Array<
++                  Pick<StorefrontAPI.MetaobjectField, 'key' | 'type' | 'value'>
++                >;
++              })
++          | ({__typename: 'Model3d'} & {
++              sources: Array<
++                Pick<StorefrontAPI.Model3dSource, 'url' | 'mimeType'>
++              >;
++            })
++          | ({__typename: 'Video'} & {
++              sources: Array<
++                Pick<StorefrontAPI.VideoSource, 'url' | 'mimeType'>
++              >;
++            })
++        >;
++        references?: StorefrontAPI.Maybe<{
++          nodes: Array<
++            | {__typename: 'Collection' | 'Page' | 'Product' | 'ProductVariant'}
++            | ({__typename: 'GenericFile'} & Pick<
++                StorefrontAPI.GenericFile,
++                'url' | 'mimeType'
++              >)
++            | ({__typename: 'MediaImage'} & {
++                image?: StorefrontAPI.Maybe<
++                  Pick<
++                    StorefrontAPI.Image,
++                    'url' | 'altText' | 'width' | 'height'
++                  >
++                >;
++              })
++            | ({__typename: 'Metaobject'} & Pick<
++                StorefrontAPI.Metaobject,
++                'id' | 'type' | 'handle'
++              > & {
++                  fields: Array<
++                    Pick<
++                      StorefrontAPI.MetaobjectField,
++                      'key' | 'type' | 'value'
++                    >
++                  >;
++                })
++            | ({__typename: 'Model3d'} & {
++                sources: Array<
++                  Pick<StorefrontAPI.Model3dSource, 'url' | 'mimeType'>
++                >;
++              })
++            | ({__typename: 'Video'} & {
++                sources: Array<
++                  Pick<StorefrontAPI.VideoSource, 'url' | 'mimeType'>
++                >;
++              })
++          >;
++        }>;
++      }
++    >
++  >;
++};
++
+ export type ProductFragment = Pick<
+   StorefrontAPI.Product,
+   | 'id'
+@@ -957,10 +1037,79 @@ export type ProductFragment = Pick<
+   seo: Pick<StorefrontAPI.Seo, 'description' | 'title'>;
+   metafields: Array<
+     StorefrontAPI.Maybe<
+-      Pick<
+-        StorefrontAPI.Metafield,
+-        'namespace' | 'key' | 'type' | 'value' | 'description'
+-      >
++      Pick<StorefrontAPI.Metafield, 'namespace' | 'key' | 'type' | 'value'> & {
++        reference?: StorefrontAPI.Maybe<
++          | {__typename: 'Collection' | 'Page' | 'Product' | 'ProductVariant'}
++          | ({__typename: 'GenericFile'} & Pick<
++              StorefrontAPI.GenericFile,
++              'url' | 'mimeType'
++            >)
++          | ({__typename: 'MediaImage'} & {
++              image?: StorefrontAPI.Maybe<
++                Pick<
++                  StorefrontAPI.Image,
++                  'url' | 'altText' | 'width' | 'height'
++                >
++              >;
++            })
++          | ({__typename: 'Metaobject'} & Pick<
++              StorefrontAPI.Metaobject,
++              'id' | 'type' | 'handle'
++            > & {
++                fields: Array<
++                  Pick<StorefrontAPI.MetaobjectField, 'key' | 'type' | 'value'>
++                >;
++              })
++          | ({__typename: 'Model3d'} & {
++              sources: Array<
++                Pick<StorefrontAPI.Model3dSource, 'url' | 'mimeType'>
++              >;
++            })
++          | ({__typename: 'Video'} & {
++              sources: Array<
++                Pick<StorefrontAPI.VideoSource, 'url' | 'mimeType'>
++              >;
++            })
++        >;
++        references?: StorefrontAPI.Maybe<{
++          nodes: Array<
++            | {__typename: 'Collection' | 'Page' | 'Product' | 'ProductVariant'}
++            | ({__typename: 'GenericFile'} & Pick<
++                StorefrontAPI.GenericFile,
++                'url' | 'mimeType'
++              >)
++            | ({__typename: 'MediaImage'} & {
++                image?: StorefrontAPI.Maybe<
++                  Pick<
++                    StorefrontAPI.Image,
++                    'url' | 'altText' | 'width' | 'height'
++                  >
++                >;
++              })
++            | ({__typename: 'Metaobject'} & Pick<
++                StorefrontAPI.Metaobject,
++                'id' | 'type' | 'handle'
++              > & {
++                  fields: Array<
++                    Pick<
++                      StorefrontAPI.MetaobjectField,
++                      'key' | 'type' | 'value'
++                    >
++                  >;
++                })
++            | ({__typename: 'Model3d'} & {
++                sources: Array<
++                  Pick<StorefrontAPI.Model3dSource, 'url' | 'mimeType'>
++                >;
++              })
++            | ({__typename: 'Video'} & {
++                sources: Array<
++                  Pick<StorefrontAPI.VideoSource, 'url' | 'mimeType'>
++                >;
++              })
++          >;
++        }>;
++      }
+     >
+   >;
+ };
+@@ -1089,8 +1238,95 @@ export type ProductQuery = {
+         StorefrontAPI.Maybe<
+           Pick<
+             StorefrontAPI.Metafield,
+-            'namespace' | 'key' | 'type' | 'value' | 'description'
+-          >
++            'namespace' | 'key' | 'type' | 'value'
++          > & {
++            reference?: StorefrontAPI.Maybe<
++              | {
++                  __typename:
++                    | 'Collection'
++                    | 'Page'
++                    | 'Product'
++                    | 'ProductVariant';
++                }
++              | ({__typename: 'GenericFile'} & Pick<
++                  StorefrontAPI.GenericFile,
++                  'url' | 'mimeType'
++                >)
++              | ({__typename: 'MediaImage'} & {
++                  image?: StorefrontAPI.Maybe<
++                    Pick<
++                      StorefrontAPI.Image,
++                      'url' | 'altText' | 'width' | 'height'
++                    >
++                  >;
++                })
++              | ({__typename: 'Metaobject'} & Pick<
++                  StorefrontAPI.Metaobject,
++                  'id' | 'type' | 'handle'
++                > & {
++                    fields: Array<
++                      Pick<
++                        StorefrontAPI.MetaobjectField,
++                        'key' | 'type' | 'value'
++                      >
++                    >;
++                  })
++              | ({__typename: 'Model3d'} & {
++                  sources: Array<
++                    Pick<StorefrontAPI.Model3dSource, 'url' | 'mimeType'>
++                  >;
++                })
++              | ({__typename: 'Video'} & {
++                  sources: Array<
++                    Pick<StorefrontAPI.VideoSource, 'url' | 'mimeType'>
++                  >;
++                })
++            >;
++            references?: StorefrontAPI.Maybe<{
++              nodes: Array<
++                | {
++                    __typename:
++                      | 'Collection'
++                      | 'Page'
++                      | 'Product'
++                      | 'ProductVariant';
++                  }
++                | ({__typename: 'GenericFile'} & Pick<
++                    StorefrontAPI.GenericFile,
++                    'url' | 'mimeType'
++                  >)
++                | ({__typename: 'MediaImage'} & {
++                    image?: StorefrontAPI.Maybe<
++                      Pick<
++                        StorefrontAPI.Image,
++                        'url' | 'altText' | 'width' | 'height'
++                      >
++                    >;
++                  })
++                | ({__typename: 'Metaobject'} & Pick<
++                    StorefrontAPI.Metaobject,
++                    'id' | 'type' | 'handle'
++                  > & {
++                      fields: Array<
++                        Pick<
++                          StorefrontAPI.MetaobjectField,
++                          'key' | 'type' | 'value'
++                        >
++                      >;
++                    })
++                | ({__typename: 'Model3d'} & {
++                    sources: Array<
++                      Pick<StorefrontAPI.Model3dSource, 'url' | 'mimeType'>
++                    >;
++                  })
++                | ({__typename: 'Video'} & {
++                    sources: Array<
++                      Pick<StorefrontAPI.VideoSource, 'url' | 'mimeType'>
++                    >;
++                  })
++              >;
++            }>;
++          }
+         >
+       >;
+     }
+@@ -1380,7 +1616,7 @@ interface GeneratedQueryTypes {
+     return: PoliciesQuery;
+     variables: PoliciesQueryVariables;
+   };
+-  '#graphql\n  query Product(\n    $country: CountryCode\n    $handle: String!\n    $language: LanguageCode\n    $selectedOptions: [SelectedOptionInput!]!\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      ...Product\n    }\n  }\n  #graphql\n  fragment Product on Product {\n    id\n    title\n    vendor\n    handle\n    descriptionHtml\n    description\n\n    images(first: 10) {\n      edges { node { id url altText width height } }\n    }\n\n    encodedVariantExistence\n    encodedVariantAvailability\n\n    options {\n      name\n      optionValues {\n        name\n        firstSelectableVariant { ...ProductVariant }\n        swatch { color image { previewImage { url } } }\n      }\n    }\n\n    selectedOrFirstAvailableVariant(\n      selectedOptions: $selectedOptions\n      ignoreUnknownOptions: true\n      caseInsensitiveMatch: true\n    ) { ...ProductVariant }\n\n    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }\n\n    seo { description title }\n\n    # WICHTIG: identifiers verwenden (kein first/edges)\n    metafields(identifiers: [\n  {namespace: "custom", key: "plug_type"},\n  {namespace: "custom", key: "metal_colour"},\n  {namespace: "custom", key: "cable_colour"},\n  {namespace: "custom", key: "frame_colour"},\n  {namespace: "custom", key: "glass_colour"},\n  {namespace: "custom", key: "ceiling_cap"},\n  {namespace: "custom", key: "dichroic_glass"},\n  {namespace: "custom", key: "table_top"},\n  {namespace: "custom", key: "size"},\n  {namespace: "custom", key: "length"},\n  {namespace: "custom", key: "width"},\n  {namespace: "custom", key: "height"},\n  {namespace: "custom", key: "diameter"},\n  {namespace: "custom", key: "marble_fixture"},\n  {namespace: "custom", key: "mirror_glass_type"},\n  {namespace: "custom", key: "wood_type"},\n  {namespace: "custom", key: "marble_type"},\n  {namespace: "custom", key: "metal_finish"},\n  {namespace: "custom", key: "option"},\n  {namespace: "custom", key: "surcharge"},\n  {namespace: "custom", key: "oled_exchange_panel"},\n  {namespace: "custom", key: "material"}\n]) {\n  namespace\n  key\n  type\n  value\n  description\n}\n\n  }\n  #graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice {\n      amount\n      currencyCode\n    }\n    id\n    image {\n      __typename\n      id\n      url\n      altText\n      width\n      height\n    }\n    price {\n      amount\n      currencyCode\n    }\n    product {\n      title\n      handle\n    }\n    selectedOptions {\n      name\n      value\n    }\n    sku\n    title\n    unitPrice {\n      amount\n      currencyCode\n    }\n  }\n\n\n': {
++  '#graphql\n  fragment ProductCustomMetafields on Product {\n    metafields(identifiers: [\n      {namespace: "custom", key: "plug_type"},\n      {namespace: "custom", key: "metal_color"},\n      {namespace: "custom", key: "cable_color"},\n      {namespace: "custom", key: "frame_color"},\n      {namespace: "custom", key: "glass_color"},\n      {namespace: "custom", key: "ceiling_cap"},\n      {namespace: "custom", key: "dichroic_glass"},\n      {namespace: "custom", key: "table_top"},\n      {namespace: "custom", key: "size"},\n      {namespace: "custom", key: "length"},\n      {namespace: "custom", key: "width"},\n      {namespace: "custom", key: "height"},\n      {namespace: "custom", key: "diameter"},\n      {namespace: "custom", key: "marble_fixture"},\n      {namespace: "custom", key: "mirror_glass_type"},\n      {namespace: "custom", key: "wood_type"},\n      {namespace: "custom", key: "marble_type"},\n      {namespace: "custom", key: "metal_finish"},\n      {namespace: "custom", key: "option"},\n      {namespace: "custom", key: "surcharge"},\n      {namespace: "custom", key: "oled_exchange_panel"},\n      {namespace: "custom", key: "material"},\n      {namespace: "custom", key: "measurements"},\n      {namespace: "custom", key: "product_tile"},\n      {namespace: "custom", key: "neo_color_product"}\n    ]) {\n      namespace\n      key\n      type\n      value\n\n      # Einzel-Referenz (file_reference etc.)\n      reference {\n        __typename\n        ... on Metaobject { id type handle fields { key type value } }\n        ... on MediaImage { image { url altText width height } }\n        ... on Video { sources { url mimeType } }\n        ... on Model3d { sources { url mimeType } }\n        ... on GenericFile { url mimeType }\n      }\n\n      # Listen-Referenzen (list.metaobject_reference / list.file_reference)\n      references(first: 50) {\n        nodes {\n          __typename\n          ... on Metaobject { id type handle fields { key type value } }\n          ... on MediaImage { image { url altText width height } }\n          ... on Video { sources { url mimeType } }\n          ... on Model3d { sources { url mimeType } }\n          ... on GenericFile { url mimeType }\n        }\n      }\n    }\n  }\n\n  fragment Product on Product {\n    id\n    title\n    vendor\n    handle\n    descriptionHtml\n    description\n\n    images(first: 10) {\n      edges { node { id url altText width height } }\n    }\n\n    encodedVariantExistence\n    encodedVariantAvailability\n\n    options {\n      name\n      optionValues {\n        name\n        firstSelectableVariant { ...ProductVariant }\n        swatch { color image { previewImage { url } } }\n      }\n    }\n\n    selectedOrFirstAvailableVariant(\n      selectedOptions: $selectedOptions\n      ignoreUnknownOptions: true\n      caseInsensitiveMatch: true\n    ) { ...ProductVariant }\n\n    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }\n    seo { description title }\n\n    ...ProductCustomMetafields\n  }\n\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice { amount currencyCode }\n    id\n    image { __typename id url altText width height }\n    price { amount currencyCode }\n    product { title handle }\n    selectedOptions { name value }\n    sku\n    title\n    unitPrice { amount currencyCode }\n  }\n\n  query Product(\n    $country: CountryCode\n    $handle: String!\n    $language: LanguageCode\n    $selectedOptions: [SelectedOptionInput!]!\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) { ...Product }\n  }\n': {
+     return: ProductQuery;
+     variables: ProductQueryVariables;
+   };

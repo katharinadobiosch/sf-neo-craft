@@ -30,15 +30,14 @@ export const meta = ({data}) => {
 /**
  * @param {LoaderFunctionArgs} args
  */
-export async function loader({request, params, context}) {
-  const {handle} = params;
-  const {product} = await context.storefront.query(PRODUCT_QUERY, {
-    variables: {handle, selectedOptions: []},
-  });
-  if (!product) throw new Response('Not found', {status: 404});
+export async function loader(args) {
+  // Start fetching non-critical data without blocking time to first byte
+  const deferredData = loadDeferredData(args);
 
-  const metafields = normalizeAllMetafields(product.metafields);
-  return {product, metafields};
+  // Await the critical data required to render initial state of the page
+  const criticalData = await loadCriticalData(args);
+
+  return {...deferredData, ...criticalData};
 }
 
 /**
