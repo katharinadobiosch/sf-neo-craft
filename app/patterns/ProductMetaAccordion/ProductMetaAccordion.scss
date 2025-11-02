@@ -123,6 +123,20 @@
 }
 
 .product-main .product-form {
-  border: 10px solid orange;
-  height: 100%;
+  height: auto;
+} // statt 100%
+
+.product-main {
+  align-items: flex-start;
+}
+
+.product-main {
+  align-items: stretch;
+}
+.product-main__media {
+  height: 740px;
+} // feste Höhe statt max-height
+.product-main .product-form {
+  height: 740px;
+  overflow: auto;
 }

@@ -16,7 +16,7 @@ jobs:
       - name: Setup node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"
+          node-version: 'lts/*'
           check-latest: true
 
       - name: Cache node modules
@@ -38,4 +38,4 @@ jobs:
       - name: Build and Publish to Oxygen
         run: npx shopify hydrogen deploy
         env:
-          SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: ${{ secrets.OXYGEN_DEPLOYMENT_TOKEN_1000037945 }}
+          SHOPIFY_HYDROGEN_DEPLOYMENT_TOKEN: eyJhY2Nlc3NfdG9rZW4iOiJhdGtuX2I4YzE4YWFkYTAwYzcyN2QzMmY0Nzk4M2U5Yjc5ZmNlNmFkYzQ0NTM4MjhjNDAzNGFjNDI3MmZlNTNjNWE4NjMiLCJleHBpcmVzX2F0IjoiMjAyNi0xMS0wMlQxMjo0MjoyOS4wNjNaIiwiY2xpZW50IjoiZ2lkOi8vb3h5Z2VuLWh1Yi9DbGllbnQvMSIsImFsbG93ZWRfcmVzb3VyY2UiOiJnaWQ6Ly9veHlnZW4taHViL0FwcC80MDkzOSIsIm5hbWVzcGFjZV9pZCI6ImdpZDovL294eWdlbi1odWIvTmFtZXNwYWNlLzQ0MTYwIiwibmFtZXNwYWNlIjoiMTY0MDYxNzMiLCJhcHBfaWQiOiJnaWQ6Ly9veHlnZW4taHViL0FwcC80MDkzOSJ9
