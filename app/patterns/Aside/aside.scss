@@ -109,7 +109,7 @@ aside li {
 /* reveal aside */
 .overlay.expanded aside {
   transform: translateX(calc(var(--aside-width) * -1));
-  border: 10px solid blue;
+  // border: 10px solid blue;
   z-index: 99999;
 }
 

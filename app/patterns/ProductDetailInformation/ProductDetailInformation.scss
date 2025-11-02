@@ -14,13 +14,35 @@
   .product-main {
     display: flex;
     flex-direction: row;
+    height: 750px;
     width: 100%;
-    max-height: 740px;
-    border-bottom: 10px solid pink;
+    // max-height: 740px;
+    // border-bottom: 10px solid pink;
 
-    &__info,
     &__media {
       width: 50%;
+    }
+
+    &__info {
+      width: 50%;
+      height: 100%;
+      // border: 5px solid red;
+
+      .product-form {
+        // border: 5px solid green;
+        height: 100%;
+
+        .configurator {
+          // border: 5px solid orange;
+          height: 100%;
+          // overflow: scroll;
+
+          .cfg-panel {
+            // border: 5px solid blue;
+            height: 100%;
+          }
+        }
+      }
     }
   }
 

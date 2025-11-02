@@ -55,7 +55,7 @@
   /* Collapsible Panel */
   .cfg-panel {
     overflow: hidden;
-    max-height: 0;
+    // max-height: 0;
     opacity: 0;
     transition:
       max-height 0.35s ease,
@@ -159,7 +159,6 @@
 
   /* CTA-Balken */
   .cfg-cta {
-    margin-top: 1rem;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -167,6 +166,8 @@
     color: var(--cta-text);
     border-top: 1px solid #000;
     padding: 1rem 1.25rem;
+    border: 5px solid orange;
+
     .cta-arrow {
       font-size: 1.1rem;
     }
@@ -181,7 +182,6 @@
       background: #000;
       color: #fff;
       padding: 0.65rem 1rem;
-      border-radius: 0.6rem;
       font-weight: 600;
     }
     form > button:disabled {
@@ -196,4 +196,10 @@
       min-width: 130px;
     }
   }
+}
+
+.configurator__meta {
+  // border: 20px solid purple;
+  height: 500px;
+  overflow: scroll;
 }

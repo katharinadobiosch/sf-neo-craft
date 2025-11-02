@@ -2,7 +2,7 @@
 .meta-accordion {
   margin-top: 2rem;
   border-top: 1px solid #e9e9ed;
-  overflow: scroll;
+  // overflow: scroll;
   position: relative;
 
   .acc-item {
@@ -81,11 +81,6 @@
       height: 100%;
     }
   }
-}
-
-/* ===== Optional: Abstand/Trennung zur CTA-Bar angleichen ===== */
-.configurator .cfg-cta {
-  margin-top: 1.25rem;
 }
 
 /* ===== Optional: Section-Abstände wie im Figma links angleichen ===== */

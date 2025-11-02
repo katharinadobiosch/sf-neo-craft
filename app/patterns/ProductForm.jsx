@@ -16,13 +16,13 @@ export function ProductForm({productOptions, product}) {
       <Configurator
         productOptions={productOptions}
         navigate={navigate}
-        // product={product}
-      />
-
-      <ProductMetaAccordion
-        metafields={product?.metafields || []}
         product={product}
       />
+
+      {/* <ProductMetaAccordion
+        metafields={product?.metafields || []}
+        product={product}
+      /> */}
     </div>
   );
 }
