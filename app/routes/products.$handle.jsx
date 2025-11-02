@@ -14,7 +14,6 @@ import {normalizeAllMetafields} from '~/utils/metafields';
 
 // 👉 das generierte Fragment als Raw-String importieren
 // (Hydrogen/Vite: ?raw liefert den Dateiinhalt als String)
-import ProductMetafieldsFragment from '~/graphql/product/product-metafields.fragment.graphql?raw';
 
 /**
  * @type {MetaFunction<typeof loader>}
