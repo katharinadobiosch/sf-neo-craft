@@ -14,7 +14,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 190px;
+      width: 150px;
       min-height: 5rem;
       padding: 0.75rem 0;
       cursor: pointer;
@@ -60,7 +60,7 @@
 
     .acc-panel {
       color: #222;
-      padding-left: 190px;
+      padding-left: 150px;
       padding-bottom: 1rem;
       display: flex;
       flex-direction: row;
@@ -71,7 +71,7 @@
         .m-grid {
           display: flex;
           gap: 50px;
-
+          margin-right: 10px;
           align-items: flex-end;
 
           img {

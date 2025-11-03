@@ -183,6 +183,13 @@ export function Configurator({productOptions, navigate, product}) {
     );
   };
 
+  // ist jede Option explizit gewählt?
+  const allSelected =
+    Array.isArray(productOptions) &&
+    productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected));
+
+  const isReady = !!currentVariant?.availableForSale && allSelected;
+
   return (
     <div className={`configurator ${open ? 'is-open' : ''}`}>
       <button
@@ -192,13 +199,21 @@ export function Configurator({productOptions, navigate, product}) {
         aria-controls="cfg-panel"
         onClick={() => setOpen((v) => !v)}
       >
-        <div class="cfg-head">
-          <button class="cfg-toggle">
-            Configurator <span class="cfg-plus" aria-hidden></span>
+        <div className="cfg-head">
+          <button
+            type="button"
+            className="cfg-toggle"
+            aria-expanded={open}
+            aria-controls="cfg-panel"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="cfg-title">Configurator</span>
+            <span className="cfg-plus" aria-hidden />
           </button>
-          <div class="cfg-head__label"></div>
-          <div class="cfg-head__values"></div>
-        </div>{' '}
+          <div className="cfg-head__label" />
+          <div className="cfg-head__values" />
+        </div>
+
         <span className="cfg-plus" aria-hidden />
       </button>
 
@@ -215,7 +230,7 @@ export function Configurator({productOptions, navigate, product}) {
               product={product}
             />
           </div>
-          <div className="cfg-cta">
+          <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
             <span className="cta-arrow">→</span>
             <span className="cta-price">{money(price, currency)}</span>
             <div className="cta-button-wrap">

@@ -13,7 +13,7 @@
   /* Header mit + */
   .cfg-toggle {
     all: unset;
-    width: 190px;
+    width: 150px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -78,7 +78,7 @@
   }
   .cfg-row::before {
     content: '';
-    flex: 0 0 190px; /* = Breite deines .cfg-toggle (links) */
+    flex: 0 0 150px; /* = Breite deines .cfg-toggle (links) */
   }
 
   .cfg-label {
@@ -102,7 +102,7 @@
     align-items: center;
   }
   .cfg-head .cfg-toggle {
-    flex: 0 0 190px;
+    flex: 0 0 150px;
   } /* linke Spalte */
   .cfg-head__label {
     flex: 0 0 160px;
@@ -183,8 +183,31 @@
     color: var(--cta-text);
     border-top: 1px solid #000;
     padding: 1rem 1.25rem;
-    border: 5px solid orange;
     margin-top: 1rem;
+    background: #f4f4f4;
+    color: #111;
+
+    .is-active {
+      background: #000;
+      color: #fff;
+    }
+    .is-active .cta-button-wrap button {
+      background: #fff;
+      color: #000;
+    }
+
+    .cta-button-wrap button {
+      all: unset;
+      cursor: pointer;
+      border: 1px solid currentColor;
+      padding: 0.65rem 1rem;
+      font-weight: 600;
+    }
+
+    .cta-button-wrap button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
 
     .cta-price {
       font-weight: 600;
@@ -214,6 +237,6 @@
 
 .configurator__meta {
   // border: 20px solid purple;
-  height: 485px;
+  height: 455px;
   overflow: scroll;
 }
