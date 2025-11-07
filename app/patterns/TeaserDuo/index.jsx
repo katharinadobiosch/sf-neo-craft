@@ -1,45 +1,44 @@
 import React from 'react';
 
 export function TeaserDuo({
-  teaserImageLeft,
-  teaserImageLeftHover,
-  teaserImageRight,
-  teaserImageRightHover,
+  left,
+  right,
+  leftHover,
+  rightHover,
+  altLeft = '',
+  altRight = '',
   content,
+  className,
 }) {
-  const renderImagePair = (image, hoverImage) => {
-    const isString = typeof image === 'string';
-    const baseImg = isString ? <img src={image} alt="" /> : image;
-    const hoverImg =
-      hoverImage && typeof hoverImage === 'string' ? (
-        <img src={hoverImage} alt="" className="hover-img" aria-hidden="true" />
-      ) : (
-        hoverImage
-      );
-
-    return (
-      <div className="hover-wrap">
-        {baseImg}
-        {hoverImg}
-      </div>
-    );
-  };
+  const ImgPair = ({base, hover, alt}) => (
+    <div className="hover-wrap">
+      <img src={base} alt={alt} className="base-img" loading="lazy" />
+      {hover ? (
+        <img
+          src={hover}
+          alt=""
+          className="hover-img"
+          aria-hidden="true"
+          loading="lazy"
+        />
+      ) : null}
+    </div>
+  );
 
   return (
-    <div className="teaser-duo">
+    <section
+      className={['teaser-duo', className].filter(Boolean).join(' ')}
+      aria-label="Teaser duo"
+    >
       <div className="teaser-duo__images">
         <div className="teaser-duo__image">
-          {renderImagePair(teaserImageLeft, teaserImageLeftHover)}
+          <ImgPair base={left} hover={leftHover} alt={altLeft} />
         </div>
         <div className="teaser-duo__image">
-          {renderImagePair(teaserImageRight, teaserImageRightHover)}
+          <ImgPair base={right} hover={rightHover} alt={altRight} />
         </div>
       </div>
-      {content && (
-        <div className="teaser-duo__content">
-          <p>{content}</p>
-        </div>
-      )}
-    </div>
+      {content ? <div className="teaser-duo__content">{content}</div> : null}
+    </section>
   );
 }

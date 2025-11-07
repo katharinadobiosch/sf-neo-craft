@@ -1,116 +1,47 @@
-/* Basis (Desktop) */
-.teaser-duo {
-  position: relative;
-
-  &__images {
-    display: grid;
-    grid-template-columns: 1fr 1fr; // 50%/50%
-    width: 100%;
-    z-index: 1;
-  }
-
-  .teaser-duo__image {
-    position: relative;
-    overflow: hidden;
-    min-width: 0;
-    aspect-ratio: 1/1;
-
-    > img,
-    > picture,
-    > video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover; // kein Stretching
-      object-position: center;
-    }
-  }
-
-  &__content {
-    padding-top: 5rem;
-    padding-bottom: 10rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--sf-purple);
-
-    p {
-      width: 80%;
-    }
-  }
-  .hover-wrap {
-    position: relative;
-    display: block;
-  }
-
-  .hover-wrap img {
-    display: block;
-    width: 100%;
-    height: auto;
-    transition: opacity 250ms ease-in-out;
-  }
-
-  .hover-wrap .hover-img {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .hover-wrap:hover .hover-img,
-  .hover-wrap:focus-within .hover-img {
-    opacity: 1;
-  }
+/* erzwinge 2 Spalten überall */
+.teaser-duo__images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 2.5vw, 32px);
 }
 
-/* Tablet */
-@media (max-width: 1024px) {
-  .teaser-duo {
-    margin-inline: -3rem;
-    width: calc(100% + 5.6rem);
-  }
-  .teaser-duo__images {
-    height: 380px; // etwas niedriger
-  }
-  .teaser-duo__content p {
-    // font-size: var(--nc-fliesstext-desktop-size);
-    width: 88%;
-  }
-}
-
-/* Mobile: Bilder untereinander, definierte Höhe/Ratio */
+/* falls die Mobile-Regel aus teaserDuo.scss reinfunkt, überschreiben */
 @media (max-width: 768px) {
-  .teaser-duo {
-    margin-inline: -1.5rem;
-    width: calc(100% + 3rem);
-  }
-
   .teaser-duo__images {
-    display: block; // stapeln
-    height: auto;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
   }
-
   .teaser-duo__image {
-    height: 62vw; // responsive Höhe (≈ Ratio 16:10)
-    /* Alternativ statt fixer Höhe: aspect-ratio: 16 / 10; */
-  }
-
-  .teaser-duo__content {
-    padding-top: 4rem;
-    padding-bottom: 6rem;
-  }
-
-  .teaser-duo__content p {
-    width: 92%;
+    height: auto;
+    aspect-ratio: 1 / 1;
   }
 }
-
-/* Feintuning der Bildausrichtung je Seite (optional) */
-.teaser-duo__image:first-child > img {
-  object-position: left center;
+/* teaserDuo.scss (existiert schon; ergänzen/vereinheitlichen) */
+.hover-wrap {
+  position: relative;
+  display: block;
+  overflow: hidden;
 }
-.teaser-duo__image:last-child > img {
-  object-position: right center;
+.base-img,
+.hover-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.hover-img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 220ms ease-in-out;
+  pointer-events: none;
+  object-fit: cover; /* falls Assets minimal differieren */
+}
+.hover-wrap:hover .hover-img,
+.hover-wrap:focus-within .hover-img {
+  opacity: 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hover-img {
+    transition: none;
+  }
 }
