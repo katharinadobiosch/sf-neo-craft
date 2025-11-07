@@ -40,6 +40,29 @@
       width: 80%;
     }
   }
+  .hover-wrap {
+    position: relative;
+    display: block;
+  }
+
+  .hover-wrap img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: opacity 250ms ease-in-out;
+  }
+
+  .hover-wrap .hover-img {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .hover-wrap:hover .hover-img,
+  .hover-wrap:focus-within .hover-img {
+    opacity: 1;
+  }
 }
 
 /* Tablet */
