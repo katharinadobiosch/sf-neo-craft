@@ -66,6 +66,15 @@
     padding: 0.25rem 0.5rem;
     background-color: transparent;
   }
+  .teaser-duo {
+    margin: 4rem 0;
+  }
+  .teaser-duo__content {
+    display: none;
+  }
+  .teaser-duo__image {
+    aspect-ratio: 780/519;
+  }
 }
 
 .square-variant .teaser-duo__image {
