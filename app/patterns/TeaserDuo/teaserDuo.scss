@@ -2,7 +2,6 @@
 .teaser-duo__images {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(12px, 2.5vw, 32px);
 }
 
 /* falls die Mobile-Regel aus teaserDuo.scss reinfunkt, überschreiben */

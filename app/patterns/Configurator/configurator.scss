@@ -92,9 +92,6 @@
   .cfg-values {
     flex: 1 1 auto; /* Fläche nehmen, min-width 0 für korrektes Wrapping */
     min-width: 0;
-    // display: flex;
-    // flex-wrap: wrap;
-    // gap: 0.5rem 0.75rem;
   }
   .cfg-head {
     display: flex;
