@@ -65,7 +65,6 @@
   .product-options-item:disabled {
     padding: 0.25rem 0.5rem;
     background-color: transparent;
-    font-family: inherit;
   }
 }
 
@@ -89,6 +88,10 @@
 
 .square-variant .teaser-duo__content > p {
   margin: 0;
+
+  // font-size: var(--nc-fliesstext-desktop-size);
+  // line-height: var(--nc-fliesstext-desktop-line);
+  // font-weight: var(--nc-fliesstext-desktop-weight);
 }
 .square-variant .teaser-duo__content > p > div {
   margin: 0;

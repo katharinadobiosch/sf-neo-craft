@@ -37,8 +37,6 @@
     background-color: var(--sf-purple);
 
     p {
-      font-family: 'GTF Good Sans', sans-serif;
-      font-weight: 300;
       width: 80%;
     }
   }
@@ -54,6 +52,7 @@
     height: 380px; // etwas niedriger
   }
   .teaser-duo__content p {
+    // font-size: var(--nc-fliesstext-desktop-size);
     width: 88%;
   }
 }

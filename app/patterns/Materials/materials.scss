@@ -72,7 +72,9 @@
 }
 .material-card__description {
   margin: 0;
-  color: var(--muted);
+  font-size: var(--nc-fliesstext-desktop-size);
+  line-height: var(--nc-fliesstext-desktop-line);
+  font-weight: var(--nc-fliesstext-desktop-weight);
 }
 
 .material-card__swatches {
@@ -141,10 +143,12 @@
   align-items: center;
   gap: 1rem;
   background: #fff;
-  color: #101010;
   margin-top: auto;
   padding-left: 7.5rem;
   height: 6rem;
+  font-size: 2.2rem;
+  font-weight: 300;
+  line-height: 3.2rem;
 }
 
 .material-card__ctaBar:hover {
@@ -174,7 +178,9 @@
 
 .material-card {
   h3 {
-    font-weight: 400;
+    font-size: var(--nc-warenkorb-desktop-size);
+    font-weight: var(--nc-warenkorb-desktop-weight);
+    line-height: var(--nc-warenkorb-desktop-line);
     padding: 5rem 7.5rem 7.5rem 7.5rem;
   }
   p {

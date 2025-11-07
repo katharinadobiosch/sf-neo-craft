@@ -37,6 +37,7 @@ import bespokeStyles from '~/patterns/Bespoke/bespoke.scss?url';
 import highlightsStyles from '~//patterns/Highlights/highlights.scss?url';
 import materialStyles from '~/patterns/Materials/materials.scss?url';
 import dealersStyles from '~/patterns/Dealers/dealers.scss?url';
+import mainCollectionStyles from '~/patterns/MainCollection/mainCollection.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
 
@@ -100,6 +101,7 @@ export function links() {
     {rel: 'stylesheet', href: highlightsStyles},
     {rel: 'stylesheet', href: materialStyles},
     {rel: 'stylesheet', href: dealersStyles},
+    {rel: 'stylesheet', href: mainCollectionStyles},
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];
 }
