@@ -2,11 +2,32 @@
   display: flex;
   flex-direction: column;
 
+  &__teaser-duo {
+    margin: 5rem 0;
+  }
+
   h1 {
     margin-top: 0;
   }
 
+  .product-options-grid {
+    display: flex;
+    flex-wrap: wrap;
+    // grid-gap: 0.75rem;
+  }
+
+  .product-options-item,
+  .product-options-item:disabled {
+    padding: 0.25rem 0.5rem;
+    background-color: transparent;
+  }
+
+  .teaser-duo__image {
+    aspect-ratio: 780/519;
+  }
   .product-main {
+    align-items: flex-start;
+
     display: flex;
     flex-direction: row;
     height: 750px;
@@ -16,6 +37,7 @@
 
     &__media {
       width: 50%;
+      height: 740px;
     }
 
     &__info {
@@ -40,73 +62,37 @@
     }
   }
 
-  .product-price-on-sale {
-    display: flex;
-    // grid-gap: 0.5rem;
-  }
-
-  .product-price-on-sale s {
-    opacity: 0.5;
-  }
-
-  .product-options-grid {
-    display: flex;
-    flex-wrap: wrap;
-    // grid-gap: 0.75rem;
-  }
-
-  .product-options-item,
-  .product-options-item:disabled {
-    padding: 0.25rem 0.5rem;
-    background-color: transparent;
-  }
-
-  .teaser-duo__image {
-    aspect-ratio: 780/519;
-  }
-
-  &__teaser-duo {
-    margin: 5rem 0;
-  }
-}
-
-.square-variant {
-  .teaser-duo__image {
-    position: relative;
-    aspect-ratio: 780 / 780; /* Kachel bestimmt die Höhe */
-    overflow: hidden;
-    margin-top: 2rem;
-    img {
-      object-fit: cover;
-      aspect-ratio: 780/780;
+  .square-variant {
+    .teaser-duo__image {
+      position: relative;
+      aspect-ratio: 780 / 780; /* Kachel bestimmt die Höhe */
+      overflow: hidden;
+      margin-top: 2rem;
+      img {
+        object-fit: cover;
+        aspect-ratio: 780/780;
+      }
+    }
+    .teaser-duo__content {
+      background: var(--sf-purple);
+      padding: 9.1rem 13.6rem;
+      font-size: var(--nc-fliesstext-desktop-size);
+      line-height: var(--nc-fliesstext-desktop-line);
+      font-weight: var(--nc-fliesstext-desktop-weight);
     }
   }
-  .teaser-duo__content {
-    background: var(--sf-purple);
-    padding: 9.1rem 13.6rem;
-    font-size: var(--nc-fliesstext-desktop-size);
-    line-height: var(--nc-fliesstext-desktop-line);
-    font-weight: var(--nc-fliesstext-desktop-weight);
-  }
 }
 
-//* Hover-Bild ausblenden, Basisbild sichtbar lassen */
-.hover-wrap .hover-img {
-  opacity: 0 !important;
-  z-index: 2;
-  position: absolute;
-  inset: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
+// !! GLOBAL
+.product-price-on-sale {
+  display: flex;
+  // grid-gap: 0.5rem;
 }
 
-/* Hover-Bild nur bei Hover einblenden */
-.hover-wrap:hover .hover-img {
-  opacity: 1 !important;
+.product-main .product-form {
+  height: auto;
 }
 
-/* Wichtig: sicherstellen, dass das erste Bild oben liegt */
-.hover-wrap .product-image:first-child {
-  z-index: 1;
-  position: relative;
+.product-price-on-sale s {
+  opacity: 0.5;
 }
