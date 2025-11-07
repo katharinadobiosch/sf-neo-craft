@@ -21,6 +21,8 @@ export function ProductDetailInformation({product}) {
   const topRight = metafields?.produkt_duo_top_rechts?.list[0].url;
   const topRightHover = metafields?.produkt_duo_top_rechts?.list[1].url;
 
+  console.log('product', product);
+
   return (
     <div className="pdp">
       <div className="square-variant">
@@ -29,6 +31,7 @@ export function ProductDetailInformation({product}) {
           leftHover={topLeftHover}
           rightHover={topRightHover}
           right={topRight}
+          content={product.description}
         />
       </div>
 

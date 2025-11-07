@@ -5,7 +5,7 @@ function HoverImagePair({image, hoverImage, className}) {
   return (
     <div className={`${className} hover-wrap`}>
       <Image data={image} sizes="100vw" />
-      <Image data={hoverImage} sizes="100vw" className="hover-img" />
+      <Image data={hoverImage} sizes="" className="hover-img" />
     </div>
   );
 }
