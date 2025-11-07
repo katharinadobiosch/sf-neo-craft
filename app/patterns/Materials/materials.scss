@@ -1,13 +1,3 @@
-/* ===== Tokens ===== */
-:root {
-  --bg: #f4f4f6;
-  --paper: #fff;
-  --ink: #141416;
-  --muted: #6b6f76;
-  --line: #e5e7eb;
-  --gap: 1.5rem;
-}
-
 /* ===== Seite & Grid ===== */
 
 .materials-grid {
@@ -79,12 +69,12 @@
 }
 .material-card__title {
   margin: 0;
-  color: var(--ink);
 }
 .material-card__description {
   margin: 0;
-  color: var(--muted);
-  line-height: 1.45;
+  font-size: var(--nc-fliesstext-desktop-size);
+  line-height: var(--nc-fliesstext-desktop-line);
+  font-weight: var(--nc-fliesstext-desktop-weight);
 }
 
 .material-card__swatches {
@@ -153,10 +143,12 @@
   align-items: center;
   gap: 1rem;
   background: #fff;
-  color: #101010;
   margin-top: auto;
   padding-left: 7.5rem;
   height: 6rem;
+  font-size: 2.2rem;
+  font-weight: 300;
+  line-height: 3.2rem;
 }
 
 .material-card__ctaBar:hover {
@@ -186,7 +178,9 @@
 
 .material-card {
   h3 {
-    font-weight: 400;
+    font-size: var(--nc-warenkorb-desktop-size);
+    font-weight: var(--nc-warenkorb-desktop-weight);
+    line-height: var(--nc-warenkorb-desktop-line);
     padding: 5rem 7.5rem 7.5rem 7.5rem;
   }
   p {
@@ -198,8 +192,4 @@
     display: flex;
     align-items: flex-end;
   }
-}
-
-.materials {
-  font-size: 22px;
 }

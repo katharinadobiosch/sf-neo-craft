@@ -1,0 +1,46 @@
+.collections {
+  margin-top: 2rem;
+}
+.collections-grid {
+  background: white;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  position: relative; /* wichtig */
+  margin-top: 2rem;
+}
+
+.collections-grid::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 0.1rem;
+  background-color: #000; /* oder deine Wunschfarbe */
+  transform: translateX(-0.5px); /* exakt mittig */
+  z-index: 1;
+  height: calc(
+    100% - 7rem
+  ); /* Höhe anpassen, hier z.B. 3rem Abstand oben/unten */
+}
+
+.collections-grid h4 {
+  padding: 0rem 0 1.8rem 1.8rem;
+
+  font-size: var(--nc-navigation-name-desktop-size);
+  line-height: var(--nc-navigation-name-desktop-line);
+  font-weight: var(--nc-navigation-name-desktop-weight);
+}
+
+.collections-grid > *:nth-child(odd) h4 {
+  padding-left: 0;
+}
+
+.product-item {
+  width: 50%;
+}
+
+.collection-item img {
+  height: auto;
+}

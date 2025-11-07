@@ -1,7 +1,8 @@
 import {useMemo, useRef, useState, useEffect} from 'react';
 import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
-import {ProductMetaAccordion} from '~/patterns/ProductMetaAccordion';
 import {useAside} from '~/patterns/Aside';
+import {ProductMetaAccordion} from '~/patterns/ProductMetaAccordion';
+
 import colors from './colors.json';
 
 const hexToRgba = (hex) => {
@@ -182,6 +183,13 @@ export function Configurator({productOptions, navigate, product}) {
     );
   };
 
+  // ist jede Option explizit gewählt?
+  const allSelected =
+    Array.isArray(productOptions) &&
+    productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected));
+
+  const isReady = !!currentVariant?.availableForSale && allSelected;
+
   return (
     <div className={`configurator ${open ? 'is-open' : ''}`}>
       <button
@@ -191,18 +199,38 @@ export function Configurator({productOptions, navigate, product}) {
         aria-controls="cfg-panel"
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="cfg-title">Configurator</span>
+        <div className="cfg-head">
+          <button
+            type="button"
+            className="cfg-toggle"
+            aria-expanded={open}
+            aria-controls="cfg-panel"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="cfg-title">Configurator</span>
+            <span className="cfg-plus" aria-hidden />
+          </button>
+          <div className="cfg-head__label" />
+          <div className="cfg-head__values" />
+        </div>
+
         <span className="cfg-plus" aria-hidden />
       </button>
 
       <div
         id="cfg-panel"
         className="cfg-panel"
-        style={{maxHeight: open ? panelHeight : 0}}
+        // style={{maxHeight: open ? panelHeight : 0}}
       >
         <div ref={panelRef} className="cfg-panel-inner">
           {productOptions?.map(renderOption)}
-          <div className="cfg-cta">
+          <div className="configurator__meta">
+            <ProductMetaAccordion
+              metafields={product?.metafields || []}
+              product={product}
+            />
+          </div>
+          <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
             <span className="cta-arrow">→</span>
             <span className="cta-price">{money(price, currency)}</span>
             <div className="cta-button-wrap">

@@ -74,7 +74,7 @@
   transform: translateX(-0.5px); /* exakt mittig */
   z-index: 1;
   height: calc(
-    100% - 5.6rem
+    100% - 7rem
   ); /* Höhe anpassen, hier z.B. 3rem Abstand oben/unten */
 }
 
@@ -180,13 +180,7 @@ body {
 }
 body {
   margin: 0; /* entfernt UA-Body-Margin */
-  font-family:
-    system-ui,
-    -apple-system,
-    Segoe UI,
-    Roboto,
-    sans-serif;
-  line-height: 1.5;
+  // line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }

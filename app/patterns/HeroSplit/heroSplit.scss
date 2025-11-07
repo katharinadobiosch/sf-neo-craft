@@ -2,7 +2,6 @@
   display: flex;
   align-items: stretch; // beide Spalten gleich hoch
   margin-top: 300px;
-  border: 10px solid purple;
 
   &__left,
   &__right {
@@ -39,7 +38,6 @@
   &__quote {
     position: relative;
     background: var(--sf-purple, #8f8cf6);
-    color: #0b0b0b;
     min-height: 280px;
     display: flex;
     align-items: center;
@@ -48,10 +46,7 @@
 
   &__quote-inner {
     padding: 4rem 5rem;
-    font-family: 'GTF Good Sans', sans-serif;
     font-weight: 300;
-    font-size: 2.2rem;
-    line-height: 3.2rem;
   }
 
   /* Deko */
@@ -87,7 +82,6 @@
   }
   .hero-split__quote-inner {
     padding: 3.2rem 4rem;
-    font-size: 2rem;
   }
 }
 @media (max-width: 768px) {
@@ -105,6 +99,5 @@
   }
   .hero-split__quote-inner {
     padding: 2.4rem;
-    font-size: 1.8rem;
   }
 }

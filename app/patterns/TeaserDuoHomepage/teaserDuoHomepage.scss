@@ -22,14 +22,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'GTF Good Sans';
-    font-weight: 300;
 
     p {
-      font-size: 2.2rem;
-      line-height: 3.4rem;
       width: 80%;
-      margin: 10rem 0;
+      margin: 85rem 0 10rem 0;
+      font-size: var(--nc-fliesstext-desktop-size);
+      line-height: var(--nc-fliesstext-desktop-line);
+      font-weight: var(--nc-fliesstext-desktop-weight);
     }
   }
 }
