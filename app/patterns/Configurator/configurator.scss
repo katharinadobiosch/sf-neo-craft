@@ -20,9 +20,11 @@
     justify-content: space-between;
     padding: 0.75rem 0;
   }
-  .cfg-title {
-    // letter-spacing: 0.08em;
-    font-weight: 600;
+  .cfg-title,
+  .acc-title {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    font-weight: 500;
   }
   /* Plus/Minus Icon */
   .cfg-plus {
