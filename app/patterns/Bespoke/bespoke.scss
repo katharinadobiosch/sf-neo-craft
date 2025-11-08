@@ -3,4 +3,9 @@
   .teaser-duo .teaser-duo__content {
     background: white;
   }
+
+  &__middle,
+  &__bottom {
+    margin: 0 0 5rem 0;
+  }
 }
