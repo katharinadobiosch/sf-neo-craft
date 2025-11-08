@@ -20,10 +20,7 @@
 }
 
 .featured-collection-image {
-  aspect-ratio: 1 / 1;
-  @media (min-width: 45em) {
-    aspect-ratio: 16 / 9;
-  }
+  aspect-ratio: 780/780;
 }
 
 .featured-collection img {

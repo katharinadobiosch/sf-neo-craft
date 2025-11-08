@@ -45,7 +45,6 @@ export function PageLayout({
     )
       return 'purple';
     if (
-      pathname.startsWith('/pages/about') ||
       pathname.startsWith('/pages/stockists') ||
       pathname.startsWith('/pages/downloads')
     )
@@ -55,6 +54,7 @@ export function PageLayout({
     // return 'white';
   }
   const bgFooterColor = getFooterVariant(location.pathname);
+  console.log('pathname:', location.pathname, 'headerVariant:', bgHeaderColor);
 
   return (
     <Aside.Provider>

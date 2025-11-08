@@ -56,9 +56,9 @@ export function HeroSplit({
   leftBottom,
   right,
   showDivider = true,
-  rightAspect = '3/4',
-  leftTopAspect = '4/3',
-  leftBottomAspect = '4/3',
+  rightAspect = '781/941',
+  leftTopAspect = '781/520',
+  leftBottomAspect = '781/422',
   bandDecor = null,
   bandColor = 'var(--sf-purple, #8F8CF6)',
   className = '',
@@ -102,9 +102,9 @@ export function HeroSplit_ClassicFromMetafields() {
 
   return (
     <HeroSplit
-      rightAspect="780/940"
-      leftTopAspect="788/520"
-      leftBottomAspect="788/420"
+      rightAspect="781/941"
+      leftTopAspect="781/520"
+      leftBottomAspect="781/422"
       bandDecor={null}
       leftTop={<HoverImage image={left} hoverImage={leftHover} />}
       leftBottom={
@@ -130,9 +130,9 @@ export function HeroSplit_Poster({
 }) {
   return (
     <HeroSplit
-      rightAspect="780/940"
-      leftTopAspect="788/520"
-      leftBottomAspect="788/420"
+      rightAspect="781/941"
+      leftTopAspect="781/520"
+      leftBottomAspect="781/422"
       bandDecor={null}
       leftTop={
         <div className="hs-graphic" style={{background: graphicColor}} />
@@ -158,9 +158,9 @@ export function HeroSplit_GalleryBand({
 }) {
   return (
     <HeroSplit
-      rightAspect="780/940"
-      leftTopAspect="788/520"
-      leftBottomAspect="788/420"
+      rightAspect="781/941"
+      leftTopAspect="781/520"
+      leftBottomAspect="781/422"
       bandDecor="left"
       bandColor={bandColor}
       leftTop={<HoverImage image={leftImg} />}

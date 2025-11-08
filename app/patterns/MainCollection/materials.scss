@@ -2,11 +2,6 @@
   display: block;
 } /* Link als Block, schadet nie */
 
-.product-item .product-media {
-  position: relative;
-  aspect-ratio: 1 / 1;
-}
-
 .product-item .product-media img {
   position: absolute;
   inset: 0;
