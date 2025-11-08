@@ -3,7 +3,7 @@ import {Image, type HydrogenImage} from '@shopify/hydrogen';
 
 type ImgLike = HydrogenImage | string | null | undefined;
 
-function HoverImage({
+export function HoverImage({
   image,
   hoverImage,
   className = '',
@@ -102,9 +102,9 @@ export function HeroSplit_ClassicFromMetafields() {
 
   return (
     <HeroSplit
-      rightAspect="780/941"
-      leftTopAspect="781/520"
-      leftBottomAspect="781/422"
+      rightAspect="780/940"
+      leftTopAspect="788/520"
+      leftBottomAspect="788/420"
       bandDecor={null}
       leftTop={<HoverImage image={left} hoverImage={leftHover} />}
       leftBottom={
@@ -158,9 +158,9 @@ export function HeroSplit_GalleryBand({
 }) {
   return (
     <HeroSplit
-      rightAspect="3/4"
-      leftTopAspect="3/2"
-      leftBottomAspect="3/2"
+      rightAspect="780/940"
+      leftTopAspect="788/520"
+      leftBottomAspect="788/420"
       bandDecor="left"
       bandColor={bandColor}
       leftTop={<HoverImage image={leftImg} />}
