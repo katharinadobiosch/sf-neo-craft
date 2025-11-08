@@ -1,11 +1,8 @@
 .hero-split {
-  --hs-gap: clamp(12px, 2vw, 20px);
-  --hs-right-aspect: 3/4;
+  --hs-right-aspect: 780/940;
   --hs-leftTop-aspect: 4/3;
   --hs-leftBottom-aspect: 4/3;
   --hs-band-color: #8f8cf6;
-
-  margin-block: clamp(40px, 10vw, 120px);
 
   .hs-grid {
     display: grid;
@@ -13,7 +10,6 @@
     grid-template-areas:
       'leftTop right'
       'leftBottom right';
-    gap: var(--hs-gap);
     position: relative;
   }
 
@@ -31,7 +27,6 @@
   .hs-cell {
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
     isolation: isolate;
   }
 
@@ -97,31 +92,31 @@
     align-items: center;
     height: 100%;
     &__inner {
-      padding: var(--pad-y) var(--pad-x);
+      padding: 1rem 5rem 1rem 10rem;
+      // line-height: 50;
+      font-size: 2rem;
       font-weight: 300;
-      line-height: 1.35;
     }
     /* Deko-Balken links + Kreis rechts unten */
-    &::before {
-      content: '';
-      position: absolute;
-      left: 12px;
-      top: 18px;
-      bottom: 18px;
-      width: 12px;
-      background: #111;
-      border-radius: 4px;
-    }
-    &::after {
-      content: '';
-      position: absolute;
-      right: -90px;
-      bottom: -90px;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      border: 16px solid #111;
-    }
+    // &::before {
+    //   content: '';
+    //   position: absolute;
+    //   left: 12px;
+    //   top: 18px;
+    //   bottom: 18px;
+    //   width: 12px;
+    //   background: #111;
+    // }
+    // &::after {
+    //   content: '';
+    //   position: absolute;
+    //   right: -90px;
+    //   bottom: -90px;
+    //   width: 240px;
+    //   height: 240px;
+    //   border-radius: 50%;
+    //   border: 16px solid #111;
+    // }
     &--light {
       background: #fff;
       color: #111;
@@ -143,7 +138,6 @@
     background: var(--hs-band-color);
     z-index: -1;
     transform: rotate(-6deg);
-    border-radius: 12px;
   }
 
   /* Poster-Graphic (Screenshot 2 – oben links flache Farbe) */
@@ -158,7 +152,6 @@
       width: 55%;
       height: 18%;
       background: #111;
-      border-radius: 8px;
     }
     &::after {
       content: '';

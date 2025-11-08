@@ -18,7 +18,7 @@ export default function Bespoke() {
         // right={bespokeHeroImage}
         // content="GOBA is about simplicity with character—a piece that invites interaction and creates presence without overwhelming the space."
         graphicColor="#F6A94A"
-        quote="GOBA is about simplicity with character…"
+        quote="“GOBA is about simplicity with character—a piece that invites interaction and creates presence without overwhelming the space.”"
         rightImg={bespokeHeroImage}
       />
     </div>

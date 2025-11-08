@@ -130,9 +130,9 @@ export function HeroSplit_Poster({
 }) {
   return (
     <HeroSplit
-      rightAspect="4/5"
-      leftTopAspect="2/1"
-      leftBottomAspect="2/1"
+      rightAspect="780/940"
+      leftTopAspect="788/520"
+      leftBottomAspect="788/420"
       bandDecor={null}
       leftTop={
         <div className="hs-graphic" style={{background: graphicColor}} />
