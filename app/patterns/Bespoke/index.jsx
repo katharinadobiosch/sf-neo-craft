@@ -7,7 +7,7 @@ import bespokeHeroImage from './bespokeHero.jpg';
 
 export default function Bespoke() {
   return (
-    <>
+    <div className="bespoke">
       <TeaserDuo
         left={bespokeImageLeft}
         right={bespokeImageRight}
@@ -21,6 +21,6 @@ export default function Bespoke() {
         quote="GOBA is about simplicity with character…"
         rightImg={bespokeHeroImage}
       />
-    </>
+    </div>
   );
 }
