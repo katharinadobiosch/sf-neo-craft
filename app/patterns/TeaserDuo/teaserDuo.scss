@@ -5,71 +5,47 @@
 
     .teaser-duo__image {
       width: 50%;
+    }
+    img {
+      aspect-ratio: 780/780;
+      object-fit: cover;
+    }
+  }
 
-      div img {
-        aspect-ratio: 780/780;
-      }
+  .teaser-duo__content {
+    background: var(--sf-purple);
+    padding: 9.1rem 13.6rem;
+    font-size: var(--nc-fliesstext-desktop-size);
+    line-height: var(--nc-fliesstext-desktop-line);
+    font-weight: var(--nc-fliesstext-desktop-weight);
+  }
+
+  .hover-wrap {
+    position: relative;
+    display: block;
+    overflow: hidden;
+  }
+  .base-img,
+  .hover-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .hover-img {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 220ms ease-in-out;
+    pointer-events: none;
+    object-fit: cover;
+  }
+  .hover-wrap:hover .hover-img,
+  .hover-wrap:focus-within .hover-img {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hover-img {
+      transition: none;
     }
   }
 }
-
-.teaser-duo__content {
-  background: var(--sf-purple);
-  padding: 9.1rem 13.6rem;
-  font-size: var(--nc-fliesstext-desktop-size);
-  line-height: var(--nc-fliesstext-desktop-line);
-  font-weight: var(--nc-fliesstext-desktop-weight);
-}
-
-/* falls die Mobile-Regel aus teaserDuo.scss reinfunkt, überschreiben */
-@media (max-width: 768px) {
-  .teaser-duo__images {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr;
-  }
-  .teaser-duo__image {
-    position: relative;
-    aspect-ratio: 780 / 780; /* Kachel bestimmt die Höhe */
-    overflow: hidden;
-    margin-top: 2rem;
-  }
-}
-/* teaserDuo.scss (existiert schon; ergänzen/vereinheitlichen) */
-.hover-wrap {
-  position: relative;
-  display: block;
-  overflow: hidden;
-}
-.base-img,
-.hover-img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-.hover-img {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 220ms ease-in-out;
-  pointer-events: none;
-  object-fit: cover; /* falls Assets minimal differieren */
-}
-.hover-wrap:hover .hover-img,
-.hover-wrap:focus-within .hover-img {
-  opacity: 1;
-}
-@media (prefers-reduced-motion: reduce) {
-  .hover-img {
-    transition: none;
-  }
-}
-// .square-variant {
-//   .teaser-duo__image {
-
-//     img {
-//       object-fit: cover;
-//       aspect-ratio: 780/780;
-//     }
-//   }
-
-// }
