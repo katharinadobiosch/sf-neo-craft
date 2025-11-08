@@ -1,10 +1,9 @@
-// app/routes/products.dia.tsx
 import * as React from 'react';
 
 import type {LoaderFunctionArgs} from '@shopify/remix-oxygen';
-import {json} from '@shopify/remix-oxygen';
+import {json} from '@remix-run/server-runtime'; // <= HIERHER!
 
-import {useLoaderData} from 'react-router';
+import {useLoaderData} from '@remix-run/react'; // <= Remix-Hook
 import {Money, Image} from '@shopify/hydrogen';
 
 type Rod = 'mirror' | 'brass';
