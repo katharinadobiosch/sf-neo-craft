@@ -1,9 +1,7 @@
 // app/routes/products.dia.jsx
 import * as React from 'react';
-
-// ✔ genau wie im $handle-Route
-import {json} from '@shopify/remix-oxygen';
 import {useLoaderData} from 'react-router';
+import {json} from 'react-router'; // ✅ wie in der funktionierenden Route
 import {Money, Image} from '@shopify/hydrogen';
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
@@ -22,19 +20,22 @@ export async function loader /** @param {LoaderFunctionArgs} */({context}) {
     throw new Response('DIA products not found', {status: 404});
   }
 
-  return json({mirror: data.mirror, brass: data.brass});
+  // 🔁 Entweder so …
+  return json(data, {status: 200});
+  // … oder einfach: return data;   (Remix serialisiert das Objekt ebenfalls korrekt)
 }
 
 export default function DiaParentPDP() {
   const {mirror, brass} = useLoaderData();
   const [rod, setRod] = React.useState('mirror');
+
   const active = rod === 'mirror' ? mirror : brass;
 
   const [variantId, setVariantId] = React.useState(
-    active.variants?.nodes?.[0]?.id,
+    active?.variants?.nodes?.[0]?.id,
   );
 
-  // Beim Rod-Wechsel versuche gleiche Options beizubehalten
+  // Beim Rod-Wechsel gleiche Options beibehalten, sonst auf erste Variante fallen
   React.useEffect(() => {
     const prev = getSelectedOptionsFromVariantId(
       rod === 'mirror' ? brass : mirror,
@@ -139,7 +140,7 @@ function OptionSelect({name, values, activeProduct, variantId, onChange}) {
       <span className="mb-1 block text-sm opacity-80">{name}</span>
       <select
         className="w-full rounded-xl bg-zinc-800 px-3 py-2"
-        value={selectedValue}
+        value={selectedValue ?? values[0]} // ✅ stabil wie in vielen Hydrogen-Beispielen
         onChange={(e) => handle(e.target.value)}
       >
         {values.map((v) => (
