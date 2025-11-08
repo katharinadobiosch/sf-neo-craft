@@ -1270,50 +1270,6 @@ export type ProductQuery = {
   >;
 };
 
-export type DiaByHandlesQueryVariables = StorefrontAPI.Exact<{
-  mirror: StorefrontAPI.Scalars['String']['input'];
-  brass: StorefrontAPI.Scalars['String']['input'];
-}>;
-
-export type DiaByHandlesQuery = {
-  mirror?: StorefrontAPI.Maybe<
-    Pick<StorefrontAPI.Product, 'id' | 'handle' | 'title'> & {
-      options: Array<Pick<StorefrontAPI.ProductOption, 'name' | 'values'>>;
-      variants: {
-        nodes: Array<
-          Pick<StorefrontAPI.ProductVariant, 'id' | 'availableForSale'> & {
-            selectedOptions: Array<
-              Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
-            >;
-            price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
-            image?: StorefrontAPI.Maybe<
-              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
-            >;
-          }
-        >;
-      };
-    }
-  >;
-  brass?: StorefrontAPI.Maybe<
-    Pick<StorefrontAPI.Product, 'id' | 'handle' | 'title'> & {
-      options: Array<Pick<StorefrontAPI.ProductOption, 'name' | 'values'>>;
-      variants: {
-        nodes: Array<
-          Pick<StorefrontAPI.ProductVariant, 'id' | 'availableForSale'> & {
-            selectedOptions: Array<
-              Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
-            >;
-            price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
-            image?: StorefrontAPI.Maybe<
-              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
-            >;
-          }
-        >;
-      };
-    }
-  >;
-};
-
 export type SearchProductFragment = {__typename: 'Product'} & Pick<
   StorefrontAPI.Product,
   'handle' | 'id' | 'publishedAt' | 'title' | 'trackingParameters' | 'vendor'
@@ -1604,10 +1560,6 @@ interface GeneratedQueryTypes {
   '#graphql\n  fragment ProductVariant on ProductVariant {\n    availableForSale\n    compareAtPrice { amount currencyCode }\n    id\n    image { __typename id url altText width height }\n    price { amount currencyCode }\n    product { title handle }\n    selectedOptions { name value }\n    sku\n    title\n    unitPrice { amount currencyCode }\n  }\n\n  fragment Product on Product {\n    id\n    title\n    vendor\n    handle\n    descriptionHtml\n    description\n\n    images(first: 10) {\n      edges { node { id url altText width height } }\n    }\n\n    encodedVariantExistence\n    encodedVariantAvailability\n\n    options {\n      name\n      optionValues {\n        name\n        firstSelectableVariant { ...ProductVariant }\n        swatch { color image { previewImage { url } } }\n      }\n    }\n\n    selectedOrFirstAvailableVariant(\n      selectedOptions: $selectedOptions\n      ignoreUnknownOptions: true\n      caseInsensitiveMatch: true\n    ) { ...ProductVariant }\n\n    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }\n\n    seo { description title }\n\n    # 👇 dynamisch via Variable\n    metafields(identifiers: $metafieldIdentifiers) {\n      namespace\n      key\n      type\n      value\n\n      reference { __typename\n        ... on Metaobject { id type handle fields { key type value } }\n        ... on MediaImage { image { url altText width height } }\n        ... on Video { sources { url mimeType } }\n        ... on Model3d { sources { url mimeType } }\n        ... on GenericFile { url mimeType }\n      }\n\n      references(first: 50) {\n        nodes {\n          __typename\n          ... on Metaobject { id type handle fields { key type value } }\n          ... on MediaImage { image { url altText width height } }\n          ... on Video { sources { url mimeType } }\n          ... on Model3d { sources { url mimeType } }\n          ... on GenericFile { url mimeType }\n        }\n      }\n    }\n  }\n\n  query Product(\n    $country: CountryCode\n    $handle: String!\n    $language: LanguageCode\n    $selectedOptions: [SelectedOptionInput!]\n    $metafieldIdentifiers: [HasMetafieldsIdentifier!]!   # 👈 Typ-Hinweis\n  ) @inContext(country: $country, language: $language) {\n    product(handle: $handle) {\n      ...Product\n    }\n  }\n': {
     return: ProductQuery;
     variables: ProductQueryVariables;
-  };
-  '#graphql\n  query DiaByHandles($mirror: String!, $brass: String!) {\n    mirror: product(handle: $mirror) {\n      id\n      handle\n      title\n      options { name values }\n      variants(first: 250) {\n        nodes {\n          id\n          availableForSale\n          selectedOptions { name value }\n          price { amount currencyCode }\n          image { url altText width height }\n        }\n      }\n    }\n    brass: product(handle: $brass) {\n      id\n      handle\n      title\n      options { name values }\n      variants(first: 250) {\n        nodes {\n          id\n          availableForSale\n          selectedOptions { name value }\n          price { amount currencyCode }\n          image { url altText width height }\n        }\n      }\n    }\n  }\n': {
-    return: DiaByHandlesQuery;
-    variables: DiaByHandlesQueryVariables;
   };
   '#graphql\n  query RegularSearch(\n    $country: CountryCode\n    $endCursor: String\n    $first: Int\n    $language: LanguageCode\n    $last: Int\n    $term: String!\n    $startCursor: String\n  ) @inContext(country: $country, language: $language) {\n    articles: search(\n      query: $term,\n      types: [ARTICLE],\n      first: $first,\n    ) {\n      nodes {\n        ...on Article {\n          ...SearchArticle\n        }\n      }\n    }\n    pages: search(\n      query: $term,\n      types: [PAGE],\n      first: $first,\n    ) {\n      nodes {\n        ...on Page {\n          ...SearchPage\n        }\n      }\n    }\n    products: search(\n      after: $endCursor,\n      before: $startCursor,\n      first: $first,\n      last: $last,\n      query: $term,\n      sortKey: RELEVANCE,\n      types: [PRODUCT],\n      unavailableProducts: HIDE,\n    ) {\n      nodes {\n        ...on Product {\n          ...SearchProduct\n        }\n      }\n      pageInfo {\n        ...PageInfoFragment\n      }\n    }\n  }\n  #graphql\n  fragment SearchProduct on Product {\n    __typename\n    handle\n    id\n    publishedAt\n    title\n    trackingParameters\n    vendor\n    selectedOrFirstAvailableVariant(\n      selectedOptions: []\n      ignoreUnknownOptions: true\n      caseInsensitiveMatch: true\n    ) {\n      id\n      image {\n        url\n        altText\n        width\n        height\n      }\n      price {\n        amount\n        currencyCode\n      }\n      compareAtPrice {\n        amount\n        currencyCode\n      }\n      selectedOptions {\n        name\n        value\n      }\n      product {\n        handle\n        title\n      }\n    }\n  }\n\n  #graphql\n  fragment SearchPage on Page {\n     __typename\n     handle\n    id\n    title\n    trackingParameters\n  }\n\n  #graphql\n  fragment SearchArticle on Article {\n    __typename\n    handle\n    id\n    title\n    trackingParameters\n  }\n\n  #graphql\n  fragment PageInfoFragment on PageInfo {\n    hasNextPage\n    hasPreviousPage\n    startCursor\n    endCursor\n  }\n\n': {
     return: RegularSearchQuery;
