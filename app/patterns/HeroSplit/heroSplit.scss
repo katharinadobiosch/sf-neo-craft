@@ -1,74 +1,180 @@
 .hero-split {
-  display: flex;
-  align-items: stretch; // beide Spalten gleich hoch
-  margin-top: 300px;
+  --hs-gap: clamp(12px, 2vw, 20px);
+  --hs-right-aspect: 3/4;
+  --hs-leftTop-aspect: 4/3;
+  --hs-leftBottom-aspect: 4/3;
+  --hs-band-color: #8f8cf6;
 
-  &__left,
-  &__right {
-    width: 50%; // beide 50%
-    flex-direction: column;
+  margin-block: clamp(40px, 10vw, 120px);
+
+  .hs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      'leftTop right'
+      'leftBottom right';
+    gap: var(--hs-gap);
+    position: relative;
   }
 
-  /* Bildcontainer */
-  &__left-img,
-  &__right-img {
+  /* Mittel-Divider */
+  &[data-divider='on'] .hs-grid::before {
+    content: '';
+    position: absolute;
+    left: calc(50% - 0.5px);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: color-mix(in oklab, #000 18%, transparent);
+  }
+
+  .hs-cell {
     position: relative;
     overflow: hidden;
-    flex: 1 1 auto;
+    border-radius: 8px;
+    isolation: isolate;
   }
 
-  &__right-img {
-    aspect-ratio: 780/941;
-  } // höheres rechtes Bild
+  .hs-leftTop {
+    grid-area: leftTop;
+    aspect-ratio: var(--hs-leftTop-aspect);
+  }
+  .hs-leftBottom {
+    grid-area: leftBottom;
+    aspect-ratio: var(--hs-leftBottom-aspect);
+  }
+  .hs-right {
+    grid-area: right;
+    aspect-ratio: var(--hs-right-aspect);
+  }
 
-  &__left-img {
-    aspect-ratio: 781/520;
-  } // höheres rechtes Bild
+  /* Responsive – unter 900px einspaltig */
+  @media (max-width: 900px) {
+    .hs-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'right'
+        'leftTop'
+        'leftBottom';
+    }
+    &[data-divider='on'] .hs-grid::before {
+      display: none;
+    }
+  }
 
-  &__left-img > img,
-  &__right-img > img {
-    inset: 0;
-    width: 100%;
+  /* =========================
+     Bild + Hover
+     ========================= */
+  .hs-img {
     height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
+    & > img {
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    &__hover {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    &:hover .hs-img__hover {
+      opacity: 1;
+    }
   }
 
-  /* Quote-Block */
-  &__quote {
-    position: relative;
-    background: var(--sf-purple, #8f8cf6);
-    display: flex;
+  /* =========================
+     Quote Block (Screenshot 2)
+     ========================= */
+  .hs-quote {
+    --pad-x: clamp(20px, 5vw, 56px);
+    --pad-y: clamp(20px, 4vw, 48px);
+    background: #fff;
+    color: #111;
+    display: grid;
     align-items: center;
-    overflow: hidden;
-    aspect-ratio: 781/422;
+    height: 100%;
+    &__inner {
+      padding: var(--pad-y) var(--pad-x);
+      font-weight: 300;
+      line-height: 1.35;
+    }
+    /* Deko-Balken links + Kreis rechts unten */
+    &::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 18px;
+      bottom: 18px;
+      width: 12px;
+      background: #111;
+      border-radius: 4px;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      right: -90px;
+      bottom: -90px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      border: 16px solid #111;
+    }
+    &--light {
+      background: #fff;
+      color: #111;
+    }
   }
 
-  &__quote-inner {
-    padding: 4rem 5rem;
-    font-weight: 300;
+  /* =========================
+     Farbfläche / Band (Screenshot 3)
+     ========================= */
+  &[data-band='left'] .hs-leftTop::after,
+  &[data-band='left'] .hs-leftBottom::after,
+  &[data-band='right'] .hs-right::after {
+    content: '';
+    position: absolute;
+    left: -6%;
+    bottom: -6%;
+    width: 70%;
+    height: 45%;
+    background: var(--hs-band-color);
+    z-index: -1;
+    transform: rotate(-6deg);
+    border-radius: 12px;
   }
 
-  /* Deko */
-  &__quote::before {
-    content: '';
-    position: absolute;
-    left: 1.2rem;
-    top: 2rem;
-    bottom: 2rem;
-    width: 1.2rem;
-    background: #111;
-    border-radius: 0.4rem;
+  /* Poster-Graphic (Screenshot 2 – oben links flache Farbe) */
+  .hs-graphic {
+    height: 100%;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      left: -6%;
+      bottom: -10%;
+      width: 55%;
+      height: 18%;
+      background: #111;
+      border-radius: 8px;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      right: -8%;
+      top: -18%;
+      width: 50%;
+      height: 50%;
+      border: 18px solid #111;
+      border-radius: 50%;
+    }
   }
-  &__quote::after {
-    content: '';
-    position: absolute;
-    right: -9rem;
-    bottom: -9rem;
-    width: 24rem;
-    height: 24rem;
-    border-radius: 50%;
-    border: 1.6rem solid #111;
+
+  /* Spacers, falls ein Slot leer ist */
+  .hs-spacer {
+    height: 100%;
+    background: transparent;
   }
 }
