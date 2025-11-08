@@ -20,9 +20,11 @@
     justify-content: space-between;
     padding: 0.75rem 0;
   }
-  .cfg-title {
-    // letter-spacing: 0.08em;
-    font-weight: 600;
+  .cfg-title,
+  .acc-title {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    font-weight: 500;
   }
   /* Plus/Minus Icon */
   .cfg-plus {
@@ -92,9 +94,6 @@
   .cfg-values {
     flex: 1 1 auto; /* Fläche nehmen, min-width 0 für korrektes Wrapping */
     min-width: 0;
-    // display: flex;
-    // flex-wrap: wrap;
-    // gap: 0.5rem 0.75rem;
   }
   .cfg-head {
     display: flex;

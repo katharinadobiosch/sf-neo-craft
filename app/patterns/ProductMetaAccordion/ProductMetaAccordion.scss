@@ -58,12 +58,15 @@
          opacity: 0; */
     }
 
-    .acc-panel {
+    .acc-panel p {
       color: #222;
       padding-left: 150px;
       padding-bottom: 1rem;
       display: flex;
       flex-direction: row;
+      font-size: 1.2rem;
+      line-height: 1.9rem;
+      font-weight: 400;
 
       .measurements {
         width: 100%;
@@ -117,23 +120,4 @@
     font-weight: 600;
     margin-bottom: 0.5rem;
   }
-}
-
-.product-main .product-form {
-  height: auto;
-} // statt 100%
-
-.product-main {
-  align-items: flex-start;
-}
-
-.product-main {
-  align-items: stretch;
-}
-.product-main__media {
-  height: 740px;
-} // feste Höhe statt max-height
-.product-main .product-form {
-  height: 740px;
-  overflow: auto;
 }

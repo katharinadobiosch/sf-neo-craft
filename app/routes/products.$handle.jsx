@@ -22,7 +22,6 @@ const METAFIELD_IDENTIFIERS = metafieldDefs
   )
   .map((d) => ({namespace: d.namespace, key: d.key}));
 
-console.log('METAFIELD_IDENTIFIERS', METAFIELD_IDENTIFIERS);
 /**
  * @type {MetaFunction<typeof loader>}
  */

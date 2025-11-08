@@ -8,6 +8,9 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
+    "allowJs": true,
+    // "moduleResolution": "node",
+    "skipLibCheck": true,
     "paths": {
       "~/*": ["app/*"],
       "@/*": ["app/*"]
@@ -18,7 +21,8 @@
     ".react-router/types/**/*",
     "remix.config.mjs",
     "app/**/*",
-    "**/*.d.ts"
-, "scripts"  ],
+    "**/*.d.ts",
+    "scripts"
+  ],
   "exclude": ["node_modules", "build"]
 }

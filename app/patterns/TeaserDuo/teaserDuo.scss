@@ -1,93 +1,51 @@
-/* Basis (Desktop) */
 .teaser-duo {
-  position: relative;
-
-  &__images {
-    display: grid;
-    grid-template-columns: 1fr 1fr; // 50%/50%
+  .teaser-duo__images {
     width: 100%;
-    z-index: 1;
-  }
-
-  .teaser-duo__image {
-    position: relative;
-    overflow: hidden;
-    min-width: 0;
-    aspect-ratio: 1/1;
-
-    > img,
-    > picture,
-    > video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover; // kein Stretching
-      object-position: center;
-    }
-  }
-
-  &__content {
-    padding-top: 5rem;
-    padding-bottom: 10rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--sf-purple);
 
-    p {
-      width: 80%;
+    .teaser-duo__image {
+      width: 50%;
     }
-  }
-}
-
-/* Tablet */
-@media (max-width: 1024px) {
-  .teaser-duo {
-    margin-inline: -3rem;
-    width: calc(100% + 5.6rem);
-  }
-  .teaser-duo__images {
-    height: 380px; // etwas niedriger
-  }
-  .teaser-duo__content p {
-    // font-size: var(--nc-fliesstext-desktop-size);
-    width: 88%;
-  }
-}
-
-/* Mobile: Bilder untereinander, definierte Höhe/Ratio */
-@media (max-width: 768px) {
-  .teaser-duo {
-    margin-inline: -1.5rem;
-    width: calc(100% + 3rem);
-  }
-
-  .teaser-duo__images {
-    display: block; // stapeln
-    height: auto;
-  }
-
-  .teaser-duo__image {
-    height: 62vw; // responsive Höhe (≈ Ratio 16:10)
-    /* Alternativ statt fixer Höhe: aspect-ratio: 16 / 10; */
+    img {
+      aspect-ratio: 780/780;
+      object-fit: cover;
+    }
   }
 
   .teaser-duo__content {
-    padding-top: 4rem;
-    padding-bottom: 6rem;
+    background: var(--sf-purple);
+    padding: 9.1rem 13.6rem;
+    font-size: var(--nc-fliesstext-desktop-size);
+    line-height: var(--nc-fliesstext-desktop-line);
+    font-weight: var(--nc-fliesstext-desktop-weight);
   }
 
-  .teaser-duo__content p {
-    width: 92%;
+  .hover-wrap {
+    position: relative;
+    display: block;
+    overflow: hidden;
   }
-}
-
-/* Feintuning der Bildausrichtung je Seite (optional) */
-.teaser-duo__image:first-child > img {
-  object-position: left center;
-}
-.teaser-duo__image:last-child > img {
-  object-position: right center;
+  .base-img,
+  .hover-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .hover-img {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 220ms ease-in-out;
+    pointer-events: none;
+    object-fit: cover;
+  }
+  .hover-wrap:hover .hover-img,
+  .hover-wrap:focus-within .hover-img {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hover-img {
+      transition: none;
+    }
+  }
 }

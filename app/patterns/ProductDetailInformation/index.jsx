@@ -15,41 +15,23 @@ export function ProductDetailInformation({product}) {
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  const productDuoTopLeft = metafields?.produkt_duo_top_links?.list[0];
-  const productDuoTopLeftHover = metafields?.produkt_duo_top_links?.list[1];
+  const topLeft = metafields?.produkt_duo_top_links?.list[0].url;
+  const topLeftHover = metafields?.produkt_duo_top_links?.list[1].url;
 
-  const productDuoTopRight = metafields?.produkt_duo_top_rechts?.list[0];
-  const productDuoTopRightHover = metafields?.produkt_duo_top_rechts?.list[1];
+  const topRight = metafields?.produkt_duo_top_rechts?.list[0].url;
+  const topRightHover = metafields?.produkt_duo_top_rechts?.list[1].url;
 
-  console.log('hover', productDuoTopLeftHover);
+  console.log('product', product);
 
   return (
     <div className="pdp">
       <div className="square-variant">
         <TeaserDuo
-          teaserImageLeft={
-            <div className="hover-wrap">
-              <div className="base-img">
-                <ProductImage image={productDuoTopLeft} />
-              </div>
-              <div className="hover-img">
-                <ProductImage image={productDuoTopLeftHover} />
-              </div>
-            </div>
-          }
-          teaserImageRight={
-            <div className="hover-wrap">
-              <div className="base-img">
-                <ProductImage image={productDuoTopRight} />
-              </div>
-              <div className="hover-img">
-                <ProductImage image={productDuoTopRightHover} />
-              </div>
-            </div>
-          }
-          content={
-            <div dangerouslySetInnerHTML={{__html: product.description}} />
-          }
+          left={topLeft}
+          leftHover={topLeftHover}
+          rightHover={topRightHover}
+          right={topRight}
+          content={product.description}
         />
       </div>
 

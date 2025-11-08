@@ -106,9 +106,10 @@
   width: 42px;
   height: 42px;
   box-shadow: 0 0 6px #00000029;
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+  opacity: 1;
+  // transition:
+  //   opacity 0.25s ease,
+  //   transform 0.25s ease;
   color: #222; /* <— WICHTIG: Pfeil-Farbe */
 }
 
@@ -120,11 +121,11 @@
 
 /* Desktop: Pfeile nur bei Hover des Containers sichtbar */
 
-.nc-swiper-content .swiper-button-prev,
-.nc-swiper-content .swiper-button-next {
-  opacity: 0;
-}
-.nc-swiper-content:hover .swiper-button-prev,
-.nc-swiper-content:hover .swiper-button-next {
-  opacity: 1;
-}
+// .nc-swiper-content .swiper-button-prev,
+// .nc-swiper-content .swiper-button-next {
+//   opacity: 0;
+// }
+// .nc-swiper-content:hover .swiper-button-prev,
+// .nc-swiper-content:hover .swiper-button-next {
+//   opacity: 1;
+// }
