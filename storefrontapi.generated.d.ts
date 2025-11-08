@@ -1287,7 +1287,7 @@ export type DiaByHandlesQuery = {
             >;
             price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
             image?: StorefrontAPI.Maybe<
-              Pick<StorefrontAPI.Image, 'url' | 'altText'>
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
             >;
           }
         >;
@@ -1305,7 +1305,7 @@ export type DiaByHandlesQuery = {
             >;
             price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
             image?: StorefrontAPI.Maybe<
-              Pick<StorefrontAPI.Image, 'url' | 'altText'>
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
             >;
           }
         >;
@@ -1605,7 +1605,7 @@ interface GeneratedQueryTypes {
     return: ProductQuery;
     variables: ProductQueryVariables;
   };
-  '#graphql\n  query DiaByHandles($mirror: String!, $brass: String!) {\n    mirror: product(handle: $mirror) {\n      id\n      handle\n      title\n      options { name values }\n      variants(first: 250) {\n        nodes {\n          id\n          availableForSale\n          selectedOptions { name value }\n          price { amount currencyCode }\n          image { url altText }\n        }\n      }\n    }\n    brass: product(handle: $brass) {\n      id\n      handle\n      title\n      options { name values }\n      variants(first: 250) {\n        nodes {\n          id\n          availableForSale\n          selectedOptions { name value }\n          price { amount currencyCode }\n          image { url altText }\n        }\n      }\n    }\n  }\n': {
+  '#graphql\n  query DiaByHandles($mirror: String!, $brass: String!) {\n    mirror: product(handle: $mirror) {\n      id\n      handle\n      title\n      options { name values }\n      variants(first: 250) {\n        nodes {\n          id\n          availableForSale\n          selectedOptions { name value }\n          price { amount currencyCode }\n          image { url altText width height }\n        }\n      }\n    }\n    brass: product(handle: $brass) {\n      id\n      handle\n      title\n      options { name values }\n      variants(first: 250) {\n        nodes {\n          id\n          availableForSale\n          selectedOptions { name value }\n          price { amount currencyCode }\n          image { url altText width height }\n        }\n      }\n    }\n  }\n': {
     return: DiaByHandlesQuery;
     variables: DiaByHandlesQueryVariables;
   };

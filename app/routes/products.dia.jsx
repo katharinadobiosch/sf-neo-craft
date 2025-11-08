@@ -1,19 +1,17 @@
+// app/routes/products.dia.jsx
 import * as React from 'react';
 
-import type {LoaderFunctionArgs} from '@shopify/remix-oxygen';
-import {json} from '@remix-run/server-runtime'; // <= HIERHER!
-
-import {useLoaderData} from '@remix-run/react'; // <= Remix-Hook
+// ✔ genau wie im $handle-Route
+import {json} from '@shopify/remix-oxygen';
+import {useLoaderData} from 'react-router';
 import {Money, Image} from '@shopify/hydrogen';
 
-type Rod = 'mirror' | 'brass';
+/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 
-// 👉 Handles deiner zwei echten Produkte in Shopify.
-// Du findest die Handles im Shopify-Admin auf der Produktseite unter "Suchmaschinenvorschau" (URL-Handle).
 const MIRROR_HANDLE = 'dia-with-mirror-steel-rod-kopie';
 const BRASS_HANDLE = 'dia-with-brass-rod-kopie';
 
-export async function loader({context}: LoaderFunctionArgs) {
+export async function loader /** @param {LoaderFunctionArgs} */({context}) {
   const {storefront} = context;
 
   const data = await storefront.query(DIA_BY_HANDLES, {
@@ -28,12 +26,12 @@ export async function loader({context}: LoaderFunctionArgs) {
 }
 
 export default function DiaParentPDP() {
-  const {mirror, brass} = useLoaderData<typeof loader>();
-  const [rod, setRod] = React.useState<Rod>('mirror');
+  const {mirror, brass} = useLoaderData();
+  const [rod, setRod] = React.useState('mirror');
   const active = rod === 'mirror' ? mirror : brass;
 
-  const [variantId, setVariantId] = React.useState<string>(
-    active.variants.nodes[0]?.id,
+  const [variantId, setVariantId] = React.useState(
+    active.variants?.nodes?.[0]?.id,
   );
 
   // Beim Rod-Wechsel versuche gleiche Options beizubehalten
@@ -48,7 +46,7 @@ export default function DiaParentPDP() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rod]);
 
-  const v = active.variants.nodes.find((x: any) => x.id === variantId);
+  const v = active.variants.nodes.find((x) => x.id === variantId);
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-10 text-white">
@@ -96,7 +94,7 @@ export default function DiaParentPDP() {
           )}
 
           <div className="mb-4 space-y-3">
-            {active.options.map((opt: any) => (
+            {active.options.map((opt) => (
               <OptionSelect
                 key={opt.name}
                 name={opt.name}
@@ -123,26 +121,14 @@ export default function DiaParentPDP() {
   );
 }
 
-function OptionSelect({
-  name,
-  values,
-  activeProduct,
-  variantId,
-  onChange,
-}: {
-  name: string;
-  values: string[];
-  activeProduct: any;
-  variantId: string;
-  onChange: (nextVariantId: string) => void;
-}) {
+function OptionSelect({name, values, activeProduct, variantId, onChange}) {
   const currentSelected = getSelectedOptionsFromVariantId(
     activeProduct,
     variantId,
   );
   const selectedValue = currentSelected[name];
 
-  function handle(value: string) {
+  function handle(value) {
     const nextSelected = {...currentSelected, [name]: value};
     const next = findVariantBySelectedOptions(activeProduct, nextSelected);
     if (next) onChange(next.id);
@@ -166,19 +152,16 @@ function OptionSelect({
   );
 }
 
-function getSelectedOptionsFromVariantId(product: any, variantId: string) {
-  const v = product.variants.nodes.find((x: any) => x.id === variantId);
-  const out: Record<string, string> = {};
-  (v?.selectedOptions ?? []).forEach((o: any) => (out[o.name] = o.value));
+function getSelectedOptionsFromVariantId(product, variantId) {
+  const v = product.variants.nodes.find((x) => x.id === variantId);
+  const out = {};
+  (v?.selectedOptions ?? []).forEach((o) => (out[o.name] = o.value));
   return out;
 }
 
-function findVariantBySelectedOptions(
-  product: any,
-  selected: Record<string, string>,
-) {
-  return product.variants.nodes.find((v: any) =>
-    v.selectedOptions.every((o: any) => selected[o.name] === o.value),
+function findVariantBySelectedOptions(product, selected) {
+  return product.variants.nodes.find((v) =>
+    v.selectedOptions.every((o) => selected[o.name] === o.value),
   );
 }
 
@@ -195,7 +178,7 @@ const DIA_BY_HANDLES = `#graphql
           availableForSale
           selectedOptions { name value }
           price { amount currencyCode }
-          image { url altText }
+          image { url altText width height }
         }
       }
     }
@@ -210,7 +193,7 @@ const DIA_BY_HANDLES = `#graphql
           availableForSale
           selectedOptions { name value }
           price { amount currencyCode }
-          image { url altText }
+          image { url altText width height }
         }
       }
     }
