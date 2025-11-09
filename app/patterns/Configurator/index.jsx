@@ -196,30 +196,21 @@ export function Configurator({productOptions, navigate, product}) {
 
   return (
     <div className={`configurator ${open ? 'is-open' : ''}`}>
-      <button
-        type="button"
-        className="cfg-toggle"
-        aria-expanded={open}
-        aria-controls="cfg-panel"
-        onClick={() => setOpen((v) => !v)}
-      >
-        <div className="cfg-head">
-          <button
-            type="button"
-            className="cfg-toggle"
-            aria-expanded={open}
-            aria-controls="cfg-panel"
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span className="cfg-title">Configurator</span>
-            <span className="cfg-plus" aria-hidden />
-          </button>
-          <div className="cfg-head__label" />
-          <div className="cfg-head__values" />
-        </div>
+      <div className="cfg-head">
+        <button
+          type="button"
+          className="cfg-toggle"
+          aria-expanded={open}
+          aria-controls="cfg-panel"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className="cfg-title">Configurator</span>
+          <span className="cfg-plus" aria-hidden />
+        </button>
 
-        <span className="cfg-plus" aria-hidden />
-      </button>
+        <div className="cfg-head__label" />
+        <div className="cfg-head__values" />
+      </div>
 
       <div
         id="cfg-panel"
