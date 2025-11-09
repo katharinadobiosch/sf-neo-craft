@@ -21,18 +21,21 @@
     padding: 0.75rem 0;
     border: 2px solid red;
   }
+
   .cfg-title,
   .acc-title {
     font-size: 1.5rem;
     line-height: 2.2rem;
     font-weight: 500;
   }
+
   /* Plus/Minus Icon */
   .cfg-plus {
     position: relative;
     width: 18px;
     height: 18px;
   }
+
   .cfg-plus::before,
   .cfg-plus::after {
     content: '';
@@ -47,11 +50,12 @@
       transform 0.2s ease,
       opacity 0.2s ease;
   }
+
   .cfg-plus::after {
     transform: translate(-50%, -50%) rotate(90deg); /* vertikal */
   }
-  &.is-open .cfg-plus::after {
-    transform: translate(-50%, -50%) rotate(0deg); /* wird zu Minus */
+  &[data-variants-open='true'] .cfg-plus::after {
+    transform: translate(-50%, -50%) rotate(0deg);
   }
 
   /* Collapsible Panel */
@@ -63,9 +67,10 @@
       max-height 0.35s ease,
       opacity 0.2s ease;
   }
-  &.is-open .cfg-panel {
+  &[data-variants-open='true'] .cfg-panel {
     opacity: 1;
   }
+
   .cfg-panel-inner {
     padding-top: 1rem;
   }
@@ -75,10 +80,8 @@
     align-items: center;
     gap: 1rem;
     padding: 0.5rem 0;
-    & + .cfg-row {
-      // border-top: 1px solid var(--border-color);
-    }
   }
+
   .cfg-row::before {
     content: '';
     flex: 0 0 150px; /* = Breite deines .cfg-toggle (links) */
@@ -86,28 +89,28 @@
 
   .cfg-label {
     font-size: 1.2rem;
-    // width: 160px;
-    // min-width: 160px;
     flex: 0 0 160px;
-    // letter-spacing: 0.14em;
-    // color: var(--muted);
   }
 
   .cfg-values {
     flex: 1 1 auto; /* Fläche nehmen, min-width 0 für korrektes Wrapping */
     min-width: 0;
   }
+
   .cfg-head {
     display: flex;
     gap: 1rem;
     align-items: center;
   }
+
   .cfg-head .cfg-toggle {
     flex: 0 0 150px;
   } /* linke Spalte */
+
   .cfg-head__label {
     flex: 0 0 160px;
   } /* mittlere Spalte (leer) */
+
   .cfg-head__values {
     flex: 1 1 auto;
   } /* rechte Spalte (leer) */
@@ -157,18 +160,21 @@
       justify-content: center;
       background: #fff;
     }
+
     .dot {
       width: 20px;
       height: 20px;
       border-radius: 999px;
       box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
     }
+
     &.is-selected .dot-ring {
       border-color: var(--ring);
       box-shadow:
         0 0 0 2px #fff,
         0 0 0 3px var(--ring);
     }
+
     &:disabled {
       opacity: 0.35;
       cursor: not-allowed;
@@ -192,6 +198,7 @@
       background: #000;
       color: #fff;
     }
+
     .is-active .cta-button-wrap button {
       background: #fff;
       color: #000;
@@ -214,6 +221,7 @@
       font-weight: 600;
       margin-right: auto;
     }
+
     form > button {
       all: unset;
       cursor: pointer;
@@ -222,11 +230,13 @@
       padding: 0.65rem 1rem;
       font-weight: 600;
     }
+
     form > button:disabled {
       opacity: 0.45;
       cursor: not-allowed;
     }
   }
+
   .acc-images {
     padding-right: 2rem;
     width: 100%;
@@ -251,7 +261,6 @@
 }
 
 .configurator__meta {
-  // border: 20px solid purple;
   height: 455px;
   overflow: scroll;
 }
