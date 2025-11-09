@@ -32,6 +32,7 @@
     &__media {
       width: 50%;
       aspect-ratio: 780 / 940;
+      border: 5px solid red;
     }
 
     &__info {
@@ -48,60 +49,62 @@
     }
   }
 
-  .cfg-cta {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: var(--cta-bg);
-    color: var(--cta-text);
-    background: #f4f4f4;
-    color: #111;
-
-
-    .is-active {
-      background: #000;
-      color: #fff;
-    }
-
-    .is-active .cta-button-wrap button {
-      background: #fff;
-      color: #000;
-    }
-
-    .cta-button-wrap button {
-      all: unset;
-      cursor: pointer;
-      border: 1px solid currentColor;
-      padding: 0.65rem 1rem;
-      font-weight: 600;
-    }
-
-    .cta-button-wrap button:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
-
-    .cta-price {
-      font-weight: 600;
-      margin-right: auto;
-    }
-
-    form > button {
-      all: unset;
-      cursor: pointer;
-      background: #000;
-      color: #fff;
-      padding: 0.65rem 1rem;
-      font-weight: 600;
-    }
-
-    form > button:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
-  }
   &__add-to-cart-button {
-    height: 10%;
+    height: 7%;
+    background: black;
+    color: white;
+
+    .cfg-cta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      // background: var(--cta-bg);
+      // color: var(--cta-text);
+      // background: #f4f4f4;
+      // color: #111;
+
+      .is-active {
+        // background: #000;
+        // color: #fff;
+      }
+
+      .is-active .cta-button-wrap button {
+        background: #fff;
+        color: #000;
+      }
+
+      .cta-button-wrap button {
+        all: unset;
+        cursor: pointer;
+        border: 1px solid currentColor;
+        padding: 0.65rem 1rem;
+        font-weight: 600;
+      }
+
+      .cta-button-wrap button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .cta-price {
+        font-weight: 600;
+        margin-right: auto;
+      }
+
+      form > button {
+        all: unset;
+        cursor: pointer;
+        background: #000;
+        color: #fff;
+        padding: 0.65rem 1rem;
+        font-weight: 600;
+      }
+
+      form > button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+    }
   }
 }
 
