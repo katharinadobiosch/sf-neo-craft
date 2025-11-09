@@ -99,13 +99,6 @@ export default function Product() {
   );
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
-  const productOptions = getProductOptions({
-    ...product,
-    selectedOrFirstAvailableVariant: selectedVariant,
-  });
-
-  const {title, descriptionHtml} = product; // ggf. später wieder verwenden
-
   return (
     <div className="product">
       <ProductDetailInformation product={product} />

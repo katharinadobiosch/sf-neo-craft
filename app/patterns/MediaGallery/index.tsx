@@ -1,13 +1,10 @@
-import React, {useState, useEffect, useMemo, useRef} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination, A11y} from 'swiper/modules';
 
-import classnames from 'classnames';
-import {Thumbs, Navigation} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
-import type SwiperOptions from 'swiper';
 
 type Img = {
   id: string;
