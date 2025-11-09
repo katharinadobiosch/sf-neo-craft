@@ -10,7 +10,6 @@
   .product-options-grid {
     display: flex;
     flex-wrap: wrap;
-    // grid-gap: 0.75rem;
   }
 
   .product-options-item,
@@ -25,11 +24,11 @@
     flex-direction: row;
     max-height: 940px;
     height: 100%;
-
+    border: 5px solid red;
+   
     &__media {
       width: 50%;
       aspect-ratio: 780 / 940;
-      border: 5px solid red;
     }
 
     &__info {
@@ -50,38 +49,30 @@
   &__cta-container {
     display: flex;
     flex-direction: row;
-    height: 7%;
+    align-items: center;
     border-top: 1px solid black;
     font-size: var(--nc-fliesstext-desktop-size);
     line-height: var(--nc-fliesstext-desktop-line);
     font-weight: var(--nc-fliesstext-desktop-weight);
-    width: 100%;
+    // width: 100%;
 
     .pdp__question {
+      flex: 1 1 0; /* <- nimmt den gesamten Restplatz ein */
+      min-width: 0; /* falls nötig, verhindert overflow/blockieren */
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: center; /* Text mittig im Restbereich */
       text-align: center;
     }
 
     .cfg-cta {
+      width: 447px;
       display: flex;
       align-items: center;
       justify-content: space-around;
       background: black;
       color: white;
       width: 447px;
-
-      // background: #f4f4f4;
-      // color: #111;
-
-      .is-active {
-        // width: 6.3rem;
-
-        // background: #000;
-        // color: #fff;
-        // width: 63px;
-      }
 
       .is-active .cta-button-wrap button {
         // background: #fff;

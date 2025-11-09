@@ -10,7 +10,6 @@
 
   color: var(--text);
   border-bottom: 1px solid black;
-  height: 25%;
 
   /* Header mit + */
   .cfg-toggle {
@@ -186,31 +185,31 @@
   }
 
   /* CTA-Balken */
-
-  .acc-images {
-    padding-right: 2rem;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-
-    .m-grid {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      align-items: flex-end;
-      gap: 5rem;
-
-      .m-fig {
-        width: 22%;
-        height: auto;
-        margin-left: 10px;
-      }
-    }
-  }
 }
 
 .configurator__meta {
   height: 68%;
   overflow: scroll;
+}
+
+.acc-images {
+  padding-right: 2rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  .m-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 5rem;
+
+    .m-fig {
+      width: 22%;
+      height: auto;
+      margin-left: 10px;
+    }
+  }
 }
