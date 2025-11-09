@@ -1,11 +1,11 @@
 .bespoke {
+  margin: 3rem 0;
   position: relative;
   .teaser-duo .teaser-duo__content {
     background: white;
   }
 
-  &__middle,
-  &__bottom {
-    margin: 0 0 5rem 0;
+  &__middle {
+    margin: 0 0 3rem 0;
   }
 }
