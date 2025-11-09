@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useMemo, useRef} from 'react';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import {Navigation, A11y, Pagination} from 'swiper/modules';
+import {Navigation, Pagination, A11y} from 'swiper/modules';
 
 import classnames from 'classnames';
 import {Thumbs, Navigation} from 'swiper/modules';
@@ -64,8 +64,8 @@ export function MediaGallery({product, variant, className}: Props) {
     slidesPerView: 1,
     spaceBetween: 12,
     navigation: true,
-    loop: hasMultiple,
-    pagination: hasMultiple ? {clickable: true} : undefined,
+    // loop: hasMultiple,
+    // pagination: hasMultiple ? {clickable: true} : undefined,
     touchStartPreventDefault: false,
     allowTouchMove: true,
     speed: 500,
@@ -97,8 +97,11 @@ export function MediaGallery({product, variant, className}: Props) {
     <section className={`nc-media-gallery ${className ?? ''}`}>
       <Swiper
         {...galleryOptions}
-        key={swiperKey} // <- remount
-        modules={[Navigation, A11y]}
+        key={variant?.id || 'default'}
+        modules={[Navigation, Pagination, A11y]}
+        loop={hasMultiple}
+        navigation={hasMultiple ? true : false}
+        pagination={hasMultiple ? {clickable: true} : undefined}
         className="nc-swiper-content"
         onSwiper={(inst) => {
           swiperRef.current = inst;

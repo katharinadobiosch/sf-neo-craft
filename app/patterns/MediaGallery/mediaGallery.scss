@@ -1,10 +1,13 @@
 .media-gallery {
+  position: relative;
   /* Bühne */
   --stage-bg: #e9e9ee; /* grauer Hintergrund wie im Figma */
   --stage-pad: clamp(16px, 2.5vw, 40px);
   --stage-max-w: 860px; /* maximale Breite der Bildbühne */
   --stage-min-h: 420px;
   --stage-max-h: 900px;
+  --swiper-theme-color: #000; /* schwarze aktive Bullet */
+  --swiper-pagination-color: #000; /* Backup für ältere Swiper-Versionen */
 
   /* Höhe an den Viewport koppeln */
   height: clamp(var(--stage-min-h), 75vh, var(--stage-max-h));
@@ -22,6 +25,7 @@
   /* Bühne nicht randlos breit ziehen */
   width: min(100%, var(--stage-max-w));
   height: 100%;
+  position: relative; /* Anker für Buttons & Pagination */
 }
 
 .media-gallery .swiper-wrapper {
@@ -98,34 +102,46 @@
   object-fit: contain;
   display: block;
 }
-/* Grundstil deiner Buttons */
-.nc-swiper-content .swiper-button-prev,
-.nc-swiper-content .swiper-button-next {
-  background: #fff;
-  border-radius: 9999px;
+/* --- Navigation Buttons --- */
+.media-gallery .swiper-button-prev,
+.media-gallery .swiper-button-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
   width: 42px;
   height: 42px;
+  border-radius: 9999px;
+  background: #fff;
   box-shadow: 0 0 6px #00000029;
-  opacity: 1;
-  // transition:
-  //   opacity 0.25s ease,
-  //   transform 0.25s ease;
-  color: #222; /* <— WICHTIG: Pfeil-Farbe */
+  color: #222; /* Pfeilfarbe */
+  opacity: 0; /* per Default verstecken */
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+.media-gallery .swiper-button-prev {
+  left: 12px;
+}
+.media-gallery .swiper-button-next {
+  right: 12px;
 }
 
-/* Größe des Icons (optional) */
-.nc-swiper-content .swiper-button-prev:after,
-.nc-swiper-content .swiper-button-next:after {
+/* nur auf Geräten mit Hover einblenden, wenn der User über dem Bild ist */
+@media (hover: hover) and (pointer: fine) {
+  .media-gallery:hover .swiper-button-prev,
+  .media-gallery:hover .swiper-button-next {
+    opacity: 1;
+  }
+  /* kleines Feedback bei Hover direkt auf dem Button */
+  .media-gallery .swiper-button-prev:hover,
+  .media-gallery .swiper-button-next:hover {
+    transform: translateY(-50%) scale(1.04);
+  }
+}
+
+/* Größe des Icon-Pfeils (::after kommt von Swiper) */
+.media-gallery .swiper-button-prev::after,
+.media-gallery .swiper-button-next::after {
   font-size: 20px;
 }
-
-/* Desktop: Pfeile nur bei Hover des Containers sichtbar */
-
-// .nc-swiper-content .swiper-button-prev,
-// .nc-swiper-content .swiper-button-next {
-//   opacity: 0;
-// }
-// .nc-swiper-content:hover .swiper-button-prev,
-// .nc-swiper-content:hover .swiper-button-next {
-//   opacity: 1;
-// }
