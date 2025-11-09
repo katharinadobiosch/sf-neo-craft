@@ -250,7 +250,7 @@ export function Configurator({productOptions, navigate, product}) {
       >
         <div ref={panelRef} className="cfg-panel-inner">
           {variantOptions.map(renderOption)}
-          <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
+          {/* <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
             <span className="cta-arrow">→</span>
             <span className="cta-price">{money(price, currency)}</span>
             <div className="cta-button-wrap">
@@ -266,7 +266,7 @@ export function Configurator({productOptions, navigate, product}) {
                 {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
               </AddToCartButton>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -289,6 +289,23 @@ export function Configurator({productOptions, navigate, product}) {
             // optional: defaultOpen={false}
           />
         )}
+      </div>
+      <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
+        <span className="cta-arrow">→</span>
+        <span className="cta-price">{money(price, currency)}</span>
+        <div className="cta-button-wrap">
+          <AddToCartButton
+            disabled={!currentVariant || !currentVariant.availableForSale}
+            onClick={() => openAside('cart')}
+            lines={
+              currentVariant
+                ? [{merchandiseId: currentVariant.id, quantity: 1}]
+                : []
+            }
+          >
+            {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
+          </AddToCartButton>
+        </div>
       </div>
     </div>
   );

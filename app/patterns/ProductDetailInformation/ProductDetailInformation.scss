@@ -20,35 +20,39 @@
 
   .product-main {
     align-items: flex-start;
-
     display: flex;
     flex-direction: row;
-    height: 750px;
-    width: 100%;
+    // height: 750px;
+    // width: 100%;
+    // aspect-ratio: 1562 / 940;
     // max-height: 740px;
-    // border-bottom: 10px solid pink;
+    border-bottom: 10px solid pink;
+    max-height: 940px;
+    height: 100%;
 
     &__media {
       width: 50%;
-      height: 740px;
+      aspect-ratio: 780 / 940;
+      border: 5px solid orange;
     }
 
     &__info {
       width: 50%;
       height: 100%;
+      border: 2px solid blue;
 
       .product-form {
         // border: 5px solid green;
-        height: 100%;
 
         .configurator {
           // border: 5px solid orange;
-          height: 100%;
+          // height: 100%;
           // overflow: scroll;
 
           .cfg-panel {
             // border: 5px solid blue;
-            height: 100%;
+            height: auto;
+            border-bottom: 10px solid red;
           }
         }
       }
