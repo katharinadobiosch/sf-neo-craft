@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   margin: 3rem 0;
+
   h1 {
     margin-top: 0;
   }
@@ -9,7 +10,6 @@
   .product-options-grid {
     display: flex;
     flex-wrap: wrap;
-    // grid-gap: 0.75rem;
   }
 
   .product-options-item,
@@ -22,47 +22,95 @@
     align-items: flex-start;
     display: flex;
     flex-direction: row;
-    // height: 750px;
-    // width: 100%;
-    // aspect-ratio: 1562 / 940;
-    // max-height: 740px;
-    border-bottom: 10px solid pink;
     max-height: 940px;
     height: 100%;
-
+    border: 5px solid red;
+   
     &__media {
       width: 50%;
       aspect-ratio: 780 / 940;
-      border: 5px solid orange;
     }
 
     &__info {
       width: 50%;
+      aspect-ratio: 780 / 940;
       height: 100%;
-      border: 2px solid blue;
-
-      .product-form {
-        // border: 5px solid green;
-
-        .configurator {
-          // border: 5px solid orange;
-          // height: 100%;
-          // overflow: scroll;
-
-          .cfg-panel {
-            // border: 5px solid blue;
-            height: auto;
-            border-bottom: 10px solid red;
-          }
-        }
-      }
     }
   }
 
   .pdp__teaser-duo {
     margin: 3rem 0 0 0;
+
     img {
       aspect-ratio: 781/520;
+    }
+  }
+
+  &__cta-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-top: 1px solid black;
+    font-size: var(--nc-fliesstext-desktop-size);
+    line-height: var(--nc-fliesstext-desktop-line);
+    font-weight: var(--nc-fliesstext-desktop-weight);
+    // width: 100%;
+
+    .pdp__question {
+      flex: 1 1 0; /* <- nimmt den gesamten Restplatz ein */
+      min-width: 0; /* falls nötig, verhindert overflow/blockieren */
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Text mittig im Restbereich */
+      text-align: center;
+    }
+
+    .cfg-cta {
+      width: 447px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      background: black;
+      color: white;
+      width: 447px;
+
+      .is-active .cta-button-wrap button {
+        // background: #fff;
+        // color: #000;
+      }
+
+      .cta-button-wrap button {
+        all: unset;
+        cursor: pointer;
+        border: 1px solid currentColor;
+        padding: 0.65rem 1rem;
+        font-weight: 600;
+      }
+
+      .cta-button-wrap button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
+
+      .cta-price {
+        font-weight: 600;
+        // width: 6.3rem;
+        text-align: right;
+      }
+
+      form > button {
+        all: unset;
+        cursor: pointer;
+        background: #000;
+        color: #fff;
+        padding: 0.65rem 1rem;
+        font-weight: 600;
+      }
+
+      form > button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+      }
     }
   }
 }
@@ -74,7 +122,7 @@
 }
 
 .product-main .product-form {
-  height: auto;
+  height: 100%;
 }
 
 .product-price-on-sale s {

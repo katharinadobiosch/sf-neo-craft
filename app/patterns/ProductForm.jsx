@@ -83,14 +83,11 @@ export function ProductForm({productOptions, product}) {
           />
         )}
       </div>
-      {/* <ProductMetaAccordion
-        metafields={product?.metafields || []}
-        product={product}
-      /> */}
-      <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
-        <span className="cta-arrow">→</span>
-        <span className="cta-price">{money(price, currency)}</span>
-        <div className="cta-button-wrap">
+
+      <div className="pdp__cta-container">
+        <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
+          <span className="cta-arrow">→</span>
+          <span className="cta-price">{money(price, currency)}</span>
           <AddToCartButton
             disabled={!currentVariant || !currentVariant.availableForSale}
             onClick={() => openAside('cart')}
@@ -102,6 +99,9 @@ export function ProductForm({productOptions, product}) {
           >
             {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
           </AddToCartButton>
+        </div>
+        <div className="pdp__question">
+          <div>Further Questions?</div>
         </div>
       </div>
     </div>
