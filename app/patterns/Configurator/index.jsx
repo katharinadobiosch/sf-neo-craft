@@ -95,160 +95,10 @@ const money = (num, currency = 'USD') =>
     Number(num || 0),
   );
 
-// ---------- Component ----------
-// export function Configurator({productOptions, navigate, product}) {
-//   const {open: openAside} = useAside();
-
-//   // Accordion
-//   const [open, setOpen] = useState(true);
-//   const panelRef = useRef(null);
-//   const [panelHeight, setPanelHeight] = useState(0);
-
-//   useEffect(() => {
-//     if (open && panelRef.current) {
-//       setPanelHeight(panelRef.current.scrollHeight);
-//     }
-//   }, [open, productOptions]);
-
-//   useEffect(() => {
-//     const onResize = () => {
-//       if (open && panelRef.current)
-//         setPanelHeight(panelRef.current.scrollHeight);
-//     };
-//     window.addEventListener('resize', onResize);
-//     return () => window.removeEventListener('resize', onResize);
-//   }, [open]);
-
-//   // Aktuelle Variante
-//   const currentVariant = useMemo(() => {
-//     for (const opt of productOptions || []) {
-//       const sel = opt.optionValues?.find((v) => v.selected);
-//       if (sel?.variant) return sel.variant;
-//     }
-//     const first = productOptions?.[0]?.optionValues?.[0];
-//     return first?.variant || first?.firstSelectableVariant || null;
-//   }, [productOptions]);
-
-//   const currency = currentVariant?.price?.currencyCode || 'USD';
-//   const price = Number(currentVariant?.price?.amount || 0);
-
-//   const renderOption = (option) => {
-//     const colorish = isColorOption(option.name);
-//     const label = colorish
-//       ? norm(option.name).includes('metal') ||
-//         norm(option.name).includes('base')
-//         ? 'Color Base'
-//         : 'Color Glass'
-//       : option.name;
-
-//     return (
-//       <div className="cfg-row" key={option.name}>
-//         <div className="cfg-label">
-//           {label.charAt(0).toUpperCase() + label.slice(1)}
-//         </div>
-//         <div className="cfg-values">
-//           {option.optionValues.map((value) => {
-//             const selected = !!value.selected;
-//             const disabled = !value.exists;
-//             return (
-//               <button
-//                 key={value.name}
-//                 className={`cfg-item ${colorish ? 'is-color' : 'is-chip'} ${selected ? 'is-selected' : ''}`}
-//                 disabled={disabled}
-//                 title={value.name}
-//                 onClick={() => {
-//                   if (!selected) {
-//                     navigate(`?${value.variantUriQuery}`, {
-//                       replace: true,
-//                       preventScrollReset: true,
-//                     });
-//                   }
-//                 }}
-//                 aria-pressed={selected}
-//               >
-//                 {colorish ? (
-//                   <span className="dot-ring">
-//                     <span
-//                       className="dot"
-//                       style={getSwatchStyle(value.name)}
-//                       aria-label={value.name}
-//                     />
-//                   </span>
-//                 ) : (
-//                   <span className="chip-text">
-//                     {value.name.replace('ø ', '')}
-//                   </span>
-//                 )}
-//               </button>
-//             );
-//           })}
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   // ist jede Option explizit gewählt?
-//   const allSelected =
-//     Array.isArray(productOptions) &&
-//     productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected));
-
-//   const isReady = !!currentVariant?.availableForSale && allSelected;
-
-//   return (
-//     <div className={`configurator ${open ? 'is-open' : ''}`}>
-//       <div className="cfg-head">
-//         <button
-//           type="button"
-//           className="cfg-toggle"
-//           aria-expanded={open}
-//           aria-controls="cfg-panel"
-//           onClick={() => setOpen((v) => !v)}
-//         >
-//           <span className="cfg-title">Configurator</span>
-//           <span className="cfg-plus" aria-hidden />
-//         </button>
-
-//         <div className="cfg-head__label" />
-//         <div className="cfg-head__values" />
-//       </div>
-
-//       <div
-//         id="cfg-panel"
-//         className="cfg-panel"
-//         // style={{maxHeight: open ? panelHeight : 0}}
-//       >
-//         <div ref={panelRef} className="cfg-panel-inner">
-//           {productOptions?.map(renderOption)}
-//           <div className="configurator__meta">
-//             <ProductMetaAccordion
-//               metafields={product?.metafields || []}
-//               product={product}
-//             />
-//           </div>
-//           <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
-//             <span className="cta-arrow">→</span>
-//             <span className="cta-price">{money(price, currency)}</span>
-//             <div className="cta-button-wrap">
-//               <AddToCartButton
-//                 disabled={!currentVariant || !currentVariant.availableForSale}
-//                 onClick={() => openAside('cart')}
-//                 lines={
-//                   currentVariant
-//                     ? [{merchandiseId: currentVariant.id, quantity: 1}]
-//                     : []
-//                 }
-//               >
-//                 {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
-//               </AddToCartButton>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// ...imports & helpers bleiben unverändert
+const isMeasurementsMeta = (m) => {
+  const n = norm(m?.key || m?.definition?.name || m?.name || '');
+  return n === 'measurements' || n === 'measurement' || n.includes('measure');
+};
 
 export function Configurator({productOptions, navigate, product}) {
   const {open: openAside} = useAside();
@@ -304,6 +154,21 @@ export function Configurator({productOptions, navigate, product}) {
   };
 
   const variantOptions = productOptions || [];
+
+  const sortedMetafields = useMemo(() => {
+    const list = product?.metafields || [];
+    // Measurements zuerst, Rest in Original-Reihenfolge
+    return [...list].sort(
+      (a, b) =>
+        (isMeasurementsMeta(a) ? -1 : 0) - (isMeasurementsMeta(b) ? -1 : 0),
+    );
+  }, [product?.metafields]);
+
+  const allMetafields = Array.isArray(product?.metafields)
+    ? product.metafields
+    : [];
+  const mfMeasurements = allMetafields.filter(isMeasurementsMeta);
+  const mfOthers = allMetafields.filter((m) => !isMeasurementsMeta(m));
 
   const renderOption = (option) => {
     const colorish = isColorOption(option.name);
@@ -407,14 +272,23 @@ export function Configurator({productOptions, navigate, product}) {
 
       {/* Container 2: Meta (eigener Scroll), default: geschlossen (falls unterstützt) */}
       <div className="configurator__meta">
-        <ProductMetaAccordion
-          metafields={product?.metafields || []}
-          product={product}
-          /* nur setzen, wenn deine Komponente diese Props kennt
-          defaultOpen={false}
-          defaultOpenKeys={[]}
-          */
-        />
+        {/* 1) Measurements zuerst */}
+        {mfMeasurements.length > 0 && (
+          <ProductMetaAccordion
+            metafields={mfMeasurements}
+            product={product}
+            // optional: defaultOpen={false}
+          />
+        )}
+
+        {/* 2) danach der Rest */}
+        {mfOthers.length > 0 && (
+          <ProductMetaAccordion
+            metafields={mfOthers}
+            product={product}
+            // optional: defaultOpen={false}
+          />
+        )}
       </div>
     </div>
   );
