@@ -1,9 +1,10 @@
 @use '../../styles/utils/_mixins' as *;
 
-@media (max-width: 45em) {
-  html:has(.overlay.expanded) {
-    overflow: hidden;
-  }
+/* Scroll-Lock für alle Viewports */
+html:has(.overlay.expanded),
+body:has(.overlay.expanded) {
+  overflow: hidden;
+  overscroll-behavior: none; /* verhindert Scroll-Bubble auf Desktop */
 }
 
 aside {
@@ -66,7 +67,7 @@ aside li {
 }
 
 .overlay {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.35);
   bottom: 0;
   left: 0;
   opacity: 0;
