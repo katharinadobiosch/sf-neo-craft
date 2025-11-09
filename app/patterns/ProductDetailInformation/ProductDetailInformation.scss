@@ -24,8 +24,10 @@
     flex-direction: row;
     aspect-ratio: 1560 / 780;
     border: 5px solid red;
+    align-items: stretch;
 
     &__media {
+      display: flex; /* Kind strecken */
       width: 50%;
       aspect-ratio: 780 / 940;
 
@@ -40,6 +42,10 @@
       width: 50%;
       aspect-ratio: 780 / 940;
       height: 100%;
+    }
+    .media-gallery {
+      flex: 1 1 auto; /* füllt die Spalte */
+      width: 100%;
     }
   }
 
