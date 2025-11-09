@@ -1,8 +1,4 @@
-import {useMemo, useRef, useState, useEffect} from 'react';
-import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
-import {useAside} from '~/patterns/Aside';
-import {ProductMetaAccordion} from '~/patterns/ProductMetaAccordion';
-
+import {useRef, useState, useEffect} from 'react';
 import colors from './colors.json';
 
 const hexToRgba = (hex) => {
@@ -90,54 +86,40 @@ const getHex = (name) => {
   return m?.hex || null;
 };
 
-const money = (num, currency = 'USD') =>
-  new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
-    Number(num || 0),
-  );
-
-// ---------- Component ----------
-export function Configurator({productOptions, navigate, product}) {
-  const {open: openAside} = useAside();
-
-  // Accordion
-  const [open, setOpen] = useState(true);
+export function Configurator({productOptions, navigate}) {
+  // Nur die Varianten-Sektion toggeln
+  const [variantsOpen, setVariantsOpen] = useState(true);
   const panelRef = useRef(null);
   const [panelHeight, setPanelHeight] = useState(0);
+
+  // Höhe messen, sobald offen + DOM steht
   useEffect(() => {
-    if (open && panelRef.current) {
-      setPanelHeight(panelRef.current.scrollHeight);
-    }
-  }, [open, productOptions]);
+    if (!variantsOpen) return;
+    // next frame für verlässliche scrollHeight
+    const id = requestAnimationFrame(() => {
+      if (panelRef.current) {
+        setPanelHeight(panelRef.current.scrollHeight || 0);
+      }
+    });
+    return () => cancelAnimationFrame(id);
+  }, [variantsOpen, productOptions]);
+
   useEffect(() => {
     const onResize = () => {
-      if (open && panelRef.current)
-        setPanelHeight(panelRef.current.scrollHeight);
+      if (variantsOpen && panelRef.current) {
+        setPanelHeight(panelRef.current.scrollHeight || 0);
+      }
     };
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
-  }, [open]);
+  }, [variantsOpen]);
 
-  // Aktuelle Variante
-  const currentVariant = useMemo(() => {
-    for (const opt of productOptions || []) {
-      const sel = opt.optionValues?.find((v) => v.selected);
-      if (sel?.variant) return sel.variant;
-    }
-    const first = productOptions?.[0]?.optionValues?.[0];
-    return first?.variant || first?.firstSelectableVariant || null;
-  }, [productOptions]);
-
-  const currency = currentVariant?.price?.currencyCode || 'USD';
-  const price = Number(currentVariant?.price?.amount || 0);
+  const variantOptions = productOptions || [];
 
   const renderOption = (option) => {
     const colorish = isColorOption(option.name);
-    const label = colorish
-      ? norm(option.name).includes('metal') ||
-        norm(option.name).includes('base')
-        ? 'Color Base'
-        : 'Color Glass'
-      : option.name;
+
+    const label = option.name.charAt(0).toUpperCase() + option.name.slice(1); // 👈 hier
 
     return (
       <div className="cfg-row" key={option.name}>
@@ -183,70 +165,32 @@ export function Configurator({productOptions, navigate, product}) {
     );
   };
 
-  // ist jede Option explizit gewählt?
-  const allSelected =
-    Array.isArray(productOptions) &&
-    productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected));
-
-  const isReady = !!currentVariant?.availableForSale && allSelected;
-
   return (
-    <div className={`configurator ${open ? 'is-open' : ''}`}>
-      <button
-        type="button"
-        className="cfg-toggle"
-        aria-expanded={open}
-        aria-controls="cfg-panel"
-        onClick={() => setOpen((v) => !v)}
-      >
-        <div className="cfg-head">
-          <button
-            type="button"
-            className="cfg-toggle"
-            aria-expanded={open}
-            aria-controls="cfg-panel"
-            onClick={() => setOpen((v) => !v)}
-          >
-            <span className="cfg-title">Configurator</span>
-            <span className="cfg-plus" aria-hidden />
-          </button>
-          <div className="cfg-head__label" />
-          <div className="cfg-head__values" />
-        </div>
+    <div className="configurator" data-variants-open={variantsOpen}>
+      {/* Kopf: toggelt NUR Varianten */}
+      <div className="cfg-head">
+        <button
+          type="button"
+          className="cfg-toggle"
+          aria-expanded={variantsOpen}
+          aria-controls="cfg-variants"
+          onClick={() => setVariantsOpen((v) => !v)}
+        >
+          <span className="cfg-title">Configurator</span>
+          <span className="cfg-plus" aria-hidden />
+        </button>
+        <div className="cfg-head__label" />
+        <div className="cfg-head__values" />
+      </div>
 
-        <span className="cfg-plus" aria-hidden />
-      </button>
-
+      {/* Container 1: Varianten */}
       <div
-        id="cfg-panel"
+        id="cfg-variants"
         className="cfg-panel"
-        // style={{maxHeight: open ? panelHeight : 0}}
+        style={{maxHeight: variantsOpen ? panelHeight : 0}}
       >
         <div ref={panelRef} className="cfg-panel-inner">
-          {productOptions?.map(renderOption)}
-          <div className="configurator__meta">
-            <ProductMetaAccordion
-              metafields={product?.metafields || []}
-              product={product}
-            />
-          </div>
-          <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
-            <span className="cta-arrow">→</span>
-            <span className="cta-price">{money(price, currency)}</span>
-            <div className="cta-button-wrap">
-              <AddToCartButton
-                disabled={!currentVariant || !currentVariant.availableForSale}
-                onClick={() => openAside('cart')}
-                lines={
-                  currentVariant
-                    ? [{merchandiseId: currentVariant.id, quantity: 1}]
-                    : []
-                }
-              >
-                {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
-              </AddToCartButton>
-            </div>
-          </div>
+          {variantOptions.map(renderOption)}
         </div>
       </div>
     </div>

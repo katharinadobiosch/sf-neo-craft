@@ -3,9 +3,14 @@
   margin-top: 2rem;
   // overflow: scroll;
   position: relative;
-  border-top: 1px solid var(--border-color);
+  // border-top: 1px solid var(--border-color);
 
   .acc-item {
+    // border: 2px solid red;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
     summary::-webkit-details-marker {
       display: none;
     }
@@ -16,7 +21,7 @@
       justify-content: space-between;
       width: 150px;
       min-height: 5rem;
-      padding: 0.75rem 0;
+      // padding: 0.75rem 0;
       cursor: pointer;
       user-select: none;
     }
@@ -28,9 +33,9 @@
     /* Plus-Icon aus zwei Linien, wie im Configurator */
     .acc-plus {
       position: relative;
-      width: 18px;
-      height: 18px;
-      flex: 0 0 18px;
+      width: 12px;
+      height: 12px;
+      flex: 0 0 12px;
     }
     .acc-plus::before,
     .acc-plus::after {
@@ -60,13 +65,14 @@
 
     .acc-panel p {
       color: #222;
-      padding-left: 150px;
-      padding-bottom: 1rem;
+      padding-left: 2rem;
+      // padding-bottom: 1rem;
       display: flex;
       flex-direction: row;
       font-size: 1.2rem;
       line-height: 1.9rem;
       font-weight: 400;
+      margin: 0;
 
       .measurements {
         width: 100%;

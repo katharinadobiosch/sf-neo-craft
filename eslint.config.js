@@ -1,3 +1,4 @@
+// eslint.config.js
 import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -5,16 +6,25 @@ import pluginReact from 'eslint-plugin-react';
 import {defineConfig} from 'eslint/config';
 
 export default defineConfig([
-  {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    plugins: {js},
-    extends: ['js/recommended'],
-  },
+  // Basis
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     languageOptions: {globals: globals.browser},
+    rules: {
+      // Optional: andere Basisregeln
+    },
   },
+
+  // JS-Empfehlungen
+  {
+    files: ['**/*.{js,mjs,cjs,jsx}'],
+    ...js.configs.recommended, // @eslint/js
+  },
+
+  // TS-Empfehlungen (nur für TS-Dateien)
   tseslint.configs.recommended,
+
+  // React
   {
     ...pluginReact.configs.flat.recommended,
     rules: {
@@ -23,9 +33,48 @@ export default defineConfig([
       'react/prop-types': 'off',
     },
   },
+
+  // Node-Umgebung wo nötig
   {
-    env: {
-      node: true,
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
+
+  // 🔔 JS/JSX: unbenutzte Variablen melden
+  {
+    files: ['**/*.{js,mjs,cjs,jsx}'],
+    rules: {
+      'no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          args: 'after-used',
+          ignoreRestSiblings: false,
+          varsIgnorePattern: '^_',
+          argsIgnorePattern: '^_',
+        },
+      ],
+    },
+  },
+
+  // 🔔 TS/TSX: unbenutzte Variablen melden (Core-Regel aus!)
+  {
+    files: ['**/*.{ts,mts,cts,tsx}'],
+    rules: {
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          args: 'after-used',
+          ignoreRestSiblings: false,
+          varsIgnorePattern: '^_',
+          argsIgnorePattern: '^_',
+        },
+      ],
     },
   },
 ]);

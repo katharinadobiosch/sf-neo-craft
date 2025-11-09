@@ -307,7 +307,7 @@ index 0000000..3c4832c
 +          "node": {
 +            "namespace": "custom",
 +            "key": "measurements",
-+            "name": "Measurements File",
++            "name": "Measurements",
 +            "type": {
 +              "name": "list.file_reference"
 +            },
@@ -1008,7 +1008,7 @@ index 0000000..f327f87
 +  {
 +    "namespace": "custom",
 +    "key": "measurements",
-+    "name": "Measurements File",
++    "name": "Measurements",
 +    "type": {
 +      "name": "list.file_reference"
 +    },
@@ -1485,7 +1485,7 @@ index 0000000..f7b3e2d
 +  {
 +    "namespace": "custom",
 +    "key": "measurements",
-+    "name": "Measurements File",
++    "name": "Measurements",
 +    "type": {
 +      "name": "list.file_reference"
 +    },
