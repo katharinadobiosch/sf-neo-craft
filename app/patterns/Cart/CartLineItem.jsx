@@ -5,7 +5,6 @@ import {ProductPrice} from '../ProductPrice';
 import {useAside} from '~/patterns/Aside';
 import './cart.scss';
 
-
 /**
  * A single line item in the cart. It displays the product image, title, price.
  * It also provides controls to update the quantity or remove the line item.
@@ -14,6 +13,9 @@ import './cart.scss';
  *   line: CartLine;
  * }}
  */
+// app/patterns/Cart/CartLineItem.jsx
+// …Imports bleiben…
+
 export function CartLineItem({layout, line}) {
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
@@ -27,28 +29,26 @@ export function CartLineItem({layout, line}) {
           alt={title}
           aspectRatio="1/1"
           data={image}
-          height={100}
+          height={90}
+          width={90}
           loading="lazy"
-          width={100}
+          className="cart-line__image"
         />
       )}
 
-      <div>
+      <div className="cart-line__info">
         <Link
           prefetch="intent"
           to={lineItemUrl}
           onClick={() => {
-            if (layout === 'aside') {
-              close();
-            }
+            if (layout === 'aside') close();
           }}
+          className="cart-line__title"
         >
-          <p>
-            <strong>{product.title}</strong>
-          </p>
+          <strong>{product.title}</strong>
         </Link>
-        <ProductPrice price={line?.cost?.totalAmount} />
-        <ul>
+
+        <ul className="cart-line__options">
           {selectedOptions.map((option) => (
             <li key={option.name}>
               <small>
@@ -57,7 +57,12 @@ export function CartLineItem({layout, line}) {
             </li>
           ))}
         </ul>
-        <CartLineQuantity line={line} />
+
+        <div className="cart-line__footer">
+          <ProductPrice price={line?.cost?.totalAmount} />
+
+          <CartLineQuantity line={line} />
+        </div>
       </div>
     </li>
   );

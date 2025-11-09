@@ -2,19 +2,20 @@ import {CartForm, Money} from '@shopify/hydrogen';
 import {useRef} from 'react';
 import './cart.scss';
 
-
 /**
  * @param {CartSummaryProps}
  */
+// app/patterns/Cart/CartSummary.jsx
 export function CartSummary({cart, layout}) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
+      <h4>Summe</h4>
+
       <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
+        <dt>Zwischensumme</dt>
         <dd>
           {cart.cost?.subtotalAmount?.amount ? (
             <Money data={cart.cost?.subtotalAmount} />
@@ -23,27 +24,52 @@ export function CartSummary({cart, layout}) {
           )}
         </dd>
       </dl>
+
       <CartDiscounts discountCodes={cart.discountCodes} />
       <CartGiftCard giftCardCodes={cart.appliedGiftCards} />
+
+      <div className="cart-shipping-hint">
+        <small>
+          inkl. MwSt., <strong>kostenloser Versand</strong>
+        </small>
+      </div>
+
       <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
     </div>
   );
 }
-/**
- * @param {{checkoutUrl?: string}}
- */
+
+// Button-Text anpassen:
 function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
-
   return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+    <div className="cart-checkout">
+      <a
+        href={checkoutUrl}
+        target="_self"
+        className="btn btn--primary btn--full"
+      >
+        Zur Kasse
       </a>
-      <br />
     </div>
   );
 }
+
+/**
+ * @param {{checkoutUrl?: string}}
+ */
+// function CartCheckoutActions({checkoutUrl}) {
+//   if (!checkoutUrl) return null;
+
+//   return (
+//     <div>
+//       <a href={checkoutUrl} target="_self">
+//         <p>Continue to Checkout &rarr;</p>
+//       </a>
+//       <br />
+//     </div>
+//   );
+// }
 
 /**
  * @param {{
