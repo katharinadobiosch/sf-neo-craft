@@ -13,6 +13,7 @@ import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
  */
 export function ProductForm({productOptions, product}) {
   const navigate = useNavigate();
+  const test = 500;
   const norm = (s = '') =>
     s
       .normalize('NFKD')
