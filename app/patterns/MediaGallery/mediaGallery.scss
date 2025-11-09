@@ -1,80 +1,15 @@
-.media-gallery {
-  position: relative;
-  /* Bühne */
-  --stage-bg: #e9e9ee; /* grauer Hintergrund wie im Figma */
-  --stage-pad: clamp(16px, 2.5vw, 40px);
-  --stage-max-w: 860px; /* maximale Breite der Bildbühne */
-  --stage-min-h: 420px;
-  --stage-max-h: 900px;
-  --swiper-theme-color: #000; /* schwarze aktive Bullet */
-  --swiper-pagination-color: #000; /* Backup für ältere Swiper-Versionen */
-
-  /* Höhe an den Viewport koppeln */
-  height: clamp(var(--stage-min-h), 75vh, var(--stage-max-h));
-  width: 100%;
-
-  display: grid;
-  place-items: center;
-
-  /* Hintergrundfläche (optional) */
-  background: var(--stage-bg);
-  border-radius: 0;
-}
-
-.media-gallery .swiper {
-  /* Bühne nicht randlos breit ziehen */
-  width: min(100%, var(--stage-max-w));
-  height: 100%;
-  position: relative; /* Anker für Buttons & Pagination */
-}
-
-.media-gallery .swiper-wrapper {
-  /* Fix für gelegentliches „vertikal stapeln“ bei fehlender Höhe */
-  align-items: center;
-}
-
-.media-gallery .swiper-slide {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.media-gallery .swiper-slide img {
-  /* sauber einpassen – nie verzerren */
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-/* Pagination wie im Figma knapp unter dem Bild */
-.media-gallery .swiper-pagination {
-  position: absolute;
-  bottom: clamp(8px, 1.8vh, 18px);
-  left: 0;
-  right: 0;
-  text-align: center;
-}
-
-.media-gallery .swiper-pagination-bullet {
-  width: 6px;
-  height: 6px;
-  background: #000;
-  opacity: 0.28;
-}
-
-.media-gallery .swiper-pagination-bullet-active {
-  opacity: 1;
-}
-
-/* Bühne */
+/* Bühne / Wrapper */
 .nc-media-gallery {
+  position: relative;
   --stage-bg: #e9e9ee;
   --stage-max-w: 860px;
   --stage-min-h: 420px;
   --stage-max-h: 900px;
 
+  /* Swiper-Theme-Farbe (aktiv) auf schwarz setzen */
+  --swiper-theme-color: #000;
+  --swiper-pagination-color: #000;
+
   width: 100%;
   height: clamp(var(--stage-min-h), 75vh, var(--stage-max-h));
   display: grid;
@@ -82,10 +17,11 @@
   background: var(--stage-bg);
 }
 
-/* Swiper-Grundflächen */
+/* Swiper-Basis */
 .nc-media-gallery .swiper {
   width: min(100%, var(--stage-max-w));
   height: 100%;
+  position: relative; /* Anker für Buttons & Pagination */
 }
 .nc-media-gallery .swiper-wrapper {
   align-items: center;
@@ -102,9 +38,10 @@
   object-fit: contain;
   display: block;
 }
-/* --- Navigation Buttons --- */
-.media-gallery .swiper-button-prev,
-.media-gallery .swiper-button-next {
+
+/* Navigation – mittig links/rechts, nur bei Hover sichtbar */
+.nc-media-gallery .swiper-button-prev,
+.nc-media-gallery .swiper-button-next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -114,34 +51,50 @@
   border-radius: 9999px;
   background: #fff;
   box-shadow: 0 0 6px #00000029;
-  color: #222; /* Pfeilfarbe */
-  opacity: 0; /* per Default verstecken */
+  color: #222;
+  opacity: 0;
   transition:
     opacity 0.25s ease,
     transform 0.25s ease;
 }
-.media-gallery .swiper-button-prev {
+.nc-media-gallery .swiper-button-prev {
   left: 12px;
 }
-.media-gallery .swiper-button-next {
+.nc-media-gallery .swiper-button-next {
   right: 12px;
 }
-
-/* nur auf Geräten mit Hover einblenden, wenn der User über dem Bild ist */
 @media (hover: hover) and (pointer: fine) {
-  .media-gallery:hover .swiper-button-prev,
-  .media-gallery:hover .swiper-button-next {
+  .nc-media-gallery:hover .swiper-button-prev,
+  .nc-media-gallery:hover .swiper-button-next {
     opacity: 1;
   }
-  /* kleines Feedback bei Hover direkt auf dem Button */
-  .media-gallery .swiper-button-prev:hover,
-  .media-gallery .swiper-button-next:hover {
+  .nc-media-gallery .swiper-button-prev:hover,
+  .nc-media-gallery .swiper-button-next:hover {
     transform: translateY(-50%) scale(1.04);
   }
 }
-
-/* Größe des Icon-Pfeils (::after kommt von Swiper) */
-.media-gallery .swiper-button-prev::after,
-.media-gallery .swiper-button-next::after {
+.nc-media-gallery .swiper-button-prev::after,
+.nc-media-gallery .swiper-button-next::after {
   font-size: 20px;
+}
+
+/* Pagination-Dots unten mittig + schwarz */
+.nc-media-gallery .swiper-pagination {
+  position: absolute;
+  bottom: clamp(8px, 1.8vh, 18px);
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+.nc-media-gallery .swiper-pagination-bullet,
+.nc-media-gallery .swiper-pagination-bullet-active {
+  width: 6px;
+  height: 6px;
+  background: #000 !important; /* überschreibt Swiper-Default */
+}
+.nc-media-gallery .swiper-pagination-bullet {
+  opacity: 0.28;
+}
+.nc-media-gallery .swiper-pagination-bullet-active {
+  opacity: 1;
 }

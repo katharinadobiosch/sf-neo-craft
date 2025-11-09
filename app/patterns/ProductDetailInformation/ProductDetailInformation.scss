@@ -22,13 +22,18 @@
     align-items: flex-start;
     display: flex;
     flex-direction: row;
-    max-height: 940px;
-    height: 100%;
+    aspect-ratio: 1560 / 780;
     border: 5px solid red;
-   
+
     &__media {
       width: 50%;
       aspect-ratio: 780 / 940;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
     }
 
     &__info {
