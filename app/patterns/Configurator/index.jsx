@@ -1,6 +1,4 @@
 import {useRef, useState, useEffect} from 'react';
-import {useAside} from '~/patterns/Aside';
-
 import colors from './colors.json';
 
 const hexToRgba = (hex) => {
@@ -88,9 +86,7 @@ const getHex = (name) => {
   return m?.hex || null;
 };
 
-export function Configurator({productOptions, navigate, product}) {
-  const {open: openAside} = useAside();
-
+export function Configurator({productOptions, navigate}) {
   // Nur die Varianten-Sektion toggeln
   const [variantsOpen, setVariantsOpen] = useState(true);
   const panelRef = useRef(null);

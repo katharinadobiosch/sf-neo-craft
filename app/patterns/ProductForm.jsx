@@ -1,5 +1,5 @@
-import {useMemo, useRef, useState, useEffect} from 'react';
-
+import {useMemo} from 'react';
+import {useAside} from '~/patterns/Aside';
 import {useNavigate} from 'react-router';
 import {Configurator} from './Configurator';
 import {ProductMetaAccordion} from './ProductMetaAccordion';
@@ -12,8 +12,9 @@ import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
  * }}
  */
 export function ProductForm({productOptions, product}) {
+  const {open: openAside} = useAside();
+
   const navigate = useNavigate();
-  const test = 500;
   const norm = (s = '') =>
     s
       .normalize('NFKD')
