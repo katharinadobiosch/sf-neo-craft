@@ -98,7 +98,7 @@
   {
     "namespace": "custom",
     "key": "measurements",
-    "name": "Measurements File",
+    "name": "Measurements",
     "type": {
       "name": "list.file_reference"
     },

@@ -103,11 +103,13 @@ export function Configurator({productOptions, navigate, product}) {
   const [open, setOpen] = useState(true);
   const panelRef = useRef(null);
   const [panelHeight, setPanelHeight] = useState(0);
+
   useEffect(() => {
     if (open && panelRef.current) {
       setPanelHeight(panelRef.current.scrollHeight);
     }
   }, [open, productOptions]);
+
   useEffect(() => {
     const onResize = () => {
       if (open && panelRef.current)
@@ -141,7 +143,9 @@ export function Configurator({productOptions, navigate, product}) {
 
     return (
       <div className="cfg-row" key={option.name}>
-        <div className="cfg-label">{label}</div>
+        <div className="cfg-label">
+          {label.charAt(0).toUpperCase() + label.slice(1)}
+        </div>
         <div className="cfg-values">
           {option.optionValues.map((value) => {
             const selected = !!value.selected;

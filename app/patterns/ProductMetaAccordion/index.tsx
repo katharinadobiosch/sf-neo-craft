@@ -44,6 +44,7 @@ const EXCLUDE_FQ_KEYS = new Set<string>([
   'custom.hero_split_rechts',
   'custom.teaser_duo_bottom_links',
   'custom.teaser_duo_bottom_rechts',
+  'custom.material_tile_color',
 ]);
 
 // ---- Hilfsfunktionen ----
