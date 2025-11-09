@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   margin: 3rem 0;
+
   h1 {
     margin-top: 0;
   }
@@ -22,10 +23,6 @@
     align-items: flex-start;
     display: flex;
     flex-direction: row;
-    // height: 750px;
-    // width: 100%;
-    // aspect-ratio: 1562 / 940;
-    // max-height: 740px;
     max-height: 940px;
     height: 100%;
 
@@ -44,33 +41,51 @@
 
   .pdp__teaser-duo {
     margin: 3rem 0 0 0;
+
     img {
       aspect-ratio: 781/520;
     }
   }
 
-  &__add-to-cart-button {
+  &__cta-container {
+    display: flex;
+    flex-direction: row;
     height: 7%;
-    background: black;
-    color: white;
+    border-top: 1px solid black;
+    font-size: var(--nc-fliesstext-desktop-size);
+    line-height: var(--nc-fliesstext-desktop-line);
+    font-weight: var(--nc-fliesstext-desktop-weight);
+    width: 100%;
+
+    .pdp__question {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
 
     .cfg-cta {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      // background: var(--cta-bg);
-      // color: var(--cta-text);
+      justify-content: space-around;
+      background: black;
+      color: white;
+      width: 447px;
+
       // background: #f4f4f4;
       // color: #111;
 
       .is-active {
+        // width: 6.3rem;
+
         // background: #000;
         // color: #fff;
+        // width: 63px;
       }
 
       .is-active .cta-button-wrap button {
-        background: #fff;
-        color: #000;
+        // background: #fff;
+        // color: #000;
       }
 
       .cta-button-wrap button {
@@ -88,7 +103,8 @@
 
       .cta-price {
         font-weight: 600;
-        margin-right: auto;
+        // width: 6.3rem;
+        text-align: right;
       }
 
       form > button {

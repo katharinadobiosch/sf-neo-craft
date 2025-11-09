@@ -84,23 +84,24 @@ export function ProductForm({productOptions, product}) {
         )}
       </div>
 
-      <div className="pdp__add-to-cart-button">
+      <div className="pdp__cta-container">
         <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
           <span className="cta-arrow">→</span>
           <span className="cta-price">{money(price, currency)}</span>
-          <div className="cta-button-wrap">
-            <AddToCartButton
-              disabled={!currentVariant || !currentVariant.availableForSale}
-              onClick={() => openAside('cart')}
-              lines={
-                currentVariant
-                  ? [{merchandiseId: currentVariant.id, quantity: 1}]
-                  : []
-              }
-            >
-              {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
-            </AddToCartButton>
-          </div>
+          <AddToCartButton
+            disabled={!currentVariant || !currentVariant.availableForSale}
+            onClick={() => openAside('cart')}
+            lines={
+              currentVariant
+                ? [{merchandiseId: currentVariant.id, quantity: 1}]
+                : []
+            }
+          >
+            {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
+          </AddToCartButton>
+        </div>
+        <div className="pdp__question">
+          <div>Further Questions?</div>
         </div>
       </div>
     </div>

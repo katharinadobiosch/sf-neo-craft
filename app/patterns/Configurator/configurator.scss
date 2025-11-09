@@ -15,7 +15,7 @@
   /* Header mit + */
   .cfg-toggle {
     all: unset;
-    width: 150px;
+    width: 233px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -85,12 +85,12 @@
 
   .cfg-row::before {
     content: '';
-    flex: 0 0 150px; /* = Breite deines .cfg-toggle (links) */
+    flex: 0 0 233px; /* = Breite deines .cfg-toggle (links) */
   }
 
   .cfg-label {
     font-size: 1.2rem;
-    flex: 0 0 160px;
+    flex: 0 0 100px;
   }
 
   .cfg-values {
@@ -108,11 +108,11 @@
   }
 
   .cfg-head .cfg-toggle {
-    flex: 0 0 150px;
+    flex: 0 0 233px;
   } /* linke Spalte */
 
   .cfg-head__label {
-    flex: 0 0 160px;
+    flex: 0 0 100px;
   } /* mittlere Spalte (leer) */
 
   .cfg-head__values {
