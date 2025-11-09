@@ -1,10 +1,7 @@
 import React, {useEffect, useMemo, useRef} from 'react';
+import type {Swiper as SwiperType} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination, A11y} from 'swiper/modules';
-
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/thumbs';
 
 type Img = {
   id: string;
@@ -14,9 +11,28 @@ type Img = {
   height?: number | null;
 };
 
+type ImageNode = {
+  id: string;
+  url: string;
+  altText?: string | null;
+  width?: number | null;
+  height?: number | null;
+};
+
+type Product = {
+  title?: string | null;
+  images?: {edges: {node: ImageNode}[]} | null;
+};
+
+type Variant = {
+  id?: string | number | null;
+  title?: string | null;
+  image?: ImageNode | null;
+};
+
 type Props = {
-  product: any;
-  variant?: any;
+  product: Product;
+  variant?: Variant | null;
   className?: string;
 };
 

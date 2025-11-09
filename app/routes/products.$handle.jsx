@@ -4,7 +4,6 @@ import {
   getSelectedProductOptions,
   Analytics,
   useOptimisticVariant,
-  getProductOptions,
   getAdjacentAndFirstAvailableVariants,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
@@ -12,10 +11,8 @@ import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
 import {normalizeAllMetafields} from '~/utils/metafields';
 
-// app/routes/products.$handle.jsx
 import metafieldDefs from '~/graphql/product/product-metafield-defs.json';
 
-// nur die, die im Storefront lesbar sind & zum Produkt gehören
 const METAFIELD_IDENTIFIERS = metafieldDefs
   .filter(
     (d) => d.ownerType === 'PRODUCT' && d?.access?.storefront === 'PUBLIC_READ',
@@ -52,8 +49,6 @@ async function loadCriticalData({context, params, request}) {
   if (!handle) {
     throw new Error('Expected product handle to be defined');
   }
-
-  // Produkt + alle generierten Metafelder (über das importierte Fragment)
 
   const [{product}] = await Promise.all([
     storefront.query(PRODUCT_QUERY, {
@@ -92,7 +87,6 @@ export default function Product() {
   /** @type {LoaderReturnData} */
   const {product} = useLoaderData();
 
-  // Optimistisch gewählte Variante & URL-Param Sync
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
