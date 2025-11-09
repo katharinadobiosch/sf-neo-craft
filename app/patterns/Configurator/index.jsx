@@ -302,24 +302,17 @@ export function Configurator({productOptions, navigate, product}) {
       n === 'color glass'
     );
   };
-  const variantOptions = (productOptions || []).filter(
-    (o) => o && isVariantOptionName(o.name),
-  );
+
+  const variantOptions = productOptions || [];
 
   const renderOption = (option) => {
     const colorish = isColorOption(option.name);
-    const label = colorish
-      ? norm(option.name).includes('metal') ||
-        norm(option.name).includes('base')
-        ? 'Color Base'
-        : 'Color Glass'
-      : option.name;
+
+    const label = option.name.charAt(0).toUpperCase() + option.name.slice(1); // 👈 hier
 
     return (
       <div className="cfg-row" key={option.name}>
-        <div className="cfg-label">
-          {label.charAt(0).toUpperCase() + label.slice(1)}
-        </div>
+        <div className="cfg-label">{label}</div>
         <div className="cfg-values">
           {option.optionValues.map((value) => {
             const selected = !!value.selected;
