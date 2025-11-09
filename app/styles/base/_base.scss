@@ -61,19 +61,6 @@ h6 {
   margin: 0.8rem 0 0.4rem;
 }
 
-/* 4) Semantik für Farben klarziehen (Beispielableitung) */
-:root {
-  /* raw palette (behalten) */
-  /* --sf-white: #fff; --ink: #141416; --muted: #6b6f76; ... */
-
-  /* semantic mappings */
-  --text-default: var(--ink);
-  --text-muted: var(--muted);
-  --surface: var(--paper);
-  --surface-contrast: var(--sf-white);
-  --border: var(--line);
-}
-
 /* 5) Responsive Breiten via clamp/minmax – Variablen bleiben, Nutzung smarter */
 .grid {
   display: grid;

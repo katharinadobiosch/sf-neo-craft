@@ -1,11 +1,11 @@
 :root {
   --header-h: 7rem;
   --header-line: 1px;
-  --aside-width: 40rem;
+  --aside-width: 60rem;
   --cart-aside-summary-height-with-discount: 30rem;
   --cart-aside-summary-height: 25rem;
   --grid-item-width: 35.5rem;
-  --header-height: 60.4rem;
+  --header-height: 7rem;
   --color-dark: #000;
   --sf-white: #fff;
   --text-default: #333;
@@ -19,6 +19,13 @@
   --gap: 1.5rem;
   --border-color: #e9e9ed;
   --swiper-theme-color: #000;
+
+  --text-muted: var(--muted);
+  --surface: var(--paper);
+  --surface-contrast: var(--sf-white);
+  --border: var(--line);
+
+  --header-h: 7rem;
 
   --nc-fliesstext-desktop-size: 2.2rem;
   --nc-fliesstext-desktop-line: 3.4rem;
