@@ -1,7 +1,5 @@
-import {useMemo, useRef, useState, useEffect} from 'react';
-import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
+import {useRef, useState, useEffect} from 'react';
 import {useAside} from '~/patterns/Aside';
-import {ProductMetaAccordion} from '~/patterns/ProductMetaAccordion';
 
 import colors from './colors.json';
 
@@ -90,16 +88,6 @@ const getHex = (name) => {
   return m?.hex || null;
 };
 
-const money = (num, currency = 'USD') =>
-  new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
-    Number(num || 0),
-  );
-
-const isMeasurementsMeta = (m) => {
-  const n = norm(m?.key || m?.definition?.name || m?.name || '');
-  return n === 'measurements' || n === 'measurement' || n.includes('measure');
-};
-
 export function Configurator({productOptions, navigate, product}) {
   const {open: openAside} = useAside();
 
@@ -130,45 +118,7 @@ export function Configurator({productOptions, navigate, product}) {
     return () => window.removeEventListener('resize', onResize);
   }, [variantsOpen]);
 
-  const currentVariant = useMemo(() => {
-    for (const opt of productOptions || []) {
-      const sel = opt.optionValues?.find((v) => v.selected);
-      if (sel?.variant) return sel.variant;
-    }
-    const first = productOptions?.[0]?.optionValues?.[0];
-    return first?.variant || first?.firstSelectableVariant || null;
-  }, [productOptions]);
-
-  const currency = currentVariant?.price?.currencyCode || 'USD';
-  const price = Number(currentVariant?.price?.amount || 0);
-
-  const isVariantOptionName = (name = '') => {
-    const n = norm(name);
-    return (
-      n === 'size' ||
-      n === 'colour base' ||
-      n === 'color base' ||
-      n === 'colour glass' ||
-      n === 'color glass'
-    );
-  };
-
   const variantOptions = productOptions || [];
-
-  const sortedMetafields = useMemo(() => {
-    const list = product?.metafields || [];
-    // Measurements zuerst, Rest in Original-Reihenfolge
-    return [...list].sort(
-      (a, b) =>
-        (isMeasurementsMeta(a) ? -1 : 0) - (isMeasurementsMeta(b) ? -1 : 0),
-    );
-  }, [product?.metafields]);
-
-  const allMetafields = Array.isArray(product?.metafields)
-    ? product.metafields
-    : [];
-  const mfMeasurements = allMetafields.filter(isMeasurementsMeta);
-  const mfOthers = allMetafields.filter((m) => !isMeasurementsMeta(m));
 
   const renderOption = (option) => {
     const colorish = isColorOption(option.name);
@@ -219,11 +169,6 @@ export function Configurator({productOptions, navigate, product}) {
     );
   };
 
-  const allSelected =
-    Array.isArray(productOptions) &&
-    productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected));
-  const isReady = !!currentVariant?.availableForSale && allSelected;
-
   return (
     <div className="configurator" data-variants-open={variantsOpen}>
       {/* Kopf: toggelt NUR Varianten */}
@@ -250,61 +195,6 @@ export function Configurator({productOptions, navigate, product}) {
       >
         <div ref={panelRef} className="cfg-panel-inner">
           {variantOptions.map(renderOption)}
-          {/* <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
-            <span className="cta-arrow">→</span>
-            <span className="cta-price">{money(price, currency)}</span>
-            <div className="cta-button-wrap">
-              <AddToCartButton
-                disabled={!currentVariant || !currentVariant.availableForSale}
-                onClick={() => openAside('cart')}
-                lines={
-                  currentVariant
-                    ? [{merchandiseId: currentVariant.id, quantity: 1}]
-                    : []
-                }
-              >
-                {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
-              </AddToCartButton>
-            </div>
-          </div> */}
-        </div>
-      </div>
-
-      {/* Container 2: Meta (eigener Scroll), default: geschlossen (falls unterstützt) */}
-      <div className="configurator__meta">
-        {/* 1) Measurements zuerst */}
-        {mfMeasurements.length > 0 && (
-          <ProductMetaAccordion
-            metafields={mfMeasurements}
-            product={product}
-            // optional: defaultOpen={false}
-          />
-        )}
-
-        {/* 2) danach der Rest */}
-        {mfOthers.length > 0 && (
-          <ProductMetaAccordion
-            metafields={mfOthers}
-            product={product}
-            // optional: defaultOpen={false}
-          />
-        )}
-      </div>
-      <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
-        <span className="cta-arrow">→</span>
-        <span className="cta-price">{money(price, currency)}</span>
-        <div className="cta-button-wrap">
-          <AddToCartButton
-            disabled={!currentVariant || !currentVariant.availableForSale}
-            onClick={() => openAside('cart')}
-            lines={
-              currentVariant
-                ? [{merchandiseId: currentVariant.id, quantity: 1}]
-                : []
-            }
-          >
-            {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
-          </AddToCartButton>
         </div>
       </div>
     </div>
