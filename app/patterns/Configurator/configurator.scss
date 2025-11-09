@@ -9,6 +9,8 @@
   --cta-text: #0a0a0a;
 
   color: var(--text);
+  border-bottom: 1px solid black;
+  height: 25%;
 
   /* Header mit + */
   .cfg-toggle {
@@ -184,59 +186,6 @@
   }
 
   /* CTA-Balken */
-  .cfg-cta {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: var(--cta-bg);
-    color: var(--cta-text);
-    padding: 1rem 1.25rem;
-    margin-top: 1rem;
-    background: #f4f4f4;
-    color: #111;
-
-    .is-active {
-      background: #000;
-      color: #fff;
-    }
-
-    .is-active .cta-button-wrap button {
-      background: #fff;
-      color: #000;
-    }
-
-    .cta-button-wrap button {
-      all: unset;
-      cursor: pointer;
-      border: 1px solid currentColor;
-      padding: 0.65rem 1rem;
-      font-weight: 600;
-    }
-
-    .cta-button-wrap button:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
-
-    .cta-price {
-      font-weight: 600;
-      margin-right: auto;
-    }
-
-    form > button {
-      all: unset;
-      cursor: pointer;
-      background: #000;
-      color: #fff;
-      padding: 0.65rem 1rem;
-      font-weight: 600;
-    }
-
-    form > button:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
-  }
 
   .acc-images {
     padding-right: 2rem;
@@ -262,7 +211,6 @@
 }
 
 .configurator__meta {
-  // height: 455px;
+  height: 65%;
   overflow: scroll;
-  max-height: 600px;
 }

@@ -1,6 +1,6 @@
 import {ProductForm} from '~/patterns/ProductForm';
 import {MediaGallery} from '~/patterns/MediaGallery';
-import {HeroSplit, HeroSplit_GalleryBand} from '../HeroSplit';
+import {HeroSplit_GalleryBand} from '../HeroSplit';
 import {TeaserDuo} from '../TeaserDuo';
 import {useLoaderData} from 'react-router';
 
