@@ -11,9 +11,22 @@
 
     img {
       display: block;
-      width: 50%;
-      height: 100%;
       object-fit: cover;
+      aspect-ratio: 375/449;
+
+      @media (min-width: 768px) {
+        width: 50%;
+        height: 100%;
+        aspect-ratio: 780/780;
+      }
+
+      &:nth-of-type(2) {
+        display: none;
+
+        @media (min-width: 768px) {
+          display: block;
+        }
+      }
     }
   }
 
@@ -25,11 +38,19 @@
     align-items: center;
 
     p {
-      width: 80%;
-      margin: 85rem 0 10rem 0;
-      font-size: var(--nc-fliesstext-desktop-size);
-      line-height: var(--nc-fliesstext-desktop-line);
-      font-weight: var(--nc-fliesstext-desktop-weight);
+      width: 100%;
+      margin: 81rem 0 3rem 0;
+      font-size: 1.7rem;
+      line-height: 2.6rem;
+      font-weight: 300;
+
+      @media (min-width: 768px) {
+        width: 80%;
+        margin: 85rem 0 10rem 0;
+        font-size: var(--nc-fliesstext-desktop-size);
+        line-height: var(--nc-fliesstext-desktop-line);
+        font-weight: var(--nc-fliesstext-desktop-weight);
+      }
     }
   }
 }
