@@ -1,45 +1,74 @@
 .collections {
-  margin: 3rem 0 0 0;
-}
-.collections-grid {
-  background: white;
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
-  position: relative; /* wichtig */
-}
+  margin: 1.5rem 0 0 0;
 
-.collections-grid::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 0.1rem;
-  background-color: #000; /* oder deine Wunschfarbe */
-  transform: translateX(-0.5px); /* exakt mittig */
-  z-index: 1;
-  height: calc(
-    100% - 7rem
-  ); /* Höhe anpassen, hier z.B. 3rem Abstand oben/unten */
-}
+  @media (min-width: 768px) {
+    margin: 3rem 0 0 0;
+  }
 
-.collections-grid h4 {
-  padding: 0rem 0 1.8rem 1.8rem;
+  .collections-grid {
+    background: white;
+    width: 100%;
+    position: relative;
+    display: block;
 
-  font-size: var(--nc-navigation-name-desktop-size);
-  line-height: var(--nc-navigation-name-desktop-line);
-  font-weight: var(--nc-navigation-name-desktop-weight);
-}
+    &::before {
+      content: none;
+    }
 
-.collections-grid > *:nth-child(odd) h4 {
-  padding-left: 0;
-}
+    @media (min-width: 768px) {
+      display: flex;
+      flex-wrap: wrap;
 
-.product-item {
-  width: 50%;
-}
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background-color: #000;
+        transform: translateX(-0.5px);
+        z-index: 1;
+      }
+    }
 
-.collection-item img {
-  height: auto;
+    .product-item {
+      width: 100%;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+
+      @media (min-width: 768px) {
+        width: 50%;
+      }
+
+      h4 {
+        margin: 0;
+        padding: 1rem 0 2.5rem 0rem;
+        font-size: 12px;
+        line-height: var(--nc-navigation-name-desktop-line);
+        font-weight: var(--nc-navigation-name-desktop-weight);
+
+        @media (min-width: 768px) {
+          font-size: var(--nc-navigation-name-desktop-size);
+          padding: 1rem 0 2.5rem 2rem;
+        }
+      }
+
+      @media (min-width: 768px) {
+        &:nth-of-type(odd) h4 {
+          padding-left: 0;
+        }
+
+        &:nth-of-type(even) h4 {
+          padding-left: 2rem;
+        }
+      }
+
+      .product-media {
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000;
+      }
+    }
+  }
 }

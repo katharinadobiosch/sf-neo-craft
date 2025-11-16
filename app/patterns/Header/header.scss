@@ -9,10 +9,15 @@
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    height: 7rem;
-    padding: 0 5rem;
+    height: 6.6rem;
+    padding: 0 1.5rem;
     font-size: 3.1rem;
     background: white;
+
+    @media (min-width: 768px) {
+      padding: 0 5rem;
+      height: 7rem;
+    }
   }
 
   &__left {
@@ -101,8 +106,13 @@
       align-items: center;
       justify-content: center;
       height: 100%;
-      font-size: 4.8rem;
-      line-height: 7rem;
+      font-size: 3.2rem;
+      line-height: 5rem;
+
+      @media (min-width: 768px) {
+        font-size: 4.8rem;
+        line-height: 7rem;
+      }
     }
   }
 }
