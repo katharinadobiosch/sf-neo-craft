@@ -199,7 +199,6 @@ export default function Materials() {
 
   return (
     <>
-      ´
       <div className="materials">
         <div className="materials-grid">
           {collection.products?.nodes?.map((product, i) => (
