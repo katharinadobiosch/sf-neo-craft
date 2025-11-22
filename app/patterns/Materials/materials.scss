@@ -2,11 +2,19 @@
 
 .materials {
   margin: 1.5rem 0 0 0;
+  font-size: 12px;
+  line-height: var(--nc-navigation-name-desktop-line);
+  font-weight: var(--nc-navigation-name-desktop-weight);
 
   @media (min-width: 768px) {
     margin: 3rem 0 0 0;
+    font-size: var(--nc-warenkorb-desktop-size);
+    font-weight: var(--nc-warenkorb-desktop-weight);
+    line-height: var(--nc-warenkorb-desktop-line);
   }
   .materials-grid {
+    position: relative;
+
     display: grid;
     // gap: 4rem;
 
@@ -51,26 +59,28 @@
     margin-bottom: 4rem;
 
     h3 {
-      font-size: var(--nc-warenkorb-desktop-size);
-      font-weight: var(--nc-warenkorb-desktop-weight);
-      line-height: var(--nc-warenkorb-desktop-line);
-      padding: 5rem 7.5rem 7.5rem 7.5rem;
-    }
-    p {
-      padding: 0 7.5rem 0 7.5rem;
+      font-size: 12px;
+      line-height: var(--nc-navigation-name-desktop-line);
+      font-weight: 600;
+      margin: 1rem 0 2rem 0;
+
+      @media (min-width: 768px) {
+        font-size: var(--nc-warenkorb-desktop-size);
+        line-height: var(--nc-warenkorb-desktop-line);
+      }
     }
 
     ul {
-      padding: 0 7.5rem 0 7.5rem;
       display: flex;
       align-items: flex-end;
     }
 
-    @media (min-width: 48rem) {
+    @media (min-width: 768px) {
       grid-template-columns: 1fr 1fr;
       grid-template-areas: 'content media';
       border-top: 1px solid var(--ink);
       border-bottom: 1px solid var(--ink);
+
       .material-card--reverse {
         grid-template-areas: 'media content';
       }
@@ -125,6 +135,11 @@
     display: grid;
     grid-template-rows: auto auto 1fr auto; /* CTA unten andocken */
     background: var(--bg);
+    padding: 1.5rem 1.5rem 0rem 1.5rem;
+
+    @media (min-width: 768px) {
+      padding: 5rem 7.5rem 0rem 7.5rem;
+    }
   }
 
   .material-card__title {
@@ -132,10 +147,16 @@
   }
 
   .material-card__description {
-    margin: 0;
-    font-size: var(--nc-fliesstext-desktop-size);
-    line-height: var(--nc-fliesstext-desktop-line);
-    font-weight: var(--nc-fliesstext-desktop-weight);
+    font-size: 12px;
+    line-height: var(--nc-navigation-name-desktop-line);
+    font-weight: var(--nc-navigation-name-desktop-weight);
+
+    @media (min-width: 768px) {
+      margin: 0;
+      font-size: var(--nc-fliesstext-desktop-size);
+      line-height: var(--nc-fliesstext-desktop-line);
+      font-weight: var(--nc-fliesstext-desktop-weight);
+    }
   }
 
   .material-card__swatches {
@@ -200,16 +221,28 @@
 
   /* schwarze CTA-Bar */
   .material-card__ctaBar {
+    grid-column: 1 / -1; /* volle Breite */
+    width: calc(100% + 3rem); /* linkes + rechtes Padding kompensieren */
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
     display: flex;
     align-items: center;
     gap: 1rem;
     background: #fff;
     margin-top: auto;
-    padding-left: 7.5rem;
-    height: 6rem;
-    font-size: 2.2rem;
-    font-weight: 300;
-    line-height: 3.2rem;
+    padding: 1rem;
+    height: 4rem;
+
+    @media (min-width: 768px) {
+      font-size: 2.2rem;
+      font-weight: 300;
+      line-height: 3.2rem;
+      padding-left: 7.5rem;
+      height: 6rem;
+      width: calc(100% + 15rem); /* linkes + rechtes Padding kompensieren */
+      margin-left: -7.5rem;
+      margin-right: -7.5rem;
+    }
   }
 
   .material-card__ctaBar:hover {
