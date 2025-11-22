@@ -88,7 +88,7 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 0.5rem 0;
+    padding: 0.5rem 0 1.5rem 0;
   }
 
   .cfg-row::before {
@@ -102,11 +102,12 @@
   }
 
   .cfg-values {
-    // flex: 1 1 auto; /* Fläche nehmen, min-width 0 für korrektes Wrapping */
+    flex: 1 1 auto; /* Fläche nehmen, min-width 0 für korrektes Wrapping */
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     gap: 2rem;
-    margin-bottom: 1.5rem;
   }
 
   .cfg-head {
