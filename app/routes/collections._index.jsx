@@ -15,107 +15,161 @@ export async function loader(args) {
 }
 
 /**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- * @param {LoaderFunctionArgs}
+ * Kritische Daten: Collection + daraus abgeleitete, gruppierte Produktliste
  */
-async function loadCriticalData({context, request}) {
+async function loadCriticalData({context}) {
   const {collection} = await context.storefront.query(
     COLLECTION_BY_HANDLE_QUERY,
     {
       variables: {
-        handle: 'main-collection', // oder dein eigener Handle
+        handle: 'main-collection', // dein Collection-Handle
       },
     },
   );
 
-  return {collection};
+  const products = collection.products?.nodes ?? [];
+
+  // 👉 pro Serie nur 1 Produkt behalten
+  const groupedProducts = groupProductsBySeries(products);
+
+  return {collection, products: groupedProducts};
 }
 
 /**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- * @param {LoaderFunctionArgs}
+ * Nicht-kritische Daten (deferred) – aktuell leer
  */
-function loadDeferredData({context}) {
+function loadDeferredData() {
   return {};
 }
 
+/**
+ * Gruppiert Produkte nach Series-Metafeld:
+ * - wenn Produkt eine Series hat → nur erstes Produkt dieser Serie behalten
+ * - Produkte ohne Series bleiben unverändert alle drin
+ */
+function groupProductsBySeries(products) {
+  const seenSeries = new Set();
+  const result = [];
+
+  for (const product of products) {
+    const seriesRef = product.metafieldSeries?.reference;
+    const isMetaobject = seriesRef?.__typename === 'Metaobject';
+    const seriesHandle = isMetaobject ? seriesRef.handle : null;
+
+    if (seriesHandle) {
+      // Serie schon gesehen → Produkt überspringen
+      if (seenSeries.has(seriesHandle)) {
+        continue;
+      }
+      seenSeries.add(seriesHandle);
+    }
+
+    // erstes Produkt dieser Serie ODER Produkt ohne Serie
+    result.push(product);
+  }
+
+  return result;
+}
+
 function ProductItem({product}) {
+  const seriesRef = product.metafieldSeries?.reference;
+  const isMetaobject = seriesRef?.__typename === 'Metaobject';
+  const seriesHandle = isMetaobject ? seriesRef.handle : null;
+
+  // Ziel-URL: wenn Series vorhanden → /series/<handle>, sonst normale PDP
+  const targetUrl = seriesHandle
+    ? `/series/${seriesHandle}`
+    : `/products/${product.handle}`;
+
+  // Titel: wenn Series-Metaobject einen title hat, diesen verwenden
+  let title = product.title;
+  if (isMetaobject && Array.isArray(seriesRef.fields)) {
+    const titleField = seriesRef.fields.find((f) => f.key === 'title');
+    if (titleField?.value) {
+      title = titleField.value;
+    }
+  }
+
   return (
-    <Link
-      to={`/products/${product.handle}`}
-      className="product-item"
-      prefetch="intent"
-    >
+    <Link to={targetUrl} className="product-item" prefetch="intent">
       {product.featuredImage && (
         <Image
           data={product.featuredImage}
-          alt={product.featuredImage.altText || product.title}
-          // aspectRatio="1/1"
+          alt={product.featuredImage.altText || title}
           sizes="(min-width: 45em) 30rem, 100vw"
         />
       )}
-      <h4>{product.title}</h4>
+      <h4>{title}</h4>
     </Link>
   );
 }
 
 export default function CollectionsIndex() {
-  const {collection} = useLoaderData();
+  const {collection, products} = useLoaderData();
 
   return (
-    <>
-      <div className="collections">
-        <div className="collections-grid">
-          {collection.products?.nodes?.map((product, index) => (
-            <ProductItem key={product.id} product={product} />
-          ))}
-        </div>
+    <div className="collections">
+      {/* falls du den Collection-Titel anzeigen willst */}
+      {/* <h1>{collection.title}</h1> */}
+
+      <div className="collections-grid">
+        {products?.map((product) => (
+          <ProductItem key={product.id} product={product} />
+        ))}
       </div>
-    </>
+    </div>
   );
 }
 
 /**
- * @param {{
- *   collection: CollectionFragment;
- *   index: number;
- * }}
+ * Collection-Query: Produkte + Series-Metafeld laden
  */
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
   query CollectionByHandle__CollectionsRoute(
-  $handle: String!
-  $country: CountryCode
-  $language: LanguageCode
-) @inContext(country: $country, language: $language) {
-  collection(handle: $handle) {
-    id
-    title
-    handle
-    image {
+    $handle: String!
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    collection(handle: $handle) {
       id
-      url
-      altText
-      width
-      height
-    }
-    products(first: 20) {
-      nodes {
+      title
+      handle
+      image {
         id
-        title
-        handle
-        featuredImage {
-          url
-          altText
-          width
-          height
+        url
+        altText
+        width
+        height
+      }
+      products(first: 50) {
+        nodes {
+          id
+          title
+          handle
+          featuredImage {
+            url
+            altText
+            width
+            height
+          }
+
+          metafieldSeries: metafield(namespace: "custom", key: "product_series") {
+            reference {
+              __typename
+              ... on Metaobject {
+                handle
+                type
+                fields {
+                  key
+                  value
+                }
+              }
+            }
+          }
         }
       }
     }
   }
-}
 `;
 
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */

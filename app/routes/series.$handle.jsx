@@ -61,82 +61,6 @@ export async function loader({params, context, request}) {
   };
 }
 
-// export default function SeriesPage() {
-//   const {series, products} = useLoaderData();
-
-//   // Fallback, falls noch keine Produkte verknüpft sind
-//   const safeProducts = products ?? [];
-
-//   // Titel aus Metaobject-Feld "title"
-//   const titleField = series.fields.find((f) => f.key === 'title');
-//   const title = titleField?.value ?? 'Series';
-
-//   // aktuell ausgewähltes Produkt (0 = erstes)
-//   const [activeIndex, setActiveIndex] = useState(0);
-//   const activeProduct = safeProducts[activeIndex] ?? null;
-
-//   return (
-//     <div style={{padding: '2rem'}}>
-//       <h1>{title}</h1>
-
-//       {/* Produkt-Switcher */}
-//       {safeProducts.length > 0 && (
-//         <div style={{display: 'flex', gap: '0.75rem', margin: '1.5rem 0'}}>
-//           {safeProducts.map((product, index) => {
-//             // "OSOM OBLONG" → "OBLONG"
-//             const label = product.title.replace(/^OSOM\s+/i, '');
-//             const isActive = index === activeIndex;
-
-//             return (
-//               <button
-//                 key={product.id}
-//                 type="button"
-//                 onClick={() => setActiveIndex(index)}
-//                 style={{
-//                   padding: '0.5rem 1rem',
-//                   borderRadius: 999,
-//                   border: isActive ? '1px solid black' : '1px solid #ccc',
-//                   background: isActive ? '#000' : '#fff',
-//                   color: isActive ? '#fff' : '#000',
-//                   cursor: 'pointer',
-//                   fontSize: '0.9rem',
-//                   letterSpacing: '0.04em',
-//                   textTransform: 'uppercase',
-//                 }}
-//               >
-//                 {label}
-//               </button>
-//             );
-//           })}
-//         </div>
-//       )}
-
-//       {/* Aktives Produkt + Varianten */}
-//       {activeProduct ? (
-//         <div style={{marginTop: '2rem'}}>
-//           <h2>{activeProduct.title}</h2>
-//           <p>Handle: {activeProduct.handle}</p>
-
-//           <h3 style={{marginTop: '1rem'}}>Varianten</h3>
-//           <ul>
-//             {activeProduct.variants.nodes.map((variant) => (
-//               <li key={variant.id}>
-//                 {variant.title} – {variant.price.amount}{' '}
-//                 {variant.price.currencyCode}
-//               </li>
-//             ))}
-//           </ul>
-//         </div>
-//       ) : (
-//         <p>Keine Produkte in dieser Serie gefunden.</p>
-//       )}
-
-//       {/* Debug: JSON kannst du dir bei Bedarf wieder einblenden */}
-//       {/* <pre>{JSON.stringify(products, null, 2)}</pre> */}
-//     </div>
-//   );
-// }
-
 export default function SeriesPage() {
   const {series, products, activeIndex: initialIndex} = useLoaderData();
 
@@ -195,7 +119,85 @@ export default function SeriesPage() {
 
 // GraphQL Query
 const SERIES_QUERY = `#graphql
-  query SeriesPage($handle: String!) {
+  fragment ProductVariant on ProductVariant {
+    availableForSale
+    compareAtPrice { amount currencyCode }
+    id
+    image { __typename id url altText width height }
+    price { amount currencyCode }
+    product { title handle }
+    selectedOptions { name value }
+    sku
+    title
+    unitPrice { amount currencyCode }
+  }
+
+  fragment Product on Product {
+    id
+    title
+    vendor
+    handle
+    descriptionHtml
+    description
+
+    images(first: 10) {
+      edges { node { id url altText width height } }
+    }
+
+    encodedVariantExistence
+    encodedVariantAvailability
+
+    options {
+      name
+      optionValues {
+        name
+        firstSelectableVariant { ...ProductVariant }
+        swatch { color image { previewImage { url } } }
+      }
+    }
+
+    selectedOrFirstAvailableVariant(
+      selectedOptions: $selectedOptions
+      ignoreUnknownOptions: true
+      caseInsensitiveMatch: true
+    ) { ...ProductVariant }
+
+    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }
+
+    seo { description title }
+
+    metafields(identifiers: $metafieldIdentifiers) {
+      namespace
+      key
+      type
+      value
+
+      reference { __typename
+        ... on Metaobject { id type handle fields { key type value } }
+        ... on MediaImage { image { url altText width height } }
+        ... on Video { sources { url mimeType } }
+        ... on Model3d { sources { url mimeType } }
+        ... on GenericFile { url mimeType }
+      }
+
+      references(first: 50) {
+        nodes {
+          __typename
+          ... on Metaobject { id type handle fields { key type value } }
+          ... on MediaImage { image { url altText width height } }
+          ... on Video { sources { url mimeType } }
+          ... on Model3d { sources { url mimeType } }
+          ... on GenericFile { url mimeType }
+        }
+      }
+    }
+  }
+
+  query SeriesPage(
+    $handle: String!
+    $selectedOptions: [SelectedOptionInput!]
+    $metafieldIdentifiers: [HasMetafieldsIdentifier!]!
+  ) {
     series: metaobject(
       handle: {type: "series", handle: $handle}
     ) {
@@ -206,20 +208,9 @@ const SERIES_QUERY = `#graphql
         value
         references(first: 10) {
           nodes {
+            __typename
             ... on Product {
-              id
-              title
-              handle
-              variants(first: 50) {
-                nodes {
-                  id
-                  title
-                  price {
-                    amount
-                    currencyCode
-                  }
-                }
-              }
+              ...Product
             }
           }
         }
