@@ -21,6 +21,10 @@ export function ProductDetailInformation({product}) {
   const topRight = metafields?.produkt_duo_top_rechts?.list[0].url;
   const topRightHover = metafields?.produkt_duo_top_rechts?.list[1].url;
 
+  console.log('topLeft:', topLeft);
+  console.log('topLeftHover:', topLeftHover);
+  console.log('topRight:', topRight);
+  console.log('topRightHover:', topRightHover);
 
   return (
     <div className="pdp">
