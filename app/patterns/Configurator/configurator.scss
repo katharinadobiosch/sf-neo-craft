@@ -28,7 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.75rem 0;
+    padding: 2rem 0 0 0;
   }
 
   .cfg-title,
@@ -189,4 +189,5 @@
 .configurator__meta {
   height: 68%;
   overflow: scroll;
+  margin-top: 2rem;
 }

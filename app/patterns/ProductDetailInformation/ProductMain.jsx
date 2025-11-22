@@ -11,11 +11,19 @@ import {
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
 
-export function ProductMain({product, metafields}) {
-  const selectedVariant = useOptimisticVariant(
-    product.selectedOrFirstAvailableVariant,
-    getAdjacentAndFirstAvailableVariants(product),
-  );
+export function ProductMain({
+  product,
+  metafields,
+  selectedVariant,
+  seriesProducts,
+  seriesActiveIndex,
+  onChangeSeriesProduct,
+}) {
+
+  // const selectedVariant = useOptimisticVariant(
+  //   product.selectedOrFirstAvailableVariant,
+  //   getAdjacentAndFirstAvailableVariants(product),
+  // );
 
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
@@ -51,6 +59,9 @@ export function ProductMain({product, metafields}) {
             productOptions={productOptions}
             selectedVariant={selectedVariant}
             product={product}
+            seriesProducts={seriesProducts}
+            seriesActiveIndex={seriesActiveIndex}
+            onChangeSeriesProduct={onChangeSeriesProduct}
           />
         </div>
 

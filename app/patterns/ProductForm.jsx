@@ -11,7 +11,13 @@ import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
  * }}
  */
-export function ProductForm({productOptions, product}) {
+export function ProductForm({
+  productOptions,
+  product,
+  seriesProducts,
+  seriesActiveIndex,
+  onChangeSeriesProduct,
+}) {
   const {open: openAside} = useAside();
 
   const navigate = useNavigate();
@@ -60,6 +66,9 @@ export function ProductForm({productOptions, product}) {
       <Configurator
         productOptions={productOptions}
         navigate={navigate}
+        seriesProducts={seriesProducts}
+        seriesActiveIndex={seriesActiveIndex}
+        onChangeSeriesProduct={onChangeSeriesProduct}
         product={product}
       />
 

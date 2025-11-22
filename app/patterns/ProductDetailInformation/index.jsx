@@ -8,7 +8,13 @@ import {TeaserDuo} from '../TeaserDuo';
 import {ProductMain} from './ProductMain';
 import {normalizeAllMetafields} from '~/utils/metafields';
 
-export function ProductDetailInformation({product}) {
+export function ProductDetailInformation({
+  product,
+  // optional, nur auf Serien-Seiten gesetzt
+  seriesProducts,
+  seriesActiveIndex,
+  onChangeSeriesProduct,
+}) {
   // Variant-State
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
@@ -40,7 +46,9 @@ export function ProductDetailInformation({product}) {
       <ProductMain
         product={product}
         selectedVariant={selectedVariant}
-        metafields={metafields}
+        seriesProducts={seriesProducts}
+        seriesActiveIndex={seriesActiveIndex}
+        onChangeSeriesProduct={onChangeSeriesProduct}
       />
     </div>
   );

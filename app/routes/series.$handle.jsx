@@ -57,52 +57,24 @@ export async function loader({params, context, request}) {
 
 export default function SeriesPage() {
   const {series, products, activeIndex: initialIndex} = useLoaderData();
-
+  const [activeIndex, setActiveIndex] = useState(initialIndex);
   const safeProducts = products ?? [];
+  const activeProduct = safeProducts[activeIndex] ?? null;
+
   const titleField = series.fields.find((f) => f.key === 'title');
   const title = titleField?.value ?? 'Series';
-
-  const [activeIndex, setActiveIndex] = useState(initialIndex);
-  const activeProduct = safeProducts[activeIndex] ?? null;
 
   return (
     <div className="product">
       <h1>{title}</h1>
 
-      {/* Produkt-Switcher */}
-      {safeProducts.length > 0 && (
-        <div style={{display: 'flex', gap: '0.75rem', margin: '1.5rem 0'}}>
-          {safeProducts.map((product, index) => {
-            const label = product.title.replace(/^OSOM\s+/i, '');
-            const isActive = index === activeIndex;
-
-            return (
-              <button
-                key={product.id}
-                type="button"
-                onClick={() => setActiveIndex(index)}
-                style={{
-                  padding: '0.5rem 1rem',
-                  borderRadius: 999,
-                  border: isActive ? '1px solid black' : '1px solid #ccc',
-                  background: isActive ? '#000' : '#fff',
-                  color: isActive ? '#fff' : '#000',
-                  cursor: 'pointer',
-                  fontSize: '0.9rem',
-                  letterSpacing: '0.04em',
-                  textTransform: 'uppercase',
-                }}
-              >
-                {label}
-              </button>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Komplette PDP für das aktive Produkt */}
       {activeProduct ? (
-        <ProductDetailInformation product={activeProduct} />
+        <ProductDetailInformation
+          product={activeProduct}
+          seriesProducts={safeProducts}
+          seriesActiveIndex={activeIndex}
+          onChangeSeriesProduct={setActiveIndex}
+        />
       ) : (
         <p>Keine Produkte in dieser Serie gefunden.</p>
       )}
