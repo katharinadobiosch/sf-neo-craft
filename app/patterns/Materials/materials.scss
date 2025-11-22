@@ -213,15 +213,6 @@
     list-style: none;
   }
 
-  .material-card__swatch {
-    display: inline-block; /* <- wichtig */
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    flex: 0 0 12px; /* fixiert die Größe im Flex-Layout */
-  }
-
   /* schwarze CTA-Bar */
   .material-card__ctaBar {
     grid-column: 1 / -1; /* volle Breite */

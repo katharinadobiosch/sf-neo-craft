@@ -72,7 +72,6 @@ function getProductColors(product: any) {
   // 1) Produkt-Ebene
   const productNodes = product?.materialTileColors?.references?.nodes ?? [];
   const productColors = mapColorNodes(productNodes);
-  console.log('productNodes', productNodes);
 
   if (productColors.length === 0) {
     console.warn(`no color selected (product): ${product?.title ?? 'unknown'}`);
@@ -103,7 +102,6 @@ function ProductItem({product, isReversed}) {
 
   const colors = getProductColors(product);
 
-  // console.log('colors for', product.title, colors);
 
   return (
     <Link
