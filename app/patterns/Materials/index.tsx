@@ -70,8 +70,9 @@ function dedupeByHex(colors: {hex: string; label: string}[]) {
 
 function getProductColors(product: any) {
   // 1) Produkt-Ebene
-  const productNodes = product?.neoColorProduct?.references?.nodes ?? [];
+  const productNodes = product?.materialTileColors?.references?.nodes ?? [];
   const productColors = mapColorNodes(productNodes);
+  console.log('productNodes', productNodes);
 
   if (productColors.length === 0) {
     console.warn(`no color selected (product): ${product?.title ?? 'unknown'}`);
@@ -102,7 +103,7 @@ function ProductItem({product, isReversed}) {
 
   const colors = getProductColors(product);
 
-  console.log('colors for', product.title, colors);
+  // console.log('colors for', product.title, colors);
 
   return (
     <Link
@@ -256,6 +257,21 @@ query CollectionByHandle_Materials(
 
         # ✅ Produkt-Ebene: Liste von Neo-Color Metaobjekten
         neoColorProduct: metafield(namespace: "custom", key: "neo_color_product") {
+          type
+          references(first: 50) {
+            nodes {
+              ... on Metaobject {
+                id
+                hex:   field(key: "hex_code") { value }
+                label: field(key: "label")    { value }
+                image: field(key: "image")    { value }
+              }
+            }
+          }
+        }
+
+          # ✅ Produkt-Ebene: Liste von Material Color Metaobjekten
+        materialTileColors: metafield(namespace: "custom", key: "material_tile_color") {
           type
           references(first: 50) {
             nodes {

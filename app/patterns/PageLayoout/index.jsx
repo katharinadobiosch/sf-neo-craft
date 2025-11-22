@@ -54,7 +54,7 @@ export function PageLayout({
     // return 'white';
   }
   const bgFooterColor = getFooterVariant(location.pathname);
-  console.log('pathname:', location.pathname, 'headerVariant:', bgHeaderColor);
+  // console.log('pathname:', location.pathname, 'headerVariant:', bgHeaderColor);
 
   return (
     <Aside.Provider>
