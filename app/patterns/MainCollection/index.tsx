@@ -29,8 +29,12 @@ async function loadCriticalData({context, request}) {
       },
     },
   );
+  const products = collection.products?.nodes ?? [];
 
-  return {collection};
+  // 👉 pro Serie nur 1 Produkt behalten
+  const groupedProducts = groupProductsBySeries(products);
+
+  return {collection, products: groupedProducts};
 }
 
 /**
@@ -41,6 +45,30 @@ async function loadCriticalData({context, request}) {
  */
 function loadDeferredData({context}) {
   return {};
+}
+
+function groupProductsBySeries(products) {
+  const seenSeries = new Set();
+  const result = [];
+
+  for (const product of products) {
+    const seriesRef = product.metafieldSeries?.reference;
+    const isMetaobject = seriesRef?.__typename === 'Metaobject';
+    const seriesHandle = isMetaobject ? seriesRef.handle : null;
+
+    if (seriesHandle) {
+      // Serie schon gesehen → Produkt überspringen
+      if (seenSeries.has(seriesHandle)) {
+        continue;
+      }
+      seenSeries.add(seriesHandle);
+    }
+
+    // erstes Produkt dieser Serie ODER Produkt ohne Serie
+    result.push(product);
+  }
+
+  return result;
 }
 
 function getTileImages(product: any) {
@@ -58,13 +86,26 @@ function ProductItem({product}) {
   const {main, hover} = getTileImages(product);
   const [isHover, setIsHover] = useState(false);
   const showHover = Boolean(hover && isHover);
+  const seriesRef = product.metafieldSeries?.reference;
+  const isMetaobject = seriesRef?.__typename === 'Metaobject';
+  const seriesHandle = isMetaobject ? seriesRef.handle : null;
+
+  // Ziel-URL: wenn Series vorhanden → /series/<handle>, sonst normale PDP
+  const targetUrl = seriesHandle
+    ? `/series/${seriesHandle}`
+    : `/products/${product.handle}`;
+
+  // Titel: wenn Series-Metaobject einen title hat, diesen verwenden
+  let title = product.title;
+  if (isMetaobject && Array.isArray(seriesRef.fields)) {
+    const titleField = seriesRef.fields.find((f) => f.key === 'title');
+    if (titleField?.value) {
+      title = titleField.value;
+    }
+  }
 
   return (
-    <Link
-      to={`/products/${product.handle}`}
-      className="product-item"
-      prefetch="intent"
-    >
+    <Link to={targetUrl} className="product-item" prefetch="intent">
       <div
         className="product-media"
         onMouseEnter={() => setIsHover(true)}
@@ -114,16 +155,18 @@ function ProductItem({product}) {
   );
 }
 
-export default function Collections() {
-  const {collection} = useLoaderData();
+export default function CollectionsIndex() {
+  const {collection, products} = useLoaderData();
 
   return (
     <>
       <div className="collections">
         <div className="collections-grid">
-          {collection.products?.nodes?.map((product, index) => (
-            <ProductItem key={product.id} product={product} />
-          ))}
+          {products?.map((product) => {
+            console.log(product.title, product.metafieldSeries);
+
+            return <ProductItem key={product.id} product={product} />;
+          })}
         </div>
       </div>
     </>
@@ -138,7 +181,7 @@ export default function Collections() {
  */
 // app/patterns/MainCollection/index.tsx
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
-  query CollectionByHandle_MainCollection(
+  query CollectionByHandle__CollectionsRoute(
     $handle: String!
     $country: CountryCode
     $language: LanguageCode
@@ -147,19 +190,34 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
       id
       title
       handle
-      image { id url altText width height }
-      products(first: 20) {
+      image {
+        id
+        url
+        altText
+        width
+        height
+      }
+      products(first: 50) {
         nodes {
           id
           title
           handle
-          featuredImage { url altText width height }
-          metafield(namespace: "custom", key: "product_tile") {
-            type
-            references(first: 2) {
-              nodes {
-                ... on MediaImage {
-                  image { url altText width height }
+          featuredImage {
+            url
+            altText
+            width
+            height
+          }
+
+          metafieldSeries: metafield(namespace: "custom", key: "product_series") {
+            reference {
+              __typename
+              ... on Metaobject {
+                handle
+                type
+                fields {
+                  key
+                  value
                 }
               }
             }
