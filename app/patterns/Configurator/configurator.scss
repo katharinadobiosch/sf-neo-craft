@@ -130,22 +130,12 @@
   /* Size Chips */
   .cfg-item.is-chip {
     all: unset;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.35rem 0.7rem;
-    border-radius: 999px;
     cursor: pointer;
-    background: var(--chip-bg);
-    border: 1px solid transparent;
-    transition: all 0.15s ease;
 
     &:hover {
-      background: var(--chip-bg-hover);
     }
     &.is-selected {
-      border-color: var(--ring);
-      background: #fff;
+      font-weight: 600;
     }
     &:disabled {
       opacity: 0.35;
