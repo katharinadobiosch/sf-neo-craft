@@ -58,7 +58,7 @@ export function ProductMain({product}) {
           <MediaGallery product={product} variant={selectedVariant} />
         </div>
       </div>
-    
+
       <HeroSplit_GalleryBand leftImg={thirdImage} rightImg={mainImage} />
       <TeaserDuo
         className="pdp__teaser-duo"

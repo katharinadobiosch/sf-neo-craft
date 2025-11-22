@@ -12,7 +12,7 @@ const METAFIELD_IDENTIFIERS = metafieldDefs
   .map((d) => ({namespace: d.namespace, key: d.key}));
 
 /**
- * Loader – holt das Series-Metaobjekt + referenzierte Produkte
+ * Loader – holt das Series-Metaobjekt + referenzierte Produkte (inkl. PDP-Daten)
  */
 export async function loader({params, context, request}) {
   const {storefront} = context;
@@ -22,7 +22,6 @@ export async function loader({params, context, request}) {
     throw new Error('Expected series handle to be defined');
   }
 
-  // Varianten-Auswahl aus der URL lesen (wie auf der PDP)
   const selectedOptions = getSelectedProductOptions(request);
 
   const data = await storefront.query(SERIES_QUERY, {
@@ -46,11 +45,11 @@ export async function loader({params, context, request}) {
     throw new Error('No products connected to this series');
   }
 
-  // erstmal: erstes Produkt als aktives
+  // erstes Produkt als aktives
   const activeIndex = 0;
   const activeProduct = products[activeIndex];
 
-  // Metafelder des aktiven Produkts normalisieren (für Komponenten, die sie nutzen)
+  // Metafelder des aktiven Produkts normalisieren (für HeroSplit/Teaser etc.)
   const metafields = normalizeAllMetafields(activeProduct.metafields || []);
 
   return {
@@ -58,6 +57,8 @@ export async function loader({params, context, request}) {
     products,
     activeIndex,
     metafields,
+    // 👇 wichtig: damit Patterns, die useLoaderData().product erwarten, etwas bekommen
+    product: activeProduct,
   };
 }
 
@@ -107,7 +108,7 @@ export default function SeriesPage() {
         </div>
       )}
 
-      {/* Hier kommt deine komplette PDP für das aktive Produkt */}
+      {/* komplette PDP */}
       {activeProduct ? (
         <ProductDetailInformation product={activeProduct} />
       ) : (
@@ -117,7 +118,7 @@ export default function SeriesPage() {
   );
 }
 
-// GraphQL Query
+// GraphQL Query – wie auf der PDP
 const SERIES_QUERY = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
@@ -197,7 +198,9 @@ const SERIES_QUERY = `#graphql
     $handle: String!
     $selectedOptions: [SelectedOptionInput!]
     $metafieldIdentifiers: [HasMetafieldsIdentifier!]!
-  ) {
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
     series: metaobject(
       handle: {type: "series", handle: $handle}
     ) {
