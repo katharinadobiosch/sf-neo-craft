@@ -1,5 +1,3 @@
-// app/patterns/ProductDetailInformation/index.jsx
-import {ProductImage} from '~/patterns/ProductImage';
 import {
   useOptimisticVariant,
   getAdjacentAndFirstAvailableVariants,

@@ -1,8 +1,6 @@
 import {TeaserDuo} from '../TeaserDuo';
 import {
-  HeroSplit_Poster,
   HeroSplit,
-  HeroSplit_GalleryBand,
   HoverImage,
 } from '../HeroSplit';
 

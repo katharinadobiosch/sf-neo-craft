@@ -10,20 +10,22 @@ import {
   getProductOptions,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
+import {normalizeAllMetafields} from '~/utils/metafields';
 
 export function ProductMain({
   product,
-  metafields,
+  // metafields,
   selectedVariant,
   seriesProducts,
   seriesActiveIndex,
   onChangeSeriesProduct,
 }) {
-
   // const selectedVariant = useOptimisticVariant(
   //   product.selectedOrFirstAvailableVariant,
   //   getAdjacentAndFirstAvailableVariants(product),
   // );
+
+  const metafields = normalizeAllMetafields(product.metafields ?? []);
 
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
