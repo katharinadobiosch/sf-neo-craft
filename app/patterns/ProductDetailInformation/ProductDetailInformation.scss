@@ -30,7 +30,7 @@
     align-items: stretch;
 
     &__media {
-      display: flex; /* Kind strecken */
+      display: flex;
       width: 50%;
       aspect-ratio: 780 / 940;
 
@@ -47,7 +47,7 @@
       height: 100%;
     }
     .media-gallery {
-      flex: 1 1 auto; /* füllt die Spalte */
+      flex: 1 1 auto;
       width: 100%;
     }
   }
@@ -69,14 +69,13 @@
     line-height: var(--nc-fliesstext-desktop-line);
     font-weight: var(--nc-fliesstext-desktop-weight);
     height: 10%;
-    // width: 100%;
 
     .pdp__question {
-      flex: 1 1 0; /* <- nimmt den gesamten Restplatz ein */
-      min-width: 0; /* falls nötig, verhindert overflow/blockieren */
+      flex: 1 1 0;
+      min-width: 0;
       display: flex;
       align-items: center;
-      justify-content: center; /* Text mittig im Restbereich */
+      justify-content: center;
       text-align: center;
     }
 
@@ -88,11 +87,6 @@
       color: white;
       width: 447px;
       height: 100%;
-
-      .is-active .cta-button-wrap button {
-        // background: #fff;
-        // color: #000;
-      }
 
       .cta-button-wrap button {
         all: unset;
@@ -108,7 +102,6 @@
 
       .cta-price {
         font-weight: 600;
-        // width: 6.3rem;
         text-align: right;
       }
 
@@ -139,7 +132,6 @@
 // !! GLOBAL
 .product-price-on-sale {
   display: flex;
-  // grid-gap: 0.5rem;
 }
 
 .product-main .product-form {
