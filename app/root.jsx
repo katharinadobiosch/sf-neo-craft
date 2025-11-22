@@ -76,8 +76,6 @@ export function links() {
       rel: 'preconnect',
       href: 'https://shop.app',
     },
-    {rel: 'stylesheet', href: resetStyles},
-    {rel: 'stylesheet', href: appStyles},
     {rel: 'stylesheet', href: headerStyles},
     {rel: 'stylesheet', href: footerStyles},
     {rel: 'stylesheet', href: searchStyles},

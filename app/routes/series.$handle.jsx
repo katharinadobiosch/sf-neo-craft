@@ -1,8 +1,8 @@
+// app/routes/series.$handle.jsx
 import {useLoaderData} from 'react-router';
 import {useState} from 'react';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
 import {getSelectedProductOptions} from '@shopify/hydrogen';
-import {normalizeAllMetafields} from '~/utils/metafields';
 import metafieldDefs from '~/graphql/product/product-metafield-defs.json';
 
 const METAFIELD_IDENTIFIERS = metafieldDefs
@@ -12,7 +12,7 @@ const METAFIELD_IDENTIFIERS = metafieldDefs
   .map((d) => ({namespace: d.namespace, key: d.key}));
 
 /**
- * Loader – holt das Series-Metaobjekt + referenzierte Produkte (inkl. PDP-Daten)
+ * Loader – holt das Series-Metaobjekt + referenzierte Produkte
  */
 export async function loader({params, context, request}) {
   const {storefront} = context;
@@ -47,18 +47,11 @@ export async function loader({params, context, request}) {
 
   // erstes Produkt als aktives
   const activeIndex = 0;
-  const activeProduct = products[activeIndex];
-
-  // Metafelder des aktiven Produkts normalisieren (für HeroSplit/Teaser etc.)
-  const metafields = normalizeAllMetafields(activeProduct.metafields || []);
 
   return {
     series,
     products,
     activeIndex,
-    metafields,
-    // 👇 wichtig: damit Patterns, die useLoaderData().product erwarten, etwas bekommen
-    product: activeProduct,
   };
 }
 
@@ -66,7 +59,6 @@ export default function SeriesPage() {
   const {series, products, activeIndex: initialIndex} = useLoaderData();
 
   const safeProducts = products ?? [];
-
   const titleField = series.fields.find((f) => f.key === 'title');
   const title = titleField?.value ?? 'Series';
 
@@ -108,7 +100,7 @@ export default function SeriesPage() {
         </div>
       )}
 
-      {/* komplette PDP */}
+      {/* Komplette PDP für das aktive Produkt */}
       {activeProduct ? (
         <ProductDetailInformation product={activeProduct} />
       ) : (
@@ -118,7 +110,7 @@ export default function SeriesPage() {
   );
 }
 
-// GraphQL Query – wie auf der PDP
+// GraphQL Query
 const SERIES_QUERY = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale

@@ -1,8 +1,8 @@
+// app/patterns/ProductDetailInformation/ProductMain.jsx
 import {ProductForm} from '~/patterns/ProductForm';
 import {MediaGallery} from '~/patterns/MediaGallery';
 import {HeroSplit_GalleryBand} from '../HeroSplit';
 import {TeaserDuo} from '../TeaserDuo';
-import {useLoaderData} from 'react-router';
 
 import {
   useOptimisticVariant,
@@ -11,7 +11,7 @@ import {
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
 
-export function ProductMain({product}) {
+export function ProductMain({product, metafields}) {
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
@@ -34,14 +34,14 @@ export function ProductMain({product}) {
     imageNodes?.[0]?.url ??
     null;
 
-  const {metafields} = useLoaderData();
-
-  const productDuoTopLeft = metafields?.teaser_duo_bottom_links?.list[0].url;
+  // 👉 Metafelder kommen als Prop (schon normalisiert)
+  const productDuoTopLeft = metafields?.teaser_duo_bottom_links?.list?.[0]?.url;
   const productDuoTopLeftHover =
-    metafields?.teaser_duo_bottom_links?.list[1].url;
-  const productDuoTopRight = metafields?.teaser_duo_bottom_rechts?.list[0].url;
+    metafields?.teaser_duo_bottom_links?.list?.[1]?.url;
+  const productDuoTopRight =
+    metafields?.teaser_duo_bottom_rechts?.list?.[0]?.url;
   const productDuoTopRightHover =
-    metafields?.teaser_duo_bottom_rechts?.list[1].url;
+    metafields?.teaser_duo_bottom_rechts?.list?.[1]?.url;
 
   return (
     <>

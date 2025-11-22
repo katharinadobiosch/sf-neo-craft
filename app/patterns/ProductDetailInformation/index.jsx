@@ -1,3 +1,4 @@
+// app/patterns/ProductDetailInformation/index.jsx
 import {ProductImage} from '~/patterns/ProductImage';
 import {
   useOptimisticVariant,
@@ -5,21 +6,24 @@ import {
 } from '@shopify/hydrogen';
 import {TeaserDuo} from '../TeaserDuo';
 import {ProductMain} from './ProductMain';
-import {useLoaderData} from 'react-router';
+import {normalizeAllMetafields} from '~/utils/metafields';
 
 export function ProductDetailInformation({product}) {
-  const {metafields} = useLoaderData();
-
+  // Variant-State
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  const topLeft = metafields?.produkt_duo_top_links?.list[0].url;
-  const topLeftHover = metafields?.produkt_duo_top_links?.list[1].url;
+  // 👉 Metafelder direkt vom Produkt normalisieren
+  const metafields = normalizeAllMetafields(product.metafields ?? []);
 
-  const topRight = metafields?.produkt_duo_top_rechts?.list[0].url;
-  const topRightHover = metafields?.produkt_duo_top_rechts?.list[1].url;
+  // Top-Teaser (oben)
+  const topLeft = metafields?.produkt_duo_top_links?.list?.[0]?.url;
+  const topLeftHover = metafields?.produkt_duo_top_links?.list?.[1]?.url;
+
+  const topRight = metafields?.produkt_duo_top_rechts?.list?.[0]?.url;
+  const topRightHover = metafields?.produkt_duo_top_rechts?.list?.[1]?.url;
 
   return (
     <div className="pdp">
@@ -33,7 +37,11 @@ export function ProductDetailInformation({product}) {
         />
       </div>
 
-      <ProductMain product={product} selectedVariant={selectedVariant} />
+      <ProductMain
+        product={product}
+        selectedVariant={selectedVariant}
+        metafields={metafields}
+      />
     </div>
   );
 }
