@@ -22,6 +22,32 @@
   color: inherit;
   text-decoration: none;
   overflow: hidden;
+
+  h3 {
+    font-size: var(--nc-warenkorb-desktop-size);
+    font-weight: var(--nc-warenkorb-desktop-weight);
+    line-height: var(--nc-warenkorb-desktop-line);
+    padding: 5rem 7.5rem 7.5rem 7.5rem;
+  }
+  p {
+    padding: 0 7.5rem 0 7.5rem;
+  }
+
+  ul {
+    padding: 0 7.5rem 0 7.5rem;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  @media (min-width: 48rem) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 'content media';
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    .material-card--reverse {
+      grid-template-areas: 'media content';
+    }
+  }
 }
 
 /* ===== Bildstreifen (2:1) mit Overlay-Swap ===== */
@@ -31,6 +57,7 @@
   aspect-ratio: 780/780;
   overflow: hidden;
 }
+
 .product-media img {
   position: absolute;
   inset: 0;
@@ -39,17 +66,21 @@
   object-fit: cover;
   transition: opacity 0.25s ease;
 }
+
 .img-main {
   opacity: 1;
 }
+
 .img-hover {
   opacity: 0;
 }
+
 /* Hover/Fokus: nur Opacity tauschen */
 .material-card:hover .img-hover,
 .material-card:focus-within .img-hover {
   opacity: 1;
 }
+
 .material-card:hover .img-main,
 .material-card:focus-within .img-main {
   opacity: 0;
@@ -68,9 +99,11 @@
   grid-template-rows: auto auto 1fr auto; /* CTA unten andocken */
   background: var(--bg);
 }
+
 .material-card__title {
   margin: 0;
 }
+
 .material-card__description {
   margin: 0;
   font-size: var(--nc-fliesstext-desktop-size);
@@ -160,37 +193,4 @@
 .material-card__ctaIcon {
   font-weight: 600;
   padding-right: 1rem;
-}
-
-/* ===== Desktop: Bild rechts / links abwechselnd ===== */
-@media (min-width: 48rem) {
-  /* Standard: Bild rechts */
-  .material-card {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: 'content media';
-    border-top: 1px solid var(--ink);
-    border-bottom: 1px solid var(--ink);
-  }
-  /* Jede zweite Karte: Bild links */
-  .material-card--reverse {
-    grid-template-areas: 'media content';
-  }
-}
-
-.material-card {
-  h3 {
-    font-size: var(--nc-warenkorb-desktop-size);
-    font-weight: var(--nc-warenkorb-desktop-weight);
-    line-height: var(--nc-warenkorb-desktop-line);
-    padding: 5rem 7.5rem 7.5rem 7.5rem;
-  }
-  p {
-    padding: 0 7.5rem 0 7.5rem;
-  }
-
-  ul {
-    padding: 0 7.5rem 0 7.5rem;
-    display: flex;
-    align-items: flex-end;
-  }
 }
