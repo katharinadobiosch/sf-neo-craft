@@ -45,6 +45,10 @@
       width: 50%;
       aspect-ratio: 780 / 940;
       height: 100%;
+      display: flex;
+      flex-direction: column;
+      /* falls nicht schon vorhanden: */
+      min-height: 0; /* wichtig für korrektes Shrinken */
     }
     .media-gallery {
       flex: 1 1 auto;
@@ -68,7 +72,10 @@
     font-size: var(--nc-fliesstext-desktop-size);
     line-height: var(--nc-fliesstext-desktop-line);
     font-weight: var(--nc-fliesstext-desktop-weight);
-    height: 10%;
+    flex: 0 0 50px; /* feste Höhe im Flex-Context */
+    min-height: 50px;
+    /* falls du schon padding/border nutzt, evtl. height statt flex-basis: */
+    /* height: 50px; */
 
     .pdp__question {
       flex: 1 1 0;
@@ -135,7 +142,10 @@
 }
 
 .product-main .product-form {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0; /* damit das mittlere Panel schrumpfen darf */
   // border: 5px solid red;
 }
 

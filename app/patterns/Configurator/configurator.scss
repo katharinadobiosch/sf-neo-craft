@@ -20,7 +20,7 @@
     line-height: var(--nc-konfigurator-desktop-line);
     font-weight: var(--nc-konfigurator-desktop-weight);
     // border: 5px solid orange;
-    height: 30%;
+    flex: 0 0 auto;
   }
   /* Header mit + */
   .cfg-toggle {
@@ -191,6 +191,8 @@
 }
 
 .configurator__meta {
-  height: 60%;
-  overflow: scroll;
+  flex: 1 1 auto; /* nimmt den übrig gebliebenen Platz */
+  min-height: 0; /* wichtig für Firefox & Co. */
+  overflow-y: auto; /* scrollt, wenn Inhalte höher sind */
+  margin: 2rem 0 0.5rem 0;
 }
