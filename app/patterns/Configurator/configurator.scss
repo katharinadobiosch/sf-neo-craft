@@ -11,6 +11,15 @@
   color: var(--text);
   border-bottom: 1px solid black;
 
+  font-size: var(--nc-head-mobil-size);
+  line-height: var(--nc-head-mobil-size-line);
+  font-weight: var(--nc-head-mobil-weight);
+
+  @media (min-width: 768px) {
+    font-size: var(--nc-konfigurator-desktop-size);
+    line-height: var(--nc-konfigurator-desktop-line);
+    font-weight: var(--nc-konfigurator-desktop-weight);
+  }
   /* Header mit + */
   .cfg-toggle {
     all: unset;
@@ -190,26 +199,4 @@
 .configurator__meta {
   height: 68%;
   overflow: scroll;
-}
-
-.acc-images {
-  padding-right: 2rem;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-
-  .m-grid {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: flex-end;
-    gap: 5rem;
-
-    .m-fig {
-      width: 22%;
-      height: auto;
-      margin-left: 10px;
-    }
-  }
 }
