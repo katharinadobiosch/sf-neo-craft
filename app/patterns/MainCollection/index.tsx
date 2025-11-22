@@ -29,8 +29,12 @@ async function loadCriticalData({context, request}) {
       },
     },
   );
+  const products = collection.products?.nodes ?? [];
 
-  return {collection};
+  // 👉 pro Serie nur 1 Produkt behalten
+  const groupedProducts = groupProductsBySeries(products);
+
+  return {collection, products: groupedProducts};
 }
 
 /**
@@ -41,6 +45,30 @@ async function loadCriticalData({context, request}) {
  */
 function loadDeferredData({context}) {
   return {};
+}
+
+function groupProductsBySeries(products) {
+  const seenSeries = new Set();
+  const result = [];
+
+  for (const product of products) {
+    const seriesRef = product.metafieldSeries?.reference;
+    const isMetaobject = seriesRef?.__typename === 'Metaobject';
+    const seriesHandle = isMetaobject ? seriesRef.handle : null;
+
+    if (seriesHandle) {
+      // Serie schon gesehen → Produkt überspringen
+      if (seenSeries.has(seriesHandle)) {
+        continue;
+      }
+      seenSeries.add(seriesHandle);
+    }
+
+    // erstes Produkt dieser Serie ODER Produkt ohne Serie
+    result.push(product);
+  }
+
+  return result;
 }
 
 function getTileImages(product: any) {
@@ -59,33 +87,44 @@ function ProductItem({product}) {
   const [isHover, setIsHover] = useState(false);
   const showHover = Boolean(hover && isHover);
 
+  const seriesRef = product.metafieldSeries?.reference;
+  const isMetaobject = seriesRef?.__typename === 'Metaobject';
+  const seriesHandle = isMetaobject ? seriesRef.handle : null;
+
+  const targetUrl = seriesHandle
+    ? `/series/${seriesHandle}`
+    : `/products/${product.handle}`;
+
+  // Titel: wenn Series-Metaobject einen title hat, diesen verwenden
+  let title = product.title;
+  if (isMetaobject && Array.isArray(seriesRef.fields)) {
+    const titleField = seriesRef.fields.find((f) => f.key === 'title');
+    if (titleField?.value) {
+      title = titleField.value;
+    }
+  }
+
   return (
-    <Link
-      to={`/products/${product.handle}`}
-      className="product-item"
-      prefetch="intent"
-    >
+    <Link to={targetUrl} className="product-item" prefetch="intent">
       <div
         className="product-media"
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
         onFocus={() => setIsHover(true)}
         onBlur={() => setIsHover(false)}
-        // 1) Fläche reservieren & Positionierungs-Kontext
         style={{position: 'relative', aspectRatio: '778/519'}}
       >
         {main && (
           <Image
             data={main}
-            alt={main.altText || product.title}
-            // 2) absolut & vollflächig
+            alt={main.altText || title}
             style={{
               position: 'absolute',
               inset: 0,
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              opacity: showHover ? 0 : 1, // 3) Sichtbarkeit
+              opacity: showHover ? 0 : 1,
               transition: 'opacity .25s ease',
             }}
             sizes="(min-width: 45em) 30rem, 100vw"
@@ -94,7 +133,7 @@ function ProductItem({product}) {
         {hover && (
           <Image
             data={hover}
-            alt={hover.altText || product.title}
+            alt={hover.altText || title}
             loading="lazy"
             style={{
               position: 'absolute',
@@ -109,21 +148,21 @@ function ProductItem({product}) {
           />
         )}
       </div>
-      <h4>{product.title}</h4>
+      <h4>{title}</h4>
     </Link>
   );
 }
 
-export default function Collections() {
-  const {collection} = useLoaderData();
+export default function CollectionsIndex() {
+  const {collection, products} = useLoaderData();
 
   return (
     <>
       <div className="collections">
         <div className="collections-grid">
-          {collection.products?.nodes?.map((product, index) => (
-            <ProductItem key={product.id} product={product} />
-          ))}
+          {products?.map((product) => {
+            return <ProductItem key={product.id} product={product} />;
+          })}
         </div>
       </div>
     </>
@@ -138,7 +177,7 @@ export default function Collections() {
  */
 // app/patterns/MainCollection/index.tsx
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
-  query CollectionByHandle_MainCollection(
+  query CollectionByHandle__CollectionsRoute(
     $handle: String!
     $country: CountryCode
     $language: LanguageCode
@@ -147,19 +186,34 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
       id
       title
       handle
-      image { id url altText width height }
-      products(first: 20) {
+      image {
+        id
+        url
+        altText
+        width
+        height
+      }
+      products(first: 50) {
         nodes {
           id
           title
           handle
-          featuredImage { url altText width height }
-          metafield(namespace: "custom", key: "product_tile") {
-            type
-            references(first: 2) {
-              nodes {
-                ... on MediaImage {
-                  image { url altText width height }
+          featuredImage {
+            url
+            altText
+            width
+            height
+          }
+
+          metafieldSeries: metafield(namespace: "custom", key: "product_series") {
+            reference {
+              __typename
+              ... on Metaobject {
+                handle
+                type
+                fields {
+                  key
+                  value
                 }
               }
             }

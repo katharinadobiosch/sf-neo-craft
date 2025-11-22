@@ -1,6 +1,6 @@
 .vertical-divider {
   position: fixed;
-  top: calc(var(--header-h) + var(--collections-offset)); /* <-- hier! */
+  top: calc(var(--header-h) + var(--collections-offset));
   bottom: 0;
   left: 50%;
   width: 0.1rem;

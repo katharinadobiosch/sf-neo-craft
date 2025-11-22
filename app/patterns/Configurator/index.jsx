@@ -86,23 +86,35 @@ const getHex = (name) => {
   return m?.hex || null;
 };
 
-export function Configurator({productOptions, navigate}) {
+export function Configurator({
+  productOptions,
+  navigate,
+  // 👇 neu – alle optional
+  seriesProducts = [],
+  seriesActiveIndex = 0,
+  onChangeSeriesProduct,
+}) {
   // Nur die Varianten-Sektion toggeln
   const [variantsOpen, setVariantsOpen] = useState(true);
   const panelRef = useRef(null);
   const [panelHeight, setPanelHeight] = useState(0);
 
-  // Höhe messen, sobald offen + DOM steht
+  const variantOptions = productOptions || [];
+
+  const hasSeriesOptions =
+    Array.isArray(seriesProducts) &&
+    seriesProducts.length > 1 &&
+    typeof onChangeSeriesProduct === 'function';
+
   useEffect(() => {
     if (!variantsOpen) return;
-    // next frame für verlässliche scrollHeight
     const id = requestAnimationFrame(() => {
       if (panelRef.current) {
         setPanelHeight(panelRef.current.scrollHeight || 0);
       }
     });
     return () => cancelAnimationFrame(id);
-  }, [variantsOpen, productOptions]);
+  }, [variantsOpen, productOptions, seriesProducts, seriesActiveIndex]);
 
   useEffect(() => {
     const onResize = () => {
@@ -113,8 +125,6 @@ export function Configurator({productOptions, navigate}) {
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
   }, [variantsOpen]);
-
-  const variantOptions = productOptions || [];
 
   const renderOption = (option) => {
     const colorish = isColorOption(option.name);
@@ -190,6 +200,31 @@ export function Configurator({productOptions, navigate}) {
         style={{maxHeight: variantsOpen ? panelHeight : 0}}
       >
         <div ref={panelRef} className="cfg-panel-inner">
+          {/* 🔹 neue Modell-Zeile */}
+          {hasSeriesOptions && (
+            <div className="cfg-row cfg-row--model">
+              <div className="cfg-label">Model</div>
+              <div className="cfg-values">
+                {seriesProducts.map((p, index) => {
+                  const label = p.title.replace(/^OSOM\s+/i, '');
+                  const isActive = index === seriesActiveIndex;
+
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      className={`cfg-item is-chip ${isActive ? 'is-selected' : ''}`}
+                      onClick={() => onChangeSeriesProduct(index)}
+                    >
+                      <span className="chip-text">{label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* bestehende Variant-Optionen */}
           {variantOptions.map(renderOption)}
         </div>
       </div>

@@ -114,7 +114,7 @@ export function MediaGallery({product, variant, className}: Props) {
         modules={[Navigation, Pagination, A11y]}
         loop={hasMultiple}
         navigation={hasMultiple ? true : false}
-        pagination={hasMultiple ? {clickable: true} : undefined}
+        // pagination={hasMultiple ? {clickable: true} : undefined}
         className="nc-swiper-content"
         onSwiper={(inst) => {
           swiperRef.current = inst;
