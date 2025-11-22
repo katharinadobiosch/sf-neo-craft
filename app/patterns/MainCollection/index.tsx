@@ -86,11 +86,11 @@ function ProductItem({product}) {
   const {main, hover} = getTileImages(product);
   const [isHover, setIsHover] = useState(false);
   const showHover = Boolean(hover && isHover);
+
   const seriesRef = product.metafieldSeries?.reference;
   const isMetaobject = seriesRef?.__typename === 'Metaobject';
   const seriesHandle = isMetaobject ? seriesRef.handle : null;
 
-  // Ziel-URL: wenn Series vorhanden → /series/<handle>, sonst normale PDP
   const targetUrl = seriesHandle
     ? `/series/${seriesHandle}`
     : `/products/${product.handle}`;
@@ -112,21 +112,19 @@ function ProductItem({product}) {
         onMouseLeave={() => setIsHover(false)}
         onFocus={() => setIsHover(true)}
         onBlur={() => setIsHover(false)}
-        // 1) Fläche reservieren & Positionierungs-Kontext
         style={{position: 'relative', aspectRatio: '778/519'}}
       >
         {main && (
           <Image
             data={main}
-            alt={main.altText || product.title}
-            // 2) absolut & vollflächig
+            alt={main.altText || title}
             style={{
               position: 'absolute',
               inset: 0,
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              opacity: showHover ? 0 : 1, // 3) Sichtbarkeit
+              opacity: showHover ? 0 : 1,
               transition: 'opacity .25s ease',
             }}
             sizes="(min-width: 45em) 30rem, 100vw"
@@ -135,7 +133,7 @@ function ProductItem({product}) {
         {hover && (
           <Image
             data={hover}
-            alt={hover.altText || product.title}
+            alt={hover.altText || title}
             loading="lazy"
             style={{
               position: 'absolute',
@@ -150,7 +148,7 @@ function ProductItem({product}) {
           />
         )}
       </div>
-      <h4>{product.title}</h4>
+      <h4>{title}</h4>
     </Link>
   );
 }
@@ -163,8 +161,6 @@ export default function CollectionsIndex() {
       <div className="collections">
         <div className="collections-grid">
           {products?.map((product) => {
-            console.log(product.title, product.metafieldSeries);
-
             return <ProductItem key={product.id} product={product} />;
           })}
         </div>
