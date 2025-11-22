@@ -102,6 +102,8 @@ function ProductItem({product, isReversed}) {
 
   const colors = getProductColors(product);
 
+  console.log('colors for', product.title, colors);
+
   return (
     <Link
       to={`/products/${product.handle}`}
