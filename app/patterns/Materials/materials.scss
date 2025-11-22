@@ -176,11 +176,13 @@
   /* Base swatch */
   .material-card__swatch {
     display: inline-block;
-    width: 12px;
-    height: 12px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     border: 1px solid rgba(0, 0, 0, 0.12);
-    /* no fixed flex-basis so scaling can breathe */
+    flex: 0 0 12px;
+    position: relative; // ⬅️ neu
+    z-index: 1; // Basis-Ebene
     transition:
       transform 150ms ease,
       box-shadow 150ms ease;
@@ -192,11 +194,12 @@
   .material-card__swatches li:hover .material-card__swatch,
   .material-card__swatches li:focus-within .material-card__swatch,
   .material-card__swatch:focus {
-    transform: scale(2);
+    transform: scale(4);
     box-shadow:
       0 0 0 2px #fff,
       0 0 0 3px rgba(0, 0, 0, 0.25);
-    outline: none; /* box-shadow acts as focus ring */
+    outline: none;
+    z-index: 10;
   }
 
   /* Respect reduced motion */
