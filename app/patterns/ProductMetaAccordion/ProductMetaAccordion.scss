@@ -18,14 +18,19 @@
       display: flex;
       justify-content: space-between;
       width: 233px;
-      min-height: 5rem;
+      // min-height: 5rem;
       // padding: 0.75rem 0;
       cursor: pointer;
       user-select: none;
+      padding: 1.5rem 0 1.5rem 0;
+      align-items: center;
     }
 
     .acc-title {
       // color: #161616;
+      font-size: 1.5rem;
+      line-height: 2.2rem;
+      font-weight: 500;
     }
 
     /* Plus-Icon aus zwei Linien, wie im Configurator */
@@ -74,7 +79,7 @@
         justify-content: flex-end;
         align-items: flex-end;
         gap: 4rem;
-        margin-top: 3rem;
+        margin: 3rem 0;
 
         .m-fig {
           width: 22%;
@@ -82,6 +87,13 @@
           margin-left: 10px;
         }
       }
+    }
+
+    .acc-panel {
+      display: flex;
+      justify-content: center;
+      height: 100%;
+      align-items: center;
     }
 
     .acc-panel p {
