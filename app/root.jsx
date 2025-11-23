@@ -42,7 +42,7 @@ import aboutStyles from '~/patterns/About/about.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
 
-import {PageLayout} from './patterns/PageLayoout';
+import {PageLayout} from './patterns/PageLayout';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
