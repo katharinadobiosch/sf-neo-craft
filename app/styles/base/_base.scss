@@ -3,13 +3,6 @@ html {
   font-size: 62.5%; /* 1rem = 10px */
 }
 
-body {
-  font-family: 'GTF Good Sans', sans-serif;
-  font-size: 1.4rem; /* 14px: minimal lesbarer Start */
-  line-height: 1.6; /* etwas mehr Luft für 12–16px */
-  color: var(--text-default);
-}
-
 /* 2) Paragraph nutzt deine Tokens */
 p {
   font-size: var(--nc-fliesstext-desktop-size);
@@ -71,20 +64,4 @@ h6 {
   gap: var(--gap);
 }
 
-/* 6) Mobile Typo: nutze deine Mobil-Tokens via @media */
-@media (max-width: 640px) {
-  body {
-    font-size: var(--nc-fliesstext-mobil-size);
-    line-height: var(--nc-fliesstext-mobil-line);
-    font-weight: var(--nc-fliesstext-mobil-weight);
-  }
-  h1 {
-    font-size: clamp(2.4rem, 6vw, 3.2rem);
-  }
-  h2 {
-    font-size: clamp(2rem, 5vw, 2.6rem);
-  }
-  h3 {
-    font-size: clamp(1.8rem, 4.5vw, 2.2rem);
-  }
-}
+

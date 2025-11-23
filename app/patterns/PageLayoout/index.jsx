@@ -70,7 +70,7 @@ export function PageLayout({
           variant={bgHeaderColor}
         />
       )}
-      <main>{children}</main>
+      <main className="layout-main">{children}</main>
       <Footer
         footer={footer}
         header={header}

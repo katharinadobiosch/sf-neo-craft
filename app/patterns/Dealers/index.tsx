@@ -16,9 +16,9 @@ const toHref = (url: string) =>
 export default function Dealers({items}: Props) {
   if (!items?.length) {
     return (
-      <main className="page">
+      <div className="page">
         <p style={{padding: 24}}>No dealers found.</p>
-      </main>
+      </div>
     );
   }
 
@@ -33,7 +33,7 @@ export default function Dealers({items}: Props) {
   const countries = Object.keys(byCountry).sort((a, b) => a.localeCompare(b));
 
   return (
-    <main className="dealers">
+    <div className="dealers">
       {countries.map((country) => {
         const rows = byCountry[country]
           .slice()
@@ -67,6 +67,6 @@ export default function Dealers({items}: Props) {
           </div>
         );
       })}
-    </main>
+    </div>
   );
 }
