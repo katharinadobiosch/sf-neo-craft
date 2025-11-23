@@ -24,11 +24,12 @@ export default function Bespoke() {
 
       <div className="bespoke__middle">
         <HeroSplit
-          showDivider={true} // mittlere Linie
-          bandDecor={null} // kein Farbbalken
-          rightAspect="780/940" // rechts hochkant
-          leftTopAspect="788/520" // links oben etwas breiter
-          leftBottomAspect="788/420" // links unten flacher Block
+          className="hero-split--noBottomMobile"
+          showDivider={true}
+          bandDecor={null}
+          rightAspect="780/940"
+          leftTopAspect="788/520"
+          leftBottomAspect="788/420"
           leftTop={<HoverImage image={heroSplitLeft} />}
           leftBottom={<div className="hs-spacer hs-spacer--light" />}
           right={<HoverImage image={heroSplitRight} />}

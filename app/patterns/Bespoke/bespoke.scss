@@ -1,11 +1,17 @@
 .bespoke {
-  margin: 3rem 0;
   position: relative;
+
   .teaser-duo .teaser-duo__content {
     background: white;
   }
 
   &__middle {
     margin: 0 0 3rem 0;
+  }
+
+  .teaser-duo {
+    &__content {
+      border: 2px solid red;
+    }
   }
 }

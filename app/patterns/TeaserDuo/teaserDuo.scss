@@ -13,11 +13,15 @@
   }
 
   .teaser-duo__content {
-    background: var(--sf-purple);
-    padding: 9.1rem 13.6rem;
-    font-size: var(--nc-fliesstext-desktop-size);
-    line-height: var(--nc-fliesstext-desktop-line);
-    font-weight: var(--nc-fliesstext-desktop-weight);
+    padding: 3rem 0;
+
+    @media (min-width: 768px) {
+      background: var(--sf-purple);
+      padding: 9.1rem 13.6rem;
+      font-size: var(--nc-fliesstext-desktop-size);
+      line-height: var(--nc-fliesstext-desktop-line);
+      font-weight: var(--nc-fliesstext-desktop-weight);
+    }
   }
 
   .hover-wrap {

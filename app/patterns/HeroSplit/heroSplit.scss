@@ -88,38 +88,32 @@
     --pad-y: clamp(20px, 4vw, 48px);
     background: #fff;
     color: #111;
-    display: grid;
+    display: flex;
     align-items: center;
+    justify-content: center;
+
     height: 100%;
-    &__inner {
-      padding: 1rem 5rem 1rem 10rem;
-      // line-height: 50;
-      font-size: 2rem;
-      font-weight: 300;
-    }
-    /* Deko-Balken links + Kreis rechts unten */
-    // &::before {
-    //   content: '';
-    //   position: absolute;
-    //   left: 12px;
-    //   top: 18px;
-    //   bottom: 18px;
-    //   width: 12px;
-    //   background: #111;
-    // }
-    // &::after {
-    //   content: '';
-    //   position: absolute;
-    //   right: -90px;
-    //   bottom: -90px;
-    //   width: 240px;
-    //   height: 240px;
-    //   border-radius: 50%;
-    //   border: 16px solid #111;
-    // }
+
     &--light {
       background: #fff;
       color: #111;
+    }
+
+    .hs-quote__inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1.5rem;
+      padding: 1rem;
+      // line-height: 50;
+      font-size: 2rem;
+      font-weight: 300;
+
+      @media (min-width: 768px) {
+        font-size: 3rem;
+        padding: 1rem 5rem 1rem 10rem;
+      }
     }
   }
 
@@ -167,7 +161,38 @@
 
   /* Spacers, falls ein Slot leer ist */
   .hs-spacer {
-    height: 100%;
-    background: transparent;
+    height: 0%;
+    @media (min-width: 768px) {
+      height: 100%;
+      background: transparent;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hs-grid {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'right'
+        'leftTop'
+        'leftBottom';
+    }
+    &[data-divider='on'] .hs-grid::before {
+      display: none;
+    }
+  }
+}
+
+/* Variante: unten links auf Mobile entfernen */
+.hero-split--noBottomMobile {
+  @media (max-width: 900px) {
+    .hs-leftBottom {
+      display: none; // Zelle komplett raus
+    }
+
+    .hs-grid {
+      grid-template-areas:
+        'right'
+        'leftTop'; // keine leftBottom-Zeile mehr
+    }
   }
 }
