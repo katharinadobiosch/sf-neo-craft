@@ -65,17 +65,23 @@
     line-height: var(--nc-fliesstext-desktop-line);
     font-weight: var(--nc-fliesstext-desktop-weight);
     flex: 0 0 50px; /* feste Höhe im Flex-Context */
-    min-height: 50px;
+    // min-height: 50px;
     /* falls du schon padding/border nutzt, evtl. height statt flex-basis: */
     /* height: 50px; */
 
     .pdp__question {
-      flex: 1 1 0;
-      min-width: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      display: none;
+
+      @media (min-width: 768px) {
+        justify-content: center;
+        padding: 0.8rem 0 0.4rem;
+        flex: 1 1 0;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
     }
 
     .cfg-cta {
@@ -86,7 +92,10 @@
       color: white;
       width: 447px;
       height: 100%;
-      height: 3rem;
+      height: 6rem;
+      @media (min-width: 768px) {
+        height: 6rem;
+      }
 
       .cta-button-wrap button {
         all: unset;
@@ -225,10 +234,5 @@
 
   .pdp__cta-container .cfg-cta {
     width: 100%;
-  }
-
-  .pdp__question {
-    justify-content: center;
-    padding: 0.8rem 0 0.4rem;
   }
 }
