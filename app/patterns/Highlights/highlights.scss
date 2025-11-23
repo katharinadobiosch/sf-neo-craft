@@ -116,14 +116,16 @@
     font-size: 12px;
     line-height: var(--nc-navigation-name-desktop-line);
     font-weight: var(--nc-navigation-name-desktop-weight);
-    height: 4rem;
+    height: 3rem;
     margin: 0;
     display: flex;
     align-items: flex-start;
     margin-top: 1rem;
 
     @media (min-width: 768px) {
+      font-size: var(--nc-navigation-name-desktop-size);
       padding-left: 2rem;
+      // height: 4rem;
     }
   }
 }
