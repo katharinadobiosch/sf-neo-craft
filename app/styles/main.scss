@@ -133,7 +133,6 @@
 html,
 body {
   height: 100%;
-  margin: 0;
   padding: 0;
 }
 
@@ -167,6 +166,17 @@ body {
 }
 
 /* Deine bisherige Regel body > main MUSS weg */
+
+/* Standard-Seiten-Wrapper (CMS pages.$handle) */
+.page {
+  margin: 0 1.5rem;
+  padding-top: var(--header-h);
+
+  @media (min-width: 768px) {
+    margin: 0 5rem;
+  }
+}
+
 //////////////////////////////////////////////////////
 
 /* 6) Mobile Typo: nutze deine Mobil-Tokens via @media */
