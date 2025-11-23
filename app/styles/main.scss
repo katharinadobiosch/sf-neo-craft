@@ -185,6 +185,8 @@ body > main {
 /* Standard-Seiten-Wrapper (CMS pages.$handle) */
 .page {
   margin: 0 1.5rem;
+  overflow-wrap: break-word; // moderner Standard
+  word-break: break-word;
 
   @media (min-width: 768px) {
     margin: 0 5rem;
