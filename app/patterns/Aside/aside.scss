@@ -1,9 +1,9 @@
 @use '../../styles/utils/_mixins' as *;
 
 @media (max-width: 45em) {
-  html:has(.overlay.expanded) {
-    overflow: hidden;
-  }
+  // html:has(.overlay.expanded) {
+  //   overflow: hidden;
+  // }
 }
 
 aside {
