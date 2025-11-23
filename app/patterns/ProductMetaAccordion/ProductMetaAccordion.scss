@@ -17,13 +17,17 @@
       flex-shrink: 0;
       display: flex;
       justify-content: space-between;
-      width: 233px;
+      width: 163px;
       // min-height: 5rem;
       // padding: 0.75rem 0;
       cursor: pointer;
       user-select: none;
       padding: 1.5rem 0 1.5rem 0;
       align-items: center;
+
+      @media (min-width: 768px) {
+        width: 233px;
+      }
     }
 
     .acc-title {
