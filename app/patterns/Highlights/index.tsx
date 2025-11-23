@@ -87,7 +87,7 @@ const PROJECTS_QUERY = `#graphql
 export default function ProjectsPage() {
   const {items} = useLoaderData<typeof loader>();
   return (
-    <main className="highlights">
+    <div className="highlights">
       <ul className="highlights__grid">
         {items.map((it: any) => (
           <li key={it.id} className="highlights__item">
@@ -99,7 +99,7 @@ export default function ProjectsPage() {
           </li>
         ))}
       </ul>
-    </main>
+    </div>
   );
 }
 

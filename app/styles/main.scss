@@ -127,16 +127,49 @@
 *::after {
   box-sizing: border-box;
 }
+
+///////////////////////////////////bleibt
+// ! BLEIBT
 html,
 body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
+
 body {
-  margin: 0; /* entfernt UA-Body-Margin */
-  // line-height: 1.5;
+  margin: 0;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-size: var(--nc-fliesstext-mobil-size);
+  line-height: var(--nc-fliesstext-mobil-line);
+  font-weight: var(--nc-fliesstext-mobil-weight);
+  font-family: 'GTF Good Sans';
 }
+
+/* Layout-Wrapper */
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hauptbereich füllt den Platz zwischen Header & Footer */
+.layout-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0 1.5rem;
+
+  @media (min-width: 768px) {
+    margin: 0 5rem;
+  }
+}
+
+/* Deine bisherige Regel body > main MUSS weg */
+//////////////////////////////////////////////////////
+
+/* 6) Mobile Typo: nutze deine Mobil-Tokens via @media */
 
 /* Medien & Tabellen */
 img,

@@ -1,13 +1,14 @@
 /* ===== Seite & Grid ===== */
 
 .materials {
-  margin: 1.5rem 0 0 0;
+  margin: 8.6rem 0 0rem 0;
+
   font-size: 12px;
   line-height: var(--nc-navigation-name-desktop-line);
   font-weight: var(--nc-navigation-name-desktop-weight);
 
   @media (min-width: 768px) {
-    margin: 3rem 0 0 0;
+    margin: 10rem 0 0rem 0;
     font-size: var(--nc-warenkorb-desktop-size);
     font-weight: var(--nc-warenkorb-desktop-weight);
     line-height: var(--nc-warenkorb-desktop-line);

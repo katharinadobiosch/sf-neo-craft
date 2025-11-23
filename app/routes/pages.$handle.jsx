@@ -70,7 +70,7 @@ export default function Page() {
       <header>
         <h1>{page.title}</h1>
       </header>
-      <main dangerouslySetInnerHTML={{__html: page.body}} />
+      <section dangerouslySetInnerHTML={{__html: page.body}} />
     </div>
   );
 }

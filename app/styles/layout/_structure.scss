@@ -8,18 +8,3 @@
   transform: translateX(-50%);
   z-index: 0;
 }
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
-
-body > main {
-  margin: 0 1.5rem;
-  padding-top: var(--header-h);
-
-  @media (min-width: 768px) {
-    margin: 0 5rem;
-  }
-}
