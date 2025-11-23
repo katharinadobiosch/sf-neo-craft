@@ -152,3 +152,49 @@
 .product-price-on-sale {
   opacity: 0.5;
 }
+
+/* ======= MOBILE: PDP Layout ======= */
+@media (max-width: 767px) {
+  .pdp {
+    margin: 1.5rem 0 3rem;
+  }
+
+  .pdp .product-main {
+    flex-direction: column; /* statt row */
+    aspect-ratio: auto;
+  }
+
+  /* falls du die Gallery über dem Config haben willst:
+     sonst diese Zeile einfach löschen */
+  .pdp .product-main__media {
+    order: -1;
+  }
+
+  .pdp .product-main__media,
+  .pdp .product-main__info {
+    width: 100%;
+    aspect-ratio: auto;
+  }
+
+  /* Bühne darf auf Mobile schrumpfen */
+  .pdp .nc-media-gallery {
+    min-height: 260px;
+    height: auto;
+  }
+
+  /* CTA-Balken */
+  .pdp__cta-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .pdp__cta-container .cfg-cta {
+    width: 100%;
+  }
+
+  .pdp__question {
+    justify-content: center;
+    padding: 0.8rem 0 0.4rem;
+  }
+}

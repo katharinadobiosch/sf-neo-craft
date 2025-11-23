@@ -196,3 +196,42 @@
   overflow-y: auto; /* scrollt, wenn Inhalte höher sind */
   margin: 2rem 0 0.5rem 0;
 }
+/* ======= MOBILE: Configurator ======= */
+@media (max-width: 767px) {
+  .configurator {
+    font-size: var(--nc-fliesstext-mobil-size);
+    line-height: var(--nc-fliesstext-mobil-line);
+  }
+
+  .configurator .cfg-head {
+    gap: 0.5rem;
+  }
+
+  .configurator .cfg-row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.8rem 0 1.2rem 0;
+  }
+
+  /* linker „unsichtbarer“ Spacer weg */
+  .configurator .cfg-row::before {
+    content: none;
+    flex: 0 0 auto;
+  }
+
+  .configurator .cfg-label {
+    flex: 0 0 auto;
+    font-size: 1.3rem;
+  }
+
+  .configurator .cfg-values {
+    width: 100%;
+    margin-right: 0;
+    gap: 1.2rem;
+  }
+
+  .configurator .cfg-head .cfg-toggle {
+    width: auto;
+    padding-top: 1.6rem;
+  }
+}

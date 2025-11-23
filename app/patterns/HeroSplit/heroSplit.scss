@@ -44,7 +44,7 @@
   }
 
   /* Responsive – unter 900px einspaltig */
-  @media (max-width: 900px) {
+  @media (max-width: 767px) {
     .hs-grid {
       grid-template-columns: 1fr;
       grid-template-areas:
@@ -168,7 +168,7 @@
     }
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 767px) {
     .hs-grid {
       grid-template-columns: 1fr;
       grid-template-areas:
@@ -184,7 +184,7 @@
 
 /* Variante: unten links auf Mobile entfernen */
 .hero-split--noBottomMobile {
-  @media (max-width: 900px) {
+  @media (max-width: 767px) {
     .hs-leftBottom {
       display: none; // Zelle komplett raus
     }
