@@ -53,3 +53,37 @@
     }
   }
 }
+
+/* ======= MOBILE: TeaserDuo ======= */
+@media (max-width: 767px) {
+  .teaser-duo {
+    .teaser-duo__images {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .teaser-duo__image {
+      width: 100%;
+    }
+
+    .teaser-duo__content {
+      background: var(--sf-purple);
+      margin-top: 2rem;
+      padding: 2rem 1.6rem 2.6rem;
+      font-size: var(--nc-fliesstext-mobil-size);
+      line-height: var(--nc-fliesstext-mobil-line);
+      font-weight: var(--nc-fliesstext-mobil-weight);
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+  }
+
+  /* Override deiner square-variant-Spezialregel,
+     damit nichts mehr aus dem Container rausrutscht */
+  .square-variant .teaser-duo__content {
+    width: 100%;
+    margin-left: 0;
+    padding: 2rem 1.6rem 2.6rem;
+  }
+}
