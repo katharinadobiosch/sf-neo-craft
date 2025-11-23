@@ -56,7 +56,11 @@
     color: inherit;
     text-decoration: none;
     overflow: hidden;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
+
+    @media (min-width: 768px) {
+      margin-bottom: 4rem;
+    }
 
     h3 {
       font-size: 12px;
