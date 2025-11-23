@@ -1,15 +1,14 @@
 .about {
-  margin: 3rem 0;
-  .teaser-duo {
-    .teaser-duo__content {
-      background: white;
-    }
+  margin: 1.5rem 0 0 0;
+
+  @media (min-width: 768px) {
+    margin: 3rem 0 0 0;
+  }
+  .teaser-duo .teaser-duo__content {
+    background: white;
   }
 
   .hero-split {
     margin: 0 0 3rem 0;
-  }
-  .hs-quote__inner {
-    font-size: 3rem;
   }
 }

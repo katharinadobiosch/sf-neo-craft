@@ -1,32 +1,62 @@
-@use '../../styles/utils/_mixins' as *;
-
 .footer {
-  background: var(--sf-white);
-  margin-top: auto;
+  margin: 0 1.5rem;
   text-transform: uppercase;
-  border-top: 0.1rem solid var(--color-dark);
-  padding: 1.6rem 5rem;
-  z-index: 10;
+  position: relative;
 
-  &--white {
-    background: var(--sf-white);
-    // color: black;
+  @media (min-width: 768px) {
+    padding: 1.6rem 5rem;
   }
-  &--purple {
-    background: var(--sf-purple);
-    // color: white;
-  }
-  &--orange {
-    background: var(--sf-orange);
+
+  /* Full-width Top Border */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: 1px;
+    background-color: var(--color-dark);
+    transform: translateX(-50%);
   }
 
   .footer-menu {
-    justify-content: space-between;
-    display: flex;
-    flex-wrap: wrap;
-  }
+    /* MOBILE GRID */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem 1.2rem;
+    width: 100%;
+    padding: 1.4rem 0 2rem 0;
 
-  .footer-menu a {
-    min-width: fit-content;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    text-align: left;
+
+    a,
+    .active {
+      display: block;
+      padding: 0; /* ruhiger Look */
+      margin: 0;
+      white-space: nowrap; /* kein umbrechen */
+      letter-spacing: 0.01em;
+    }
+
+    /* DESKTOP */
+    @media (min-width: 768px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0;
+
+      padding: 2rem 0;
+
+      font-size: var(--nc-navigation-name-desktop-size);
+      line-height: var(--nc-navigation-name-desktop-line);
+      font-weight: var(--nc-navigation-name-desktop-weight);
+
+      a {
+        margin: 0;
+        white-space: nowrap;
+      }
+    }
   }
 }
