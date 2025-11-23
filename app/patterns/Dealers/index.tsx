@@ -32,7 +32,6 @@ export default function Dealers({items}: Props) {
   // Länder alphabetisch
   const countries = Object.keys(byCountry).sort((a, b) => a.localeCompare(b));
 
-
   return (
     <main className="dealers">
       {countries.map((country) => {
@@ -48,20 +47,20 @@ export default function Dealers({items}: Props) {
               {rows.map((d) => (
                 <div className="dealers__entry" key={d.id}>
                   <div className="dealers__line">
-                    <span className="dealers__name">{d.name}</span>
+                    {d.website ? (
+                      <a
+                        className="dealers__link"
+                        href={toHref(d.website)}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {d.name}
+                      </a>
+                    ) : (
+                      <span className="dealers__name">{d.name}</span>
+                    )}
                     {d.city ? <span>, {d.city}</span> : null}
                   </div>
-
-                  {d.website ? (
-                    <a
-                      className="dealers__link"
-                      href={toHref(d.website)}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {d.website}
-                    </a>
-                  ) : null}
                 </div>
               ))}
             </div>
