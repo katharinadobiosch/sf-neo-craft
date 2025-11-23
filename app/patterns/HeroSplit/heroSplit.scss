@@ -35,8 +35,13 @@
     aspect-ratio: var(--hs-leftTop-aspect);
   }
   .hs-leftBottom {
-    grid-area: leftBottom;
-    aspect-ratio: var(--hs-leftBottom-aspect);
+    display: none;
+
+    @media (min-width: 768px) {
+      display: block;
+      grid-area: leftBottom;
+      aspect-ratio: var(--hs-leftBottom-aspect);
+    }
   }
   .hs-right {
     grid-area: right;

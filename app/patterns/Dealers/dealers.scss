@@ -4,14 +4,16 @@
   margin: 2rem 0 2rem 0;
 
   @media (min-width: 768px) {
-    margin: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    color: black;
+    background: var(--sf-purple);
+    height: calc(100% - 4rem);
+    border-bottom: 1px solid black;
+    margin-top: 3rem; /* Abstand unter Header */
   }
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 100%;
-  color: black;
-  // padding-top: 2rem; /* Abstand unter Header */
 }
 
 /* Vertikale Linie: MOBIL AUS (default) */
@@ -25,7 +27,7 @@
   width: 1px;
   background: black;
   transform: translateX(-0.5px);
-  z-index: 10;
+  z-index: 5;
 }
 
 /* Sektionen */
