@@ -1,5 +1,5 @@
 import {TeaserDuo} from '../TeaserDuo';
-import {HeroSplit, HeroSplit_Poster, HoverImage} from '../HeroSplit';
+import {HeroSplit_Poster} from '../HeroSplit';
 
 import teaserDuoTopLeft from './aboutImageLeft.jpg';
 import teaserDuoTopRight from './aboutImageRight.jpg';

@@ -1,10 +1,5 @@
 import {TeaserDuo} from '../TeaserDuo';
-import {
-  HeroSplit_Poster,
-  HeroSplit,
-  HeroSplit_GalleryBand,
-  HoverImage,
-} from '../HeroSplit';
+import {HeroSplit, HoverImage} from '../HeroSplit';
 
 import teaserDuoRight from './London-craft-week-invite-2025-image.png';
 import teaserDuoLeft from './NC_PP_LR_SteelStand_Ambience_01.png';
@@ -28,7 +23,6 @@ export default function Bespoke() {
       </div>
 
       <div className="bespoke__middle">
-        
         <HeroSplit
           showDivider={true} // mittlere Linie
           bandDecor={null} // kein Farbbalken

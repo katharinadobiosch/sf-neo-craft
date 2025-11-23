@@ -1,6 +1,6 @@
 /* ===== Meta Accordion – Figma Look ===== */
 .meta-accordion {
-  margin-top: 2rem;
+  // margin-top: 2rem;
   // overflow: scroll;
   position: relative;
   // border-top: 1px solid var(--border-color);
@@ -8,7 +8,6 @@
   .acc-item {
     display: flex;
     flex-direction: row;
-    align-items: center;
 
     summary::-webkit-details-marker {
       display: none;
@@ -17,7 +16,6 @@
     summary {
       flex-shrink: 0;
       display: flex;
-      align-items: center;
       justify-content: space-between;
       width: 233px;
       min-height: 5rem;
@@ -119,10 +117,6 @@
   height: 1px;
   background: #e9e9ed;
   margin: 0.75rem 0 1rem;
-}
-
-.meta-accordion {
-  margin-top: 1rem;
 }
 
 .section-block {

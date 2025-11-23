@@ -151,10 +151,12 @@ export function HeroSplit_GalleryBand({
   leftImg,
   rightImg,
   bandColor = '#8F8CF6', // lila Band wie Screenshot 3
+  text,
 }: {
   leftImg?: ImgLike;
   rightImg?: ImgLike;
   bandColor?: string;
+  text: string;
 }) {
   return (
     <HeroSplit
@@ -166,6 +168,7 @@ export function HeroSplit_GalleryBand({
       leftTop={<HoverImage image={leftImg} />}
       leftBottom={<div className="hs-spacer" />}
       right={<HoverImage image={rightImg} />}
+      text={text}
     />
   );
 }

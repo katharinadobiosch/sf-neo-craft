@@ -11,7 +11,13 @@ import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
  *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
  * }}
  */
-export function ProductForm({productOptions, product}) {
+export function ProductForm({
+  productOptions,
+  product,
+  seriesProducts,
+  seriesActiveIndex,
+  onChangeSeriesProduct,
+}) {
   const {open: openAside} = useAside();
 
   const navigate = useNavigate();
@@ -31,7 +37,22 @@ export function ProductForm({productOptions, product}) {
     ? product.metafields
     : [];
   const mfMeasurements = allMetafields.filter(isMeasurementsMeta);
-  const mfOthers = allMetafields.filter((m) => !isMeasurementsMeta(m));
+  // ❌ Diese Keys sollen NICHT im Meta-Bereich angezeigt werden
+  const HIDE_KEYS = new Set([
+    'hero_split_text', // dein Metafeld-Name aus Shopify
+  ]);
+
+  const mfOthers = allMetafields.filter((m) => {
+    const key = (m?.key || '').toLowerCase().trim();
+
+    // nicht zeigen, wenn in HIDE_KEYS
+    if (HIDE_KEYS.has(key)) return false;
+
+    // nicht zeigen, wenn ein Measurement-Feld
+    if (isMeasurementsMeta(m)) return false;
+
+    return true;
+  });
 
   const currentVariant = useMemo(() => {
     for (const opt of productOptions || []) {
@@ -60,6 +81,9 @@ export function ProductForm({productOptions, product}) {
       <Configurator
         productOptions={productOptions}
         navigate={navigate}
+        seriesProducts={seriesProducts}
+        seriesActiveIndex={seriesActiveIndex}
+        onChangeSeriesProduct={onChangeSeriesProduct}
         product={product}
       />
 
