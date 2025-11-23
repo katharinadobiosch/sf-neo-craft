@@ -56,14 +56,6 @@
     }
   }
 
-  .pdp__teaser-duo {
-    margin: 3rem 0 0 0;
-
-    img {
-      aspect-ratio: 781/520;
-    }
-  }
-
   &__cta-container {
     display: flex;
     flex-direction: row;
@@ -126,12 +118,53 @@
       }
     }
   }
+  .pdp__teaser-duo {
+    margin: 1.5rem 0 0 0;
 
-  .square-variant .teaser-duo__content {
-    @media (max-width: 767px) {
-      padding: 3rem;
-      width: calc(100% + 3rem);
-      margin-left: -1.5rem;
+    @media (min-width: 768px) {
+      margin: 3rem 0 0 0;
+    }
+
+    img {
+      aspect-ratio: 781/520;
+    }
+  }
+
+  /* ======= MOBILE: nur PDP-TeaserDuo (Shape + Chairs) ======= */
+  @media (max-width: 767px) {
+    .pdp__teaser-duo {
+      .teaser-duo__images {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .teaser-duo__image {
+        width: 100%;
+      }
+
+      .teaser-duo__image img {
+        aspect-ratio: auto;
+        height: auto;
+      }
+
+      .teaser-duo__content {
+        background: var(--sf-purple);
+        margin-top: 2rem;
+        padding: 2rem 1.6rem 2.6rem;
+        font-size: var(--nc-fliesstext-mobil-size);
+        line-height: var(--nc-fliesstext-mobil-line);
+        font-weight: var(--nc-fliesstext-mobil-weight);
+        overflow-wrap: break-word;
+        word-break: break-word;
+      }
+    }
+
+    /* Spezialregel für den oberen Teaser im square-Variant-Wrapper,
+     damit der lila Block nicht mehr rausläuft */
+    .square-variant .teaser-duo__content {
+      width: 100%;
+      margin-left: 0;
+      padding: 2rem 1.6rem 2.6rem;
     }
   }
 }

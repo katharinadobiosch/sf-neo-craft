@@ -6,8 +6,9 @@
     .teaser-duo__image {
       width: 50%;
     }
+
     img {
-      aspect-ratio: 780/780;
+      aspect-ratio: 780 / 780;
       object-fit: cover;
     }
   }
@@ -29,12 +30,14 @@
     display: block;
     overflow: hidden;
   }
+
   .base-img,
   .hover-img {
     display: block;
     width: 100%;
     height: auto;
   }
+
   .hover-img {
     position: absolute;
     inset: 0;
@@ -43,47 +46,15 @@
     pointer-events: none;
     object-fit: cover;
   }
+
   .hover-wrap:hover .hover-img,
   .hover-wrap:focus-within .hover-img {
     opacity: 1;
   }
+
   @media (prefers-reduced-motion: reduce) {
     .hover-img {
       transition: none;
     }
-  }
-}
-
-/* ======= MOBILE: TeaserDuo ======= */
-@media (max-width: 767px) {
-  .teaser-duo {
-    .teaser-duo__images {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .teaser-duo__image {
-      width: 100%;
-    }
-
-    .teaser-duo__content {
-      background: var(--sf-purple);
-      margin-top: 2rem;
-      padding: 2rem 1.6rem 2.6rem;
-      font-size: var(--nc-fliesstext-mobil-size);
-      line-height: var(--nc-fliesstext-mobil-line);
-      font-weight: var(--nc-fliesstext-mobil-weight);
-      overflow-wrap: break-word;
-      word-break: break-word;
-    }
-  }
-
-  /* Override deiner square-variant-Spezialregel,
-     damit nichts mehr aus dem Container rausrutscht */
-  .square-variant .teaser-duo__content {
-    width: 100%;
-    margin-left: 0;
-    padding: 2rem 1.6rem 2.6rem;
   }
 }
