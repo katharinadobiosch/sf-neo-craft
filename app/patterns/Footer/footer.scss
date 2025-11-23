@@ -1,12 +1,44 @@
 @use '../../styles/utils/_mixins' as *;
 
 .footer {
-  background: var(--sf-white);
-  margin-top: auto;
+  margin: 0 1.5rem;
   text-transform: uppercase;
-  border-top: 0.1rem solid var(--color-dark);
-  padding: 1.6rem 5rem;
-  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  position: relative; // wichtig!
+
+  @media (min-width: 768px) {
+    padding: 1.6rem 5rem;
+    z-index: 10;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw; // volle Bildschirmbreite
+    transform: translateX(-50%);
+    border-top: 0.1rem solid var(--color-dark);
+    pointer-events: none; // sicher
+  }
+
+  .footer-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    @media (min-width: 768px) {
+      flex-direction: row;
+      justify-content: space-between;
+      font-size: 1rem;
+      font-size: var(--nc-navigation-name-desktop-size);
+      line-height: var(--nc-navigation-name-desktop-line);
+      font-weight: var(--nc-navigation-name-desktop-weight);
+    }
+  }
 
   &--white {
     background: var(--sf-white);
@@ -18,15 +50,5 @@
   }
   &--orange {
     background: var(--sf-orange);
-  }
-
-  .footer-menu {
-    justify-content: space-between;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .footer-menu a {
-    min-width: fit-content;
   }
 }
