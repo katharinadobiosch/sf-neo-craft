@@ -29,7 +29,6 @@
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem 0 1.5rem 0;
-  
   }
 
   .cfg-title,
@@ -95,7 +94,6 @@
   .cfg-row::before {
     content: '';
     flex: 0 0 163px; /* = Breite deines .cfg-toggle (links) */
- 
   }
 
   .cfg-label {
@@ -127,7 +125,6 @@
 
   .cfg-head .cfg-toggle {
     flex: 0 0 163px;
-    
   } /* linke Spalte */
 
   .cfg-head__label {
@@ -201,7 +198,7 @@
   flex: 1 1 auto; /* nimmt den übrig gebliebenen Platz */
   min-height: 0; /* wichtig für Firefox & Co. */
   overflow-y: auto; /* scrollt, wenn Inhalte höher sind */
-  margin: 1.5rem 0 0.5rem 0;
+  margin: 0;
 }
 /* ======= MOBILE: Configurator ======= */
 @media (max-width: 767px) {

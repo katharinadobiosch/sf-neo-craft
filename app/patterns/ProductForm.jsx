@@ -76,6 +76,9 @@ export function ProductForm({
   const price = Number(currentVariant?.price?.amount || 0);
   const currency = currentVariant?.price?.currencyCode || 'USD';
 
+  console.log('mfmeasurements:', mfMeasurements.length);
+  console.log('mfothers:', mfOthers.length);
+
   return (
     <div className="product-form">
       <Configurator
@@ -88,8 +91,11 @@ export function ProductForm({
       />
 
       {/* Container 2: Meta (eigener Scroll), default: geschlossen (falls unterstützt) */}
+      {(mfMeasurements.length > 0 || mfOthers.length > 0) && (
+        <div className="details-test">Details</div>
+      )}
+
       <div className="configurator__meta">
-        {/* 1) Measurements zuerst */}
         {mfMeasurements.length > 0 && (
           <ProductMetaAccordion
             metafields={mfMeasurements}
@@ -98,7 +104,6 @@ export function ProductForm({
           />
         )}
 
-        {/* 2) danach der Rest */}
         {mfOthers.length > 0 && (
           <ProductMetaAccordion
             metafields={mfOthers}
@@ -138,24 +143,6 @@ export function ProductForm({
  *   name: string;
  * }}
  */
-// function ProductOptionSwatch({swatch, name}) {
-//   const image = swatch?.image?.previewImage?.url;
-//   const color = swatch?.color;
-
-//   if (!image && !color) return name;
-
-//   return (
-//     <div
-//       aria-label={name}
-//       className="product-option-label-swatch"
-//       style={{
-//         backgroundColor: color || 'transparent',
-//       }}
-//     >
-//       {!!image && <img src={image} alt={name} />}
-//     </div>
-//   );
-// }
 
 /** @typedef {import('@shopify/hydrogen').MappedProductOptions} MappedProductOptions */
 /** @typedef {import('@shopify/hydrogen/storefront-api-types').Maybe} Maybe */

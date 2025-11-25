@@ -191,6 +191,13 @@
   min-height: 0; /* damit das mittlere Panel schrumpfen darf */
   // border: 5px solid red;
 }
+.details-test {
+  font-size: var(--nc-konfigurator-head-desktop-size);
+  line-height: var(--nc-konfigurator-head-desktop-line);
+  font-weight: var(--nc-konfigurator-head-desktop-weight);
+  width: auto;
+  padding: 1.5rem 0 1.5rem 0;
+}
 
 .product-price-on-sale {
   opacity: 0.5;
