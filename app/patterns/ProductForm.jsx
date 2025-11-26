@@ -145,36 +145,39 @@ export function ProductForm({
 
   return (
     <div className="product-form">
-      <Configurator
-        productOptions={productOptions}
-        navigate={navigate}
-        seriesProducts={seriesProducts}
-        seriesActiveIndex={seriesActiveIndex}
-        onChangeSeriesProduct={onChangeSeriesProduct}
-        product={activeProduct} // kannst hier auch activeProduct weitergeben, wenn sinnvoll
-      />
+      {/* oberer Bereich: Configurator + Details */}
+      <div className="product-form-scroller">
+        <Configurator
+          productOptions={productOptions}
+          navigate={navigate}
+          seriesProducts={seriesProducts}
+          seriesActiveIndex={seriesActiveIndex}
+          onChangeSeriesProduct={onChangeSeriesProduct}
+          product={activeProduct}
+        />
 
-      {/* Container 2: Meta */}
-      {hasDetails && <div className="details-test">Details</div>}
+        {hasDetails && <div className="details-test">Details</div>}
 
-      {hasDetails && (
-        <div className="configurator__meta">
-          {mfMeasurements.length > 0 && (
-            <ProductMetaAccordion
-              metafields={mfMeasurements}
-              product={activeProduct}
-            />
-          )}
+        {hasDetails && (
+          <div className="configurator__meta">
+            {mfMeasurements.length > 0 && (
+              <ProductMetaAccordion
+                metafields={mfMeasurements}
+                product={activeProduct}
+              />
+            )}
 
-          {mfOthers.length > 0 && (
-            <ProductMetaAccordion
-              metafields={mfOthers}
-              product={activeProduct}
-            />
-          )}
-        </div>
-      )}
+            {mfOthers.length > 0 && (
+              <ProductMetaAccordion
+                metafields={mfOthers}
+                product={activeProduct}
+              />
+            )}
+          </div>
+        )}
+      </div>
 
+      {/* unterer Bereich: CTA – bleibt immer unten */}
       <div className="pdp__cta-container">
         <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
           <span className="cta-arrow">→</span>
