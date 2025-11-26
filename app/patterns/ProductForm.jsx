@@ -31,6 +31,7 @@ export function ProductForm({
     'teaser_duo_bottom_links',
     'teaser_duo_bottom_rechts',
     'hero_split_text',
+    'product_series',
     'content',
   ]);
 
@@ -111,6 +112,8 @@ export function ProductForm({
   const isReady = !!currentVariant?.availableForSale && allSelected;
   const price = Number(currentVariant?.price?.amount || 0);
   const currency = currentVariant?.price?.currencyCode || 'USD';
+
+  console.log('mfOthers:', mfOthers);
 
   return (
     <div className="product-form">
