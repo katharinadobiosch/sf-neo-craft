@@ -382,5 +382,41 @@
       "storefront": "PUBLIC_READ"
     },
     "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "product_series",
+    "name": "Product Serie",
+    "type": {
+      "name": "metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "series_hero",
+    "name": "Series Hero",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "shipping",
+    "name": "Shipping",
+    "type": {
+      "name": "rich_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
   }
 ]

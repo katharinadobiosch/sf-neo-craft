@@ -2,6 +2,7 @@ import React, {useEffect, useMemo, useRef} from 'react';
 import type {Swiper as SwiperType} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination, A11y} from 'swiper/modules';
+import {n} from 'node_modules/react-router/dist/development/index-react-server-client-2EDmGlsZ.mjs';
 
 type Img = {
   id: string;
@@ -78,7 +79,7 @@ export function MediaGallery({product, variant, className}: Props) {
     spaceBetween: 12,
     navigation: true,
     // loop: hasMultiple,
-    // pagination: hasMultiple ? {clickable: true} : undefined,
+    pagination: hasMultiple ? {clickable: true} : undefined,
     touchStartPreventDefault: false,
     allowTouchMove: true,
     speed: 500,

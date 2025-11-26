@@ -1,0 +1,15 @@
+.pdp--materials {
+  background: var(--sf-purple);
+  color: black;
+
+  .pdp-materials__heroImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .pdp-materials__content {
+    padding: 3rem 2rem;
+    // deine Typo etc.
+  }
+}
