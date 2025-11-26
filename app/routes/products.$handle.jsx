@@ -9,6 +9,8 @@ import {
 } from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
+import {MaterialsProductDetail} from '../patterns/MaterialsProductDetail';
+
 import {normalizeAllMetafields} from '~/utils/metafields';
 
 import metafieldDefs from '~/graphql/product/product-metafield-defs.json';
@@ -23,11 +25,14 @@ const METAFIELD_IDENTIFIERS = metafieldDefs
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = ({data}) => {
+  const title = data?.product?.title ?? '';
+  const handle = data?.product?.handle ?? '';
+
   return [
-    {title: `Hydrogen | ${data?.product.title ?? ''}`},
+    {title: `Hydrogen | ${title}`},
     {
       rel: 'canonical',
-      href: `/products/${data?.product.handle}`,
+      href: handle ? `/products/${handle}` : '/',
     },
   ];
 };
@@ -55,7 +60,7 @@ async function loadCriticalData({context, params, request}) {
       variables: {
         handle,
         selectedOptions: getSelectedProductOptions(request),
-        metafieldIdentifiers: METAFIELD_IDENTIFIERS, // 👈 HIER
+        metafieldIdentifiers: METAFIELD_IDENTIFIERS,
       },
     }),
   ]);
@@ -67,12 +72,16 @@ async function loadCriticalData({context, params, request}) {
   // Lokalisierte Handles korrekt umbiegen
   redirectIfHandleIsLocalized(request, {handle, data: product});
 
-  // 👉 Metafelder zu einer komfortablen Struktur normalisieren
-  const metafields = normalizeAllMetafields(product.metafields);
+  // Metafelder normalisieren
+  const metafields = normalizeAllMetafields(product.metafields ?? []);
+
+  // Flag für Materials-PDP (boolean-Metafeld)
+  const isMaterialsPdp = metafields?.materialBoolean?.value === 'true';
 
   return {
-    product,
+    product, // 👈 wichtig!
     metafields,
+    isMaterialsPdp,
   };
 }
 
@@ -85,7 +94,7 @@ function loadDeferredData() {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product} = useLoaderData();
+  const {product, isMaterialsPdp} = useLoaderData();
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
@@ -95,7 +104,11 @@ export default function Product() {
 
   return (
     <div className="product">
-      <ProductDetailInformation product={product} />
+      {isMaterialsPdp ? (
+        <MaterialsProductDetail product={product} />
+      ) : (
+        <ProductDetailInformation product={product} />
+      )}
       <Analytics.ProductView
         data={{
           products: [
