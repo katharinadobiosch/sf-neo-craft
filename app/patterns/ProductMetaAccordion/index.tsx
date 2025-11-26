@@ -172,8 +172,6 @@ export function ProductMetaAccordion({
     [metafields],
   );
 
-  // console.log('metafields:', metafields.length);
-
   const items = useMemo(() => buildItems(normalized), [normalized]);
 
   const visibleItems = useMemo(() => {

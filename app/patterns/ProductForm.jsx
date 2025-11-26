@@ -88,24 +88,6 @@ export function ProductForm({
 
   const hasDetails = mfMeasurements.length > 0 || mfOthers.length > 0;
 
-  console.log(
-    'allMetafields:',
-    allMetafields.map((m) =>
-      m
-        ? {
-            ns: m.namespace,
-            key: m.key,
-            value: m.value,
-          }
-        : m,
-    ),
-  );
-  console.log('mfMeasurements:', mfMeasurements.length);
-  console.log('mfOthers:', mfOthers.length);
-  console.log('hasDetails:', hasDetails);
-
-  ///////////////////////////////////////////
-
   const navigate = useNavigate();
 
   const currentVariant = useMemo(() => {
@@ -129,19 +111,6 @@ export function ProductForm({
   const isReady = !!currentVariant?.availableForSale && allSelected;
   const price = Number(currentVariant?.price?.amount || 0);
   const currency = currentVariant?.price?.currencyCode || 'USD';
-
-  console.log(
-    'allMetafields:',
-    allMetafields.map((m) =>
-      m
-        ? {
-            ns: m.namespace,
-            key: m.key,
-            value: m.value,
-          }
-        : m,
-    ),
-  );
 
   return (
     <div className="product-form">
