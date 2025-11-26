@@ -59,7 +59,6 @@
   &__cta-container {
     display: flex;
     flex-direction: row;
-    border-top: 1px solid black;
     font-size: var(--nc-fliesstext-desktop-size);
     line-height: var(--nc-fliesstext-desktop-line);
     font-weight: var(--nc-fliesstext-desktop-weight);
@@ -78,7 +77,6 @@
       display: none;
 
       @media (min-width: 768px) {
-        justify-content: center;
         padding: 0.8rem 0rem 0.4rem 0;
         flex: 1 1 0;
         min-width: 20rem;
@@ -87,6 +85,12 @@
         justify-content: center;
         text-align: center;
         font-size: 12px;
+        border: 1px solid black;
+
+        &:hover {
+          background: black;
+          color: white;
+        }
       }
     }
 
@@ -101,6 +105,7 @@
       height: 6rem;
       @media (min-width: 768px) {
         height: 100%;
+        border: 1px solid black;
       }
 
       &:hover {
