@@ -7,8 +7,13 @@
       width: 50%;
     }
 
+    .teaser-duo__image--single {
+      width: 100%;
+    }
+
     img {
-      aspect-ratio: 780 / 780;
+      max-height: 750px;
+      width: 100%;
       object-fit: cover;
     }
   }
