@@ -45,6 +45,7 @@ const EXCLUDE_FQ_KEYS = new Set<string>([
   'custom.teaser_duo_bottom_links',
   'custom.teaser_duo_bottom_rechts',
   'custom.material_tile_color',
+  'custom.series_hero',
 ]);
 
 // ---- Hilfsfunktionen ----
@@ -171,7 +172,7 @@ export function ProductMetaAccordion({
     [metafields],
   );
 
-  console.log('metafields:', metafields.length);
+  // console.log('metafields:', metafields.length);
 
   const items = useMemo(() => buildItems(normalized), [normalized]);
 

@@ -29,12 +29,18 @@ export function ProductDetailInformation({
   const topRight = metafields?.produkt_duo_top_rechts?.list?.[0]?.url;
   const topRightHover = metafields?.produkt_duo_top_rechts?.list?.[1]?.url;
 
+  const seriesImage = metafields?.series_hero?.list?.[0]?.url;
+  const seriesImageHover = metafields?.series_hero?.list?.[1]?.url;
+
+  console.log('seriesImage:', seriesImage);
+  console.log('seriesImageHover:', seriesImageHover);
+
   return (
     <div className="pdp">
       <div className="square-variant">
         <TeaserDuo
-          left={topLeft}
-          leftHover={topLeftHover}
+          left={seriesImage ? seriesImage : topLeft}
+          leftHover={seriesImageHover ? seriesImageHover : topLeftHover}
           rightHover={topRightHover}
           right={topRight}
           content={product.description}
