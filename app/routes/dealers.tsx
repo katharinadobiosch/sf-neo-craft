@@ -21,7 +21,6 @@ export async function loader({context}: LoaderFunctionArgs) {
       };
     }) ?? [];
 
-  // leicht sortieren (Land -> Name)
   items.sort(
     (a, b) =>
       a.country.localeCompare(b.country) || a.name.localeCompare(b.name),
@@ -43,5 +42,9 @@ const DEALERS_QUERY = `#graphql
 
 export default function DealersRoute() {
   const {items} = useLoaderData<typeof loader>();
-  return <Dealers items={items} />;
+  return (
+    <main className="dealers-page">
+      <Dealers items={items} />
+    </main>
+  );
 }
