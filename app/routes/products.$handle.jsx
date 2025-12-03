@@ -71,15 +71,14 @@ async function loadCriticalData({context, params, request}) {
 
   // Lokalisierte Handles korrekt umbiegen
   redirectIfHandleIsLocalized(request, {handle, data: product});
-
-  // Metafelder normalisieren
   const metafields = normalizeAllMetafields(product.metafields ?? []);
 
-  // Flag für Materials-PDP (boolean-Metafeld)
-  const isMaterialsPdp = metafields?.materialBoolean?.value === 'true';
+  // statt materialBoolean:
+  const isMaterialsPdp =
+    product?.collections?.nodes?.some((c) => c.handle === 'materials') ?? false;
 
   return {
-    product, // 👈 wichtig!
+    product,
     metafields,
     isMaterialsPdp,
   };
@@ -158,6 +157,10 @@ const PRODUCT_QUERY = `#graphql
     handle
     descriptionHtml
     description
+
+    collections(first: 10) {
+      nodes { handle }
+    }
 
     images(first: 10) {
       edges { node { id url altText width height } }

@@ -3,6 +3,7 @@ import {ProductForm} from '~/patterns/ProductForm';
 import {MediaGallery} from '~/patterns/MediaGallery';
 import {HeroSplit_GalleryBand} from '../HeroSplit';
 import {TeaserDuo} from '../TeaserDuo';
+import {MaterialForm} from './MaterialForm';
 
 import {
   getProductOptions,
@@ -17,8 +18,6 @@ export function MaterialMain({
   seriesActiveIndex,
   onChangeSeriesProduct,
 }) {
-  const metafields = normalizeAllMetafields(product.metafields ?? []);
-
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
   const productOptions = getProductOptions({
@@ -26,30 +25,17 @@ export function MaterialMain({
     selectedOrFirstAvailableVariant: selectedVariant,
   });
 
-  const imageNodes = product.images?.edges?.map((edge) => edge.node) ?? [];
-
-  const mainImage = imageNodes?.[3]?.url ?? imageNodes?.[0]?.url ?? null;
-
-  const thirdImage =
-    imageNodes?.[2]?.url ??
-    imageNodes?.[1]?.url ??
-    imageNodes?.[0]?.url ??
-    null;
-
-  // 👉 Metafelder kommen als Prop (schon normalisiert)
-  const productDuoTopLeft = metafields?.teaser_duo_bottom_links?.list?.[0]?.url;
-  const productDuoTopLeftHover =
-    metafields?.teaser_duo_bottom_links?.list?.[1]?.url;
-  const productDuoTopRight =
-    metafields?.teaser_duo_bottom_rechts?.list?.[0]?.url;
-  const productDuoTopRightHover =
-    metafields?.teaser_duo_bottom_rechts?.list?.[1]?.url;
+  const description = product?.descriptionHtml ?? product?.description;
 
   return (
     <>
       <div className="product-main">
         <div className="product-main__info">
-          <ProductForm
+          <div
+            className="pdp-materials__text"
+            dangerouslySetInnerHTML={{__html: description}}
+          />
+          <MaterialForm
             productOptions={productOptions}
             selectedVariant={selectedVariant}
             product={product}
@@ -58,20 +44,19 @@ export function MaterialMain({
             onChangeSeriesProduct={onChangeSeriesProduct}
           />
         </div>
-
         <div className="product-main__media">
           <MediaGallery product={product} variant={selectedVariant} />
         </div>
       </div>
 
-      <HeroSplit_GalleryBand leftImg={thirdImage} rightImg={mainImage} />
+      {/* <HeroSplit_GalleryBand leftImg={thirdImage} rightImg={mainImage} />
       <TeaserDuo
         className="pdp__teaser-duo"
         left={productDuoTopLeft}
         leftHover={productDuoTopLeftHover}
         right={productDuoTopRight}
         rightHover={productDuoTopRightHover}
-      />
+      /> */}
     </>
   );
 }

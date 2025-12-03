@@ -1,16 +1,14 @@
 // app/patterns/MaterialsProductDetail.tsx
 import {Image} from '@shopify/hydrogen';
 import {normalizeAllMetafields} from '~/utils/metafields';
-import {ProductMain} from '../ProductDetailInformation/ProductMain'; // falls du den nutzen willst
-
+import {MaterialMain} from './MaterialMain';
 export function MaterialsProductDetail({product}: {product: any}) {
   const metafields = normalizeAllMetafields(product.metafields ?? []);
 
   const hero = product?.featuredImage;
-  const description = product?.descriptionHtml ?? product?.description;
 
   return (
-    <div className="pdp pdp--materials">
+    <div className="pdp-materials">
       <section className="pdp-materials__hero">
         {hero ? (
           <Image
@@ -21,16 +19,12 @@ export function MaterialsProductDetail({product}: {product: any}) {
         ) : null}
       </section>
 
-      <section className="pdp-materials__content">
+      {/* <section className="pdp-materials__content">
         <h1 className="pdp-materials__title">{product?.title}</h1>
-        <div
-          className="pdp-materials__text"
-          dangerouslySetInnerHTML={{__html: description}}
-        />
-      </section>
+      </section> */}
 
       {/* wenn du trotzdem den normalen Add-to-Cart-Block willst */}
-      <ProductMain
+      <MaterialMain
         product={product}
         selectedVariant={{}}
         seriesProducts={[]}
