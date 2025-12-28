@@ -39,6 +39,9 @@ fragment ProductCustomMetafields on Product {
         {namespace: "custom", key: "hero_split_rechts"}  # list.file_reference
         {namespace: "custom", key: "teaser_duo_bottom_links"}  # list.file_reference
         {namespace: "custom", key: "teaser_duo_bottom_rechts"}  # list.file_reference
+        {namespace: "custom", key: "product_series"}  # metaobject_reference
+        {namespace: "custom", key: "series_hero"}  # list.file_reference
+        {namespace: "custom", key: "shipping"}  # rich_text_field
         {namespace: "custom_slider", key: "content"}  # list.file_reference
   ]) {
     namespace

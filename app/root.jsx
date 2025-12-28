@@ -39,6 +39,7 @@ import materialStyles from '~/patterns/Materials/materials.scss?url';
 import dealersStyles from '~/patterns/Dealers/dealers.scss?url';
 import mainCollectionStyles from '~/patterns/MainCollection/mainCollection.scss?url';
 import aboutStyles from '~/patterns/About/about.scss?url';
+import MaterialPDP from '~/patterns/MaterialsProductDetail/MaterialDetailInformation.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
 
@@ -102,6 +103,7 @@ export function links() {
     {rel: 'stylesheet', href: dealersStyles},
     {rel: 'stylesheet', href: mainCollectionStyles},
     {rel: 'stylesheet', href: aboutStyles},
+    {rel: 'stylesheet', href: MaterialPDP},
 
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];

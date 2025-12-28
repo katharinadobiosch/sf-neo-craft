@@ -1,4 +1,5 @@
 // app/routes/products.$handle.jsx
+
 import {useLoaderData} from 'react-router';
 import {
   getSelectedProductOptions,
@@ -9,6 +10,8 @@ import {
 } from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
+import {MaterialsProductDetail} from '../patterns/MaterialsProductDetail';
+
 import {normalizeAllMetafields} from '~/utils/metafields';
 
 import metafieldDefs from '~/graphql/product/product-metafield-defs.json';
@@ -23,11 +26,14 @@ const METAFIELD_IDENTIFIERS = metafieldDefs
  * @type {MetaFunction<typeof loader>}
  */
 export const meta = ({data}) => {
+  const title = data?.product?.title ?? '';
+  const handle = data?.product?.handle ?? '';
+
   return [
-    {title: `Hydrogen | ${data?.product.title ?? ''}`},
+    {title: `Hydrogen | ${title}`},
     {
       rel: 'canonical',
-      href: `/products/${data?.product.handle}`,
+      href: handle ? `/products/${handle}` : '/',
     },
   ];
 };
@@ -55,7 +61,7 @@ async function loadCriticalData({context, params, request}) {
       variables: {
         handle,
         selectedOptions: getSelectedProductOptions(request),
-        metafieldIdentifiers: METAFIELD_IDENTIFIERS, // 👈 HIER
+        metafieldIdentifiers: METAFIELD_IDENTIFIERS,
       },
     }),
   ]);
@@ -66,13 +72,16 @@ async function loadCriticalData({context, params, request}) {
 
   // Lokalisierte Handles korrekt umbiegen
   redirectIfHandleIsLocalized(request, {handle, data: product});
+  const metafields = normalizeAllMetafields(product.metafields ?? []);
 
-  // 👉 Metafelder zu einer komfortablen Struktur normalisieren
-  const metafields = normalizeAllMetafields(product.metafields);
+  // statt materialBoolean:
+  const isMaterialsPdp =
+    product?.collections?.nodes?.some((c) => c.handle === 'materials') ?? false;
 
   return {
     product,
     metafields,
+    isMaterialsPdp,
   };
 }
 
@@ -85,7 +94,7 @@ function loadDeferredData() {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product} = useLoaderData();
+  const {product, isMaterialsPdp} = useLoaderData();
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
@@ -95,7 +104,11 @@ export default function Product() {
 
   return (
     <div className="product">
-      <ProductDetailInformation product={product} />
+      {isMaterialsPdp ? (
+        <MaterialsProductDetail product={product} />
+      ) : (
+        <ProductDetailInformation product={product} />
+      )}
       <Analytics.ProductView
         data={{
           products: [
@@ -125,7 +138,7 @@ export default function Product() {
  * Wichtig: Das importierte Fragment MUSS hier VOR seinem Gebrauch stehen.
  */
 const PRODUCT_QUERY = `#graphql
-  fragment ProductVariant on ProductVariant {
+  fragment ProductVariantFragment on ProductVariant {
     availableForSale
     compareAtPrice { amount currencyCode }
     id
@@ -138,7 +151,7 @@ const PRODUCT_QUERY = `#graphql
     unitPrice { amount currencyCode }
   }
 
-  fragment Product on Product {
+  fragment ProductFragment on Product {
     id
     title
     vendor
@@ -146,9 +159,9 @@ const PRODUCT_QUERY = `#graphql
     descriptionHtml
     description
 
-    images(first: 10) {
-      edges { node { id url altText width height } }
-    }
+    collections(first: 10) { nodes { handle } }
+
+    images(first: 10) { edges { node { id url altText width height } } }
 
     encodedVariantExistence
     encodedVariantAvailability
@@ -157,7 +170,7 @@ const PRODUCT_QUERY = `#graphql
       name
       optionValues {
         name
-        firstSelectableVariant { ...ProductVariant }
+        firstSelectableVariant { ...ProductVariantFragment }
         swatch { color image { previewImage { url } } }
       }
     }
@@ -166,20 +179,20 @@ const PRODUCT_QUERY = `#graphql
       selectedOptions: $selectedOptions
       ignoreUnknownOptions: true
       caseInsensitiveMatch: true
-    ) { ...ProductVariant }
+    ) { ...ProductVariantFragment }
 
-    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }
+    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariantFragment }
 
     seo { description title }
 
-    # 👇 dynamisch via Variable
     metafields(identifiers: $metafieldIdentifiers) {
       namespace
       key
       type
       value
 
-      reference { __typename
+      reference {
+        __typename
         ... on Metaobject { id type handle fields { key type value } }
         ... on MediaImage { image { url altText width height } }
         ... on Video { sources { url mimeType } }
@@ -205,10 +218,10 @@ const PRODUCT_QUERY = `#graphql
     $handle: String!
     $language: LanguageCode
     $selectedOptions: [SelectedOptionInput!]
-    $metafieldIdentifiers: [HasMetafieldsIdentifier!]!   # 👈 Typ-Hinweis
+    $metafieldIdentifiers: [HasMetafieldsIdentifier!]!
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
-      ...Product
+      ...ProductFragment
     }
   }
 `;

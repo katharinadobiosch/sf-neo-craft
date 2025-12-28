@@ -8,36 +8,34 @@
   --cta-bg: #8ea0ff;
   --cta-text: #0a0a0a;
 
+  // font-size: var(--nc-head-mobil-size);
+  // line-height: var(--nc-head-mobil-line);
+  // font-weight: var(--nc-head-mobil-weight);
+
+  font-size: var(--nc-konfigurator-desktop-size);
+  line-height: var(--nc-konfigurator-desktop-line);
+  font-weight: var(--nc-konfigurator-desktop-weight);
   color: var(--text);
   border-bottom: 1px solid black;
+  // border: 5px solid orange;
+  flex: 0 0 auto;
 
-  font-size: var(--nc-head-mobil-size);
-  line-height: var(--nc-head-mobil-size-line);
-  font-weight: var(--nc-head-mobil-weight);
-
-  @media (min-width: 768px) {
-    font-size: var(--nc-konfigurator-desktop-size);
-    line-height: var(--nc-konfigurator-desktop-line);
-    font-weight: var(--nc-konfigurator-desktop-weight);
-    // border: 5px solid orange;
-    flex: 0 0 auto;
-  }
   /* Header mit + */
   .cfg-toggle {
     all: unset;
-    width: 233px;
+    width: 163px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2rem 0 0 0;
+    padding: 1.5rem 0 1.5rem 0;
   }
 
   .cfg-title,
   .acc-title {
-    font-size: 1.5rem;
-    line-height: 2.2rem;
-    font-weight: 500;
+    font-size: var(--nc-konfigurator-head-desktop-size);
+    line-height: var(--nc-konfigurator-head-desktop-line);
+    font-weight: var(--nc-konfigurator-head-desktop-weight);
   }
 
   /* Plus/Minus Icon */
@@ -95,11 +93,11 @@
 
   .cfg-row::before {
     content: '';
-    flex: 0 0 233px; /* = Breite deines .cfg-toggle (links) */
+    flex: 0 0 163px; /* = Breite deines .cfg-toggle (links) */
   }
 
   .cfg-label {
-    font-size: 1.2rem;
+    // font-size: 1.2rem;
     flex: 0 0 100px;
   }
 
@@ -111,16 +109,22 @@
     align-items: center;
     gap: 2rem;
     margin-right: 2rem;
+    // font-size: 1.4rem;
+    @media (min-width: 768px) {
+    }
   }
 
   .cfg-head {
     display: flex;
     gap: 1rem;
     align-items: center;
+    @media (min-width: 768px) {
+      // padding-bottom: 1rem;
+    }
   }
 
   .cfg-head .cfg-toggle {
-    flex: 0 0 233px;
+    flex: 0 0 163px;
   } /* linke Spalte */
 
   .cfg-head__label {
@@ -194,5 +198,41 @@
   flex: 1 1 auto; /* nimmt den übrig gebliebenen Platz */
   min-height: 0; /* wichtig für Firefox & Co. */
   overflow-y: auto; /* scrollt, wenn Inhalte höher sind */
-  margin: 2rem 0 0.5rem 0;
+  margin: 0;
+}
+/* ======= MOBILE: Configurator ======= */
+@media (max-width: 767px) {
+  .configurator .cfg-head {
+    gap: 0.5rem;
+  }
+
+  .configurator .cfg-row {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.8rem 0 1.2rem 0;
+  }
+
+  /* linker „unsichtbarer“ Spacer weg */
+  .configurator .cfg-row::before {
+    content: none;
+    flex: 0 0 auto;
+  }
+
+  .configurator .cfg-label {
+    flex: 0 0 auto;
+    font-size: var(--nc-konfigurator-head-desktop-size);
+    line-height: var(--nc-konfigurator-head-desktop-line);
+    font-weight: var(--nc-konfigurator-head-desktop-weight);
+  }
+
+  .configurator .cfg-values {
+    width: 100%;
+    margin-right: 0;
+    gap: 1.2rem;
+  }
+
+  .configurator .cfg-head .cfg-toggle {
+    width: auto;
+    padding-top: 1.6rem;
+  }
 }

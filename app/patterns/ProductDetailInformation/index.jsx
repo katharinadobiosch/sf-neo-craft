@@ -8,35 +8,40 @@ import {normalizeAllMetafields} from '~/utils/metafields';
 
 export function ProductDetailInformation({
   product,
-  // optional, nur auf Serien-Seiten gesetzt
   seriesProducts,
   seriesActiveIndex,
   onChangeSeriesProduct,
 }) {
-  // Variant-State
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
     getAdjacentAndFirstAvailableVariants(product),
   );
 
-  // 👉 Metafelder direkt vom Produkt normalisieren
   const metafields = normalizeAllMetafields(product.metafields ?? []);
 
-  // Top-Teaser (oben)
+  // Standard-Duo-Teaser
   const topLeft = metafields?.produkt_duo_top_links?.list?.[0]?.url;
   const topLeftHover = metafields?.produkt_duo_top_links?.list?.[1]?.url;
 
   const topRight = metafields?.produkt_duo_top_rechts?.list?.[0]?.url;
   const topRightHover = metafields?.produkt_duo_top_rechts?.list?.[1]?.url;
 
+  // Series-Hero (optional)
+  const seriesHero = metafields?.series_hero;
+  const seriesImage = seriesHero?.list?.[0]?.url;
+  const seriesImageHover = seriesHero?.list?.[1]?.url;
+  const hasSeriesHero = Boolean(seriesImage); // nur wenn wirklich gepflegt
+
   return (
     <div className="pdp">
       <div className="square-variant">
         <TeaserDuo
-          left={topLeft}
-          leftHover={topLeftHover}
-          rightHover={topRightHover}
-          right={topRight}
+          // wenn series_hero da ist → nur ein Bild (links)
+          left={hasSeriesHero ? seriesImage : topLeft}
+          leftHover={hasSeriesHero ? seriesImageHover : topLeftHover}
+          right={hasSeriesHero ? null : topRight}
+          rightHover={hasSeriesHero ? null : topRightHover}
+          isSingle={hasSeriesHero}
           content={product.description}
         />
       </div>

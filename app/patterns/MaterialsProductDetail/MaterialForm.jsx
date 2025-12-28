@@ -1,8 +1,8 @@
 import {useMemo} from 'react';
 import {useAside} from '~/patterns/Aside';
 import {useNavigate} from 'react-router';
-import {Configurator} from './Configurator';
-import {ProductMetaAccordion} from './ProductMetaAccordion';
+import {Configurator} from '~/patterns/Configurator';
+// import {ProductMetaAccordion} from './ProductMetaAccordion';
 import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
 
 /**
@@ -12,7 +12,7 @@ import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
  * }}
  */
 
-export function ProductForm({
+export function MaterialForm({
   productOptions,
   product,
   seriesProducts,
@@ -119,18 +119,9 @@ export function ProductForm({
     <div className="product-form">
       {/* oberer Bereich: Configurator + Details */}
       <div className="product-form-scroller">
-        <Configurator
-          productOptions={productOptions}
-          navigate={navigate}
-          seriesProducts={seriesProducts}
-          seriesActiveIndex={seriesActiveIndex}
-          onChangeSeriesProduct={onChangeSeriesProduct}
-          product={activeProduct}
-        />
-
         {hasDetails && <div className="details-test">Details</div>}
 
-        {hasDetails && (
+        {/* {hasDetails && (
           <div className="configurator__meta">
             {mfMeasurements.length > 0 && (
               <ProductMetaAccordion
@@ -146,7 +137,7 @@ export function ProductForm({
               />
             )}
           </div>
-        )}
+        )} */}
       </div>
 
       {/* unterer Bereich: CTA – bleibt immer unten */}

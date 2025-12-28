@@ -1,4 +1,27 @@
-.pdp {
+.pdp-materials {
+  // background: var(--sf-purple);
+  color: black;
+
+  .pdp-materials__heroImage {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .pdp-materials__content {
+    padding: 3rem 2rem 0rem 2rem;
+    // deine Typo etc.
+  }
+  .pdp-materials__text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.pdp-materials {
   display: flex;
   flex-direction: column;
   margin: 1.5rem 0;
@@ -195,70 +218,31 @@
   }
 }
 
-// !! GLOBAL
-.product-price-on-sale {
-  display: flex;
-}
-
-.product-main .product-form {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-height: 0; /* damit das mittlere Panel schrumpfen darf */
-  // border: 5px solid red;
-
-  @media (min-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    height: calc(100% - 4rem); // hast du bereits
-  }
-}
-
-.product-form-scroller {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  margin: 0;
-}
-
-.details-test {
-  font-size: var(--nc-konfigurator-head-desktop-size);
-  line-height: var(--nc-konfigurator-head-desktop-line);
-  font-weight: var(--nc-konfigurator-head-desktop-weight);
-  width: auto;
-  padding: 1.5rem 0 1.5rem 0;
-}
-
-.product-price-on-sale {
-  opacity: 0.5;
-}
-
 /* ======= MOBILE: PDP Layout ======= */
 @media (max-width: 767px) {
-  .pdp {
+  .pdp-materials {
     margin: 1.5rem 0 3rem;
   }
 
-  .pdp .product-main {
+  .pdp-materials .product-main {
     flex-direction: column; /* statt row */
     aspect-ratio: auto;
   }
 
   /* falls du die Gallery über dem Config haben willst:
      sonst diese Zeile einfach löschen */
-  .pdp .product-main__media {
+  .pdp-materials .product-main__media {
     order: -1;
   }
 
-  .pdp .product-main__media,
-  .pdp .product-main__info {
+  .pdp-materials .product-main__media,
+  .pdp-materials .product-main__info {
     width: 100%;
     aspect-ratio: auto;
   }
 
   /* Bühne darf auf Mobile schrumpfen */
-  .pdp .nc-media-gallery {
+  .pdp-materials .nc-media-gallery {
     min-height: 260px;
     height: auto;
   }
