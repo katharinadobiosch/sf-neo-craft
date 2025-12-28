@@ -86,7 +86,6 @@ export function MaterialForm({
 
   const hasDetails = mfMeasurements.length > 0 || mfOthers.length > 0;
 
-
   const currentVariant = useMemo(() => {
     for (const opt of productOptions || []) {
       const sel = opt.optionValues?.find((v) => v.selected);
@@ -137,7 +136,7 @@ export function MaterialForm({
       </div>
 
       {/* unterer Bereich: CTA – bleibt immer unten */}
-      <div className="pdp__cta-container">
+      <div className="pdp-materials__cta-container">
         <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
           <span className="cta-arrow">→</span>
           <span className="cta-price">{money(price, currency)}</span>
@@ -153,7 +152,7 @@ export function MaterialForm({
             {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
           </AddToCartButton>
         </div>
-        <div className="pdp__question">
+        <div className="pdp-materials__question">
           <div>Further Questions?</div>
         </div>
       </div>
