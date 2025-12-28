@@ -65,13 +65,19 @@ function fileRefListToImgs(
 ): Array<{url: string; altText?: string}> {
   const list = (n as any)?.list;
   if (!Array.isArray(list)) return [];
-  // Shopify liefert i.d.R. { image { url, altText } } oder flach { url, altText }
+
   return list
     .map((m: any) => {
-      const img = m?.image ?? m;
-      const url: string | undefined = img?.url;
-      if (!url) return null;
-      return {url, altText: img?.altText};
+      // MediaImage → liegt unter m.image
+      if (m?.image?.url) {
+        return {
+          url: m.image.url,
+          altText: m.image.altText,
+        };
+      }
+
+      // Alles andere (Video, Model3d, GenericFile) bewusst ignorieren
+      return null;
     })
     .filter(Boolean) as Array<{url: string; altText?: string}>;
 }
