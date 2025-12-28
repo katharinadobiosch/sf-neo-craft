@@ -4,6 +4,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import pluginReact from 'eslint-plugin-react';
 import {defineConfig} from 'eslint/config';
+import pluginImport from 'eslint-plugin-import';
 
 export default defineConfig([
   {
@@ -12,6 +13,7 @@ export default defineConfig([
       '**/*.generated.d.ts',
       'storefrontapi.generated.d.ts',
       'customer-accountapi.generated.d.ts',
+      'env.d.ts',
       'build/**',
       'dist/**',
       'public/build/**',
@@ -21,6 +23,9 @@ export default defineConfig([
   // Basis
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    plugins: {
+      import: pluginImport,
+    },
     languageOptions: {globals: globals.browser},
     rules: {
       // Optional: andere Basisregeln
@@ -34,7 +39,10 @@ export default defineConfig([
   },
 
   // TS-Empfehlungen (nur für TS-Dateien)
-  tseslint.configs.recommended,
+  {
+    files: ['**/*.{ts,mts,cts,tsx}'],
+    ...tseslint.configs.recommended,
+  },
 
   // React
   {
