@@ -1999,7 +1999,7 @@ interface GeneratedQueryTypes {
     return: FooterQuery;
     variables: FooterQueryVariables;
   };
-  '#graphql\n  query Projects($first: Int!) {\n    metaobjects(type: "projects", first: $first) {\n      nodes { id updatedAt fields {\n        key value reference { __typename ... on MediaImage { image { url width height altText } } }\n        references(first: 20) { nodes { __typename ... on MediaImage { image { url width height altText } } } }\n      } }\n    }\n  }\n': {
+  '#graphql\n  query Projects($first: Int!) {\n    metaobjects(type: "projects", first: $first) {\n      nodes {\n        id\n        updatedAt\n        fields {\n          key\n          value\n          reference {\n            __typename\n            ... on MediaImage {\n              image {\n                url\n                width\n                height\n                altText\n              }\n            }\n          }\n          references(first: 20) {\n            nodes {\n              __typename\n              ... on MediaImage {\n                image {\n                  url\n                  width\n                  height\n                  altText\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
     return: ProjectsQuery;
     variables: ProjectsQueryVariables;
   };

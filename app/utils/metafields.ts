@@ -1,7 +1,27 @@
 // --- Hilfen für Labels / Medien --------------------------------------------
-function labelFromMetaobject(metaobj: any) {
-  if (!metaobj) return '';
-  const f = (k: string) => metaobj.fields?.find((x: any) => x.key === k)?.value;
+type MetaobjectField = {
+  key?: string;
+  value?: string | null;
+};
+
+type MetaobjectLike = {
+  id?: string;
+  handle?: string;
+  fields?: MetaobjectField[];
+};
+
+function isMetaobjectLike(v: unknown): v is MetaobjectLike {
+  return typeof v === 'object' && v !== null;
+}
+
+function labelFromMetaobject(metaobj: unknown): string {
+  if (!isMetaobjectLike(metaobj)) return '';
+
+  const fields = metaobj.fields ?? [];
+
+  const f = (k: string): string | undefined =>
+    fields.find((x) => x?.key === k)?.value ?? undefined;
+
   return f('name') || f('title') || metaobj.handle || metaobj.id || '';
 }
 

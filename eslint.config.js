@@ -6,6 +6,18 @@ import pluginReact from 'eslint-plugin-react';
 import {defineConfig} from 'eslint/config';
 
 export default defineConfig([
+  {
+    ignores: [
+      '.react-router/**',
+      '**/*.generated.d.ts',
+      'storefrontapi.generated.d.ts',
+      'customer-accountapi.generated.d.ts',
+      'build/**',
+      'dist/**',
+      'public/build/**',
+      '**/*.patch',
+    ],
+  },
   // Basis
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
