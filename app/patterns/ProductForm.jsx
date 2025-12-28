@@ -171,48 +171,44 @@ export function ProductForm({
       </div>
 
       {/* 3) Shipping – fix über CTA */}
-      <div className="product-form__shipping">
-        <section
-          className={`pf-section pf-section--shipping ${shippingOpen ? 'is-open' : ''}`}
+      <div className="cfg-head cfg-head--3col cfg-head--shipping">
+        {/* Spalte 1 */}
+        <button
+          type="button"
+          className="cfg-toggle cfg-toggle--shipping"
+          aria-expanded={shippingOpen}
+          aria-controls="cfg-shipping"
+          onClick={() => setShippingOpen((v) => !v)}
         >
-          <div className="cfg-head cfg-head--shipping">
-            {/* linke Spalte (Label) */}
-            <button
-              type="button"
-              className="cfg-toggle cfg-toggle--shipping"
-              aria-expanded={shippingOpen}
-              aria-controls="cfg-shipping"
-              onClick={() => setShippingOpen((v) => !v)}
-            >
-              <span className="cfg-title">Lead time + shipping</span>
-            </button>
+          <span className="cfg-title">Lead time + shipping</span>
+        </button>
 
-            {/* mittlere Spalte (Plus/Minus) */}
-            <button
-              type="button"
-              className="cfg-icon-btn"
-              aria-label={shippingOpen ? 'Close shipping' : 'Open shipping'}
-              onClick={() => setShippingOpen((v) => !v)}
-            >
-              <span
-                className={`cfg-plus ${shippingOpen ? 'is-open' : ''}`}
-                aria-hidden
-              />
-            </button>
+        {/* Spalte 2 */}
+        <button
+          type="button"
+          className="cfg-icon-btn"
+          aria-label={shippingOpen ? 'Close shipping' : 'Open shipping'}
+          aria-expanded={shippingOpen}
+          aria-controls="cfg-shipping"
+          onClick={() => setShippingOpen((v) => !v)}
+        >
+          <span
+            className={`cfg-plus ${shippingOpen ? 'is-open' : ''}`}
+            aria-hidden
+          />
+        </button>
 
-            {/* rechte Spalte (Content) */}
-            <div className="cfg-head__values">
-              {shippingOpen && (
-                <div id="cfg-shipping" className="cfg-inline-body">
-                  <p>2–4 weeks (depending on stock)</p>
-                  <p>parcel-delivery (door to door)</p>
-                  <p>depending on shipping rates:</p>
-                  <p>higher quantities via pallet-delivery (curbside)</p>
-                </div>
-              )}
+        {/* Spalte 3 */}
+        <div className="cfg-head__values">
+          {shippingOpen && (
+            <div id="cfg-shipping" className="cfg-inline-body">
+              <p>2–4 weeks (depending on stock)</p>
+              <p>parcel-delivery (door to door)</p>
+              <p>depending on shipping rates:</p>
+              <p>higher quantities via pallet-delivery (curbside)</p>
             </div>
-          </div>
-        </section>
+          )}
+        </div>
       </div>
 
       {/* 4) CTA */}

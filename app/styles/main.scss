@@ -530,9 +530,9 @@ button:disabled {
 
 .cfg-head--3col {
   display: grid;
-  grid-template-columns: 1fr auto 1fr; /* links: label, mitte: plus, rechts: value/content */
+  grid-template-columns: 163px 100px 1fr;
   align-items: start;
-  column-gap: 24px;
+  column-gap: 1rem;
 }
 
 /* Button belegt links+mitte (Spalte 1–2) */
@@ -548,16 +548,18 @@ button:disabled {
   grid-column: 3;
   grid-row: 1;
   margin: 0;
+  font-size: var(--nc-konfigurator-desktop-size);
+  line-height: var(--nc-konfigurator-desktop-line);
+  font-weight: var(--nc-konfigurator-desktop-weight);
+  padding: 1.5rem 0;
 }
 
 /* Icon-Button in der mittleren Spalte */
 .cfg-icon-btn {
   all: unset;
   cursor: pointer;
-  flex: 0 0 100px; /* exakt deine Mittelspalte */
   display: flex;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 1.5rem 0;
 }
 
