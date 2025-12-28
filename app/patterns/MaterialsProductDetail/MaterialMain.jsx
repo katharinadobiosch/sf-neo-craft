@@ -25,8 +25,8 @@ export function MaterialMain({
 
   return (
     <>
-      <div className="product-main">
-        <div className="product-main__info">
+      <div className="product-material">
+        <div className="product-material__info">
           <div
             className="pdp-materials__text"
             dangerouslySetInnerHTML={{__html: description}}
@@ -40,7 +40,7 @@ export function MaterialMain({
             onChangeSeriesProduct={onChangeSeriesProduct}
           />
         </div>
-        <div className="product-main__media">
+        <div className="product-material__media">
           <MediaGallery product={product} variant={selectedVariant} />
         </div>
       </div>

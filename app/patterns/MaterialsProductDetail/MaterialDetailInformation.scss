@@ -1,5 +1,4 @@
 .pdp-materials {
-  // background: var(--sf-purple);
   color: black;
 
   .pdp-materials__heroImage {
@@ -10,7 +9,6 @@
 
   .pdp-materials__content {
     padding: 3rem 2rem 0rem 2rem;
-    // deine Typo etc.
   }
   .pdp-materials__text {
     width: 100%;
@@ -45,47 +43,12 @@
     background-color: transparent;
   }
 
-  .product-main {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: row;
-    aspect-ratio: 1560 / 780;
-    align-items: stretch;
-
-    &__media {
-      display: flex;
-      width: 50%;
-      aspect-ratio: 780 / 940;
-
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-      }
-    }
-
-    &__info {
-      width: 50%;
-      aspect-ratio: 780 / 940;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      /* falls nicht schon vorhanden: */
-      min-height: 0; /* wichtig für korrektes Shrinken */
-    }
-    .media-gallery {
-      flex: 1 1 auto;
-      width: 100%;
-    }
-  }
-
   &__cta-container {
     display: flex;
     flex-direction: row;
     font-size: var(--nc-fliesstext-desktop-size);
     line-height: var(--nc-fliesstext-desktop-line);
     font-weight: var(--nc-fliesstext-desktop-weight);
-    // flex-direction: column;
     align-items: stretch;
     gap: 1rem;
     flex: 0 0 50px; /* feste Höhe im Flex-Context */
@@ -156,8 +119,7 @@
       form > button {
         all: unset;
         cursor: pointer;
-        // background: #000;
-        // color: #fff;
+
         font-weight: 600;
       }
 
@@ -224,25 +186,81 @@
     margin: 1.5rem 0 3rem;
   }
 
-  .pdp-materials .product-main {
+  /* Bühne darf auf Mobile schrumpfen */
+  .pdp-materials .nc-media-gallery {
+    min-height: 260px;
+    height: auto;
+  }
+}
+
+.product-material {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  aspect-ratio: 1560 / 780;
+  align-items: stretch;
+
+  &__media {
+    display: flex;
+    width: 50%;
+    aspect-ratio: 780 / 940;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    width: 50%;
+    aspect-ratio: 780 / 940;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* falls nicht schon vorhanden: */
+    min-height: 0; /* wichtig für korrektes Shrinken */
+  }
+  .media-gallery {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+.product-material .product-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0; /* damit das mittlere Panel schrumpfen darf */
+
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    height: calc(100% - 4rem); // hast du bereits
+  }
+}
+
+@media (max-width: 767px) {
+  .pdp .product-material {
     flex-direction: column; /* statt row */
     aspect-ratio: auto;
   }
 
   /* falls du die Gallery über dem Config haben willst:
      sonst diese Zeile einfach löschen */
-  .pdp-materials .product-main__media {
+  .pdp .product-material__media {
     order: -1;
   }
 
-  .pdp-materials .product-main__media,
-  .pdp-materials .product-main__info {
+  .pdp .product-material__media,
+  .pdp .product-material__info {
     width: 100%;
     aspect-ratio: auto;
   }
 
   /* Bühne darf auf Mobile schrumpfen */
-  .pdp-materials .nc-media-gallery {
+  .pdp .nc-media-gallery {
     min-height: 260px;
     height: auto;
   }
