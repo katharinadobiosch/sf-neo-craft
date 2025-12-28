@@ -99,16 +99,24 @@ export function MaterialForm({
     new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
       Number(num || 0),
     );
-
   const allSelected =
-    Array.isArray(productOptions) &&
+    !Array.isArray(productOptions) ||
+    productOptions.length === 0 ||
     productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected));
 
   const isReady = !!currentVariant?.availableForSale && allSelected;
+
   const price = Number(currentVariant?.price?.amount || 0);
   const currency = currentVariant?.price?.currencyCode || 'USD';
 
-  console.log('mfOthers:', mfOthers);
+  console.log({
+    currentVariantAvailable: currentVariant?.availableForSale,
+    productOptionsLen: productOptions?.length,
+    allSelected,
+    isReady,
+    price,
+    currency,
+  });
 
   return (
     <div className="product-form">
@@ -141,7 +149,7 @@ export function MaterialForm({
           <span className="cta-arrow">→</span>
           <span className="cta-price">{money(price, currency)}</span>
           <AddToCartButton
-            disabled={!currentVariant || !currentVariant.availableForSale}
+            disabled={!isReady}
             onClick={() => openAside('cart')}
             lines={
               currentVariant
