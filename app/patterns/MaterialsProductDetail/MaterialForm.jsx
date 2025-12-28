@@ -136,7 +136,7 @@ export function MaterialForm({
       </div>
 
       {/* unterer Bereich: CTA – bleibt immer unten */}
-      <div className="pdp-materials__cta-container">
+      <div className="pdp__cta-container">
         <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
           <span className="cta-arrow">→</span>
           <span className="cta-price">{money(price, currency)}</span>
@@ -152,7 +152,8 @@ export function MaterialForm({
             {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
           </AddToCartButton>
         </div>
-        <div className="pdp-materials__question">
+
+        <div className="pdp__question">
           <div>Further Questions?</div>
         </div>
       </div>
