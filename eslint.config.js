@@ -14,9 +14,23 @@ export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs,jsx}'],
     ...js.configs.recommended,
+    rules: {
+      'no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          args: 'after-used',
+          ignoreRestSiblings: false,
+          varsIgnorePattern: '^_',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+        },
+      ],
+    },
   },
 
-  // WICHTIG: spread, sonst verschachteltes Array -> ConfigError
+  // WICHTIG: spread, sonst "Unexpected key 0"
   ...tseslint.configs.recommended,
 
   {
@@ -33,7 +47,6 @@ export default defineConfig([
     languageOptions: {globals: {...globals.node}},
   },
 
-  // Ignored paths gehören als eigener Config-Block rein (und du brauchst keine .eslintignore mehr)
   {
     ignores: [
       '.react-router/**',
@@ -44,22 +57,6 @@ export default defineConfig([
       'dist/**',
       'public/build/**',
     ],
-  },
-
-  {
-    files: ['**/*.{js,mjs,cjs,jsx}'],
-    rules: {
-      'no-unused-vars': [
-        'warn',
-        {
-          vars: 'all',
-          args: 'after-used',
-          ignoreRestSiblings: false,
-          varsIgnorePattern: '^_',
-          argsIgnorePattern: '^_',
-        },
-      ],
-    },
   },
 
   {
@@ -74,17 +71,10 @@ export default defineConfig([
           ignoreRestSiblings: false,
           varsIgnorePattern: '^_',
           argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
         },
       ],
-    },
-  },
-
-  // Optional, aber sauberer als file-level disables:
-  {
-    files: ['**/*.d.ts'],
-    rules: {
-      '@typescript-eslint/no-empty-object-type': 'off',
-      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
 ]);

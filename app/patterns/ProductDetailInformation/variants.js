@@ -1,4 +1,4 @@
-metaObject = {
+export const metaObject = {
   hero_split_text: {
     key: 'hero_split_text',
     namespace: 'custom',
