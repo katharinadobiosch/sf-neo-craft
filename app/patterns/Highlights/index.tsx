@@ -1,4 +1,6 @@
+// app/patterns/Highlights/index.tsx
 import type {LoaderFunctionArgs} from '@shopify/remix-oxygen';
+import {json} from '@shopify/remix-oxygen';
 import {useLoaderData} from 'react-router';
 import {Image} from '@shopify/hydrogen';
 import './highlights.scss';
@@ -62,7 +64,6 @@ type ProjectItem = {
   title: string;
 };
 
-// loader
 export async function loader({context}: LoaderFunctionArgs) {
   const data = await context.storefront.query(PROJECTS_QUERY, {
     variables: {first: 50},
@@ -106,7 +107,8 @@ export async function loader({context}: LoaderFunctionArgs) {
     return {id: n.id, image, title, overlay};
   });
 
-  return Response.json({items});
+  // Wichtig: json() statt Response.json(), damit useLoaderData<typeof loader>() korrekt typisiert
+  return json({items});
 }
 
 const PROJECTS_QUERY = `#graphql
@@ -148,14 +150,13 @@ const PROJECTS_QUERY = `#graphql
   }
 `;
 
-// Page
 export default function ProjectsPage() {
   const {items} = useLoaderData<typeof loader>();
 
   return (
     <div className="highlights">
       <ul className="highlights__grid">
-        {items.map((it: ProjectItem) => (
+        {items.map((it) => (
           <li key={it.id} className="highlights__item">
             <FigureCard
               image={it.image}

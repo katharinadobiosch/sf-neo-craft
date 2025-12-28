@@ -1,7 +1,9 @@
+import * as React from 'react';
 import {useLoaderData} from 'react-router';
-import {Image, type HydrogenImage} from '@shopify/hydrogen';
+import {Image} from '@shopify/hydrogen';
 
-type ImgLike = HydrogenImage | string | null | undefined;
+type HydrogenImageData = React.ComponentProps<typeof Image>['data'];
+type ImgLike = HydrogenImageData | string | null | undefined;
 
 export function HoverImage({
   image,
@@ -17,13 +19,13 @@ export function HoverImage({
   if (!image) return null;
 
   const renderBase = (img: ImgLike, extra = '') => {
+    if (!img) return null;
+
     if (typeof img === 'string') {
       return <img src={img} alt="" className={extra} />;
     }
-    // Hydrogen-Objekt
-    return (
-      <Image data={img as HydrogenImage} sizes={sizes} className={extra} />
-    );
+
+    return <Image data={img} sizes={sizes} className={extra} />;
   };
 
   return (
@@ -92,13 +94,38 @@ export function HeroSplit({
    Beispiele: 3 Varianten
    =========================== */
 
-export function HeroSplit_ClassicFromMetafields() {
-  const data = useLoaderData() as any;
-  const mf = data?.product?.metafields ?? data?.metafields ?? {};
-  const text = mf?.hero_split_text?.value ?? '';
+type MetafieldText = {value?: string | null};
+type MetafieldList = {list?: unknown[]};
 
-  const [left, leftHover] = mf?.hero_split_links?.list || [];
-  const [rightImg, rightHover] = mf?.hero_split_rechts?.list || [];
+type LoaderLike = {
+  product?: {metafields?: Record<string, unknown> | null} | null;
+  metafields?: Record<string, unknown> | null;
+};
+
+function asRecord(x: unknown): Record<string, unknown> {
+  return x && typeof x === 'object' ? (x as Record<string, unknown>) : {};
+}
+
+function asList(x: unknown): unknown[] {
+  if (!x || typeof x !== 'object') return [];
+  const list = (x as MetafieldList).list;
+  return Array.isArray(list) ? list : [];
+}
+
+export function HeroSplit_ClassicFromMetafields() {
+  const data = useLoaderData() as unknown as LoaderLike;
+
+  const mf =
+    asRecord(data?.product?.metafields) ?? asRecord(data?.metafields) ?? {};
+
+  const text =
+    (mf.hero_split_text as MetafieldText | undefined)?.value?.toString() ?? '';
+
+  const leftList = asList(mf.hero_split_links);
+  const rightList = asList(mf.hero_split_rechts);
+
+  const [left, leftHover] = leftList as ImgLike[];
+  const [rightImg, rightHover] = rightList as ImgLike[];
 
   return (
     <HeroSplit
@@ -149,12 +176,10 @@ export function HeroSplit_GalleryBand({
   leftImg,
   rightImg,
   bandColor = '#8F8CF6', // lila Band wie Screenshot 3
-  text,
 }: {
   leftImg?: ImgLike;
   rightImg?: ImgLike;
   bandColor?: string;
-  text: string;
 }) {
   return (
     <HeroSplit
@@ -166,7 +191,6 @@ export function HeroSplit_GalleryBand({
       leftTop={<HoverImage image={leftImg} />}
       leftBottom={<div className="hs-spacer" />}
       right={<HoverImage image={rightImg} />}
-      text={text}
     />
   );
 }
