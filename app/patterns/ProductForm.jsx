@@ -1,16 +1,19 @@
-import {useMemo} from 'react';
+import {useMemo, useState} from 'react';
 import {useAside} from '~/patterns/Aside';
 import {useNavigate} from 'react-router';
 import {Configurator} from './Configurator';
 import {ProductMetaAccordion} from './ProductMetaAccordion';
 import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
 
-/**
- * @param {{
- *   productOptions: MappedProductOptions[];
- *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
- * }}
- */
+function getMfByKey(metafields, key) {
+  const k = String(key).toLowerCase().trim();
+  return (metafields || []).find(
+    (m) =>
+      String(m?.key || '')
+        .toLowerCase()
+        .trim() === k,
+  );
+}
 
 export function ProductForm({
   productOptions,
@@ -20,6 +23,10 @@ export function ProductForm({
   onChangeSeriesProduct,
 }) {
   const {open: openAside} = useAside();
+  const navigate = useNavigate();
+
+  const [detailsOpen, setDetailsOpen] = useState(false); // default geschlossen
+  const [shippingOpen, setShippingOpen] = useState(false); // default geschlossen
 
   const BLACKLIST = new Set([
     'series_hero',
@@ -33,16 +40,15 @@ export function ProductForm({
     'hero_split_text',
     'product_series',
     'content',
+    'shipping', // wichtig: damit es nicht zusätzlich in "mfOthers" landet
   ]);
 
   const hasContent = (m) => {
     if (!m) return false;
     const v = m.value;
-
     if (typeof v === 'string') return v.trim().length > 0;
     if (typeof v === 'number') return !Number.isNaN(v);
     if (typeof v === 'boolean') return true;
-
     return false;
   };
 
@@ -66,30 +72,26 @@ export function ProductForm({
   const allMetafieldsRaw = Array.isArray(activeProduct?.metafields)
     ? activeProduct.metafields
     : [];
-
   const allMetafields = allMetafieldsRaw.filter(Boolean);
 
-  // Measurements
+  // Shipping content (rich_text_field -> kommt bei Shopify i.d.R. als HTML-String)
+  const mfShipping = getMfByKey(allMetafields, 'shipping');
+  const hasShipping = hasContent(mfShipping);
+
   const mfMeasurements = allMetafields.filter(
     (m) => m && isMeasurementsMeta(m) && hasContent(m),
   );
 
-  // andere Metafelder
   const mfOthers = allMetafields.filter((m) => {
     if (!m) return false;
-
     const key = (m.key || '').toLowerCase().trim();
-
     if (isMeasurementsMeta(m)) return false;
     if (BLACKLIST.has(key)) return false;
     if (!hasContent(m)) return false;
-
     return true;
   });
 
   const hasDetails = mfMeasurements.length > 0 || mfOthers.length > 0;
-
-  const navigate = useNavigate();
 
   const currentVariant = useMemo(() => {
     for (const opt of productOptions || []) {
@@ -111,15 +113,12 @@ export function ProductForm({
     productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected));
 
   const isReady = !!currentVariant?.availableForSale && allSelected;
-
   const price = Number(currentVariant?.price?.amount || 0);
   const currency = currentVariant?.price?.currencyCode || 'USD';
 
-  console.log('mfOthers:', mfOthers);
-
   return (
-    <div className="product-form">
-      {/* 1) Configurator bleibt immer sichtbar */}
+    <div className="product-form product-form--segmented">
+      {/* 1) Configurator (fix sichtbar) */}
       <div className="product-form__configurator">
         <Configurator
           productOptions={productOptions}
@@ -131,32 +130,74 @@ export function ProductForm({
         />
       </div>
 
-      {/* 2) Details: Header bleibt, nur Liste scrollt */}
-      {hasDetails && (
-        <div className="product-form__details">
-          <div className="product-form__details-head">Details</div>
+      {/* 2) Sections Area (nimmt Resthöhe, nur Content scrollt) */}
+      <div className="product-form__sections">
+        {hasDetails && (
+          <section
+            className={`pf-section ${detailsOpen ? 'is-open' : 'is-closed'}`}
+          >
+            <button
+              type="button"
+              className="pf-section__head"
+              aria-expanded={detailsOpen}
+              onClick={() => setDetailsOpen((v) => !v)}
+            >
+              <span>Details</span>
+              <span className="pf-section__icon" aria-hidden="true">
+                {detailsOpen ? '×' : '+'}
+              </span>
+            </button>
 
-          <div className="product-form__details-scroll">
-            <div className="configurator__meta">
-              {mfMeasurements.length > 0 && (
-                <ProductMetaAccordion
-                  metafields={mfMeasurements}
-                  product={activeProduct}
+            {detailsOpen && (
+              <div className="pf-section__body nice-scrollbar">
+                <div className="configurator__meta">
+                  {mfMeasurements.length > 0 && (
+                    <ProductMetaAccordion
+                      metafields={mfMeasurements}
+                      product={activeProduct}
+                    />
+                  )}
+                  {mfOthers.length > 0 && (
+                    <ProductMetaAccordion
+                      metafields={mfOthers}
+                      product={activeProduct}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+
+        {hasShipping && (
+          <section
+            className={`pf-section ${shippingOpen ? 'is-open' : 'is-closed'}`}
+          >
+            <button
+              type="button"
+              className="pf-section__head"
+              aria-expanded={shippingOpen}
+              onClick={() => setShippingOpen((v) => !v)}
+            >
+              <span>Shipping time</span>
+              <span className="pf-section__icon" aria-hidden="true">
+                {shippingOpen ? '×' : '+'}
+              </span>
+            </button>
+
+            {shippingOpen && (
+              <div className="pf-section__body nice-scrollbar">
+                <div
+                  className="pf-richtext"
+                  dangerouslySetInnerHTML={{__html: mfShipping.value}}
                 />
-              )}
+              </div>
+            )}
+          </section>
+        )}
+      </div>
 
-              {mfOthers.length > 0 && (
-                <ProductMetaAccordion
-                  metafields={mfOthers}
-                  product={activeProduct}
-                />
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 3) CTA bleibt unten */}
+      {/* 3) CTA fix unten */}
       <div className="pdp__cta-container">
         <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
           <span className="cta-arrow">→</span>
@@ -181,15 +222,3 @@ export function ProductForm({
     </div>
   );
 }
-
-/**
- * @param {{
- *   swatch?: Maybe<ProductOptionValueSwatch> | undefined;
- *   name: string;
- * }}
- */
-
-/** @typedef {import('@shopify/hydrogen').MappedProductOptions} MappedProductOptions */
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').Maybe} Maybe */
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').ProductOptionValueSwatch} ProductOptionValueSwatch */
-/** @typedef {import('storefrontapi.generated').ProductFragment} ProductFragment */
