@@ -1,8 +1,7 @@
-// app/patterns/MaterialsProductDetail.tsx
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {Image} from '@shopify/hydrogen';
 import {MaterialMain} from './MaterialMain';
 export function MaterialsProductDetail({product}: {product: any}) {
-
   const hero = product?.featuredImage;
 
   return (

@@ -1,4 +1,4 @@
-// app/patterns/ProductMetaAccordion/index.tsx
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useMemo} from 'react';
 import {normalizeMetafields} from '~/utils/metafields';
 import metaDefsJson from '~/graphql/product/product-metafield-defs.json';

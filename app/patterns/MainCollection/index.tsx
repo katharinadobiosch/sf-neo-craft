@@ -1,4 +1,4 @@
-// app/patterns/MainCollection/index.tsx
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useState} from 'react';
 import {useLoaderData, Link} from 'react-router';
 import {Image} from '@shopify/hydrogen';
