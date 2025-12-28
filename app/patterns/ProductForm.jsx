@@ -118,7 +118,7 @@ export function ProductForm({
 
   return (
     <div className="product-form product-form--segmented">
-      {/* 1) Configurator (fix sichtbar) */}
+      {/* 1) Configurator – fix */}
       <div className="product-form__configurator">
         <Configurator
           productOptions={productOptions}
@@ -130,26 +130,25 @@ export function ProductForm({
         />
       </div>
 
-      {/* 2) Sections Area (nimmt Resthöhe, nur Content scrollt) */}
-      <div className="product-form__sections">
+      {/* 2) Mittlerer Bereich: Details füllt den Platz */}
+      <div className="product-form__middle">
         {hasDetails && (
           <section
-            className={`pf-section ${detailsOpen ? 'is-open' : 'is-closed'}`}
+            className={`pf-section pf-section--details ${detailsOpen ? 'is-open' : ''}`}
           >
             <button
               type="button"
               className="pf-section__head"
-              aria-expanded={detailsOpen}
               onClick={() => setDetailsOpen((v) => !v)}
             >
               <span>Details</span>
-              <span className="pf-section__icon" aria-hidden="true">
+              <span className="pf-section__icon">
                 {detailsOpen ? '×' : '+'}
               </span>
             </button>
 
             {detailsOpen && (
-              <div className="pf-section__body nice-scrollbar">
+              <div className="pf-section__body pf-section__body--flex nice-scrollbar">
                 <div className="configurator__meta">
                   {mfMeasurements.length > 0 && (
                     <ProductMetaAccordion
@@ -168,36 +167,33 @@ export function ProductForm({
             )}
           </section>
         )}
-
-        {hasShipping && (
-          <section
-            className={`pf-section ${shippingOpen ? 'is-open' : 'is-closed'}`}
-          >
-            <button
-              type="button"
-              className="pf-section__head"
-              aria-expanded={shippingOpen}
-              onClick={() => setShippingOpen((v) => !v)}
-            >
-              <span>Shipping time</span>
-              <span className="pf-section__icon" aria-hidden="true">
-                {shippingOpen ? '×' : '+'}
-              </span>
-            </button>
-
-            {shippingOpen && (
-              <div className="pf-section__body nice-scrollbar">
-                <div
-                  className="pf-richtext"
-                  dangerouslySetInnerHTML={{__html: mfShipping.value}}
-                />
-              </div>
-            )}
-          </section>
-        )}
       </div>
 
-      {/* 3) CTA fix unten */}
+      {/* 3) Shipping – fix über CTA */}
+      <div className="product-form__shipping">
+        <section className={`pf-section ${shippingOpen ? 'is-open' : ''}`}>
+          <button
+            type="button"
+            className="pf-section__head"
+            onClick={() => setShippingOpen((v) => !v)}
+          >
+            <span>Lead time + shipping</span>
+            <span className="pf-section__icon">{shippingOpen ? '×' : '+'}</span>
+          </button>
+
+          {shippingOpen && (
+            <div className="pf-section__body pf-section__body--shipping nice-scrollbar">
+              {/* HARD CODED – wie gewünscht */}
+              <p>2–4 weeks (depending on stock)</p>
+              <p>parcel-delivery (door to door)</p>
+              <p>depending on shipping rates:</p>
+              <p>higher quantities via pallet-delivery (curbside)</p>
+            </div>
+          )}
+        </section>
+      </div>
+
+      {/* 4) CTA */}
       <div className="pdp__cta-container">
         <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
           <span className="cta-arrow">→</span>
