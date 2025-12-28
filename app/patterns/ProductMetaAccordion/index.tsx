@@ -168,7 +168,6 @@ function buildItems(normalizedArray: NormalizedNode[]) {
 // ---- Component ----
 export function ProductMetaAccordion({
   metafields,
-  product,
 }: {
   metafields: any;
   product?: any;

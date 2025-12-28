@@ -1,15 +1,11 @@
 // app/patterns/ProductDetailInformation/ProductMain.jsx
-import {ProductForm} from '~/patterns/ProductForm';
 import {MediaGallery} from '~/patterns/MediaGallery';
-import {HeroSplit_GalleryBand} from '../HeroSplit';
-import {TeaserDuo} from '../TeaserDuo';
 import {MaterialForm} from './MaterialForm';
 
 import {
   getProductOptions,
   useSelectedOptionInUrlParam,
 } from '@shopify/hydrogen';
-import {normalizeAllMetafields} from '~/utils/metafields';
 
 export function MaterialMain({
   product,

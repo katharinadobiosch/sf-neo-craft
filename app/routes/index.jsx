@@ -1,7 +1,5 @@
-import {Await, useLoaderData, Link} from 'react-router';
-import {Suspense} from 'react';
-import {Image} from '@shopify/hydrogen';
-import {ProductItem} from '~/patterns/ProductItem';
+// import {useLoaderData, Link} from 'react-router';
+// import {Image} from '@shopify/hydrogen';
 import {TeaserDuoHomepage} from '~/patterns/TeaserDuoHomepage';
 
 /**
@@ -62,7 +60,7 @@ function loadDeferredData({context}) {
 
 export default function Homepage() {
   /** @type {LoaderReturnData} */
-  const data = useLoaderData();
+  // const data = useLoaderData();
   return (
     <div className="home">
       {/* <FeaturedCollection collection={data.featuredCollection} /> */}
@@ -73,27 +71,27 @@ export default function Homepage() {
 }
 
 /**
- * @param {{
- *   collection: FeaturedCollectionFragment;
- * }}
+//  * @param {{
+//  *   collection: FeaturedCollectionFragment;
+//  * }}
  */
-function FeaturedCollection({collection}) {
-  if (!collection) return null;
-  const image = collection?.image;
-  return (
-    <Link
-      className="featured-collection"
-      to={`/collections/${collection.handle}`}
-    >
-      {image && (
-        <div className="featured-collection-image">
-          <Image data={image} sizes="100vw" />
-        </div>
-      )}
-      <h1>{collection.title}</h1>
-    </Link>
-  );
-}
+// function FeaturedCollection({collection}) {
+//   if (!collection) return null;
+//   const image = collection?.image;
+//   return (
+//     <Link
+//       className="featured-collection"
+//       to={`/collections/${collection.handle}`}
+//     >
+//       {image && (
+//         <div className="featured-collection-image">
+//           <Image data={image} sizes="100vw" />
+//         </div>
+//       )}
+//       <h1>{collection.title}</h1>
+//     </Link>
+//   );
+// }
 
 /**
  * @param {{
