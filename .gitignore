@@ -13,3 +13,4 @@ sf-neo-craft.git/
 
 # generated router types / artifacts
 .react-router/
+package-lock.json
