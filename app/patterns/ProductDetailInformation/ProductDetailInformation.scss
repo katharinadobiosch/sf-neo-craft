@@ -207,12 +207,13 @@
 
   /* optional: trennt optisch vom Configurator */
   border-top: 1px solid #000;
+  margin-top: 1rem;
 }
 
 /* Details-Header bleibt im Bild */
 .product-form__details-head {
   flex: 0 0 auto;
-  padding: 1.5rem 0;
+  padding: 1rem 0;
   font-weight: 600;
 
   /* wenn du willst, dass er beim Scrollen im Detailsbereich „klebt“ */
@@ -234,4 +235,24 @@
 .pdp__cta-container {
   flex: 0 0 auto;
   margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .product-main {
+    /* Stage = Viewporthöhe minus Header */
+    height: calc(100vh - var(--header-h));
+    overflow: hidden; /* verhindert, dass linke Spalte „mit der Seite“ scrollt */
+  }
+
+  .product-main__media,
+  .product-main__info {
+    height: 100%;
+  }
+}
+
+.product-form__configurator {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 3;
 }
