@@ -2,15 +2,8 @@ import React, {useEffect, useMemo, useRef} from 'react';
 import type {Swiper as SwiperType} from 'swiper';
 import {Swiper, SwiperSlide} from 'swiper/react';
 import {Navigation, Pagination, A11y} from 'swiper/modules';
-import {n} from 'node_modules/react-router/dist/development/index-react-server-client-2EDmGlsZ.mjs';
 
-type Img = {
-  id: string;
-  url: string;
-  alt?: string | null;
-  width?: number | null;
-  height?: number | null;
-};
+
 
 type ImageNode = {
   id: string;
@@ -89,7 +82,6 @@ export function MediaGallery({product, variant, className}: Props) {
   };
 
   // 1) Key sorgt für sauberes Remount bei Variantenwechsel ODER Slide-Änderungen
-  const swiperKey = `${variant?.id ?? 'default'}|${slides.map((s) => s.id).join(',')}`;
 
   // 2) Beim Variantenwechsel aktiv auf das Variantenbild springen
   useEffect(() => {

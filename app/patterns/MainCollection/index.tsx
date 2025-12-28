@@ -20,7 +20,7 @@ export async function loader(args) {
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  * @param {LoaderFunctionArgs}
  */
-async function loadCriticalData({context, request}) {
+async function loadCriticalData({context}) {
   const {collection} = await context.storefront.query(
     COLLECTION_BY_HANDLE_QUERY,
     {

@@ -120,12 +120,10 @@ export function HeroSplit_ClassicFromMetafields() {
 export function HeroSplit_Poster({
   graphicColor = '#F6A94A',
   quote,
-  leftImg,
   rightImg,
 }: {
   graphicColor?: string;
   quote: string;
-  leftImg?: ImgLike;
   rightImg?: ImgLike;
 }) {
   return (
