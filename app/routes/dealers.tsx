@@ -1,4 +1,4 @@
-// app/routes/dealers.tsx
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type {LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {useLoaderData} from 'react-router';
 import Dealers, {type Dealer} from '~/patterns/Dealers';

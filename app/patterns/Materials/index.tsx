@@ -1,52 +1,56 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {useState} from 'react';
 import {useLoaderData, Link} from 'react-router';
 import {Image} from '@shopify/hydrogen';
+import type {LoaderFunctionArgs} from '@shopify/remix-oxygen';
 
-/**
- * @param {LoaderFunctionArgs} args
- */
-export async function loader(args) {
-  // Start fetching non-critical data without blocking time to first byte
+type ColorItem = {hex: string; label: string};
+
+type ProductLike = {
+  id: string;
+  title: string;
+  handle: string;
+  featuredImage?: unknown | null;
+  metafield?: {
+    references?: {nodes?: Array<{image?: unknown | null} | null> | null} | null;
+  } | null;
+  materialTileColors?: {references?: {nodes?: unknown[] | null} | null} | null;
+  variants?: {
+    nodes?: Array<{
+      neoColorVariants?: {
+        references?: {nodes?: unknown[] | null} | null;
+      } | null;
+    } | null> | null;
+  } | null;
+};
+
+export async function loader(args: LoaderFunctionArgs) {
   const deferredData = loadDeferredData(args);
-
-  // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
-
   return {...deferredData, ...criticalData};
 }
 
-/**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- * @param {LoaderFunctionArgs}
- */
-async function loadCriticalData({context, request}) {
+async function loadCriticalData({
+  context,
+}: Pick<LoaderFunctionArgs, 'context'>) {
   const {collection} = await context.storefront.query(
     COLLECTION_BY_HANDLE_QUERY,
     {
-      variables: {
-        handle: 'materials', // oder dein eigener Handle
-      },
+      variables: {handle: 'materials'},
     },
   );
 
   return {collection};
 }
 
-/**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- * @param {LoaderFunctionArgs}
- */
-function loadDeferredData({context}) {
+function loadDeferredData(_args: Pick<LoaderFunctionArgs, 'context'>) {
   return {};
 }
 
-function getTileImages(product: any) {
+function getTileImages(product: ProductLike) {
   const refs =
     product.metafield?.references?.nodes
-      ?.map((n: any) => n?.image)
+      ?.map((n) => n?.image ?? null)
       .filter(Boolean) ?? [];
   return {
     main: refs[0] || product.featuredImage || null,
@@ -54,50 +58,48 @@ function getTileImages(product: any) {
   };
 }
 
-function mapColorNodes(nodes: any[]) {
+function mapColorNodes(nodes: unknown[]) {
   return (nodes ?? [])
-    .map((n: any) => ({
-      hex: n?.hex?.value ?? null,
-      label: n?.label?.value ?? '',
-    }))
-    .filter((c) => !!c.hex);
+    .map((n) => {
+      const obj = n as any;
+      return {
+        hex: obj?.hex?.value ?? null,
+        label: obj?.label?.value ?? '',
+      };
+    })
+    .filter((c): c is {hex: string; label: string} => !!c.hex);
 }
 
-function dedupeByHex(colors: {hex: string; label: string}[]) {
+function dedupeByHex(colors: ColorItem[]) {
   const seen = new Set<string>();
   return colors.filter((c) => !seen.has(c.hex) && (seen.add(c.hex), true));
 }
 
-function getProductColors(product: any) {
-  // 1) Produkt-Ebene
-  const productNodes = product?.materialTileColors?.references?.nodes ?? [];
+function getProductColors(product: ProductLike) {
+  const productNodes = (product?.materialTileColors?.references?.nodes ??
+    []) as unknown[];
   const productColors = mapColorNodes(productNodes);
 
-  if (productColors.length === 0) {
-    console.warn(`no color selected (product): ${product?.title ?? 'unknown'}`);
-  } else {
-    return productColors;
-  }
+  if (productColors.length > 0) return productColors;
 
-  // 2) Fallback: Varianten-Ebene
-  const variantNodes = (product?.variants?.nodes ?? []).flatMap(
-    (v: any) => v?.neoColorVariants?.references?.nodes ?? [],
-  );
-  const variantColors = dedupeByHex(mapColorNodes(variantNodes));
+  const variantNodes =
+    (product?.variants?.nodes ?? []).flatMap((v) => {
+      const nodes = (v as any)?.neoColorVariants?.references?.nodes;
+      return Array.isArray(nodes) ? (nodes as unknown[]) : [];
+    }) ?? [];
 
-  if (variantColors.length === 0) {
-    console.warn(
-      `no color selected (variants either): ${product?.title ?? 'unknown'}`,
-    );
-  }
-
-  return variantColors; // evtl. leer – dann werden keine Swatches gerendert
+  return dedupeByHex(mapColorNodes(variantNodes));
 }
 
-function ProductItem({product, isReversed}) {
+function ProductItem({
+  product,
+  isReversed,
+}: {
+  product: ProductLike;
+  isReversed: boolean;
+}) {
   const {main, hover} = getTileImages(product);
   const [isHover, setIsHover] = useState(false);
-  const [isActive, setIsActive] = useState(false);
   const showHover = Boolean(hover && isHover);
 
   const colors = getProductColors(product);
@@ -118,14 +120,14 @@ function ProductItem({product, isReversed}) {
       >
         {main && (
           <Image
-            data={main}
-            alt={main.altText || product.title}
+            data={main as any}
+            alt={(main as any)?.altText || product.title}
             className="material-card__image"
             sizes="(min-width: 60rem) 40rem, 100vw"
             style={{
               position: 'absolute',
               inset: 0,
-              width: '100%', // ⬅️ füllt die Fläche sicher
+              width: '100%',
               height: '100%',
               objectFit: 'cover',
               opacity: showHover ? 0 : 1,
@@ -135,8 +137,8 @@ function ProductItem({product, isReversed}) {
         )}
         {hover && (
           <Image
-            data={hover}
-            alt={hover.altText || product.title}
+            data={hover as any}
+            alt={(hover as any)?.altText || product.title}
             className="material-card__image"
             sizes="(min-width: 60rem) 40rem, 100vw"
             style={{
@@ -164,10 +166,9 @@ function ProductItem({product, isReversed}) {
           im Wandel.
         </p>
 
-        {/* ⬇️ Swatches aus Metaobjekten */}
         {colors?.length > 0 && (
           <ul className="material-card__swatches" aria-label="Farbvarianten">
-            {colors.map((c: any, i: number) => (
+            {colors.map((c, i) => (
               <li key={`${c.hex}-${i}`}>
                 <span
                   className="material-card__swatch"
@@ -182,7 +183,6 @@ function ProductItem({product, isReversed}) {
           </ul>
         )}
 
-        {/* schwarze CTA-Bar, bleibt innerhalb des großen Links */}
         <span className="material-card__ctaBar" aria-hidden="true">
           <span className="material-card__ctaIcon" aria-hidden="true">
             →
@@ -195,34 +195,26 @@ function ProductItem({product, isReversed}) {
 }
 
 export default function Materials() {
-  const {collection} = useLoaderData();
+  const {collection} = useLoaderData<typeof loader>();
 
   return (
-    <>
-      <div className="materials">
-        <div className="materials-grid">
-          {collection.products?.nodes?.map((product, i) => (
+    <div className="materials">
+      <div className="materials-grid">
+        {(collection?.products?.nodes ?? []).map(
+          (product: ProductLike, i: number) => (
             <ProductItem
               key={product.id}
               product={product}
-              isReversed={i % 2 === 1} // jede zweite Karte spiegeln
+              isReversed={i % 2 === 1}
             />
-          ))}
-        </div>
+          ),
+        )}
       </div>
-    </>
+    </div>
   );
 }
 
-/**
- * @param {{
- *   collection: CollectionFragment;
- *   index: number;
- * }}
- */
-
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
-#graphql
 query CollectionByHandle_Materials(
   $handle: String!
   $country: CountryCode
@@ -240,7 +232,6 @@ query CollectionByHandle_Materials(
         handle
         featuredImage { url altText width height }
 
-        # Bilder für die Kachel (unverändert)
         metafield(namespace: "custom", key: "product_tile") {
           type
           references(first: 2) {
@@ -252,7 +243,6 @@ query CollectionByHandle_Materials(
           }
         }
 
-        # ✅ Produkt-Ebene: Liste von Neo-Color Metaobjekten
         neoColorProduct: metafield(namespace: "custom", key: "neo_color_product") {
           type
           references(first: 50) {
@@ -267,7 +257,6 @@ query CollectionByHandle_Materials(
           }
         }
 
-          # ✅ Produkt-Ebene: Liste von Material Color Metaobjekten
         materialTileColors: metafield(namespace: "custom", key: "material_tile_color") {
           type
           references(first: 50) {
@@ -282,7 +271,6 @@ query CollectionByHandle_Materials(
           }
         }
 
-        # 🛟 Fallback: Varianten-Ebene (Definition heißt bei dir custom.color)
         variants(first: 50) {
           nodes {
             id
@@ -305,7 +293,3 @@ query CollectionByHandle_Materials(
   }
 }
 `;
-
-/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
-/** @typedef {import('storefrontapi.generated').CollectionFragment} CollectionFragment */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */

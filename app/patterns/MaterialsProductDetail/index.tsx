@@ -1,10 +1,7 @@
-// app/patterns/MaterialsProductDetail.tsx
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {Image} from '@shopify/hydrogen';
-import {normalizeAllMetafields} from '~/utils/metafields';
 import {MaterialMain} from './MaterialMain';
 export function MaterialsProductDetail({product}: {product: any}) {
-  const metafields = normalizeAllMetafields(product.metafields ?? []);
-
   const hero = product?.featuredImage;
 
   return (

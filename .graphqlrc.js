@@ -1,3 +1,20 @@
+/**
+ * IMPORTANT:
+ *
+ * Storefront Codegen intentionally EXCLUDES everything under ./app/graphql/**.
+ *
+ * - Storefront GraphQL queries & fragments MUST live outside of app/graphql/
+ *   (e.g. in app/routes/** or app/queries/storefront/**),
+ *   otherwise Codegen will NOT see them.
+ *
+ * - app/graphql/** is reserved for:
+ *   - customer-account GraphQL documents
+ *   - scripts, exporters, generated artifacts (e.g. metafield dumps)
+ *
+ * If you add a Storefront fragment/query under app/graphql/,
+ * Codegen will fail or silently ignore it.
+ */
+
 import {getSchema} from '@shopify/hydrogen-codegen';
 
 /**

@@ -1,7 +1,5 @@
 import {useMemo} from 'react';
 import {useAside} from '~/patterns/Aside';
-import {useNavigate} from 'react-router';
-import {Configurator} from '~/patterns/Configurator';
 // import {ProductMetaAccordion} from './ProductMetaAccordion';
 import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
 
@@ -17,7 +15,6 @@ export function MaterialForm({
   product,
   seriesProducts,
   seriesActiveIndex,
-  onChangeSeriesProduct,
 }) {
   const {open: openAside} = useAside();
 
@@ -89,7 +86,6 @@ export function MaterialForm({
 
   const hasDetails = mfMeasurements.length > 0 || mfOthers.length > 0;
 
-  const navigate = useNavigate();
 
   const currentVariant = useMemo(() => {
     for (const opt of productOptions || []) {

@@ -1,7 +1,4 @@
-import {useLoaderData} from 'react-router';
 import {getPaginationVariables} from '@shopify/hydrogen';
-import {PaginatedResourceSection} from '~/patterns/PaginatedResourceSection';
-import {ProductItem} from '~/patterns/ProductItem';
 
 /**
  * @type {MetaFunction<typeof loader>}
@@ -49,9 +46,9 @@ async function loadCriticalData({context, request}) {
  * Make sure to not throw any errors here, as it will cause the page to 500.
  * @param {LoaderFunctionArgs}
  */
-function loadDeferredData({context}) {
-  return {};
-}
+// function loadDeferredData({context}) {
+//   return {};
+// }
 
 // export default function Collection() {
 //   /** @type {LoaderReturnData} */

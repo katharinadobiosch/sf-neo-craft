@@ -1,7 +1,3 @@
-import {Await, useLoaderData, Link} from 'react-router';
-import {Suspense} from 'react';
-import {Image} from '@shopify/hydrogen';
-import {ProductItem} from '~/patterns/ProductItem';
 import {TeaserDuoHomepage} from '~/patterns/TeaserDuoHomepage';
 import teaserImageRight from '../patterns/TeaserDuoHomepage/NC_HR_Rho_Detail_01_2.png';
 import teaserImageLeft from '../patterns/TeaserDuoHomepage/NC_LR_Dia_Detail_02_2.png';
@@ -64,7 +60,6 @@ function loadDeferredData({context}) {
 
 export default function Homepage() {
   /** @type {LoaderReturnData} */
-  const data = useLoaderData();
   return (
     <div className="home">
       {/* <FeaturedCollection collection={data.featuredCollection} /> */}
