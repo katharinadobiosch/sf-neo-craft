@@ -7,8 +7,29 @@ function labelFromMetaobject(metaobj: any) {
 
 function mediaFromRef(ref: any) {
   if (!ref) return null;
+
   if (ref.__typename === 'MediaImage') return ref.image || null;
-  // TODO: Video/Model3d/GenericFile später abbilden
+
+  if (ref.__typename === 'Video') {
+    const s = ref.sources?.[0];
+    return s?.url
+      ? {__typename: 'Video', url: s.url, mimeType: s.mimeType}
+      : null;
+  }
+
+  if (ref.__typename === 'Model3d') {
+    const s = ref.sources?.[0];
+    return s?.url
+      ? {__typename: 'Model3d', url: s.url, mimeType: s.mimeType}
+      : null;
+  }
+
+  if (ref.__typename === 'GenericFile') {
+    return ref.url
+      ? {__typename: 'GenericFile', url: ref.url, mimeType: ref.mimeType}
+      : null;
+  }
+
   return null;
 }
 
