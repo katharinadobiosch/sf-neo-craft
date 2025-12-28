@@ -410,7 +410,7 @@ button:disabled {
   grid-template-columns: 1fr 40px;
   align-items: center;
   height: 72px;
-  padding: 0 1.5rem;
+  padding: 0 1.5rem 0 0rem;
 
   position: sticky;
   top: 0;
@@ -432,7 +432,7 @@ button:disabled {
   min-height: 0;
   max-height: 40vh; /* Stellschraube: je nach Layout/Viewport */
   overflow: auto;
-  padding: 1rem 1.5rem 1.5rem;
+  padding: 1rem 1.5rem 1rem 0rem;
 }
 
 /* Richtext Basic */
