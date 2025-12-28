@@ -136,16 +136,17 @@ export function ProductForm({
           <section
             className={`pf-section pf-section--details ${detailsOpen ? 'is-open' : ''}`}
           >
-            <button
-              type="button"
-              className="pf-section__head"
-              onClick={() => setDetailsOpen((v) => !v)}
-            >
-              <span>Details</span>
-              <span className="pf-section__icon">
-                {detailsOpen ? '×' : '+'}
-              </span>
-            </button>
+            <div className="cfg-head">
+              <button
+                type="button"
+                className="cfg-toggle"
+                aria-controls="cfg-variants"
+                onClick={() => setDetailsOpen((v) => !v)}
+              >
+                <span className="cfg-title">Details</span>
+                <span className="cfg-plus" aria-hidden />
+              </button>
+            </div>
 
             {detailsOpen && (
               <div className="pf-section__body pf-section__body--flex nice-scrollbar">
@@ -178,7 +179,13 @@ export function ProductForm({
             onClick={() => setShippingOpen((v) => !v)}
           >
             <span>Lead time + shipping</span>
-            <span className="pf-section__icon">{shippingOpen ? '×' : '+'}</span>
+            <span className="pf-section__icon">
+              {shippingOpen ? (
+                <span className="cfg-minus" aria-hidden />
+              ) : (
+                <span className="cfg-plus" aria-hidden />
+              )}
+            </span>{' '}
           </button>
 
           {shippingOpen && (

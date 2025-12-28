@@ -471,3 +471,35 @@ button:disabled {
 .nice-scrollbar::-webkit-scrollbar-thumb:hover {
   background: #111;
 }
+
+/* Header mit + */
+.cfg-toggle {
+  all: unset;
+  width: 163px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 0 1.5rem 0;
+}
+
+.cfg-head {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  @media (min-width: 768px) {
+    // padding-bottom: 1rem;
+  }
+}
+
+.cfg-head .cfg-toggle {
+  flex: 0 0 163px;
+} /* linke Spalte */
+
+.cfg-head__label {
+  flex: 0 0 100px;
+} /* mittlere Spalte (leer) */
+
+.cfg-head__values {
+  flex: 1 1 auto;
+} /* rechte Spalte (leer) */
