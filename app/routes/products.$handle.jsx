@@ -1,4 +1,5 @@
 // app/routes/products.$handle.jsx
+
 import {useLoaderData} from 'react-router';
 import {
   getSelectedProductOptions,
@@ -137,7 +138,7 @@ export default function Product() {
  * Wichtig: Das importierte Fragment MUSS hier VOR seinem Gebrauch stehen.
  */
 const PRODUCT_QUERY = `#graphql
-  fragment ProductVariant on ProductVariant {
+  fragment ProductVariantFragment on ProductVariant {
     availableForSale
     compareAtPrice { amount currencyCode }
     id
@@ -150,7 +151,7 @@ const PRODUCT_QUERY = `#graphql
     unitPrice { amount currencyCode }
   }
 
-  fragment Product on Product {
+  fragment ProductFragment on Product {
     id
     title
     vendor
@@ -158,13 +159,9 @@ const PRODUCT_QUERY = `#graphql
     descriptionHtml
     description
 
-    collections(first: 10) {
-      nodes { handle }
-    }
+    collections(first: 10) { nodes { handle } }
 
-    images(first: 10) {
-      edges { node { id url altText width height } }
-    }
+    images(first: 10) { edges { node { id url altText width height } } }
 
     encodedVariantExistence
     encodedVariantAvailability
@@ -173,7 +170,7 @@ const PRODUCT_QUERY = `#graphql
       name
       optionValues {
         name
-        firstSelectableVariant { ...ProductVariant }
+        firstSelectableVariant { ...ProductVariantFragment }
         swatch { color image { previewImage { url } } }
       }
     }
@@ -182,20 +179,20 @@ const PRODUCT_QUERY = `#graphql
       selectedOptions: $selectedOptions
       ignoreUnknownOptions: true
       caseInsensitiveMatch: true
-    ) { ...ProductVariant }
+    ) { ...ProductVariantFragment }
 
-    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariant }
+    adjacentVariants(selectedOptions: $selectedOptions) { ...ProductVariantFragment }
 
     seo { description title }
 
-    # 👇 dynamisch via Variable
     metafields(identifiers: $metafieldIdentifiers) {
       namespace
       key
       type
       value
 
-      reference { __typename
+      reference {
+        __typename
         ... on Metaobject { id type handle fields { key type value } }
         ... on MediaImage { image { url altText width height } }
         ... on Video { sources { url mimeType } }
@@ -221,10 +218,10 @@ const PRODUCT_QUERY = `#graphql
     $handle: String!
     $language: LanguageCode
     $selectedOptions: [SelectedOptionInput!]
-    $metafieldIdentifiers: [HasMetafieldsIdentifier!]!   # 👈 Typ-Hinweis
+    $metafieldIdentifiers: [HasMetafieldsIdentifier!]!
   ) @inContext(country: $country, language: $language) {
     product(handle: $handle) {
-      ...Product
+      ...ProductFragment
     }
   }
 `;
