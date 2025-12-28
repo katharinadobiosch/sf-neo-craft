@@ -4,49 +4,24 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import pluginReact from 'eslint-plugin-react';
 import {defineConfig} from 'eslint/config';
-import pluginImport from 'eslint-plugin-import';
 
 export default defineConfig([
   {
-    ignores: [
-      '.react-router/**',
-      '**/*.generated.d.ts',
-      'storefrontapi.generated.d.ts',
-      'customer-accountapi.generated.d.ts',
-      'env.d.ts',
-      'build/**',
-      'dist/**',
-      'public/build/**',
-      '**/*.patch',
-    ],
-  },
-  // Basis
-  {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-    plugins: {
-      import: pluginImport,
-    },
     languageOptions: {globals: globals.browser},
-    rules: {
-      // Optional: andere Basisregeln
-    },
   },
 
-  // JS-Empfehlungen
   {
     files: ['**/*.{js,mjs,cjs,jsx}'],
-    ...js.configs.recommended, // @eslint/js
+    ...js.configs.recommended,
   },
 
-  // TS-Empfehlungen (nur für TS-Dateien)
-  {
-    files: ['**/*.{ts,mts,cts,tsx}'],
-    ...tseslint.configs.recommended,
-  },
+  // WICHTIG: spread, sonst verschachteltes Array -> ConfigError
+  ...tseslint.configs.recommended,
 
-  // React
   {
     ...pluginReact.configs.flat.recommended,
+    settings: {react: {version: 'detect'}},
     rules: {
       ...pluginReact.configs.flat.recommended.rules,
       'react/react-in-jsx-scope': 'off',
@@ -54,16 +29,23 @@ export default defineConfig([
     },
   },
 
-  // Node-Umgebung wo nötig
   {
-    languageOptions: {
-      globals: {
-        ...globals.node,
-      },
-    },
+    languageOptions: {globals: {...globals.node}},
   },
 
-  // 🔔 JS/JSX: unbenutzte Variablen melden
+  // Ignored paths gehören als eigener Config-Block rein (und du brauchst keine .eslintignore mehr)
+  {
+    ignores: [
+      '.react-router/**',
+      '**/*.generated.d.ts',
+      'storefrontapi.generated.d.ts',
+      'customer-accountapi.generated.d.ts',
+      'build/**',
+      'dist/**',
+      'public/build/**',
+    ],
+  },
+
   {
     files: ['**/*.{js,mjs,cjs,jsx}'],
     rules: {
@@ -80,7 +62,6 @@ export default defineConfig([
     },
   },
 
-  // 🔔 TS/TSX: unbenutzte Variablen melden (Core-Regel aus!)
   {
     files: ['**/*.{ts,mts,cts,tsx}'],
     rules: {
@@ -95,6 +76,15 @@ export default defineConfig([
           argsIgnorePattern: '^_',
         },
       ],
+    },
+  },
+
+  // Optional, aber sauberer als file-level disables:
+  {
+    files: ['**/*.d.ts'],
+    rules: {
+      '@typescript-eslint/no-empty-object-type': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
 ]);
