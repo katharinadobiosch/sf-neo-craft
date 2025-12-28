@@ -6,46 +6,14 @@ import pluginReact from 'eslint-plugin-react';
 import {defineConfig} from 'eslint/config';
 
 export default defineConfig([
-  // Basis
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     languageOptions: {globals: globals.browser},
-    rules: {
-      // Optional: andere Basisregeln
-    },
   },
 
-  // JS-Empfehlungen
   {
     files: ['**/*.{js,mjs,cjs,jsx}'],
-    ...js.configs.recommended, // @eslint/js
-  },
-
-  // TS-Empfehlungen (nur für TS-Dateien)
-  tseslint.configs.recommended,
-
-  // React
-  {
-    ...pluginReact.configs.flat.recommended,
-    rules: {
-      ...pluginReact.configs.flat.recommended.rules,
-      'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'off',
-    },
-  },
-
-  // Node-Umgebung wo nötig
-  {
-    languageOptions: {
-      globals: {
-        ...globals.node,
-      },
-    },
-  },
-
-  // 🔔 JS/JSX: unbenutzte Variablen melden
-  {
-    files: ['**/*.{js,mjs,cjs,jsx}'],
+    ...js.configs.recommended,
     rules: {
       'no-unused-vars': [
         'warn',
@@ -55,12 +23,42 @@ export default defineConfig([
           ignoreRestSiblings: false,
           varsIgnorePattern: '^_',
           argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
         },
       ],
     },
   },
 
-  // 🔔 TS/TSX: unbenutzte Variablen melden (Core-Regel aus!)
+  // WICHTIG: spread, sonst "Unexpected key 0"
+  ...tseslint.configs.recommended,
+
+  {
+    ...pluginReact.configs.flat.recommended,
+    settings: {react: {version: 'detect'}},
+    rules: {
+      ...pluginReact.configs.flat.recommended.rules,
+      'react/react-in-jsx-scope': 'off',
+      'react/prop-types': 'off',
+    },
+  },
+
+  {
+    languageOptions: {globals: {...globals.node}},
+  },
+
+  {
+    ignores: [
+      '.react-router/**',
+      '**/*.generated.d.ts',
+      'storefrontapi.generated.d.ts',
+      'customer-accountapi.generated.d.ts',
+      'build/**',
+      'dist/**',
+      'public/build/**',
+    ],
+  },
+
   {
     files: ['**/*.{ts,mts,cts,tsx}'],
     rules: {
@@ -73,6 +71,8 @@ export default defineConfig([
           ignoreRestSiblings: false,
           varsIgnorePattern: '^_',
           argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
         },
       ],
     },

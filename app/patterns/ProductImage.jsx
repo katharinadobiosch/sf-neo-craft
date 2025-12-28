@@ -5,7 +5,7 @@ import {Image} from '@shopify/hydrogen';
  *   image: ProductVariantFragment['image'];
  * }}
  */
-export function ProductImage({image, product}) {
+export function ProductImage({image}) {
   if (!image) {
     return <div className="product-image" />;
   }

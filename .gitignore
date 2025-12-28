@@ -10,3 +10,7 @@ node_modules
 .react-router
 .env.local
 sf-neo-craft.git/
+
+# generated router types / artifacts
+.react-router/
+package-lock.json

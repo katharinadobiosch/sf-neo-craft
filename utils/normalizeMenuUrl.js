@@ -8,9 +8,8 @@ export function normalizeMenuUrl(url, publicDomain, primaryDomain) {
       (publicDomain && url.includes(publicDomain)) ||
       (primaryDomain && url.includes(primaryDomain));
 
-    let path = isAbsolute && domainMatch ? new URL(url).pathname : url;
+    const path = isAbsolute && domainMatch ? new URL(url).pathname : url;
 
-    // Mapping bekannter Shopify-Pfade auf lokale Seitenrouten
     const redirects = {
       '/pages/about': '/about',
       '/pages/contact': '/contact',
@@ -19,11 +18,10 @@ export function normalizeMenuUrl(url, publicDomain, primaryDomain) {
       '/pages/materials': '/materials',
       '/pages/main-collection': '/main-collection',
       '/blogs/projects': '/projects',
-      // beliebig erweiterbar
     };
 
     return redirects[path] || path;
-  } catch (e) {
+  } catch {
     console.warn('Invalid URL in menu:', url);
     return '/';
   }
