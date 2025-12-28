@@ -56,7 +56,6 @@
     }
   }
 
-
   .pdp__teaser-duo {
     margin: 1.5rem 0 0 0;
 
@@ -175,4 +174,64 @@
     min-height: 260px;
     height: auto;
   }
+}
+/* =========================================================
+   LEFT COLUMN: Configurator fixed + Details scroll + CTA fixed
+   ========================================================= */
+
+.product-main__info {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  height: 100%;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+/* 1) Configurator bleibt sichtbar */
+.product-form__configurator {
+  flex: 0 0 auto;
+}
+
+/* 2) Details Bereich nimmt Resthöhe ein */
+.product-form__details {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+
+  /* optional: trennt optisch vom Configurator */
+  border-top: 1px solid #000;
+}
+
+/* Details-Header bleibt im Bild */
+.product-form__details-head {
+  flex: 0 0 auto;
+  padding: 1.5rem 0;
+  font-weight: 600;
+
+  /* wenn du willst, dass er beim Scrollen im Detailsbereich „klebt“ */
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 2;
+}
+
+/* Nur die Liste scrollt */
+.product-form__details-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 1rem;
+}
+
+/* 3) CTA bleibt unten */
+.pdp__cta-container {
+  flex: 0 0 auto;
+  margin-top: 1rem;
 }

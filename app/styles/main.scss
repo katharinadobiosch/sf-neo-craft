@@ -364,3 +364,7 @@ table {
     color: #fff;
   }
 }
+
+button:disabled {
+  opacity: 0.45;
+}

@@ -119,8 +119,8 @@ export function ProductForm({
 
   return (
     <div className="product-form">
-      {/* oberer Bereich: Configurator + Details */}
-      <div className="product-form-scroller">
+      {/* 1) Configurator bleibt immer sichtbar */}
+      <div className="product-form__configurator">
         <Configurator
           productOptions={productOptions}
           navigate={navigate}
@@ -129,35 +129,40 @@ export function ProductForm({
           onChangeSeriesProduct={onChangeSeriesProduct}
           product={activeProduct}
         />
-
-        {hasDetails && <div className="details-test">Details</div>}
-
-        {hasDetails && (
-          <div className="configurator__meta">
-            {mfMeasurements.length > 0 && (
-              <ProductMetaAccordion
-                metafields={mfMeasurements}
-                product={activeProduct}
-              />
-            )}
-
-            {mfOthers.length > 0 && (
-              <ProductMetaAccordion
-                metafields={mfOthers}
-                product={activeProduct}
-              />
-            )}
-          </div>
-        )}
       </div>
 
-      {/* unterer Bereich: CTA – bleibt immer unten */}
+      {/* 2) Details: Header bleibt, nur Liste scrollt */}
+      {hasDetails && (
+        <div className="product-form__details">
+          <div className="product-form__details-head">Details</div>
+
+          <div className="product-form__details-scroll">
+            <div className="configurator__meta">
+              {mfMeasurements.length > 0 && (
+                <ProductMetaAccordion
+                  metafields={mfMeasurements}
+                  product={activeProduct}
+                />
+              )}
+
+              {mfOthers.length > 0 && (
+                <ProductMetaAccordion
+                  metafields={mfOthers}
+                  product={activeProduct}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 3) CTA bleibt unten */}
       <div className="pdp__cta-container">
         <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
           <span className="cta-arrow">→</span>
           <span className="cta-price">{money(price, currency)}</span>
           <AddToCartButton
-            disabled={!isReady}
+            disabled={!currentVariant || !currentVariant.availableForSale}
             onClick={() => openAside('cart')}
             lines={
               currentVariant
@@ -168,6 +173,7 @@ export function ProductForm({
             {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
           </AddToCartButton>
         </div>
+
         <div className="pdp__question">
           <div>Further Questions?</div>
         </div>
