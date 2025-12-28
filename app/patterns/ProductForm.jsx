@@ -172,49 +172,46 @@ export function ProductForm({
 
       {/* 3) Shipping – fix über CTA */}
       <div className="product-form__shipping">
-        <section className={`pf-section ${shippingOpen ? 'is-open' : ''}`}>
-          {/* <button
-            type="button"
-            className="pf-section__head"
-            onClick={() => setShippingOpen((v) => !v)}
-          >
-            <span>Lead time + shipping</span>
-            <span className="pf-section__icon">
-              {shippingOpen ? (
-                <span className="cfg-minus" aria-hidden />
-              ) : (
-                <span className="cfg-plus" aria-hidden />
-              )}
-            </span>{' '}
-          </button> */}
-          <button
-            type="button"
-            className="cfg-toggle"
-            aria-controls="cfg-"
-            onClick={() => setShippingOpen((v) => !v)}
-          >
-            <span className="cfg-title">Lead time + shipping</span>
-            <span className="cfg-plus" aria-hidden />
-          </button>
+        <section
+          className={`pf-section pf-section--shipping ${shippingOpen ? 'is-open' : ''}`}
+        >
+          <div className="cfg-head cfg-head--shipping">
+            {/* linke Spalte (Label) */}
+            <button
+              type="button"
+              className="cfg-toggle cfg-toggle--shipping"
+              aria-expanded={shippingOpen}
+              aria-controls="cfg-shipping"
+              onClick={() => setShippingOpen((v) => !v)}
+            >
+              <span className="cfg-title">Lead time + shipping</span>
+            </button>
 
-          {/* {shippingOpen && (
-            <div className="pf-section__body pf-section__body--shipping nice-scrollbar">
-              <p>2–4 weeks (depending on stock)</p>
-              <p>parcel-delivery (door to door)</p>
-              <p>depending on shipping rates:</p>
-              <p>higher quantities via pallet-delivery (curbside)</p>
+            {/* mittlere Spalte (Plus/Minus) */}
+            <button
+              type="button"
+              className="cfg-icon-btn"
+              aria-label={shippingOpen ? 'Close shipping' : 'Open shipping'}
+              onClick={() => setShippingOpen((v) => !v)}
+            >
+              <span
+                className={`cfg-plus ${shippingOpen ? 'is-open' : ''}`}
+                aria-hidden
+              />
+            </button>
+
+            {/* rechte Spalte (Content) */}
+            <div className="cfg-head__values">
+              {shippingOpen && (
+                <div id="cfg-shipping" className="cfg-inline-body">
+                  <p>2–4 weeks (depending on stock)</p>
+                  <p>parcel-delivery (door to door)</p>
+                  <p>depending on shipping rates:</p>
+                  <p>higher quantities via pallet-delivery (curbside)</p>
+                </div>
+              )}
             </div>
-          )} */}
-          {shippingOpen && (
-            <div className="pf-section__body pf-section__body--flex nice-scrollbar">
-              <div className="configurator__meta">
-                <p>2–4 weeks (depending on stock)</p>
-                <p>parcel-delivery (door to door)</p>
-                <p>depending on shipping rates:</p>
-                <p>higher quantities via pallet-delivery (curbside)</p>
-              </div>
-            </div>
-          )}
+          </div>
         </section>
       </div>
 
