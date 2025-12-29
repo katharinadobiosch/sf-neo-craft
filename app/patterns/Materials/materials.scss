@@ -1,4 +1,4 @@
-/* ===== Seite & Grid ===== */
+/* ===== Page & grid ===== */
 
 .materials {
   margin: 2rem 0 0 0;
@@ -23,10 +23,10 @@
     }
 
     @media (min-width: 768px) {
-      /* Liste bleibt einspaltig (eine Karte pro Zeile) */
+      /* Keep the list single-column (one card per row) */
       display: block;
 
-      /* Mittellinie über alle Cards */
+      /* Midline across all cards */
       &::before {
         content: '';
         position: absolute;
@@ -48,7 +48,7 @@
     }
   }
 
-  /* ===== Karte (Mobil: Bild über Text) ===== */
+  /* ===== Card (mobile: image above text) ===== */
   .material-card {
     display: grid;
     grid-template-columns: 1fr;
@@ -63,20 +63,16 @@
     margin-bottom: 2rem;
 
     @media (min-width: 768px) {
-      /* WICHTIG: volle Breite, eine Karte pro Zeile */
+      /* Important: full width, one card per row */
       width: 100%;
       margin-bottom: 0;
 
-      /* innerhalb der Karte zweispaltig */
+      /* Inside the card: two columns */
       grid-template-columns: 1fr 1fr;
       grid-template-areas: 'content media';
 
       border-top: 1px solid var(--ink);
       border-bottom: 1px solid var(--ink);
-    }
-
-    /* Reverse muss am selben Element greifen */
-    @media (min-width: 768px) {
       &.material-card--reverse {
         grid-template-areas: 'media content';
       }
@@ -100,7 +96,7 @@
     }
   }
 
-  /* ===== Bild ===== */
+  /* ===== Media ===== */
   .product-media {
     grid-area: media;
     position: relative;
@@ -123,7 +119,7 @@
     }
   }
 
-  /* ===== Textspalte ===== */
+  /* ===== Text column ===== */
   .material-card__content {
     grid-area: content;
     display: grid;
@@ -199,7 +195,7 @@
     }
   }
 
-  /* CTA-Bar */
+  /* CTA bar */
   .material-card__ctaBar {
     grid-column: 1 / -1;
     width: calc(100% + 3rem);

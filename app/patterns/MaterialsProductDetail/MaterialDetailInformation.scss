@@ -84,8 +84,7 @@
       }
     }
 
-    /* Spezialregel für den oberen Teaser im square-Variant-Wrapper,
-     damit der lila Block nicht mehr rausläuft */
+    /* Special rule for the top teaser in the square-variant wrapper to keep the purple block contained */
     .square-variant .teaser-duo__content {
       width: 100%;
       margin-left: 0;
@@ -100,7 +99,7 @@
     margin: 1.5rem 0 3rem;
   }
 
-  /* Bühne darf auf Mobile schrumpfen */
+  /* Stage can shrink on mobile */
   .pdp-materials .nc-media-gallery {
     min-height: 260px;
     height: auto;
@@ -108,7 +107,6 @@
 }
 
 .product-material {
-  align-items: flex-start;
   display: flex;
   flex-direction: row;
   aspect-ratio: 1560 / 780;
@@ -173,7 +171,7 @@
     aspect-ratio: auto;
   }
 
-  /* Bühne darf auf Mobile schrumpfen */
+  /* Stage can shrink on mobile */
   .pdp .nc-media-gallery {
     min-height: 260px;
     height: auto;

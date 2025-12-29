@@ -5,6 +5,16 @@ import {Configurator} from './Configurator';
 import {ProductMetaAccordion} from './ProductMetaAccordion';
 import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
 
+function getMfByKey(metafields, key) {
+  const k = String(key).toLowerCase().trim();
+  return (metafields || []).find(
+    (m) =>
+      String(m?.key || '')
+        .toLowerCase()
+        .trim() === k,
+  );
+}
+
 export function ProductForm({
   productOptions,
   product,
@@ -15,7 +25,8 @@ export function ProductForm({
   const {open: openAside} = useAside();
   const navigate = useNavigate();
 
-  const [detailsOpen, setDetailsOpen] = useState(false); // default geschlossen
+  const [detailsOpen, setDetailsOpen] = useState(false); // default closed
+  const [shippingOpen, setShippingOpen] = useState(false);
 
   const BLACKLIST = new Set([
     'series_hero',
@@ -29,7 +40,7 @@ export function ProductForm({
     'hero_split_text',
     'product_series',
     'content',
-    'shipping', // wichtig: damit es nicht zusätzlich in "mfOthers" landet
+    'shipping', // ensure shipping metafield does not land in "mfOthers"
   ]);
 
   const hasContent = (m) => {
@@ -63,7 +74,8 @@ export function ProductForm({
     : [];
   const allMetafields = allMetafieldsRaw.filter(Boolean);
 
-  // Shipping content (rich_text_field -> kommt bei Shopify i.d.R. als HTML-String)
+  const mfShipping = getMfByKey(allMetafields, 'shipping');
+
   const mfMeasurements = allMetafields.filter(
     (m) => m && isMeasurementsMeta(m) && hasContent(m),
   );
@@ -93,18 +105,34 @@ export function ProductForm({
       Number(num || 0),
     );
 
+  const hasOptionsArray = Array.isArray(productOptions);
   const allSelected =
-    !Array.isArray(productOptions) ||
-    productOptions.length === 0 ||
-    productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected));
+    hasOptionsArray &&
+    (productOptions.length === 0 ||
+      productOptions.every((opt) =>
+        opt?.optionValues?.some((v) => v.selected),
+      ));
 
   const isReady = !!currentVariant?.availableForSale && allSelected;
   const price = Number(currentVariant?.price?.amount || 0);
   const currency = currentVariant?.price?.currencyCode || 'USD';
 
+  const shippingTitle = mfShipping?.name || mfShipping?.key || 'Shipping';
+  const shippingRaw =
+    typeof mfShipping?.value === 'string' && mfShipping.value.trim().length > 0
+      ? mfShipping.value
+      : null;
+  const shippingLines =
+    shippingRaw?.split(/\r?\n/).filter(Boolean) || [
+      '2–4 weeks (depending on stock)',
+      'parcel-delivery (door to door)',
+      'depending on shipping rates:',
+      'higher quantities via pallet-delivery (curbside)',
+    ];
+
   return (
     <div className="product-form product-form--segmented">
-      {/* 1) Configurator – fix */}
+      {/* 1) Configurator – fixed */}
       <div className="product-form__configurator">
         <Configurator
           productOptions={productOptions}
@@ -116,7 +144,7 @@ export function ProductForm({
         />
       </div>
 
-      {/* 2) Mittlerer Bereich: Details füllt den Platz */}
+      {/* 2) Middle section: Details fill the remaining space */}
       <div className="product-form__sections">
         {hasDetails && (
           <section
@@ -127,10 +155,14 @@ export function ProductForm({
                 type="button"
                 className="cfg-toggle"
                 aria-controls="cfg-variants"
+                aria-expanded={detailsOpen}
                 onClick={() => setDetailsOpen((v) => !v)}
               >
                 <span className="cfg-title">Details</span>
-                <span className="cfg-plus" aria-hidden />
+                <span
+                  className={`cfg-plus ${detailsOpen ? 'is-open' : ''}`}
+                  aria-hidden="true"
+                />
               </button>
             </div>
 
@@ -156,18 +188,28 @@ export function ProductForm({
         )}
       </div>
 
-      <details className="shipping-item" open>
-        <summary>
-          <span className="cfg-title">Lead tine + shipping</span>
-          <span className="cfg-plus" aria-hidden="true"></span>
+      <details className="shipping-item" open={shippingOpen}>
+        <summary
+          aria-expanded={shippingOpen}
+          onClick={(event) => {
+            event.preventDefault();
+            setShippingOpen((v) => !v);
+          }}
+        >
+          <span className="cfg-title">{shippingTitle}</span>
+          <span
+            className={`cfg-plus ${shippingOpen ? 'is-open' : ''}`}
+            aria-hidden="true"
+          />
         </summary>
 
-        <div className="shipping-panel">
-          <span>2–4 weeks (depending on stock)</span>
-          <span>parcel-delivery (door to door)</span>
-          <span>depending on shipping rates:</span>
-          <span>higher quantities via pallet-delivery (curbside)</span>{' '}
-        </div>
+        {shippingLines.length > 0 && (
+          <div className="shipping-panel">
+            {shippingLines.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </div>
+        )}
       </details>
 
       {/* 4) CTA */}
