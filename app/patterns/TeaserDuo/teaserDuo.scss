@@ -73,18 +73,36 @@
 
   .teaser-duo .teaser-duo__images {
     flex-direction: row;
+    align-items: stretch;
   }
 
   .teaser-duo .teaser-duo__image {
     width: 50%;
+    height: 750px; /* gemeinsame Höhe -> kein "Rand" */
   }
 
   .teaser-duo .teaser-duo__image--single {
     width: 100%;
+    height: 750px;
   }
 
+  /* Wrapper muss die Höhe übernehmen */
+  .teaser-duo .hover-wrap {
+    height: 100%;
+  }
+
+  /* Images füllen den Container */
+  .teaser-duo .base-img,
+  .teaser-duo .hover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* diese Regel bitte entfernen oder überschreiben, sonst bleibt es bei "auto" */
   .teaser-duo img {
-    max-height: 750px;
+    max-height: none;
+    height: 100%;
   }
 
   .teaser-duo .teaser-duo__content {
