@@ -7,30 +7,30 @@
 
   .acc-item {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 0.75rem;
 
     summary::-webkit-details-marker {
       display: none;
     }
 
     summary {
-      flex-shrink: 0;
       display: flex;
       justify-content: space-between;
-      width: 163px;
-      // min-height: 5rem;
-      // padding: 0.75rem 0;
       cursor: pointer;
       user-select: none;
-      padding: 1.5rem 0 1.5rem 0;
+      align-items: center;
+      width: 100%;
+      min-height: 44px;
+      padding: 0.75rem 0;
       align-items: center;
     }
 
     .acc-title {
       // color: #161616;
-      font-size: 1.5rem;
-      line-height: 2.2rem;
-      font-weight: 500;
+      font-size: var(--nc-head-mobil-size);
+      line-height: var(--nc-head-mobil-line);
+      font-weight: var(--nc-head-mobil-weight);
     }
 
     /* Plus-Icon aus zwei Linien, wie im Configurator */
@@ -48,7 +48,7 @@
       top: 50%;
       width: 14px;
       height: 2px;
-      background: #111;
+      background: var(--text-default);
       transform: translate(-50%, -50%);
       transition:
         transform 0.2s ease,
@@ -67,22 +67,23 @@
     }
 
     .acc-images {
-      padding-right: 2rem;
       width: 100%;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      gap: 1rem;
+      padding-right: 0;
 
       .m-grid {
         width: 100%;
         display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: flex-end;
-        gap: 4rem;
-        margin: 3rem 0;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
 
         .m-fig {
-          width: 22%;
+          width: 50%;
           height: auto;
           margin-left: 10px;
         }
@@ -98,7 +99,7 @@
 
     .acc-panel p {
       color: #222;
-      padding-left: 2rem;
+      padding-left: 0;
       // padding-bottom: 1rem;
       display: flex;
       flex-direction: row;
@@ -110,18 +111,58 @@
 
     .acc-images {
       display: flex;
-      flex-direction: row;
-      align-items: flex-end;
+      flex-direction: column;
+      align-items: flex-start;
       // height: 100%;
     }
   }
 }
 
-/* ===== Optional: Section-Abstände wie im Figma links angleichen ===== */
-// .configurator,
-// .meta-accordion {
-//   max-width: 560px; /* engerer Lesebereich */
-// }
+@media (min-width: 768px) {
+  .meta-accordion .acc-item {
+    flex-direction: row;
+    gap: 0;
+    width: 163px;
+  }
+
+  .meta-accordion summary {
+    flex-shrink: 0;
+    width: 163px;
+    padding: 1.5rem 0 1.5rem 0;
+  }
+
+  .meta-accordion .acc-title {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    font-weight: 500;
+  }
+
+  .meta-accordion .acc-images {
+    padding-right: 2rem;
+    flex-direction: row;
+  }
+
+  .meta-accordion .m-grid {
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 4rem;
+    margin: 3rem 0;
+  }
+
+  .meta-accordion .m-fig {
+    width: 22%;
+  }
+
+  .meta-accordion .acc-panel {
+    padding-left: 2rem;
+  }
+
+  .meta-accordion .acc-images {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
 
 /* ===== Optional: feiner Divider unter der Config-Section ===== */
 .cfg-divider {
