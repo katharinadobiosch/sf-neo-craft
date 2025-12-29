@@ -116,7 +116,8 @@ export function ProductForm({
   const price = Number(currentVariant?.price?.amount || 0);
   const currency = currentVariant?.price?.currencyCode || 'USD';
 
-  const shippingTitle = mfShipping?.name || mfShipping?.key || 'Shipping';
+  const shippingTitle =
+    mfShipping?.name || mfShipping?.key || 'Lead time + shipping';
   const shippingRaw =
     typeof mfShipping?.value === 'string' && mfShipping.value.trim().length > 0
       ? mfShipping.value
@@ -187,6 +188,7 @@ export function ProductForm({
         )}
       </div>
 
+      {/* eslint-disable-next-line react/no-unknown-property */}
       <details className="shipping-item" defaultOpen>
         <summary>
           <span className="cfg-title">{shippingTitle}</span>

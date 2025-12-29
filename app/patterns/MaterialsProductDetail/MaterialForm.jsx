@@ -111,7 +111,7 @@ export function MaterialForm({
 
   return (
     <div className="product-form">
-      {/* oberer Bereich: Configurator + Details */}
+      {/* Upper area: configurator + details */}
       <div className="product-form-scroller">
         {hasDetails && <div className="details-test">Details</div>}
 
@@ -134,7 +134,7 @@ export function MaterialForm({
         )} */}
       </div>
 
-      {/* unterer Bereich: CTA – bleibt immer unten */}
+      {/* Lower area: CTA stays pinned to bottom */}
       <div className="pdp__cta-container">
         <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
           <span className="cta-arrow">→</span>

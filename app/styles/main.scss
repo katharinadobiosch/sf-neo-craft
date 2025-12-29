@@ -280,7 +280,7 @@ table {
   gap: 0;
   margin-top: 1.5rem;
   padding: 0.25rem 0;
-  background: #fff;
+  background: var(--sf-white);
   box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.08);
   height: 72px; /* 64–80 je nach Figma */
 }
@@ -293,19 +293,19 @@ table {
   grid-template-columns: 64px 120px 1fr; /* arrow | price | button */
   align-items: stretch;
 
-  border: 1px solid #000;
-  background: #fff;
-  color: #000;
+  border: 1px solid var(--color-dark);
+  background: var(--sf-white);
+  color: var(--color-dark);
 }
 
 .pdp__cta-container .cfg-cta.is-active {
-  background: #000;
-  color: #fff;
+  background: var(--color-dark);
+  color: var(--sf-white);
 }
 
 .pdp__cta-container .cfg-cta.is-idle {
-  background: #fff;
-  color: #000;
+  background: var(--sf-white);
+  color: var(--color-dark);
 }
 
 .pdp__cta-container .cfg-cta .cta-arrow {
@@ -371,15 +371,15 @@ table {
     text-align: center;
 
     width: 320px;
-    border: 1px solid #000;
-    background: #fff;
-    color: #000;
+    border: 1px solid var(--color-dark);
+    background: var(--sf-white);
+    color: var(--color-dark);
     font-size: 12px;
   }
 
   .pdp__cta-container .pdp__question:hover {
-    background: #000;
-    color: #fff;
+    background: var(--color-dark);
+    color: var(--sf-white);
   }
 }
 
@@ -397,7 +397,7 @@ button:disabled {
   flex-direction: column;
   gap: 1.5rem;
   height: auto;
-  min-height: 0; /* wichtig: erlaubt inneres overflow */
+  min-height: 0; /* important: allows inner overflow */
 }
 
 /* Configurator bleibt sichtbar, nimmt nur benötigte Höhe */
@@ -416,7 +416,7 @@ button:disabled {
 
 /* Jede Section: Header fix, Body scrollt */
 .pf-section {
-  border-top: 1px solid #000;
+  border-top: 1px solid var(--color-dark);
   display: flex;
   flex-direction: column;
   min-height: 0;
@@ -445,7 +445,7 @@ button:disabled {
 /* Body: darf scrollen, aber nur innerhalb der verfügbaren Höhe */
 .pf-section__body {
   min-height: 0;
-  max-height: none;
+  max-height: none; /* adjust in desktop media query */
   overflow: visible;
   padding: 0 0 1rem 0;
 }
@@ -482,7 +482,7 @@ button:disabled {
 
     position: sticky;
     top: 0;
-    background: #fff;
+    background: var(--sf-white);
     z-index: 2;
   }
 
@@ -491,7 +491,7 @@ button:disabled {
   }
 
   .pf-section__body {
-    max-height: 40vh; /* Stellschraube: je nach Layout/Viewport */
+    max-height: 40vh; /* tuning knob: adjust per layout/viewport */
     overflow: auto;
     padding: 1rem 1.5rem 1rem 0rem;
   }
@@ -503,7 +503,7 @@ button:disabled {
 
 .nice-scrollbar {
   scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #000 #fff; /* thumb track */
+  scrollbar-color: var(--color-dark) var(--sf-white); /* thumb track */
 }
 
 .nice-scrollbar::-webkit-scrollbar {
@@ -511,13 +511,13 @@ button:disabled {
 }
 
 .nice-scrollbar::-webkit-scrollbar-track {
-  background: #fff;
-  border-left: 1px solid #000;
+  background: var(--sf-white);
+  border-left: 1px solid var(--color-dark);
 }
 
 .nice-scrollbar::-webkit-scrollbar-thumb {
-  background: #000;
-  border: 3px solid #fff; /* macht den Thumb „schlanker“ */
+  background: var(--color-dark);
+  border: 3px solid var(--sf-white); /* makes the thumb slimmer */
   border-radius: 999px;
 }
 
@@ -582,7 +582,7 @@ button:disabled {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  border-top: 1px solid #000;
+  border-top: 1px solid var(--color-dark);
   padding: 1rem 0;
 
   summary::-webkit-details-marker {
