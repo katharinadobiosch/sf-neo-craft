@@ -55,7 +55,7 @@
     }
   }
 
-  /* ======= MOBILE: nur PDP-TeaserDuo (Shape + Chairs) ======= */
+  /* ======= MOBILE: PDP TeaserDuo (Shape + Chairs) ======= */
   @media (max-width: 767px) {
     .pdp-materials__teaser-duo {
       .teaser-duo__images {
@@ -99,8 +99,8 @@
     margin: 1.5rem 0 3rem;
   }
 
-  /* Stage can shrink on mobile */
-  .pdp-materials .nc-media-gallery {
+  .pdp-materials .nc-media-gallery,
+  .pdp .nc-media-gallery {
     min-height: 260px;
     height: auto;
   }
@@ -130,8 +130,8 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    /* falls nicht schon vorhanden: */
-    min-height: 0; /* wichtig für korrektes Shrinken */
+    /* ensure it can shrink inside flex layouts */
+    min-height: 0;
   }
   .media-gallery {
     flex: 1 1 auto;
@@ -143,24 +143,20 @@
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  min-height: 0; /* damit das mittlere Panel schrumpfen darf */
+  min-height: 0; /* allows middle panel to shrink */
 
   @media (min-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    height: calc(100% - 4rem); // hast du bereits
+    height: calc(100% - 4rem);
   }
 }
 
 @media (max-width: 767px) {
   .pdp .product-material {
-    flex-direction: column; /* statt row */
+    flex-direction: column; /* instead of row */
     aspect-ratio: auto;
   }
 
-  /* falls du die Gallery über dem Config haben willst:
-     sonst diese Zeile einfach löschen */
+  /* move gallery above configurator if desired */
   .pdp .product-material__media {
     order: -1;
   }
@@ -169,11 +165,5 @@
   .pdp .product-material__info {
     width: 100%;
     aspect-ratio: auto;
-  }
-
-  /* Stage can shrink on mobile */
-  .pdp .nc-media-gallery {
-    min-height: 260px;
-    height: auto;
   }
 }

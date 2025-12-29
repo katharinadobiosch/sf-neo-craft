@@ -19,7 +19,7 @@
       justify-content: space-between;
       cursor: pointer;
       user-select: none;
-      width: 100%;
+      // width: 100%;
       min-height: 44px;
       padding: 0.75rem 0;
       align-items: center;
@@ -120,7 +120,7 @@
   .meta-accordion .acc-item {
     flex-direction: row;
     gap: 0;
-    width: 163px;
+    width: 100%;
   }
 
   .meta-accordion summary {
