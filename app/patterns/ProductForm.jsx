@@ -262,22 +262,18 @@ export function ProductForm({
         <div
           id="pf-shipping"
           className="pf-panel pf-panel--shipping"
-          style={{
-            maxHeight: shippingOpen ? shippingHeight : 0,
-            overflow: 'hidden',
-            opacity: shippingOpen ? 1 : 0,
-            visibility: shippingOpen ? 'visible' : 'hidden',
-            pointerEvents: shippingOpen ? 'auto' : 'none',
-          }}
+          style={{maxHeight: shippingOpen ? shippingHeight : 0}}
         >
           <div ref={shippingRef} className="pf-panel-inner">
-            {shippingLines.length > 0 && (
-              <div className="shipping-panel">
-                {shippingLines.map((line) => (
-                  <span key={line}>{line}</span>
-                ))}
-              </div>
-            )}
+            <div className="pf-panel-scroll nice-scrollbar">
+              {shippingLines.length > 0 && (
+                <div className="shipping-panel">
+                  {shippingLines.map((line) => (
+                    <span key={line}>{line}</span>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

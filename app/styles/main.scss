@@ -627,10 +627,12 @@ button:disabled {
   }
 
   /* geöffnet: wird zu Minus (wie beim cfg-plus) */
-  &[open] .shipping-plus::after {
+  .shipping-plus::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .shipping-item[data-open='true'] .shipping-plus::after {
     transform: translate(-50%, -50%) rotate(0deg);
-    /* Alternative: vertikalen Strich einfach ausblenden:
-         opacity: 0; */
   }
 
   .shipping-panel {
@@ -728,4 +730,49 @@ button:disabled {
 
 .pf-section--details[data-open='true'] .cfg-plus::after {
   transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* Scroll-Container (nur wenn offen sichtbar, trotzdem safe) */
+.pf-panel-scroll {
+  max-height: 20vh; /* Stellschraube: wie viel Platz Shipping bekommt */
+  overflow: auto;
+  padding-right: 0.75rem; /* Platz für die Scrollbar, damit Text nicht drunter läuft */
+}
+
+/* Desktop: wie im Figma meist: rechts eine klare Trennlinie */
+@media (min-width: 768px) {
+  .pf-panel-scroll {
+    max-height: 72px; /* oder z.B. 96px – je nach Design */
+  }
+}
+
+/* =========================================
+   FIGMA-STYLE SCROLLBAR (clean + thin)
+   ========================================= */
+
+/* Firefox */
+.pf-panel-scroll.nice-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-dark) transparent;
+}
+
+/* WebKit (Chrome, Safari, Edge) */
+.pf-panel-scroll.nice-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.pf-panel-scroll.nice-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  border-left: 1px solid var(--color-dark); /* die „Track“-Linie */
+}
+
+.pf-panel-scroll.nice-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-dark);
+  border: 4px solid transparent; /* macht den Thumb optisch dünn */
+  background-clip: content-box;
+  border-radius: 999px;
+}
+
+.pf-panel-scroll.nice-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--text-default);
 }
