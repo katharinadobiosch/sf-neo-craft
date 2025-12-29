@@ -451,6 +451,13 @@ button:disabled {
   padding: 0 0 1rem 0;
 }
 
+/* Details scroll container: allow flex scrolling */
+.pf-section__body--flex {
+  min-height: 0;
+  max-height: none;
+  overflow: auto;
+}
+
 /* Scroll bleed for details body */
 .pf-section__body--flex.nice-scrollbar {
   padding-bottom: 10px;
@@ -669,7 +676,6 @@ button:disabled {
     padding: 0;
     border-top: 1px solid var(--text-default);
     margin-right: 0;
-    height: 100px;
   }
 
   .shipping-item summary {
@@ -751,7 +757,7 @@ button:disabled {
 
 /* Scroll-Container (nur wenn offen sichtbar, trotzdem safe) */
 .pf-panel-scroll {
-  max-height: 20vh; /* Stellschraube: wie viel Platz Shipping bekommt */
+  max-height: none;
   overflow: auto;
   padding-right: 0.75rem; /* Platz für die Scrollbar, damit Text nicht drunter läuft */
   padding-bottom: 10px; /* bleed: let scrollbar extend lower */
@@ -761,7 +767,7 @@ button:disabled {
 /* Desktop: wie im Figma meist: rechts eine klare Trennlinie */
 @media (min-width: 768px) {
   .pf-panel-scroll {
-    max-height: 72px; /* oder z.B. 96px – je nach Design */
+    max-height: none;
   }
 }
 
