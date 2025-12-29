@@ -445,9 +445,9 @@ button:disabled {
 
 /* Body: darf scrollen, aber nur innerhalb der verfügbaren Höhe */
 .pf-section__body {
+  overflow: auto; /* statt visible */
+  max-height: 45vh; /* Stellschraube */
   min-height: 0;
-  max-height: none; /* adjust in desktop media query */
-  overflow: visible;
   padding: 0 0 1rem 0;
 }
 
@@ -506,9 +506,9 @@ button:disabled {
   }
 
   .pf-section__body {
-    overflow: auto;
-    /* max-height zurücknehmen */
-    max-height: none;
+    overflow: auto; /* statt visible */
+    max-height: 45vh; /* Stellschraube */
+    min-height: 0;
     padding: 1rem 1.5rem 1rem 0rem;
   }
 
@@ -808,6 +808,6 @@ button:disabled {
 
 .pf-panel--shipping .pf-panel-scroll {
   max-height: none;
-  overflow: auto;
-  min-height: 0;
+  overflow: visible;
+  padding-right: 0; /* optional, wenn scrollbar nicht gebraucht */
 }
