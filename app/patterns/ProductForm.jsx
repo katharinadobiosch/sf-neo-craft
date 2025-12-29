@@ -131,7 +131,7 @@ export function ProductForm({
       </div>
 
       {/* 2) Mittlerer Bereich: Details füllt den Platz */}
-      <div className="product-form__middle">
+      <div className="product-form__sections">
         {hasDetails && (
           <section
             className={`pf-section pf-section--details ${detailsOpen ? 'is-open' : ''}`}
@@ -170,13 +170,13 @@ export function ProductForm({
         )}
       </div>
 
-      <details class="shipping-item" open>
+      <details className="shipping-item" open>
         <summary>
-          <span class="shipping-title">Dichroic Glass</span>
-          <span class="shipping-plus" aria-hidden="true"></span>
+          <span className="shipping-title">Dichroic Glass</span>
+          <span className="shipping-plus" aria-hidden="true"></span>
         </summary>
 
-        <div class="shipping-panel">
+        <div className="shipping-panel">
           <span>2–4 weeks (depending on stock)</span>
           <span>parcel-delivery (door to door)</span>
           <span>depending on shipping rates:</span>

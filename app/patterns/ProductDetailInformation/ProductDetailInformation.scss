@@ -1,11 +1,8 @@
 .pdp {
   display: flex;
   flex-direction: column;
-  margin: 1.5rem 0;
-
-  @media (min-width: 768px) {
-    margin: 3rem 0;
-  }
+  gap: 1.5rem;
+  margin: 1.5rem 0 3rem;
 
   h1 {
     margin-top: 0;
@@ -23,109 +20,90 @@
   }
 
   .product-main {
-    align-items: flex-start;
     display: flex;
-    flex-direction: row;
-    aspect-ratio: 1560 / 780;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+  }
+
+  .product-main__media {
+    order: -1;
+    width: 100%;
+    min-height: 320px;
+    display: flex;
     align-items: stretch;
 
-    &__media {
-      display: flex;
-      width: 50%;
-      aspect-ratio: 780 / 940;
-
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-      }
-    }
-
-    &__info {
-      width: 50%;
-      aspect-ratio: 780 / 940;
+    img {
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      /* falls nicht schon vorhanden: */
-      min-height: 0; /* wichtig für korrektes Shrinken */
-    }
-    .media-gallery {
-      flex: 1 1 auto;
       width: 100%;
+      object-fit: cover;
     }
+  }
+
+  .product-main__info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    gap: 1.5rem;
+  }
+
+  .media-gallery,
+  .nc-media-gallery {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 320px;
+    height: auto;
   }
 
   .pdp__teaser-duo {
     margin: 1.5rem 0 0 0;
 
-    @media (min-width: 768px) {
-      margin: 3rem 0 0 0;
+    .teaser-duo__images {
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
-    img {
-      aspect-ratio: 781/520;
+    .teaser-duo__image {
+      width: 100%;
+    }
+
+    .teaser-duo__image img {
+      aspect-ratio: auto;
+      height: auto;
+    }
+
+    .teaser-duo__content {
+      background: var(--sf-purple);
+      margin-top: 1rem;
+      padding: 2rem 1.6rem 2.6rem;
+      font-size: var(--nc-fliesstext-mobil-size);
+      line-height: var(--nc-fliesstext-mobil-line);
+      font-weight: var(--nc-fliesstext-mobil-weight);
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
   }
 
-  /* ======= MOBILE: nur PDP-TeaserDuo (Shape + Chairs) ======= */
-  @media (max-width: 767px) {
-    .pdp__teaser-duo {
-      .teaser-duo__images {
-        flex-direction: column;
-        gap: 1.5rem;
-      }
-
-      .teaser-duo__image {
-        width: 100%;
-      }
-
-      .teaser-duo__image img {
-        aspect-ratio: auto;
-        height: auto;
-      }
-
-      .teaser-duo__content {
-        background: var(--sf-purple);
-        margin-top: 2rem;
-        padding: 2rem 1.6rem 2.6rem;
-        font-size: var(--nc-fliesstext-mobil-size);
-        line-height: var(--nc-fliesstext-mobil-line);
-        font-weight: var(--nc-fliesstext-mobil-weight);
-        overflow-wrap: break-word;
-        word-break: break-word;
-      }
-    }
-
-    /* Spezialregel für den oberen Teaser im square-Variant-Wrapper,
-     damit der lila Block nicht mehr rausläuft */
-    .square-variant .teaser-duo__content {
-      width: 100%;
-      margin-left: 0;
-      padding: 2rem 1.6rem 2.6rem;
-    }
+  /* verhindert Overflow im quadratischen oberen Teaser */
+  .square-variant .teaser-duo__content {
+    width: 100%;
+    margin-left: 0;
+    padding: 2rem 1.6rem 2.6rem;
   }
 }
 
-// !! GLOBAL
 .product-price-on-sale {
   display: flex;
+  opacity: 0.5;
 }
 
 .product-main .product-form {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  min-height: 0; /* damit das mittlere Panel schrumpfen darf */
-  // border: 5px solid red;
-  height: 100%;
-
-  @media (min-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    height: calc(100% - 4rem); // hast du bereits
-  }
+  min-height: 0;
+  height: auto;
 }
 
 .product-form-scroller {
@@ -143,234 +121,61 @@
   padding: 1.5rem 0 1.5rem 0;
 }
 
-.product-price-on-sale {
-  opacity: 0.5;
-}
-
-/* ======= MOBILE: PDP Layout ======= */
-@media (max-width: 767px) {
-  .pdp {
-    margin: 1.5rem 0 3rem;
-  }
-
-  .pdp .product-main {
-    flex-direction: column; /* statt row */
-    aspect-ratio: auto;
-  }
-
-  /* falls du die Gallery über dem Config haben willst:
-     sonst diese Zeile einfach löschen */
-  .pdp .product-main__media {
-    order: -1;
-  }
-
-  .pdp .product-main__media,
-  .pdp .product-main__info {
-    width: 100%;
-    aspect-ratio: auto;
-  }
-
-  /* Bühne darf auf Mobile schrumpfen */
-  .pdp .nc-media-gallery {
-    min-height: 260px;
-    height: auto;
-  }
-}
-/* =========================================================
-   LEFT COLUMN: Configurator fixed + Details scroll + CTA fixed
-   ========================================================= */
-
-.product-main__info {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  height: 100%;
-}
-
-// .product-form {
-//   display: flex;
-//   flex-direction: column;
-//   height: 100%;
-//   min-height: 0;
-// }
-
-/* 1) Configurator bleibt sichtbar */
 .product-form__configurator {
-  flex: 0 0 auto;
-}
-
-/* 2) Details Bereich nimmt Resthöhe ein */
-.product-form__details {
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-
-  /* optional: trennt optisch vom Configurator */
-  border-top: 1px solid #000;
-  margin-top: 1rem;
-}
-
-/* Details-Header bleibt im Bild */
-.product-form__details-head {
-  flex: 0 0 auto;
-  padding: 1rem 0;
-  font-weight: 600;
-
-  /* wenn du willst, dass er beim Scrollen im Detailsbereich „klebt“ */
-  position: sticky;
-  top: 0;
-  background: #fff;
-  z-index: 2;
-}
-
-/* Nur die Liste scrollt */
-.product-form__details-scroll {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  padding-bottom: 1rem;
-}
-
-/* 3) CTA bleibt unten */
-.pdp__cta-container {
-  flex: 0 0 auto;
-  margin-top: 1rem;
-}
-
-@media (min-width: 768px) {
-  .product-main {
-    /* Stage = Viewporthöhe minus Header */
-    height: calc(100vh - var(--header-h));
-    overflow: hidden; /* verhindert, dass linke Spalte „mit der Seite“ scrollt */
-  }
-
-  .product-main__media,
-  .product-main__info {
-    height: 100%;
-  }
-}
-
-.product-form__configurator {
-  position: sticky;
-  top: 0;
+  position: static;
+  top: auto;
   background: #fff;
   z-index: 3;
 }
 
-.product-form {
-  --text: #111;
-  --muted: #6b6b6b;
-  --divider: #d9d9d9;
-  --chip-bg: #f3f3f3;
-  --chip-bg-hover: #ececec;
-  --ring: #111;
-  --cta-bg: #8ea0ff;
-  --cta-text: #0a0a0a;
+@media (min-width: 768px) {
+  .pdp {
+    gap: 0;
+    margin: 3rem 0;
 
-  // font-size: var(--nc-head-mobil-size);
-  // line-height: var(--nc-head-mobil-line);
-  // font-weight: var(--nc-head-mobil-weight);
-
-  font-size: var(--nc-konfigurator-desktop-size);
-  line-height: var(--nc-konfigurator-desktop-line);
-  font-weight: var(--nc-konfigurator-desktop-weight);
-  color: var(--text);
-  // border-bottom: 1px solid black;
-  // border: 5px solid orange;
-  flex: 0 0 auto;
-
-  /* Header mit + */
-  .cfg-toggle {
-    all: unset;
-    width: 163px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 0 1.5rem 0;
-  }
-
-  .cfg-title,
-  .acc-title {
-    font-size: var(--nc-konfigurator-head-desktop-size);
-    line-height: var(--nc-konfigurator-head-desktop-line);
-    font-weight: var(--nc-konfigurator-head-desktop-weight);
-  }
-
-  /* Plus/Minus Icon */
-  .cfg-plus {
-    position: relative;
-    width: 18px;
-    height: 18px;
-  }
-
-  .cfg-plus::before,
-  .cfg-plus::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 14px;
-    height: 2px;
-    background: #111;
-    transform: translate(-50%, -50%);
-    transition:
-      transform 0.2s ease,
-      opacity 0.2s ease;
-  }
-
-  .cfg-plus::after {
-    transform: translate(-50%, -50%) rotate(90deg); /* vertikal */
-  }
-  &[data-variants-open='true'] .cfg-plus::after {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-
-  /* Collapsible Panel */
-  .cfg-panel {
-    overflow: hidden;
-    // max-height: 0;
-    opacity: 0;
-    transition:
-      max-height 0.35s ease,
-      opacity 0.2s ease;
-  }
-  &[data-variants-open='true'] .cfg-panel {
-    opacity: 1;
-  }
-
-  .cfg-panel-inner {
-    padding-top: 1rem;
-  }
-
-  .cfg-row {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.5rem 0 1.5rem 0;
-  }
-
-  .cfg-row::before {
-    content: '';
-    flex: 0 0 163px; /* = Breite deines .cfg-toggle (links) */
-  }
-
-  .cfg-label {
-    // font-size: 1.2rem;
-    flex: 0 0 100px;
-  }
-
-  .cfg-values {
-    flex: 1 1 auto; /* Fläche nehmen, min-width 0 für korrektes Wrapping */
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 2rem;
-    margin-right: 2rem;
-    // font-size: 1.4rem;
-    @media (min-width: 768px) {
+    .product-main {
+      flex-direction: row;
+      aspect-ratio: 1560 / 780;
+      align-items: stretch;
+      height: calc(100vh - var(--header-h));
+      overflow: hidden;
     }
+
+    .product-main__media {
+      order: 0;
+      width: 50%;
+      aspect-ratio: 780 / 940;
+      min-height: 0;
+      height: 100%;
+    }
+
+    .product-main__info {
+      width: 50%;
+      aspect-ratio: 780 / 940;
+      height: 100%;
+    }
+
+    .media-gallery,
+    .nc-media-gallery {
+      min-height: var(--stage-min-h);
+      height: 100%;
+    }
+
+    .pdp__teaser-duo {
+      margin: 3rem 0 0 0;
+
+      img {
+        aspect-ratio: 781 / 520;
+      }
+    }
+  }
+
+  .product-main .product-form {
+    height: calc(100% - 4rem);
+  }
+
+  .product-form__configurator {
+    position: sticky;
+    top: 0;
   }
 }

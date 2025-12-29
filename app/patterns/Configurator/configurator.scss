@@ -8,231 +8,269 @@
   --cta-bg: #8ea0ff;
   --cta-text: #0a0a0a;
 
-  // font-size: var(--nc-head-mobil-size);
-  // line-height: var(--nc-head-mobil-line);
-  // font-weight: var(--nc-head-mobil-weight);
-
   font-size: var(--nc-konfigurator-desktop-size);
   line-height: var(--nc-konfigurator-desktop-line);
   font-weight: var(--nc-konfigurator-desktop-weight);
   color: var(--text);
-  // border-bottom: 1px solid black;
-  // border: 5px solid orange;
-  flex: 0 0 auto;
+}
 
-  /* Header mit + */
-  .cfg-toggle {
-    all: unset;
+.configurator .cfg-toggle {
+  all: unset;
+  width: auto;
+  min-height: 44px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 0;
+}
+
+.configurator .cfg-title,
+.configurator .acc-title {
+  font-size: var(--nc-head-mobil-size);
+  line-height: var(--nc-head-mobil-line);
+  font-weight: var(--nc-head-mobil-weight);
+}
+
+.configurator .cfg-plus {
+  position: relative;
+  width: 18px;
+  height: 18px;
+}
+
+.configurator .cfg-plus::before,
+.configurator .cfg-plus::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: #111;
+  transform: translate(-50%, -50%);
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.configurator .cfg-plus::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.configurator[data-variants-open='true'] .cfg-plus::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.configurator .cfg-panel {
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.2s ease;
+}
+
+.configurator[data-variants-open='true'] .cfg-panel {
+  opacity: 1;
+}
+
+.configurator .cfg-panel-inner {
+  padding-top: 0.5rem;
+}
+
+.configurator .cfg-head {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.configurator .cfg-head__label {
+  flex: 0 0 auto;
+}
+
+.configurator .cfg-head__values {
+  flex: 1 1 auto;
+}
+
+.configurator .cfg-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.8rem 0 1.2rem 0;
+}
+
+.configurator .cfg-row::before {
+  content: none;
+}
+
+.configurator .cfg-label {
+  flex: 0 0 auto;
+  font-size: var(--nc-head-mobil-size);
+  line-height: var(--nc-head-mobil-line);
+  font-weight: var(--nc-head-mobil-weight);
+}
+
+.configurator .cfg-values {
+  flex: 1 1 auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.2rem;
+  margin-right: 0;
+}
+
+.configurator .cfg-item.is-chip {
+  all: unset;
+  cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.4rem 1.1rem;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  border: 1px solid transparent;
+}
+
+.configurator .cfg-item.is-chip.is-selected {
+  font-weight: 600;
+  border-color: #000;
+  background: #fff;
+}
+
+.configurator .cfg-item.is-chip:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.configurator .cfg-item.is-color {
+  all: unset;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.configurator .cfg-item.is-color .dot-ring {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #cfcfcf;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.configurator .cfg-item.is-color .dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+}
+
+.configurator .cfg-item.is-color.is-selected .dot-ring {
+  border-color: var(--ring);
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 3px var(--ring);
+}
+
+.configurator .cfg-item.is-color:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+@media (min-width: 768px) {
+  .configurator {
+    flex: 0 0 auto;
+    font-size: var(--nc-konfigurator-desktop-size);
+    line-height: var(--nc-konfigurator-desktop-line);
+    font-weight: var(--nc-konfigurator-desktop-weight);
+  }
+
+  .configurator .cfg-toggle {
     width: 163px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    min-height: 0;
     padding: 1.5rem 0 1.5rem 0;
   }
 
-  .cfg-title,
-  .acc-title {
+  .configurator .cfg-title,
+  .configurator .acc-title {
     font-size: var(--nc-konfigurator-head-desktop-size);
     line-height: var(--nc-konfigurator-head-desktop-line);
     font-weight: var(--nc-konfigurator-head-desktop-weight);
   }
 
-  /* Plus/Minus Icon */
-  .cfg-plus {
-    position: relative;
-    width: 18px;
-    height: 18px;
-  }
-
-  .cfg-plus::before,
-  .cfg-plus::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 14px;
-    height: 2px;
-    background: #111;
-    transform: translate(-50%, -50%);
-    transition:
-      transform 0.2s ease,
-      opacity 0.2s ease;
-  }
-
-  .cfg-plus::after {
-    transform: translate(-50%, -50%) rotate(90deg); /* vertikal */
-  }
-  &[data-variants-open='true'] .cfg-plus::after {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-
-  /* Collapsible Panel */
-  .cfg-panel {
-    overflow: hidden;
-    // max-height: 0;
-    opacity: 0;
-    transition:
-      max-height 0.35s ease,
-      opacity 0.2s ease;
-  }
-  &[data-variants-open='true'] .cfg-panel {
-    opacity: 1;
-  }
-
-  .cfg-panel-inner {
+  .configurator .cfg-panel-inner {
     padding-top: 1rem;
   }
 
-  .cfg-row {
-    display: flex;
+  .configurator .cfg-head {
+    gap: 1rem;
+  }
+
+  .configurator .cfg-head .cfg-toggle {
+    flex: 0 0 163px;
+  }
+
+  .configurator .cfg-head__label {
+    flex: 0 0 100px;
+  }
+
+  .configurator .cfg-head__values {
+    flex: 1 1 auto;
+  }
+
+  .configurator .cfg-row {
+    flex-direction: row;
     align-items: center;
     gap: 1rem;
     padding: 0.5rem 0 1.5rem 0;
   }
 
-  .cfg-row::before {
-    content: '';
-    flex: 0 0 163px; /* = Breite deines .cfg-toggle (links) */
-  }
-
-  .cfg-label {
-    // font-size: 1.2rem;
-    flex: 0 0 100px;
-  }
-
-  .cfg-values {
-    flex: 1 1 auto; /* Fläche nehmen, min-width 0 für korrektes Wrapping */
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 2rem;
-    margin-right: 2rem;
-    // font-size: 1.4rem;
-    @media (min-width: 768px) {
-    }
-  }
-
-  .cfg-head {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    @media (min-width: 768px) {
-      // padding-bottom: 1rem;
-    }
-  }
-
-  .cfg-head .cfg-toggle {
-    flex: 0 0 163px;
-  } /* linke Spalte */
-
-  .cfg-head__label {
-    flex: 0 0 100px;
-  } /* mittlere Spalte (leer) */
-
-  .cfg-head__values {
-    flex: 1 1 auto;
-  } /* rechte Spalte (leer) */
-
-  /* Size Chips */
-  .cfg-item.is-chip {
-    all: unset;
-    cursor: pointer;
-
-    &:hover {
-    }
-    &.is-selected {
-      font-weight: 600;
-    }
-    &:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-    }
-  }
-
-  /* Swatch Dots */
-  .cfg-item.is-color {
-    all: unset;
-    cursor: pointer;
-    width: 28px;
-    height: 28px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    .dot-ring {
-      width: 22px;
-      height: 22px;
-      border: 1px solid #cfcfcf;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: #fff;
-    }
-
-    .dot {
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
-    }
-
-    &.is-selected .dot-ring {
-      border-color: var(--ring);
-      box-shadow:
-        0 0 0 2px #fff,
-        0 0 0 3px var(--ring);
-    }
-
-    &:disabled {
-      opacity: 0.35;
-      cursor: not-allowed;
-    }
-  }
-
-  /* CTA-Balken */
-}
-
-.configurator__meta {
-  flex: 1 1 auto; /* nimmt den übrig gebliebenen Platz */
-  min-height: 0; /* wichtig für Firefox & Co. */
-  overflow-y: auto; /* scrollt, wenn Inhalte höher sind */
-  margin: 0;
-}
-/* ======= MOBILE: Configurator ======= */
-@media (max-width: 767px) {
-  .configurator .cfg-head {
-    gap: 0.5rem;
-  }
-
-  .configurator .cfg-row {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.8rem 0 1.2rem 0;
-  }
-
-  /* linker „unsichtbarer“ Spacer weg */
   .configurator .cfg-row::before {
-    content: none;
-    flex: 0 0 auto;
+    content: '';
+    flex: 0 0 163px;
   }
 
   .configurator .cfg-label {
-    flex: 0 0 auto;
-    font-size: var(--nc-konfigurator-head-desktop-size);
-    line-height: var(--nc-konfigurator-head-desktop-line);
-    font-weight: var(--nc-konfigurator-head-desktop-weight);
+    flex: 0 0 100px;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: inherit;
   }
 
   .configurator .cfg-values {
-    width: 100%;
-    margin-right: 0;
-    gap: 1.2rem;
+    flex: 1 1 auto;
+    gap: 2rem;
+    margin-right: 2rem;
   }
 
-  .configurator .cfg-head .cfg-toggle {
-    width: auto;
-    padding-top: 1.6rem;
+  .configurator .cfg-item.is-chip {
+    all: unset;
+    cursor: pointer;
+    min-width: auto;
+    min-height: auto;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    border: none;
+  }
+
+  .configurator .cfg-item.is-color {
+    width: 28px;
+    height: 28px;
+  }
+
+  .configurator .cfg-item.is-color .dot-ring {
+    width: 22px;
+    height: 22px;
+  }
+
+  .configurator .cfg-item.is-color .dot {
+    width: 20px;
+    height: 20px;
   }
 }
