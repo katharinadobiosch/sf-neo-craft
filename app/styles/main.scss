@@ -499,9 +499,15 @@ button:disabled {
   }
 
   .pf-section__body {
-    max-height: 100%; /* tuning knob: adjust per layout/viewport */
     overflow: auto;
+    /* max-height zurücknehmen */
+    max-height: none;
     padding: 1rem 1.5rem 1rem 0rem;
+  }
+
+  .pf-section__body--flex {
+    flex: 1 1 auto;
+    min-height: 0;
   }
 }
 
@@ -792,4 +798,10 @@ button:disabled {
 
 .pf-details-panel {
   padding-left: 163px;
+}
+
+.pf-panel--shipping .pf-panel-scroll {
+  max-height: none;
+  overflow: auto;
+  min-height: 0;
 }

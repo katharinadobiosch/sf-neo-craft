@@ -224,7 +224,7 @@ export function ProductForm({
             <div
               id="pf-details"
               className="cfg-panel pf-details-panel"
-              style={{maxHeight: '100%' ? detailsHeight + 10 : 0}}
+              style={{maxHeight: detailsOpen ? detailsHeight + 10 : 0}}
             >
               <div ref={detailsRef} className="cfg-panel-inner">
                 <div className="pf-section__body pf-section__body--flex nice-scrollbar">
@@ -263,7 +263,10 @@ export function ProductForm({
           style={{maxHeight: shippingOpen ? shippingHeight + 10 : 0}}
         >
           <div className="pf-panel-inner">
-            <div ref={shippingScrollRef} className="pf-panel-scroll nice-scrollbar">
+            <div
+              ref={shippingScrollRef}
+              className="pf-panel-scroll nice-scrollbar"
+            >
               {shippingLines.length > 0 && (
                 <div className="shipping-panel">
                   {shippingLines.map((line) => (
