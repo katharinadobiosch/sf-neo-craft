@@ -183,8 +183,6 @@ export function ProductForm({
     return () => window.removeEventListener('resize', onResize);
   }, [shippingOpen]);
 
-  console.log('mfOthers', mfOthers);
-
   return (
     <div className="product-form product-form--segmented">
       {/* 1) Configurator – fixed */}
@@ -226,7 +224,7 @@ export function ProductForm({
             <div
               id="pf-details"
               className="cfg-panel pf-details-panel"
-              style={{maxHeight: detailsOpen ? detailsHeight : 0}}
+              style={{maxHeight: '100%' ? detailsHeight + 10 : 0}}
             >
               <div ref={detailsRef} className="cfg-panel-inner">
                 <div className="pf-section__body pf-section__body--flex nice-scrollbar">
@@ -262,7 +260,7 @@ export function ProductForm({
         <div
           id="pf-shipping"
           className="pf-panel pf-panel--shipping"
-          style={{maxHeight: shippingOpen ? shippingHeight : 0}}
+          style={{maxHeight: shippingOpen ? shippingHeight + 10 : 0}}
         >
           <div ref={shippingRef} className="pf-panel-inner">
             <div className="pf-panel-scroll nice-scrollbar">

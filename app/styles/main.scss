@@ -451,6 +451,12 @@ button:disabled {
   padding: 0 0 1rem 0;
 }
 
+/* Scroll bleed for details body */
+.pf-section__body--flex.nice-scrollbar {
+  padding-bottom: 10px;
+  margin-bottom: -10px;
+}
+
 /* Richtext Basic */
 .pf-richtext :where(p) {
   margin: 0 0 0.75rem 0;
@@ -493,7 +499,7 @@ button:disabled {
   }
 
   .pf-section__body {
-    max-height: 40vh; /* tuning knob: adjust per layout/viewport */
+    max-height: 100%; /* tuning knob: adjust per layout/viewport */
     overflow: auto;
     padding: 1rem 1.5rem 1rem 0rem;
   }
@@ -742,6 +748,8 @@ button:disabled {
   max-height: 20vh; /* Stellschraube: wie viel Platz Shipping bekommt */
   overflow: auto;
   padding-right: 0.75rem; /* Platz für die Scrollbar, damit Text nicht drunter läuft */
+  padding-bottom: 10px; /* bleed: let scrollbar extend lower */
+  margin-bottom: -10px; /* compensate so layout height stays same */
 }
 
 /* Desktop: wie im Figma meist: rechts eine klare Trennlinie */
