@@ -92,7 +92,7 @@
     --pad-x: clamp(20px, 5vw, 56px);
     --pad-y: clamp(20px, 4vw, 48px);
     background: #fff;
-    color: #111;
+    color: var(--text-default);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -101,7 +101,7 @@
 
     &--light {
       background: #fff;
-      color: #111;
+      color: var(--text-default);
     }
 
     .hs-quote__inner {
@@ -150,7 +150,7 @@
       bottom: -10%;
       width: 55%;
       height: 18%;
-      background: #111;
+      background: var(--text-default);
     }
     &::after {
       content: '';
@@ -159,7 +159,7 @@
       top: -18%;
       width: 50%;
       height: 50%;
-      border: 18px solid #111;
+      border: 18px solid var(--text-default);
       border-radius: 50%;
     }
   }

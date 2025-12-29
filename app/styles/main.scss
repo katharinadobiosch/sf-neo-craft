@@ -522,7 +522,7 @@ button:disabled {
 }
 
 .nice-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #111;
+  background: var(--text-default);
 }
 
 /* Header mit + */
@@ -599,13 +599,6 @@ button:disabled {
     padding: 0.5rem 0;
   }
 
-  .shipping-title {
-    // color: #161616;
-    font-size: var(--nc-head-mobil-size);
-    line-height: var(--nc-head-mobil-line);
-    font-weight: var(--nc-head-mobil-weight);
-  }
-
   /* Plus-Icon aus zwei Linien, wie im Configurator */
   .shipping-plus {
     position: relative;
@@ -622,7 +615,7 @@ button:disabled {
     top: 50%;
     width: 14px;
     height: 2px;
-    background: #111;
+    background: var(--text-default);
     transform: translate(-50%, -50%);
     transition:
       transform 0.2s ease,
@@ -663,12 +656,6 @@ button:disabled {
     flex-shrink: 0;
     width: 163px;
     padding: 1.5rem 0 1.5rem 0;
-  }
-
-  .shipping-title {
-    font-size: 1.5rem;
-    line-height: 2.2rem;
-    font-weight: 500;
   }
 
   .shipping-item .shipping-panel {
