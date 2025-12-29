@@ -4,70 +4,79 @@
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
 
-  /* Damit auch der Bereich UNTER dem Content purple ist */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 
+  --dealers-line-inset: 24px;
+
+  @media (min-width: 768px) {
+    --dealers-line-inset: 40px;
+  }
+
   .dealers {
     position: relative;
-    flex: 1; /* nimmt die volle Höhe ein */
-    padding: 2rem 0; /* optional */
+    flex: 1;
+    padding: 2rem 0;
 
     @media (min-width: 768px) {
-      padding: 3rem 0; /* optional */
+      padding: 3rem 0;
     }
   }
 
-  /* Sektionen */
   .dealers__container {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;
     padding: 1.5rem 1.5rem;
-    border-top: 1px solid black;
-    position: relative;
     z-index: 1;
-    // background: var(--sf-purple, black);
   }
 
-  /* Vertikale Linie: MOBIL AUS (default) */
-  .dealers__container::before {
+  /* horizontale Linie OBEN (inset wie Figma) */
+  .dealers__container::after {
     content: '';
     position: absolute;
-    top: 0; /* jetzt ganz oben */
-    bottom: 0; /* bis ganz unten */
-    left: 50%;
-    width: 1px;
-    background: black;
-    transform: translateX(-0.5px);
+    top: 0;
+    left: var(--dealers-line-inset);
+    right: var(--dealers-line-inset);
+    height: 1px;
+    background: #000;
     z-index: 2;
   }
 
+  /* horizontale Linie UNTEN beim letzten Container (ohne Pseudo-Kollision) */
   .dealers__container:last-of-type {
-    border-bottom: 1px solid black;
+    background-image: linear-gradient(#000, #000);
+    background-repeat: no-repeat;
+    background-position: var(--dealers-line-inset) 100%;
+    background-size: calc(100% - (2 * var(--dealers-line-inset))) 1px;
   }
 
   /* Typo */
   .dealers__country {
     font-weight: 700;
     text-transform: uppercase;
-    // letter-spacing: 0.06em;
     margin-bottom: 0.5rem;
   }
+
   .dealers__entries {
     font-weight: 400;
   }
+
   .dealers__entry {
     margin-bottom: 6px;
   }
+
   .dealers__line,
   .dealers__name {
     font-weight: 400;
   }
+
   .dealers__name {
     text-transform: uppercase;
   }
+
   .dealers__link {
     display: inline-block;
     margin-top: 2px;
@@ -76,19 +85,12 @@
     opacity: 0.9;
   }
 
-  /* --------------------------- */
-  /* ≥768px                      */
-  /* --------------------------- */
   @media (min-width: 768px) {
     .dealers__container {
       padding: 1.5rem 2rem;
     }
   }
 
-  /* --------------------------- */
-  /* ≥992px  (Tablet/Laptop)     */
-  /* Zweispaltig + Linie an      */
-  /* --------------------------- */
   @media (min-width: 992px) {
     .dealers__container {
       flex-direction: row;
@@ -97,17 +99,28 @@
       gap: 2rem;
       padding: 24px 40px;
     }
+
     .dealers__country {
       flex: 0 0 50%;
       margin-bottom: 0;
       padding-right: 2rem;
     }
+
     .dealers__entries {
       flex: 0 0 50%;
     }
 
-    .dealers::before {
-      display: block;
-    } /* <— Linie ab 992 sichtbar */
+    /* vertikale Mittellinie (kollidiert nicht mehr mit der Bottom-Line) */
+    .dealers__container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: #000;
+      transform: translateX(-0.5px);
+      z-index: 2;
+    }
   }
 }

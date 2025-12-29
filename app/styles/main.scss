@@ -266,3 +266,400 @@ table {
 .hover-wrap:hover .hover-img {
   opacity: 1;
 }
+
+/* =========================================================
+   SHARED CTA BAR (PDP + Materials)
+   ========================================================= */
+
+.pdp__cta-container {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-top: 1.5rem;
+  padding: 0.25rem 0;
+  background: var(--sf-white);
+  box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.08);
+  height: 72px; /* 64–80 je nach Figma */
+}
+
+.pdp__cta-container .cfg-cta {
+  flex: 1 1 auto;
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: 64px 120px 1fr; /* arrow | price | button */
+  align-items: stretch;
+
+  border: 1px solid var(--color-dark);
+  background: var(--sf-white);
+  color: var(--color-dark);
+}
+
+.pdp__cta-container .cfg-cta.is-active {
+  background: var(--color-dark);
+  color: var(--sf-white);
+}
+
+.pdp__cta-container .cfg-cta.is-idle {
+  background: var(--sf-white);
+  color: var(--color-dark);
+}
+
+.pdp__cta-container .cfg-cta .cta-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.pdp__cta-container .cfg-cta .cta-price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pdp__cta-container .cfg-cta form {
+  height: 100%;
+  width: 100%;
+}
+
+.pdp__cta-container .cfg-cta form > button {
+  all: unset;
+  cursor: pointer;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+}
+
+.pdp__cta-container .cfg-cta form > button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pdp__cta-container .pdp__question {
+  display: none; /* mobile */
+}
+
+@media (min-width: 768px) {
+  .pdp__cta-container {
+    position: static;
+    bottom: auto;
+    padding: 0;
+    margin-top: 1rem;
+    box-shadow: none;
+  }
+
+  .pdp__cta-container .cfg-cta {
+    grid-template-columns: 72px 140px 1fr; /* arrow | price | button */
+  }
+
+  .pdp__cta-container .pdp__question {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    width: 320px;
+    border: 1px solid var(--color-dark);
+    background: var(--sf-white);
+    color: var(--color-dark);
+    font-size: 12px;
+  }
+
+  .pdp__cta-container .pdp__question:hover {
+    background: var(--color-dark);
+    color: var(--sf-white);
+  }
+}
+
+button:disabled {
+  opacity: 0.45;
+}
+
+/* =========================================================
+   PRODUCT FORM: segmented scrolling (Configurator fixed,
+   section headers sticky, bodies scroll)
+   ========================================================= */
+
+.product-form--segmented {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: auto;
+  min-height: 0; /* important: allows inner overflow */
+}
+
+/* Configurator bleibt sichtbar, nimmt nur benötigte Höhe */
+.product-form--segmented .product-form__configurator {
+  flex: 0 0 auto;
+}
+
+/* Sections nimmt den restlichen Platz zwischen Configurator & CTA */
+.product-form--segmented .product-form__sections {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Jede Section: Header fix, Body scrollt */
+.pf-section {
+  border-top: 1px solid var(--color-dark);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding-top: 0.75rem;
+}
+
+.pf-section__head {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  min-height: 44px;
+  font-weight: 600;
+}
+
+.pf-section__icon {
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Body: darf scrollen, aber nur innerhalb der verfügbaren Höhe */
+.pf-section__body {
+  min-height: 0;
+  max-height: none; /* adjust in desktop media query */
+  overflow: visible;
+  padding: 0 0 1rem 0;
+}
+
+/* Richtext Basic */
+.pf-richtext :where(p) {
+  margin: 0 0 0.75rem 0;
+}
+.pf-richtext :where(ul, ol) {
+  padding-left: 1.25rem;
+  list-style: initial;
+}
+
+@media (min-width: 768px) {
+  .product-form--segmented {
+    gap: 0;
+    height: 100%;
+  }
+
+  .product-form--segmented .product-form__sections {
+    gap: 0;
+  }
+
+  .pf-section {
+    padding-top: 0;
+  }
+
+  .pf-section__head {
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    align-items: center;
+    height: 72px;
+    padding: 0 1.5rem 0 0rem;
+
+    position: sticky;
+    top: 0;
+    background: var(--sf-white);
+    z-index: 2;
+  }
+
+  .pf-section__icon {
+    font-size: 22px;
+  }
+
+  .pf-section__body {
+    max-height: 40vh; /* tuning knob: adjust per layout/viewport */
+    overflow: auto;
+    padding: 1rem 1.5rem 1rem 0rem;
+  }
+}
+
+/* =========================================================
+   NICE SCROLLBAR (WebKit + Firefox)
+   ========================================================= */
+
+.nice-scrollbar {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--color-dark) var(--sf-white); /* thumb track */
+}
+
+.nice-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.nice-scrollbar::-webkit-scrollbar-track {
+  background: var(--sf-white);
+  border-left: 1px solid var(--color-dark);
+}
+
+.nice-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-dark);
+  border: 3px solid var(--sf-white); /* makes the thumb slimmer */
+  border-radius: 999px;
+}
+
+.nice-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--text-default);
+}
+
+/* Header mit + */
+.cfg-toggle {
+  all: unset;
+  width: auto;
+  min-height: 44px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 0;
+}
+
+/* Body sitzt rechts daneben (Spalte 3), in derselben Zeile */
+.cfg-inline-body {
+  grid-column: 3;
+  grid-row: 1;
+  margin: 0;
+  font-size: 12px;
+  line-height: var(--nc-konfigurator-desktop-line);
+  font-weight: var(--nc-konfigurator-desktop-weight);
+  padding-left: 2rem;
+}
+
+/* Icon-Button in der mittleren Spalte */
+.cfg-icon-btn {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 0;
+}
+
+/* Content rechts soll nicht „Layout kaputt“ machen */
+.cfg-inline-body :where(p) {
+  margin: 0 0 0.75rem 0;
+}
+
+/* Plus/Minus Umschalten über Klasse statt data-variants-open */
+.cfg-plus.is-open::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+@media (min-width: 768px) {
+  .cfg-toggle {
+    width: 163px;
+    min-height: 0;
+    padding: 1.5rem 0 1.5rem 0;
+  }
+}
+
+/* =========================================================
+   SHIPPING INFO 
+   ========================================================= */
+.shipping-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-top: 1px solid var(--color-dark);
+  padding: 1rem 0;
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.5rem 0;
+  }
+
+  /* Plus-Icon aus zwei Linien, wie im Configurator */
+  .shipping-plus {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    pointer-events: none;
+  }
+  .shipping-plus::before,
+  .shipping-plus::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 2px;
+    background: var(--text-default);
+    transform: translate(-50%, -50%);
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+  /* vertikaler Strich = Plus */
+  .shipping-plus::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  /* geöffnet: wird zu Minus (wie beim cfg-plus) */
+  &[open] .shipping-plus::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+    /* Alternative: vertikalen Strich einfach ausblenden:
+         opacity: 0; */
+  }
+
+  .shipping-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 1.2rem;
+    line-height: 1.9rem;
+    font-weight: 400;
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .shipping-item {
+    flex-direction: row;
+    gap: 0;
+    border-top: none;
+    padding: 0;
+  }
+
+  .shipping-item summary {
+    flex-shrink: 0;
+    width: 163px;
+    padding: 1.5rem 0 1.5rem 0;
+  }
+
+  .shipping-item .shipping-panel {
+    padding-left: 2rem;
+    gap: 0;
+  }
+}

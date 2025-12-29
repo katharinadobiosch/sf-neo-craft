@@ -71,7 +71,7 @@ export function MaterialForm({
     (m) => m && isMeasurementsMeta(m) && hasContent(m),
   );
 
-  // andere Metafelder
+  // Other metafields
   const mfOthers = allMetafields.filter((m) => {
     if (!m) return false;
 
@@ -86,7 +86,6 @@ export function MaterialForm({
 
   const hasDetails = mfMeasurements.length > 0 || mfOthers.length > 0;
 
-
   const currentVariant = useMemo(() => {
     for (const opt of productOptions || []) {
       const sel = opt.optionValues?.find((v) => v.selected);
@@ -100,20 +99,19 @@ export function MaterialForm({
     new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
       Number(num || 0),
     );
-
   const allSelected =
     Array.isArray(productOptions) &&
-    productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected));
+    (productOptions.length === 0 ||
+      productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected)));
 
   const isReady = !!currentVariant?.availableForSale && allSelected;
+
   const price = Number(currentVariant?.price?.amount || 0);
   const currency = currentVariant?.price?.currencyCode || 'USD';
 
-  console.log('mfOthers:', mfOthers);
-
   return (
     <div className="product-form">
-      {/* oberer Bereich: Configurator + Details */}
+      {/* Upper area: configurator + details */}
       <div className="product-form-scroller">
         {hasDetails && <div className="details-test">Details</div>}
 
@@ -136,13 +134,13 @@ export function MaterialForm({
         )} */}
       </div>
 
-      {/* unterer Bereich: CTA – bleibt immer unten */}
+      {/* Lower area: CTA stays pinned to bottom */}
       <div className="pdp__cta-container">
         <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
           <span className="cta-arrow">→</span>
           <span className="cta-price">{money(price, currency)}</span>
           <AddToCartButton
-            disabled={!currentVariant || !currentVariant.availableForSale}
+            disabled={!isReady}
             onClick={() => openAside('cart')}
             lines={
               currentVariant
@@ -153,6 +151,7 @@ export function MaterialForm({
             {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
           </AddToCartButton>
         </div>
+
         <div className="pdp__question">
           <div>Further Questions?</div>
         </div>

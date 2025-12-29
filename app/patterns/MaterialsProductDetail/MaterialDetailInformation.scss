@@ -1,5 +1,4 @@
 .pdp-materials {
-  // background: var(--sf-purple);
   color: black;
 
   .pdp-materials__heroImage {
@@ -10,7 +9,6 @@
 
   .pdp-materials__content {
     padding: 3rem 2rem 0rem 2rem;
-    // deine Typo etc.
   }
   .pdp-materials__text {
     width: 100%;
@@ -45,129 +43,7 @@
     background-color: transparent;
   }
 
-  .product-main {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: row;
-    aspect-ratio: 1560 / 780;
-    align-items: stretch;
-
-    &__media {
-      display: flex;
-      width: 50%;
-      aspect-ratio: 780 / 940;
-
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-      }
-    }
-
-    &__info {
-      width: 50%;
-      aspect-ratio: 780 / 940;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      /* falls nicht schon vorhanden: */
-      min-height: 0; /* wichtig für korrektes Shrinken */
-    }
-    .media-gallery {
-      flex: 1 1 auto;
-      width: 100%;
-    }
-  }
-
-  &__cta-container {
-    display: flex;
-    flex-direction: row;
-    font-size: var(--nc-fliesstext-desktop-size);
-    line-height: var(--nc-fliesstext-desktop-line);
-    font-weight: var(--nc-fliesstext-desktop-weight);
-    // flex-direction: column;
-    align-items: stretch;
-    gap: 1rem;
-    flex: 0 0 50px; /* feste Höhe im Flex-Context */
-    margin-top: 1rem;
-
-    .cfg-cta {
-      width: 100%;
-      height: 100%;
-    }
-
-    .pdp__question {
-      display: none;
-
-      @media (min-width: 768px) {
-        padding: 0.8rem 0rem 0.4rem 0;
-        flex: 1 1 0;
-        min-width: 20rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-size: 12px;
-        border: 1px solid black;
-
-        &:hover {
-          background: black;
-          color: white;
-        }
-      }
-    }
-
-    .cfg-cta {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      background: white;
-      color: black;
-      width: 447px;
-      height: 100%;
-      height: 6rem;
-      @media (min-width: 768px) {
-        height: 100%;
-        border: 1px solid black;
-      }
-
-      &:hover {
-        background: black;
-        color: white;
-      }
-
-      .cta-button-wrap button {
-        all: unset;
-        cursor: pointer;
-        border: 1px solid currentColor;
-        font-weight: 600;
-      }
-
-      .cta-button-wrap button:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
-
-      .cta-price {
-        font-weight: 600;
-        text-align: right;
-      }
-
-      form > button {
-        all: unset;
-        cursor: pointer;
-        // background: #000;
-        // color: #fff;
-        font-weight: 600;
-      }
-
-      form > button:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
-    }
-  }
-  .pdp__teaser-duo {
+  .pdp-materials__teaser-duo {
     margin: 1.5rem 0 0 0;
 
     @media (min-width: 768px) {
@@ -179,9 +55,9 @@
     }
   }
 
-  /* ======= MOBILE: nur PDP-TeaserDuo (Shape + Chairs) ======= */
+  /* ======= MOBILE: PDP TeaserDuo (Shape + Chairs) ======= */
   @media (max-width: 767px) {
-    .pdp__teaser-duo {
+    .pdp-materials__teaser-duo {
       .teaser-duo__images {
         flex-direction: column;
         gap: 1.5rem;
@@ -208,8 +84,7 @@
       }
     }
 
-    /* Spezialregel für den oberen Teaser im square-Variant-Wrapper,
-     damit der lila Block nicht mehr rausläuft */
+    /* Special rule for the top teaser in the square-variant wrapper to keep the purple block contained */
     .square-variant .teaser-duo__content {
       width: 100%;
       margin-left: 0;
@@ -224,26 +99,71 @@
     margin: 1.5rem 0 3rem;
   }
 
-  .pdp-materials .product-main {
-    flex-direction: column; /* statt row */
+  .pdp-materials .nc-media-gallery,
+  .pdp .nc-media-gallery {
+    min-height: 260px;
+    height: auto;
+  }
+}
+
+.product-material {
+  display: flex;
+  flex-direction: row;
+  aspect-ratio: 1560 / 780;
+  align-items: stretch;
+
+  &__media {
+    display: flex;
+    width: 50%;
+    aspect-ratio: 780 / 940;
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__info {
+    width: 50%;
+    aspect-ratio: 780 / 940;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* ensure it can shrink inside flex layouts */
+    min-height: 0;
+  }
+  .media-gallery {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+.product-material .product-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0; /* allows middle panel to shrink */
+
+  @media (min-width: 768px) {
+    height: calc(100% - 4rem);
+  }
+}
+
+@media (max-width: 767px) {
+  .pdp .product-material {
+    flex-direction: column; /* instead of row */
     aspect-ratio: auto;
   }
 
-  /* falls du die Gallery über dem Config haben willst:
-     sonst diese Zeile einfach löschen */
-  .pdp-materials .product-main__media {
+  /* move gallery above configurator if desired */
+  .pdp .product-material__media {
     order: -1;
   }
 
-  .pdp-materials .product-main__media,
-  .pdp-materials .product-main__info {
+  .pdp .product-material__media,
+  .pdp .product-material__info {
     width: 100%;
     aspect-ratio: auto;
-  }
-
-  /* Bühne darf auf Mobile schrumpfen */
-  .pdp-materials .nc-media-gallery {
-    min-height: 260px;
-    height: auto;
   }
 }

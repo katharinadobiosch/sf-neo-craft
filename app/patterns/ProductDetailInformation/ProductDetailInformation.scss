@@ -1,11 +1,8 @@
 .pdp {
   display: flex;
   flex-direction: column;
-  margin: 1.5rem 0;
-
-  @media (min-width: 768px) {
-    margin: 3rem 0;
-  }
+  gap: 1.5rem;
+  margin: 1.5rem 0 3rem;
 
   h1 {
     margin-top: 0;
@@ -23,196 +20,90 @@
   }
 
   .product-main {
-    align-items: flex-start;
     display: flex;
-    flex-direction: row;
-    aspect-ratio: 1560 / 780;
+    flex-direction: column;
     align-items: stretch;
-
-    &__media {
-      display: flex;
-      width: 50%;
-      aspect-ratio: 780 / 940;
-
-      img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-      }
-    }
-
-    &__info {
-      width: 50%;
-      aspect-ratio: 780 / 940;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      /* falls nicht schon vorhanden: */
-      min-height: 0; /* wichtig für korrektes Shrinken */
-    }
-    .media-gallery {
-      flex: 1 1 auto;
-      width: 100%;
-    }
+    gap: 1.5rem;
   }
 
-  &__cta-container {
+  .product-main__media {
+    order: -1;
+    width: 100%;
+    min-height: 320px;
     display: flex;
-    flex-direction: row;
-    font-size: var(--nc-fliesstext-desktop-size);
-    line-height: var(--nc-fliesstext-desktop-line);
-    font-weight: var(--nc-fliesstext-desktop-weight);
-    // flex-direction: column;
     align-items: stretch;
-    gap: 1rem;
-    flex: 0 0 50px; /* feste Höhe im Flex-Context */
-    margin-top: 1rem;
-
-    .cfg-cta {
-      width: 100%;
-      height: 100%;
-    }
-
-    .pdp__question {
-      display: none;
-
-      @media (min-width: 768px) {
-        padding: 0.8rem 0rem 0.4rem 0;
-        flex: 1 1 0;
-        min-width: 20rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font-size: 12px;
-        border: 1px solid black;
-
-        &:hover {
-          background: black;
-          color: white;
-        }
-      }
-    }
-
-    .cfg-cta {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      background: white;
-      color: black;
-      width: 447px;
-      height: 100%;
-      height: 6rem;
-      @media (min-width: 768px) {
-        height: 100%;
-        border: 1px solid black;
-      }
-
-      &:hover {
-        background: black;
-        color: white;
-      }
-
-      .cta-button-wrap button {
-        all: unset;
-        cursor: pointer;
-        border: 1px solid currentColor;
-        font-weight: 600;
-      }
-
-      .cta-button-wrap button:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
-
-      .cta-price {
-        font-weight: 600;
-        text-align: right;
-      }
-
-      form > button {
-        all: unset;
-        cursor: pointer;
-        // background: #000;
-        // color: #fff;
-        font-weight: 600;
-      }
-
-      form > button:disabled {
-        opacity: 0.45;
-        cursor: not-allowed;
-      }
-    }
-  }
-  .pdp__teaser-duo {
-    margin: 1.5rem 0 0 0;
-
-    @media (min-width: 768px) {
-      margin: 3rem 0 0 0;
-    }
 
     img {
-      aspect-ratio: 781/520;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
     }
   }
 
-  /* ======= MOBILE: nur PDP-TeaserDuo (Shape + Chairs) ======= */
-  @media (max-width: 767px) {
-    .pdp__teaser-duo {
-      .teaser-duo__images {
-        flex-direction: column;
-        gap: 1.5rem;
-      }
+  .product-main__info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    gap: 1.5rem;
+  }
 
-      .teaser-duo__image {
-        width: 100%;
-      }
+  .media-gallery,
+  .nc-media-gallery {
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 320px;
+    height: auto;
+  }
 
-      .teaser-duo__image img {
-        aspect-ratio: auto;
-        height: auto;
-      }
+  .pdp__teaser-duo {
+    margin: 0 0 0 0;
 
-      .teaser-duo__content {
-        background: var(--sf-purple);
-        margin-top: 2rem;
-        padding: 2rem 1.6rem 2.6rem;
-        font-size: var(--nc-fliesstext-mobil-size);
-        line-height: var(--nc-fliesstext-mobil-line);
-        font-weight: var(--nc-fliesstext-mobil-weight);
-        overflow-wrap: break-word;
-        word-break: break-word;
-      }
+    .teaser-duo__images {
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
-    /* Spezialregel für den oberen Teaser im square-Variant-Wrapper,
-     damit der lila Block nicht mehr rausläuft */
-    .square-variant .teaser-duo__content {
+    .teaser-duo__image {
       width: 100%;
-      margin-left: 0;
-      padding: 2rem 1.6rem 2.6rem;
     }
+
+    .teaser-duo__image img {
+      aspect-ratio: auto;
+      height: auto;
+    }
+
+    .teaser-duo__content {
+      background: var(--sf-purple);
+      margin-top: 1rem;
+      padding: 2rem 1.6rem 2.6rem;
+      font-size: var(--nc-fliesstext-mobil-size);
+      line-height: var(--nc-fliesstext-mobil-line);
+      font-weight: var(--nc-fliesstext-mobil-weight);
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+  }
+
+  /* verhindert Overflow im quadratischen oberen Teaser */
+  .square-variant .teaser-duo__content {
+    width: 100%;
+    margin-left: 0;
+    padding: 2rem 1.6rem 2.6rem;
   }
 }
 
-// !! GLOBAL
 .product-price-on-sale {
   display: flex;
+  opacity: 0.5;
 }
 
 .product-main .product-form {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  min-height: 0; /* damit das mittlere Panel schrumpfen darf */
-  // border: 5px solid red;
-
-  @media (min-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 auto;
-    height: calc(100% - 4rem); // hast du bereits
-  }
+  min-height: 0;
+  height: auto;
 }
 
 .product-form-scroller {
@@ -230,36 +121,61 @@
   padding: 1.5rem 0 1.5rem 0;
 }
 
-.product-price-on-sale {
-  opacity: 0.5;
+.product-form__configurator {
+  position: static;
+  top: auto;
+  background: #fff;
+  z-index: 3;
 }
 
-/* ======= MOBILE: PDP Layout ======= */
-@media (max-width: 767px) {
+@media (min-width: 768px) {
   .pdp {
-    margin: 1.5rem 0 3rem;
+    gap: 0;
+    margin: 3rem 0;
+
+    .product-main {
+      flex-direction: row;
+      aspect-ratio: 1560 / 780;
+      align-items: stretch;
+      height: calc(100vh - var(--header-h));
+      overflow: hidden;
+    }
+
+    .product-main__media {
+      order: 0;
+      width: 50%;
+      aspect-ratio: 780 / 940;
+      min-height: 0;
+      height: 100%;
+    }
+
+    .product-main__info {
+      width: 50%;
+      aspect-ratio: 780 / 940;
+      height: 100%;
+    }
+
+    .media-gallery,
+    .nc-media-gallery {
+      min-height: var(--stage-min-h);
+      height: 100%;
+    }
+
+    .pdp__teaser-duo {
+      margin: 3rem 0 0 0;
+
+      img {
+        aspect-ratio: 781 / 520;
+      }
+    }
   }
 
-  .pdp .product-main {
-    flex-direction: column; /* statt row */
-    aspect-ratio: auto;
+  .product-main .product-form {
+    height: calc(100% - 4rem);
   }
 
-  /* falls du die Gallery über dem Config haben willst:
-     sonst diese Zeile einfach löschen */
-  .pdp .product-main__media {
-    order: -1;
-  }
-
-  .pdp .product-main__media,
-  .pdp .product-main__info {
-    width: 100%;
-    aspect-ratio: auto;
-  }
-
-  /* Bühne darf auf Mobile schrumpfen */
-  .pdp .nc-media-gallery {
-    min-height: 260px;
-    height: auto;
+  .product-form__configurator {
+    position: sticky;
+    top: 0;
   }
 }

@@ -1,4 +1,4 @@
-/* ===== Seite & Grid ===== */
+/* ===== Page & grid ===== */
 
 .materials {
   margin: 2rem 0 0 0;
@@ -13,20 +13,20 @@
     font-weight: var(--nc-warenkorb-desktop-weight);
     line-height: var(--nc-warenkorb-desktop-line);
   }
+
   .materials-grid {
     position: relative;
-
     display: grid;
-    // gap: 4rem;
 
     &::before {
       content: none;
     }
 
     @media (min-width: 768px) {
-      display: flex;
-      flex-wrap: wrap;
+      /* Keep the list single-column (one card per row) */
+      display: block;
 
+      /* Midline across all cards */
       &::before {
         content: '';
         position: absolute;
@@ -37,6 +37,7 @@
         background-color: #000;
         transform: translateX(-0.5px);
         z-index: 1;
+        pointer-events: none;
       }
     }
 
@@ -47,11 +48,13 @@
     }
   }
 
-  /* ===== Karte (Mobil: Bild über Text) ===== */
+  /* ===== Card (mobile: image above text) ===== */
   .material-card {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-areas: 'media' 'content';
+    grid-template-areas:
+      'media'
+      'content';
     border: 1px solid var(--line);
     background: var(--bg);
     color: inherit;
@@ -60,7 +63,19 @@
     margin-bottom: 2rem;
 
     @media (min-width: 768px) {
-      margin-bottom: 3rem;
+      /* Important: full width, one card per row */
+      width: 100%;
+      margin-bottom: 0;
+
+      /* Inside the card: two columns */
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas: 'content media';
+
+      border-top: 1px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
+      &.material-card--reverse {
+        grid-template-areas: 'media content';
+      }
     }
 
     h3 {
@@ -79,20 +94,9 @@
       display: flex;
       align-items: flex-end;
     }
-
-    @media (min-width: 768px) {
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas: 'content media';
-      border-top: 1px solid var(--ink);
-      border-bottom: 1px solid var(--ink);
-
-      .material-card--reverse {
-        grid-template-areas: 'media content';
-      }
-    }
   }
 
-  /* ===== Bildstreifen (2:1) mit Overlay-Swap ===== */
+  /* ===== Media ===== */
   .product-media {
     grid-area: media;
     position: relative;
@@ -109,36 +113,17 @@
     transition: opacity 0.25s ease;
   }
 
-  .img-main {
-    opacity: 1;
-  }
-
-  .img-hover {
-    opacity: 0;
-  }
-
-  /* Hover/Fokus: nur Opacity tauschen */
-  .material-card:hover .img-hover,
-  .material-card:focus-within .img-hover {
-    opacity: 1;
-  }
-
-  .material-card:hover .img-main,
-  .material-card:focus-within .img-main {
-    opacity: 0;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .product-media img {
       transition: none;
     }
   }
 
-  /* ===== Textspalte ===== */
+  /* ===== Text column ===== */
   .material-card__content {
     grid-area: content;
     display: grid;
-    grid-template-rows: auto auto 1fr auto; /* CTA unten andocken */
+    grid-template-rows: auto auto 1fr auto;
     background: var(--bg);
     padding: 1.5rem 1.5rem 0rem 1.5rem;
 
@@ -171,14 +156,12 @@
     margin: 8px 0 1.5rem;
     padding: 0;
     list-style: none;
-    margin-bottom: 1.5rem;
   }
 
   .material-card__swatches li {
     list-style: none;
   }
 
-  /* Base swatch */
   .material-card__swatch {
     display: inline-block;
     width: 24px;
@@ -186,8 +169,8 @@
     border-radius: 50%;
     border: 1px solid rgba(0, 0, 0, 0.12);
     flex: 0 0 12px;
-    position: relative; // ⬅️ neu
-    z-index: 1; // Basis-Ebene
+    position: relative;
+    z-index: 1;
     transition:
       transform 150ms ease,
       box-shadow 150ms ease;
@@ -195,7 +178,6 @@
     will-change: transform;
   }
 
-  /* Enlarge on hover + keyboard focus (focus ring included) */
   .material-card__swatches li:hover .material-card__swatch,
   .material-card__swatches li:focus-within .material-card__swatch,
   .material-card__swatch:focus {
@@ -207,21 +189,16 @@
     z-index: 10;
   }
 
-  /* Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .material-card__swatch {
       transition: none;
     }
   }
 
-  .material-card__swatches li {
-    list-style: none;
-  }
-
-  /* schwarze CTA-Bar */
+  /* CTA bar */
   .material-card__ctaBar {
-    grid-column: 1 / -1; /* volle Breite */
-    width: calc(100% + 3rem); /* linkes + rechtes Padding kompensieren */
+    grid-column: 1 / -1;
+    width: calc(100% + 3rem);
     margin-left: -1.5rem;
     margin-right: -1.5rem;
     display: flex;
@@ -238,10 +215,9 @@
       line-height: 3.2rem;
       padding-left: 7.5rem;
       height: 6rem;
-      width: calc(100% + 15rem); /* linkes + rechtes Padding kompensieren */
+      width: calc(100% + 15rem);
       margin-left: -7.5rem;
       margin-right: -7.5rem;
-      // height: 4rem;
     }
   }
 
