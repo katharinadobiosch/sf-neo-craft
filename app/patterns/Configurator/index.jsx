@@ -133,7 +133,10 @@ export function Configurator({
 
     const optionSlug = option.name.toLowerCase().trim();
     const isModel = optionSlug === 'model' || optionSlug === 'modell';
-    const isSize = optionSlug === 'size' || optionSlug === 'größe' || optionSlug === 'groesse';
+    const isSize =
+      optionSlug === 'size' ||
+      optionSlug === 'größe' ||
+      optionSlug === 'groesse';
 
     return (
       <div
@@ -227,6 +230,8 @@ export function Configurator({
                     <button
                       key={p.id}
                       type="button"
+                      title={label}
+                      aria-label={label}
                       className={`cfg-item is-chip ${isActive ? 'is-selected' : ''}`}
                       onClick={() => onChangeSeriesProduct(index)}
                     >
