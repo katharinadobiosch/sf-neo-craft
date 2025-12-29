@@ -34,7 +34,7 @@ export function ProductForm({
   const detailsRef = useRef(null);
   const [detailsHeight, setDetailsHeight] = useState(0);
 
-  const shippingRef = useRef(null);
+  const shippingScrollRef = useRef(null);
   const [shippingHeight, setShippingHeight] = useState(0);
 
   const BLACKLIST = new Set([
@@ -166,8 +166,8 @@ export function ProductForm({
   useEffect(() => {
     if (!shippingOpen) return;
     const id = requestAnimationFrame(() => {
-      if (shippingRef.current) {
-        setShippingHeight(shippingRef.current.scrollHeight || 0);
+      if (shippingScrollRef.current) {
+        setShippingHeight(shippingScrollRef.current.scrollHeight || 0);
       }
     });
     return () => cancelAnimationFrame(id);
@@ -175,8 +175,8 @@ export function ProductForm({
 
   useEffect(() => {
     const onResize = () => {
-      if (shippingOpen && shippingRef.current) {
-        setShippingHeight(shippingRef.current.scrollHeight || 0);
+      if (shippingOpen && shippingScrollRef.current) {
+        setShippingHeight(shippingScrollRef.current.scrollHeight || 0);
       }
     };
     window.addEventListener('resize', onResize);
@@ -262,8 +262,8 @@ export function ProductForm({
           className="pf-panel pf-panel--shipping"
           style={{maxHeight: shippingOpen ? shippingHeight + 10 : 0}}
         >
-          <div ref={shippingRef} className="pf-panel-inner">
-            <div className="pf-panel-scroll nice-scrollbar">
+          <div className="pf-panel-inner">
+            <div ref={shippingScrollRef} className="pf-panel-scroll nice-scrollbar">
               {shippingLines.length > 0 && (
                 <div className="shipping-panel">
                   {shippingLines.map((line) => (
