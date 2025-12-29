@@ -47,16 +47,7 @@
 /* Navigation – mittig links/rechts */
 .nc-media-gallery .swiper-button-prev,
 .nc-media-gallery .swiper-button-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  width: 36px;
-  height: 36px;
-  border-radius: 9999px;
-  background: #fff;
-  box-shadow: 0 0 6px #00000029;
-  color: #222;
+  display: none;
 }
 
 .nc-media-gallery .swiper-button-prev {
@@ -108,6 +99,16 @@
 
   .nc-media-gallery .swiper-button-prev,
   .nc-media-gallery .swiper-button-next {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 0 6px #00000029;
+    color: #222;
     width: 42px;
     height: 42px;
     opacity: 0;
