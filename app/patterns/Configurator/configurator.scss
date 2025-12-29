@@ -108,10 +108,11 @@
 
 .configurator .cfg-label {
   flex: 0 0 auto;
-  font-size: 1.1rem;
+  font-size: 12px;
   line-height: 1.5rem;
   font-weight: 500;
   color: var(--text-muted, #5a5a5a);
+  letter-spacing: 0.02em;
 }
 
 .configurator .cfg-values {
@@ -151,6 +152,8 @@
   width: auto;
   justify-self: start;
   text-align: left;
+  font-size: 16px;
+  line-height: 1.3;
   font-weight: 400;
   position: relative;
 }
@@ -164,9 +167,10 @@
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -2px; /* feinjustieren */
-  height: 2px;
-  background: currentColor;
+  bottom: -3px;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.6;
 }
 
 .configurator .cfg-item.is-chip:disabled {
@@ -282,9 +286,10 @@
 
   .configurator .cfg-label {
     flex: 0 0 100px;
-    font-size: inherit;
-    line-height: inherit;
-    font-weight: inherit;
+    font-size: 12px;
+    line-height: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
   }
 
   .configurator .cfg-values {
@@ -314,6 +319,9 @@
     background: transparent;
     border: none;
     position: relative;
+    font-size: 15px;
+    line-height: 1.3;
+    font-weight: 400;
   }
 
   .configurator .cfg-item.is-color {
