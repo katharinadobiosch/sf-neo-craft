@@ -131,10 +131,20 @@ export function Configurator({
 
     const label = option.name.charAt(0).toUpperCase() + option.name.slice(1); // 👈 hier
 
+    const optionSlug = option.name.toLowerCase().trim();
+    const isModel = optionSlug === 'model' || optionSlug === 'modell';
+    const isSize = optionSlug === 'size' || optionSlug === 'größe' || optionSlug === 'groesse';
+
     return (
-      <div className="cfg-row" key={option.name}>
+      <div
+        className={`cfg-row ${colorish ? 'cfg-row--color' : ''} ${!colorish ? 'cfg-row--chip' : ''} ${isModel ? 'cfg-row--model' : ''} ${isSize ? 'cfg-row--size' : ''}`}
+        key={option.name}
+      >
         <div className="cfg-label">{label}</div>
-        <div className="cfg-values">
+        <div
+          className={`cfg-values ${colorish ? 'cfg-values--color' : 'cfg-values--chip'}`}
+          data-option={optionSlug}
+        >
           {option.optionValues.map((value) => {
             const selected = !!value.selected;
             const disabled = !value.exists;
