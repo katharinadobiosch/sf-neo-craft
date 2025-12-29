@@ -26,7 +26,6 @@ export function ProductForm({
   const navigate = useNavigate();
 
   const [detailsOpen, setDetailsOpen] = useState(false); // default closed
-  const [shippingOpen, setShippingOpen] = useState(false);
 
   const BLACKLIST = new Set([
     'series_hero',
@@ -188,19 +187,10 @@ export function ProductForm({
         )}
       </div>
 
-      <details className="shipping-item" open={shippingOpen}>
-        <summary
-          aria-expanded={shippingOpen}
-          onClick={(event) => {
-            event.preventDefault();
-            setShippingOpen((v) => !v);
-          }}
-        >
+      <details className="shipping-item" defaultOpen>
+        <summary>
           <span className="cfg-title">{shippingTitle}</span>
-          <span
-            className={`cfg-plus ${shippingOpen ? 'is-open' : ''}`}
-            aria-hidden="true"
-          />
+          <span className="shipping-plus" aria-hidden="true" />
         </summary>
 
         {shippingLines.length > 0 && (
