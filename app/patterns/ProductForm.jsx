@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import {useMemo, useState, useRef, useEffect} from 'react';
 import {useAside} from '~/patterns/Aside';
 import {useNavigate} from 'react-router';
 import {Configurator} from './Configurator';
@@ -26,6 +26,16 @@ export function ProductForm({
   const navigate = useNavigate();
 
   const [detailsOpen, setDetailsOpen] = useState(false); // default closed
+
+  // NEW: shipping state (ersetzt defaultOpen)
+  const [shippingOpen, setShippingOpen] = useState(true);
+
+  // NEW: refs + heights
+  const detailsRef = useRef(null);
+  const [detailsHeight, setDetailsHeight] = useState(0);
+
+  const shippingRef = useRef(null);
+  const [shippingHeight, setShippingHeight] = useState(0);
 
   const BLACKLIST = new Set([
     'series_hero',
@@ -88,7 +98,9 @@ export function ProductForm({
     return true;
   });
 
-  const hasDetails = mfMeasurements.length > 0 || mfOthers.length > 0;
+  const hasDetails =
+    (Array.isArray(mfMeasurements) && mfMeasurements.length > 0) ||
+    (Array.isArray(mfOthers) && mfOthers.length > 0);
 
   const currentVariant = useMemo(() => {
     for (const opt of productOptions || []) {
@@ -122,13 +134,56 @@ export function ProductForm({
     typeof mfShipping?.value === 'string' && mfShipping.value.trim().length > 0
       ? mfShipping.value
       : null;
-  const shippingLines =
-    shippingRaw?.split(/\r?\n/).filter(Boolean) || [
-      '2–4 weeks (depending on stock)',
-      'parcel-delivery (door to door)',
-      'depending on shipping rates:',
-      'higher quantities via pallet-delivery (curbside)',
-    ];
+  const shippingLines = shippingRaw?.split(/\r?\n/).filter(Boolean) || [
+    '2–4 weeks (depending on stock)',
+    'parcel-delivery (door to door)',
+    'depending on shipping rates:',
+    'higher quantities via pallet-delivery (curbside)',
+  ];
+
+  // --------- DETAILS: measure height like Configurator ----------
+  useEffect(() => {
+    if (!detailsOpen) return;
+    const id = requestAnimationFrame(() => {
+      if (detailsRef.current) {
+        setDetailsHeight(detailsRef.current.scrollHeight || 0);
+      }
+    });
+    return () => cancelAnimationFrame(id);
+  }, [detailsOpen, mfMeasurements.length, mfOthers.length, seriesActiveIndex]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (detailsOpen && detailsRef.current) {
+        setDetailsHeight(detailsRef.current.scrollHeight || 0);
+      }
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [detailsOpen]);
+
+  // --------- SHIPPING: measure height like Configurator ----------
+  useEffect(() => {
+    if (!shippingOpen) return;
+    const id = requestAnimationFrame(() => {
+      if (shippingRef.current) {
+        setShippingHeight(shippingRef.current.scrollHeight || 0);
+      }
+    });
+    return () => cancelAnimationFrame(id);
+  }, [shippingOpen, shippingLines.length]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (shippingOpen && shippingRef.current) {
+        setShippingHeight(shippingRef.current.scrollHeight || 0);
+      }
+    };
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [shippingOpen]);
+
+  console.log('mfOthers', mfOthers);
 
   return (
     <div className="product-form product-form--segmented">
@@ -146,16 +201,17 @@ export function ProductForm({
 
       {/* 2) Middle section: Details fill the remaining space */}
       <div className="product-form__sections">
-        {hasDetails && (
+        {mfOthers.length > 0 && (
           <section
-            className={`pf-section pf-section--details ${detailsOpen ? 'is-open' : ''}`}
+            className="pf-section pf-section--details"
+            data-open={detailsOpen}
           >
             <div className="cfg-head">
               <button
                 type="button"
                 className="cfg-toggle"
-                aria-controls="cfg-variants"
                 aria-expanded={detailsOpen}
+                aria-controls="pf-details"
                 onClick={() => setDetailsOpen((v) => !v)}
               >
                 <span className="cfg-title">Details</span>
@@ -166,43 +222,59 @@ export function ProductForm({
               </button>
             </div>
 
-            {detailsOpen && (
-              <div className="pf-section__body pf-section__body--flex nice-scrollbar">
-                <div className="configurator__meta">
-                  {mfMeasurements.length > 0 && (
+            {/* Panel: hier muss ALLES rein, was verborgen sein soll */}
+            <div
+              id="pf-details"
+              className="cfg-panel pf-details-panel"
+              style={{maxHeight: detailsOpen ? detailsHeight : 0}}
+            >
+              <div ref={detailsRef} className="cfg-panel-inner">
+                <div className="pf-section__body pf-section__body--flex nice-scrollbar">
+                  <div className="configurator__meta">
                     <ProductMetaAccordion
-                      metafields={mfMeasurements}
+                      metafields={[...mfMeasurements, ...mfOthers]}
                       product={activeProduct}
                     />
-                  )}
-                  {mfOthers.length > 0 && (
-                    <ProductMetaAccordion
-                      metafields={mfOthers}
-                      product={activeProduct}
-                    />
-                  )}
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
           </section>
         )}
       </div>
 
-      {/* eslint-disable-next-line react/no-unknown-property */}
-      <details className="shipping-item" defaultOpen>
-        <summary>
+      {/* 3) Shipping (keep your classes, just animate panel like cfg-panel) */}
+      <div className="shipping-item" data-open={shippingOpen}>
+        <button
+          type="button"
+          className="shipping-summary"
+          aria-expanded={shippingOpen}
+          aria-controls="pf-shipping"
+          onClick={() => setShippingOpen((v) => !v)}
+        >
           <span className="cfg-title">{shippingTitle}</span>
-          <span className="shipping-plus" aria-hidden="true" />
-        </summary>
+          <span
+            className={`shipping-plus ${shippingOpen ? 'is-open' : ''}`}
+            aria-hidden="true"
+          />
+        </button>
 
-        {shippingLines.length > 0 && (
-          <div className="shipping-panel">
-            {shippingLines.map((line) => (
-              <span key={line}>{line}</span>
-            ))}
+        <div
+          id="pf-shipping"
+          className="pf-panel pf-panel--shipping"
+          style={{maxHeight: shippingOpen ? shippingHeight : 0}}
+        >
+          <div ref={shippingRef} className="pf-panel-inner">
+            {shippingLines.length > 0 && (
+              <div className="shipping-panel">
+                {shippingLines.map((line) => (
+                  <span key={line}>{line}</span>
+                ))}
+              </div>
+            )}
           </div>
-        )}
-      </details>
+        </div>
+      </div>
 
       {/* 4) CTA */}
       <div className="pdp__cta-container">
