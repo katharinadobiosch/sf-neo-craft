@@ -5,16 +5,6 @@ import {Configurator} from './Configurator';
 import {ProductMetaAccordion} from './ProductMetaAccordion';
 import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
 
-function getMfByKey(metafields, key) {
-  const k = String(key).toLowerCase().trim();
-  return (metafields || []).find(
-    (m) =>
-      String(m?.key || '')
-        .toLowerCase()
-        .trim() === k,
-  );
-}
-
 export function ProductForm({
   productOptions,
   product,
@@ -26,7 +16,6 @@ export function ProductForm({
   const navigate = useNavigate();
 
   const [detailsOpen, setDetailsOpen] = useState(false); // default geschlossen
-  const [shippingOpen, setShippingOpen] = useState(false); // default geschlossen
 
   const BLACKLIST = new Set([
     'series_hero',
@@ -75,9 +64,6 @@ export function ProductForm({
   const allMetafields = allMetafieldsRaw.filter(Boolean);
 
   // Shipping content (rich_text_field -> kommt bei Shopify i.d.R. als HTML-String)
-  const mfShipping = getMfByKey(allMetafields, 'shipping');
-  const hasShipping = hasContent(mfShipping);
-
   const mfMeasurements = allMetafields.filter(
     (m) => m && isMeasurementsMeta(m) && hasContent(m),
   );

@@ -109,15 +109,6 @@ export function MaterialForm({
   const price = Number(currentVariant?.price?.amount || 0);
   const currency = currentVariant?.price?.currencyCode || 'USD';
 
-  console.log({
-    currentVariantAvailable: currentVariant?.availableForSale,
-    productOptionsLen: productOptions?.length,
-    allSelected,
-    isReady,
-    price,
-    currency,
-  });
-
   return (
     <div className="product-form">
       {/* oberer Bereich: Configurator + Details */}
