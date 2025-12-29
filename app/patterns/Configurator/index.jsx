@@ -187,7 +187,10 @@ export function Configurator({
           onClick={() => setVariantsOpen((v) => !v)}
         >
           <span className="cfg-title">Configurator</span>
-          <span className="cfg-plus" aria-hidden />
+          <span
+            className={`cfg-plus ${variantsOpen ? 'is-open' : ''}`}
+            aria-hidden="true"
+          />
         </button>
         <div className="cfg-head__label" />
         <div className="cfg-head__values" />

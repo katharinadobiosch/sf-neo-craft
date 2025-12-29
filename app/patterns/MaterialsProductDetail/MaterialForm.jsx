@@ -71,7 +71,7 @@ export function MaterialForm({
     (m) => m && isMeasurementsMeta(m) && hasContent(m),
   );
 
-  // andere Metafelder
+  // Other metafields
   const mfOthers = allMetafields.filter((m) => {
     if (!m) return false;
 
@@ -100,9 +100,9 @@ export function MaterialForm({
       Number(num || 0),
     );
   const allSelected =
-    !Array.isArray(productOptions) ||
-    productOptions.length === 0 ||
-    productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected));
+    Array.isArray(productOptions) &&
+    (productOptions.length === 0 ||
+      productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected)));
 
   const isReady = !!currentVariant?.availableForSale && allSelected;
 

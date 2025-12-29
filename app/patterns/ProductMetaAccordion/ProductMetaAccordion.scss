@@ -19,7 +19,6 @@
       justify-content: space-between;
       cursor: pointer;
       user-select: none;
-      align-items: center;
       width: 100%;
       min-height: 44px;
       padding: 0.75rem 0;
@@ -33,7 +32,7 @@
       font-weight: var(--nc-head-mobil-weight);
     }
 
-    /* Plus-Icon aus zwei Linien, wie im Configurator */
+    /* Plus icon made of two lines, same as configurator */
     .acc-plus {
       position: relative;
       width: 12px;
@@ -54,16 +53,15 @@
         transform 0.2s ease,
         opacity 0.2s ease;
     }
-    /* vertikaler Strich = Plus */
+    /* Vertical stroke shows the plus */
     .acc-plus::after {
       transform: translate(-50%, -50%) rotate(90deg);
     }
 
-    /* geöffnet: wird zu Minus (wie beim cfg-plus) */
+    /* Open state: turns into a minus (same as cfg-plus) */
     &[open] .acc-plus::after {
       transform: translate(-50%, -50%) rotate(0deg);
-      /* Alternative: vertikalen Strich einfach ausblenden:
-         opacity: 0; */
+      /* Alternative: hide the vertical stroke instead: opacity: 0; */
     }
 
     .acc-images {
@@ -164,7 +162,7 @@
   }
 }
 
-/* ===== Optional: feiner Divider unter der Config-Section ===== */
+/* ===== Optional: fine divider under the configurator section ===== */
 .cfg-divider {
   border: 0;
   height: 1px;

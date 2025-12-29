@@ -17,6 +17,15 @@
 
 import {getSchema} from '@shopify/hydrogen-codegen';
 
+const requestedConcurrency = Number(process.env.GRAPHQL_CODEGEN_CONCURRENCY);
+if (!Number.isFinite(requestedConcurrency) || requestedConcurrency < 1) {
+  process.env.GRAPHQL_CODEGEN_CONCURRENCY = '1';
+}
+const codegenConcurrency = Number(process.env.CODEGEN_CONCURRENCY);
+if (!Number.isFinite(codegenConcurrency) || codegenConcurrency < 1) {
+  process.env.CODEGEN_CONCURRENCY = '1';
+}
+
 /**
  * GraphQL Config
  * @see https://the-guild.dev/graphql/config/docs/user/usage

@@ -5,11 +5,11 @@
   "version": "2025.5.2",
   "type": "module",
   "scripts": {
-    "build": "shopify hydrogen build --codegen",
-    "dev": "shopify hydrogen dev --codegen",
+    "build": "CODEGEN_CONCURRENCY=1 GRAPHQL_CODEGEN_CONCURRENCY=1 shopify hydrogen build --codegen",
+    "dev": "CODEGEN_CONCURRENCY=1 GRAPHQL_CODEGEN_CONCURRENCY=1 shopify hydrogen dev --codegen",
     "preview": "shopify hydrogen preview --build",
     "lint": "pnpm run typecheck && eslint --no-error-on-unmatched-pattern .",
-    "codegen": "shopify hydrogen codegen",
+    "codegen": "CODEGEN_CONCURRENCY=1 GRAPHQL_CODEGEN_CONCURRENCY=1 shopify hydrogen codegen",
     "export:metafields": "node app/graphql/product/export-product-metafields.mjs",
     "typecheck": "tsc -p tsconfig.typecheck.json --noEmit"
   },
