@@ -28,7 +28,7 @@ export function ProductForm({
   const [detailsOpen, setDetailsOpen] = useState(false); // default closed
 
   // NEW: shipping state (ersetzt defaultOpen)
-  const [shippingOpen, setShippingOpen] = useState(true);
+  const [shippingOpen, setShippingOpen] = useState(false);
 
   // NEW: refs + heights
   const detailsRef = useRef(null);

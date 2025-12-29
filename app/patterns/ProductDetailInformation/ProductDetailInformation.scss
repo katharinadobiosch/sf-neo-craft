@@ -59,13 +59,12 @@
     margin: 0 0 0 0;
 
     .teaser-duo__images {
-      flex-direction: row;
-      width: 100%;
-      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
     .teaser-duo__image {
-      width: 50%;
+      width: 100%;
     }
 
     .teaser-duo__image img {
@@ -160,7 +159,21 @@
     }
 
     .pdp__teaser-duo {
-      margin: 3rem 0 0 0;
+      .teaser-duo__images {
+        flex-direction: row;
+        width: 100%;
+        display: flex;
+        gap: 0;
+      }
+
+      .teaser-duo__image {
+        width: 50%;
+      }
+
+      .teaser-duo__image img {
+        aspect-ratio: auto;
+        height: auto;
+      }
 
       img {
         aspect-ratio: 781 / 520;
