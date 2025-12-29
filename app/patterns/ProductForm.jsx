@@ -170,46 +170,19 @@ export function ProductForm({
         )}
       </div>
 
-      {/* 3) Shipping – fix über CTA */}
-      <div className="cfg-head cfg-head--3col cfg-head--shipping">
-        {/* Spalte 1 */}
-        <button
-          type="button"
-          className="cfg-toggle cfg-toggle--shipping"
-          aria-expanded={shippingOpen}
-          aria-controls="cfg-shipping"
-          onClick={() => setShippingOpen((v) => !v)}
-        >
-          <span className="cfg-title">Lead time + shipping</span>
-        </button>
+      <details class="shipping-item" open>
+        <summary>
+          <span class="shipping-title">Dichroic Glass</span>
+          <span class="shipping-plus" aria-hidden="true"></span>
+        </summary>
 
-        {/* Spalte 2 */}
-        <button
-          type="button"
-          className="cfg-icon-btn"
-          aria-label={shippingOpen ? 'Close shipping' : 'Open shipping'}
-          aria-expanded={shippingOpen}
-          aria-controls="cfg-shipping"
-          onClick={() => setShippingOpen((v) => !v)}
-        >
-          <span
-            className={`cfg-plus ${shippingOpen ? 'is-open' : ''}`}
-            aria-hidden
-          />
-        </button>
-
-        {/* Spalte 3 */}
-        <div className="cfg-head__values">
-          {shippingOpen && (
-            <div id="cfg-shipping" className="cfg-inline-body">
-              <p>2–4 weeks (depending on stock)</p>
-              <p>parcel-delivery (door to door)</p>
-              <p>depending on shipping rates:</p>
-              <p>higher quantities via pallet-delivery (curbside)</p>
-            </div>
-          )}
+        <div class="shipping-panel">
+          <span>2–4 weeks (depending on stock)</span>
+          <span>parcel-delivery (door to door)</span>
+          <span>depending on shipping rates:</span>
+          <span>higher quantities via pallet-delivery (curbside)</span>{' '}
         </div>
-      </div>
+      </details>
 
       {/* 4) CTA */}
       <div className="pdp__cta-container">

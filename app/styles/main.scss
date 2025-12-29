@@ -483,75 +483,15 @@ button:disabled {
   padding: 1.5rem 0 1.5rem 0;
 }
 
-.cfg-head {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  @media (min-width: 768px) {
-    // padding-bottom: 1rem;
-  }
-}
-
-.cfg-head .cfg-toggle {
-  flex: 0 0 163px;
-} /* linke Spalte */
-
-.cfg-head__label {
-  flex: 0 0 100px;
-} /* mittlere Spalte (leer) */
-
-.cfg-head__values {
-  flex: 1 1 auto;
-} /* rechte Spalte (leer) */
-
-// .product-form__middle {
-//   height: 100%;
-// }
-
-.cfg-toggle--shipping {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr; /* links: title, mitte: plus, rechts: content */
-  align-items: start;
-  column-gap: 16px;
-}
-
-.cfg-toggle--shipping .cfg-title {
-  grid-column: 1;
-}
-.cfg-toggle--shipping .cfg-plus {
-  grid-column: 2;
-}
-
-.pf-section__body--shipping {
-  grid-column: 3;
-  margin: 0; /* damit es nicht „nach unten links“ rutscht */
-  text-align: left;
-}
-
-.cfg-head--3col {
-  display: grid;
-  grid-template-columns: 163px 100px 1fr;
-  align-items: start;
-  column-gap: 1rem;
-}
-
-/* Button belegt links+mitte (Spalte 1–2) */
-.cfg-toggle--span-2 {
-  grid-column: 1 / 3;
-  display: grid;
-  grid-template-columns: 1fr auto; /* title | plus innerhalb des Buttons */
-  align-items: start;
-}
-
 /* Body sitzt rechts daneben (Spalte 3), in derselben Zeile */
 .cfg-inline-body {
   grid-column: 3;
   grid-row: 1;
   margin: 0;
-  font-size: var(--nc-konfigurator-desktop-size);
+  font-size: 12px;
   line-height: var(--nc-konfigurator-desktop-line);
   font-weight: var(--nc-konfigurator-desktop-weight);
-  padding: 1.5rem 0;
+  padding-left: 2rem;
 }
 
 /* Icon-Button in der mittleren Spalte */
@@ -563,13 +503,6 @@ button:disabled {
   padding: 1.5rem 0;
 }
 
-/* linker Button bleibt 163px */
-.cfg-toggle--shipping {
-  flex: 0 0 163px;
-  width: 163px; /* weil du global width gesetzt hast */
-  justify-content: flex-start; /* kein space-between, Plus ist ja nicht mehr drin */
-}
-
 /* Content rechts soll nicht „Layout kaputt“ machen */
 .cfg-inline-body :where(p) {
   margin: 0 0 0.75rem 0;
@@ -578,4 +511,80 @@ button:disabled {
 /* Plus/Minus Umschalten über Klasse statt data-variants-open */
 .cfg-plus.is-open::after {
   transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* =========================================================
+   SHIPPING INFO 
+   ========================================================= */
+.shipping-item {
+  display: flex;
+  flex-direction: row;
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    width: 163px;
+    // min-height: 5rem;
+    // padding: 0.75rem 0;
+    cursor: pointer;
+    user-select: none;
+    padding: 1.5rem 0 1.5rem 0;
+    align-items: center;
+  }
+
+  .shipping-title {
+    // color: #161616;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    font-weight: 500;
+  }
+
+  /* Plus-Icon aus zwei Linien, wie im Configurator */
+  .shipping-plus {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    pointer-events: none;
+  }
+  .shipping-plus::before,
+  .shipping-plus::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 2px;
+    background: #111;
+    transform: translate(-50%, -50%);
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+  /* vertikaler Strich = Plus */
+  .shipping-plus::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  /* geöffnet: wird zu Minus (wie beim cfg-plus) */
+  &[open] .shipping-plus::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+    /* Alternative: vertikalen Strich einfach ausblenden:
+         opacity: 0; */
+  }
+
+  .shipping-panel {
+    padding-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    line-height: 1.9rem;
+    font-weight: 400;
+    margin: 0;
+  }
 }
