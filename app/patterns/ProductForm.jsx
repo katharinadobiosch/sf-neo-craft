@@ -172,7 +172,7 @@ export function ProductForm({
 
       <details className="shipping-item" open>
         <summary>
-          <span className="shipping-title">Dichroic Glass</span>
+          <span className="shipping-title">Lead tine + shipping</span>
           <span className="shipping-plus" aria-hidden="true"></span>
         </summary>
 
