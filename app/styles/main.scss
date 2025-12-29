@@ -412,6 +412,7 @@ button:disabled {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  margin-right: 0.75rem;
 }
 
 /* Jede Section: Header fix, Body scrollt */
@@ -466,6 +467,7 @@ button:disabled {
   }
 
   .product-form--segmented .product-form__sections {
+    margin-right: 0;
     gap: 0;
   }
 
@@ -584,6 +586,7 @@ button:disabled {
   gap: 0.75rem;
   border-top: 1px solid var(--color-dark);
   padding: 1rem 0;
+  margin-right: 0.75rem;
 
   summary::-webkit-details-marker {
     display: none;
@@ -653,6 +656,7 @@ button:disabled {
     border-top: none;
     padding: 0;
     border-top: 1px solid var(--text-default);
+    margin-right: 0;
   }
 
   .shipping-item summary {

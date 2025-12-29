@@ -71,7 +71,7 @@
       gap: 1rem;
       padding-right: 0;
 
-      .m-grid {
+      .meta-accordion__images-grid {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -80,7 +80,7 @@
         gap: 1.5rem;
         margin: 1.5rem 0;
 
-        .m-fig {
+        .meta-accordion__images-figure {
           width: 50%;
           height: auto;
           margin-left: 10px;
@@ -140,7 +140,7 @@
     flex-direction: row;
   }
 
-  .meta-accordion .m-grid {
+  .meta-accordion .meta-accordion__images-grid {
     flex-direction: row;
     justify-content: flex-end;
     align-items: flex-end;
@@ -148,7 +148,7 @@
     margin: 3rem 0;
   }
 
-  .meta-accordion .m-fig {
+  .meta-accordion .meta-accordion__images-figure {
     width: 22%;
   }
 

@@ -144,6 +144,7 @@ export function Configurator({
         <div
           className={`cfg-values ${colorish ? 'cfg-values--color' : 'cfg-values--chip'}`}
           data-option={optionSlug}
+          data-count={!colorish ? option.optionValues.length : undefined}
         >
           {option.optionValues.map((value) => {
             const selected = !!value.selected;

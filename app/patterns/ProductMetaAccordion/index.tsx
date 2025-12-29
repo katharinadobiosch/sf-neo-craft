@@ -215,7 +215,7 @@ export function ProductMetaAccordion({
             <details key={item.fqKey} className="acc-item">
               <summary>
                 <span className="acc-title">{item.label}</span>
-                <span className="acc-plus" aria-hidden />
+                <span className="acc-plus" aria-hidden="true" />
               </summary>
 
               <div className="acc-panel">
@@ -238,12 +238,12 @@ export function ProductMetaAccordion({
                           aria-label={item.label}
                         >
                           <div
-                            className="m-grid"
+                            className="meta-accordion__images-grid"
                             data-count={item.images.length}
                           >
                             {item.images.map((img, i) => (
                               <figure
-                                className="m-fig"
+                                className="meta-accordion__images-figure"
                                 key={`${item.fqKey}-${i}`}
                               >
                                 <img
