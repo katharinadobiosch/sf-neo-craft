@@ -127,7 +127,6 @@
 
 /* Chip rows: editorial inline layout */
 
-
 .configurator .cfg-values--color {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -165,13 +164,14 @@
 }
 
 .configurator .cfg-item.is-chip.is-selected::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 4px;
-  width: 100%;
-  height: 1px;
-  background: currentColor;
+  @media (max-width: 767px) {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 8px;
+    width: 100%;
+    height: 1px;
+  }
 }
 
 .configurator .cfg-item.is-chip:disabled {
@@ -275,7 +275,6 @@
   .configurator .cfg-row {
     flex-direction: row;
     align-items: center;
-    gap: 1rem;
     padding: 0.5rem 0 1.5rem 0;
     margin-bottom: 0;
   }
