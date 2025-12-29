@@ -262,7 +262,13 @@ export function ProductForm({
         <div
           id="pf-shipping"
           className="pf-panel pf-panel--shipping"
-          style={{maxHeight: shippingOpen ? shippingHeight : 0}}
+          style={{
+            maxHeight: shippingOpen ? shippingHeight : 0,
+            overflow: 'hidden',
+            opacity: shippingOpen ? 1 : 0,
+            visibility: shippingOpen ? 'visible' : 'hidden',
+            pointerEvents: shippingOpen ? 'auto' : 'none',
+          }}
         >
           <div ref={shippingRef} className="pf-panel-inner">
             {shippingLines.length > 0 && (
