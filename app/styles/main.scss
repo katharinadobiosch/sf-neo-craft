@@ -14,7 +14,7 @@
 @use './layout/_structure';
 
 /* Components / Patterns */
-@use '../patterns/ProductDetailInformation/ProductDetailInformation.scss'; /* <- hier kommt dein PDP/Configurator/Details/Shipping rein */
+@use '../patterns/ProductDetailInformation/ProductDetailInformation'; /* <- hier kommt dein PDP/Configurator/Details/Shipping rein */
 
 /* =========================================================
    Truly global safety nets (keep minimal)

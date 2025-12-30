@@ -310,8 +310,9 @@
     color: var(--sf-white);
   }
 }
+
 /* =========================================================
-   PDP: Product form segmented layout (fixed slots + inner scroll)
+   PDP: segmented layout (fixed slots + inner scroll)
    ========================================================= */
 
 .product-form--segmented {
@@ -341,7 +342,12 @@
 }
 
 /* =========================================================
-   Shared toggle + plus icon (PDP sections)
+   Shared toggle (Details / Shipping header buttons)
+   ========================================================= */
+
+/* =========================================================
+   Shared controls: toggle button + plus/minus icon
+   Single source of truth
    ========================================================= */
 
 .cfg-toggle {
@@ -365,11 +371,40 @@
   }
 }
 
-/* Reuse your existing cfg-plus from Configurator (single source!) */
-/* If cfg-plus already exists globally in configurator.scss, DELETE any duplicates here. */
+/* Plus/Minus icon (default: plus; open: minus) */
+.cfg-plus {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  color: currentColor;
+}
+
+.cfg-plus::before,
+.cfg-plus::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease;
+}
+
+/* vertical stroke = plus */
+.cfg-plus::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* open = minus (remove vertical stroke by rotating to horizontal) */
+.cfg-plus.is-open::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
 
 /* =========================================================
-   Details
+   Details section panel
    ========================================================= */
 
 .pf-section--details {
@@ -387,10 +422,10 @@
 .pf-section--details .cfg-head {
   flex: 0 0 auto;
   position: relative;
-  z-index: 3; /* header always clickable */
+  z-index: 3;
 }
 
-/* Panel visibility is controlled by data-open on the panel */
+/* closed by default */
 .pf-section--details .cfg-panel {
   flex: 1 1 auto;
   min-height: 0;
@@ -399,10 +434,10 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-
   transition: opacity 0.2s ease;
 }
 
+/* open */
 .pf-section--details .cfg-panel[data-open='true'] {
   opacity: 1;
   visibility: visible;
@@ -415,6 +450,7 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .pf-section--details .pf-section__body--flex {
@@ -475,7 +511,7 @@
 }
 
 /* =========================================================
-   Shared collapsible panel (used by shipping)
+   Shared collapsible panel (shipping content)
    ========================================================= */
 
 .pf-panel {
