@@ -508,16 +508,15 @@ button:disabled {
   }
 
   .pf-section__body {
-    flex: 1 1 auto;
-    min-height: 0; /* wichtig für overflow in flex */
-    max-height: none; /* entfernt 40vh clamp */
     overflow: auto;
-    padding: 1rem 1.5rem 1rem 0rem;
+    min-height: 0;
+    flex: 0 0 auto; /* nicht flex:1, sonst konkurriert es mit content-height panel */
+    max-height: calc(100vh - 420px);
+    padding: 1rem 1.5rem 1rem 0;
   }
 
   .pf-section__body--flex {
-    flex: 1 1 auto;
-    min-height: 0;
+    max-height: none;
   }
 }
 
