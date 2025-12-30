@@ -242,6 +242,10 @@ table {
   outline-offset: 2px;
 }
 
+:root {
+  --pf-shipping-slot: 112px; /* fixed shipping slot height (96–120 acceptable) */
+}
+
 .hover-wrap {
   position: relative;
 }
@@ -272,6 +276,7 @@ table {
    ========================================================= */
 
 .pdp__cta-container {
+  flex: 0 0 auto;
   position: sticky;
   bottom: 0;
   z-index: 5;
@@ -396,7 +401,7 @@ button:disabled {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  height: auto;
+  height: 100vh;
   min-height: 0; /* important: allows inner overflow */
 }
 
@@ -412,7 +417,21 @@ button:disabled {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-right: 0.75rem;
+  overflow: hidden;
+}
+
+.pf-section--details {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  @media (min-width: 768px) {
+    padding-left: 15px;
+  }
+}
+
+.pf-section--details .cfg-head {
+  flex: 0 0 auto;
 }
 
 /* Jede Section: Header fix, Body scrollt */
@@ -421,6 +440,7 @@ button:disabled {
   display: flex;
   flex-direction: column;
   min-height: 0;
+  flex: 1 1 auto;
   padding-top: 0.75rem;
 }
 
@@ -445,23 +465,16 @@ button:disabled {
 
 /* Body: darf scrollen, aber nur innerhalb der verfügbaren Höhe */
 .pf-section__body {
-  overflow: auto; /* statt visible */
-  max-height: 45vh; /* Stellschraube */
+  flex: 1 1 auto;
   min-height: 0;
+  overflow: auto;
   padding: 0 0 1rem 0;
 }
 
 /* Details scroll container: allow flex scrolling */
 .pf-section__body--flex {
   min-height: 0;
-  max-height: none;
   overflow: auto;
-}
-
-/* Scroll bleed for details body */
-.pf-section__body--flex.nice-scrollbar {
-  padding-bottom: 10px;
-  margin-bottom: -10px;
 }
 
 /* Richtext Basic */
@@ -508,10 +521,9 @@ button:disabled {
   }
 
   .pf-section__body {
-    overflow: auto;
+    flex: 1 1 auto;
     min-height: 0;
-    flex: 0 0 auto; /* nicht flex:1, sonst konkurriert es mit content-height panel */
-    max-height: calc(100vh - 420px);
+    overflow: auto;
     padding: 1rem 1.5rem 1rem 0;
   }
 }
@@ -601,9 +613,12 @@ button:disabled {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  flex: 0 0 var(--pf-shipping-slot, 120px);
+  min-height: 0;
   border-top: 1px solid var(--color-dark);
   padding: 1rem 0;
-  margin-right: 0.75rem;
+  margin-right: 0;
+  overflow: hidden;
 
   summary::-webkit-details-marker {
     display: none;
@@ -669,6 +684,7 @@ button:disabled {
     padding: 0;
     border-top: 1px solid var(--text-default);
     margin-right: 0;
+    padding-left: 15pxgit add;
   }
 
   .shipping-item summary {
@@ -681,28 +697,6 @@ button:disabled {
     padding-left: 2rem;
     gap: 0;
   }
-  .pf-section--details {
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-}
-
-/* Details + Shipping Panel: gleicher “zieht nach unten auf” Effekt wie Configurator */
-.pf-panel {
-  overflow: hidden;
-  opacity: 0;
-  transition:
-    max-height 0.35s ease,
-    opacity 0.2s ease;
-}
-
-.pf-section[data-open='true'] .pf-panel,
-.shipping-item[data-open='true'] .pf-panel {
-  opacity: 1;
-}
-
-.pf-panel-inner {
-  padding-top: 0.5rem; /* wie .cfg-panel-inner */
 }
 
 /* Shipping header button – neutral, damit du es wie summary stylen kannst */
@@ -730,35 +724,75 @@ button:disabled {
   }
 }
 
-/* Details nutzt exakt die cfg-panel Animation */
-.pf-section--details .cfg-panel {
+/* Collapsible panels: fixed slot + inner scroll */
+.pf-panel {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow: hidden;
   opacity: 0;
-  transition:
-    max-height 0.35s ease,
-    opacity 0.2s ease;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
 }
 
-.pf-section--details[data-open='true'] .cfg-panel {
+.pf-panel[data-open='true'],
+.pf-section[data-open='true'] .pf-panel,
+.shipping-item[data-open='true'] .pf-panel {
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
-/* Plus-Rotation für Details (wie beim Configurator) */
-.pf-section--details .cfg-plus::after {
-  transform: translate(-50%, -50%) rotate(90deg);
+.pf-section--details .cfg-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
 }
 
-.pf-section--details[data-open='true'] .cfg-plus::after {
-  transform: translate(-50%, -50%) rotate(0deg);
+.pf-section--details .cfg-panel-inner {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Scroll-Container (nur wenn offen sichtbar, trotzdem safe) */
+.pf-section--details .pf-section__body--flex {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+.pf-panel-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding-top: 0.5rem;
+}
+
 .pf-panel-scroll {
-  max-height: none;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow: auto;
   padding-right: 0.75rem; /* Platz für die Scrollbar, damit Text nicht drunter läuft */
-  padding-bottom: 10px; /* bleed: let scrollbar extend lower */
-  margin-bottom: -10px; /* compensate so layout height stays same */
+}
+
+.pf-panel--shipping {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.pf-panel--shipping .pf-panel-inner {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+}
+
+.pf-panel--shipping .pf-panel-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
 }
 
 /* Desktop: wie im Figma meist: rechts eine klare Trennlinie */
@@ -798,10 +832,6 @@ button:disabled {
 
 .pf-panel-scroll.nice-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--text-default);
-}
-
-.pf-details-panel {
-  padding-left: 163px;
 }
 
 .pf-panel--shipping .pf-panel-scroll {

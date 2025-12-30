@@ -1,4 +1,4 @@
-import {useEffect, useId, useRef, useState} from 'react';
+import {useId, useState} from 'react';
 
 export function ProductShippingSection({
   title = 'Lead time + shipping',
@@ -8,31 +8,8 @@ export function ProductShippingSection({
 }) {
   const [open, setOpen] = useState(defaultOpen);
 
-  const scrollRef = useRef(null);
-  const [height, setHeight] = useState(0);
-
   const reactId = useId();
   const panelId = `${idPrefix}-${reactId}`;
-
-  useEffect(() => {
-    if (!open) return;
-    const id = requestAnimationFrame(() => {
-      if (scrollRef.current) {
-        setHeight(scrollRef.current.scrollHeight || 0);
-      }
-    });
-    return () => cancelAnimationFrame(id);
-  }, [open, lines.length]);
-
-  useEffect(() => {
-    const onResize = () => {
-      if (open && scrollRef.current) {
-        setHeight(scrollRef.current.scrollHeight || 0);
-      }
-    };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [open]);
 
   const safeLines = Array.isArray(lines) ? lines.filter(Boolean) : [];
 
@@ -55,10 +32,10 @@ export function ProductShippingSection({
       <div
         id={panelId}
         className="pf-panel pf-panel--shipping"
-        style={{maxHeight: open ? height + 10 : 0}}
+        data-open={open}
       >
         <div className="pf-panel-inner">
-          <div ref={scrollRef} className="pf-panel-scroll nice-scrollbar">
+          <div className="pf-panel-scroll nice-scrollbar">
             {safeLines.length > 0 && (
               <div className="shipping-panel">
                 {safeLines.map((line, i) => (

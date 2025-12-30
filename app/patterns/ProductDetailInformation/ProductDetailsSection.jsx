@@ -1,4 +1,4 @@
-import {useEffect, useId, useRef, useState} from 'react';
+import {useId, useState} from 'react';
 import {ProductMetaAccordion} from '../ProductMetaAccordion';
 
 export function ProductDetailsSection({
@@ -10,9 +10,6 @@ export function ProductDetailsSection({
 }) {
   const [open, setOpen] = useState(defaultOpen);
 
-  const contentRef = useRef(null);
-  const [height, setHeight] = useState(0);
-
   // stabiler, eindeutiger ID für aria-controls
   const reactId = useId();
   const panelId = `pf-details-${reactId}`;
@@ -20,27 +17,6 @@ export function ProductDetailsSection({
   const hasAny =
     (Array.isArray(mfMeasurements) && mfMeasurements.length > 0) ||
     (Array.isArray(mfOthers) && mfOthers.length > 0);
-
-  // Height messen (wie bei dir im ProductForm)
-  useEffect(() => {
-    if (!open) return;
-    const id = requestAnimationFrame(() => {
-      if (contentRef.current) {
-        setHeight(contentRef.current.scrollHeight || 0);
-      }
-    });
-    return () => cancelAnimationFrame(id);
-  }, [open, mfMeasurements.length, mfOthers.length, product]);
-
-  useEffect(() => {
-    const onResize = () => {
-      if (open && contentRef.current) {
-        setHeight(contentRef.current.scrollHeight || 0);
-      }
-    };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [open]);
 
   if (!hasAny) return null;
 
@@ -65,9 +41,9 @@ export function ProductDetailsSection({
       <div
         id={panelId}
         className="cfg-panel pf-details-panel"
-        style={{maxHeight: open ? height + 10 : 0}}
+        data-open={open}
       >
-        <div ref={contentRef} className="cfg-panel-inner">
+        <div className="cfg-panel-inner">
           <div className="pf-section__body pf-section__body--flex nice-scrollbar">
             <div className="configurator__meta">
               <ProductMetaAccordion
