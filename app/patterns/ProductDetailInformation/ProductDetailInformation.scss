@@ -69,6 +69,7 @@
 
     .teaser-duo__image img {
       aspect-ratio: auto;
+      width: 100%;
       height: auto;
     }
 
@@ -137,20 +138,25 @@
       align-items: stretch;
       height: calc(100vh - var(--header-h));
       overflow: hidden;
+      width: 100%;
+      height: auto;
+      border: 10px solid red;
     }
 
     .product-main__media {
       order: 0;
       width: 50%;
       aspect-ratio: 780 / 940;
+      width: 100%;
+      height: auto;
       min-height: 0;
-      height: 100%;
     }
 
     .product-main__info {
       width: 50%;
       aspect-ratio: 780 / 940;
-      height: 100%;
+      width: 100%;
+      height: auto;
     }
 
     .media-gallery,
@@ -173,11 +179,14 @@
 
       .teaser-duo__image img {
         aspect-ratio: auto;
+        width: 100%;
         height: auto;
       }
 
       img {
         aspect-ratio: 781 / 520;
+        width: 100%;
+        height: auto;
       }
     }
   }

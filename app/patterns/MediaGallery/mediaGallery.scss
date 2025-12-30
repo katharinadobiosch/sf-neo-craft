@@ -21,7 +21,6 @@
 /* Swiper-Basis */
 .nc-media-gallery .swiper {
   width: 100%;
-  max-width: var(--stage-max-w);
   height: 100%;
   position: relative; /* Anker für Buttons & Pagination */
 }
@@ -91,10 +90,6 @@
   .nc-media-gallery {
     --stage-min-h: 420px;
     height: 100%;
-  }
-
-  .nc-media-gallery .swiper {
-    width: min(100%, var(--stage-max-w));
   }
 
   .nc-media-gallery .swiper-button-prev,
