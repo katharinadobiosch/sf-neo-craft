@@ -9,7 +9,6 @@ export function ProductDetailsSection({
 }) {
   const [open, setOpen] = useState(false);
 
-  // stabiler, eindeutiger ID für aria-controls
   const reactId = useId();
   const panelId = `pf-details-${reactId}`;
 
@@ -37,6 +36,7 @@ export function ProductDetailsSection({
         </button>
       </div>
 
+      {/* Panel: bleibt im Layout, aber wird via CSS ein/ausgeblendet */}
       <div id={panelId} className="cfg-panel pf-details-panel" data-open={open}>
         <div className="cfg-panel-inner">
           <div className="pf-section__body pf-section__body--flex nice-scrollbar">

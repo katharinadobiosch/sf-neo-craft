@@ -32,34 +32,6 @@
   font-weight: var(--nc-head-mobil-weight);
 }
 
-.cfg-plus {
-  position: relative;
-  width: 18px;
-  height: 18px;
-  flex: 0 0 18px;
-}
-
-.cfg-plus::before,
-.cfg-plus::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 14px;
-  height: 2px;
-  background: var(--text-default);
-  transform: translate(-50%, -50%);
-  transition: transform 0.2s ease;
-}
-
-.cfg-plus.is-open::after {
-  transform: translate(-50%, -50%) rotate(0deg);
-}
-
-.configurator[data-variants-open='true'] .cfg-plus::after {
-  transform: translate(-50%, -50%) rotate(0deg);
-}
-
 .configurator .cfg-panel {
   overflow: hidden;
   opacity: 0;
@@ -342,4 +314,29 @@
   .configurator .cfg-item.is-color:hover .dot-ring {
     transform: scale(1.25);
   }
+}
+.cfg-plus {
+  position: relative;
+  width: 12px;
+  height: 12px;
+}
+
+.cfg-plus::before,
+.cfg-plus::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.cfg-plus::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.cfg-plus.is-open::after {
+  transform: translate(-50%, -50%) rotate(0deg);
 }
