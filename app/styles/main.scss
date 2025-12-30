@@ -514,10 +514,6 @@ button:disabled {
     max-height: calc(100vh - 420px);
     padding: 1rem 1.5rem 1rem 0;
   }
-
-  .pf-section__body--flex {
-    max-height: none;
-  }
 }
 
 /* =========================================================
@@ -650,11 +646,6 @@ button:disabled {
     transform: translate(-50%, -50%) rotate(90deg);
   }
 
-  /* geöffnet: wird zu Minus (wie beim cfg-plus) */
-  .shipping-plus::after {
-    transform: translate(-50%, -50%) rotate(90deg);
-  }
-
   .shipping-item[data-open='true'] .shipping-plus::after {
     transform: translate(-50%, -50%) rotate(0deg);
   }
@@ -773,8 +764,7 @@ button:disabled {
 /* Desktop: wie im Figma meist: rechts eine klare Trennlinie */
 @media (min-width: 768px) {
   .pf-panel-scroll {
-    max-height: none;
-    overflow: visible;
+    overflow: auto;
     padding-right: 0;
   }
 }
@@ -815,7 +805,6 @@ button:disabled {
 }
 
 .pf-panel--shipping .pf-panel-scroll {
-  max-height: none;
-  overflow: visible;
+  overflow: auto;
   padding-right: 0; /* optional, wenn scrollbar nicht gebraucht */
 }
