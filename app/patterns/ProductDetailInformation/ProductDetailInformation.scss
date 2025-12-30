@@ -489,7 +489,7 @@
   .shipping-item {
     border-top: 1px solid var(--text-default);
     padding: 0;
-    padding-left: 15px;
+    padding: 0 15px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -498,6 +498,12 @@
       border: 2px solid red;
       width: 163px;
     }
+  }
+
+  .shipping-item .cfg-toggle {
+    flex: 0 0 163px;
+    width: 163px;
+    min-width: 163px;
   }
 
   .shipping-panel {
