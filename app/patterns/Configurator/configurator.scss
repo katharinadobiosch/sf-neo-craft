@@ -36,6 +36,7 @@
   position: relative;
   width: 18px;
   height: 18px;
+  flex: 0 0 18px;
 }
 
 .cfg-plus::before,
@@ -48,13 +49,11 @@
   height: 2px;
   background: var(--text-default);
   transform: translate(-50%, -50%);
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
+  transition: transform 0.2s ease;
 }
 
-.configurator .cfg-plus::after {
-  transform: translate(-50%, -50%) rotate(90deg);
+.cfg-plus.is-open::after {
+  transform: translate(-50%, -50%) rotate(0deg);
 }
 
 .configurator[data-variants-open='true'] .cfg-plus::after {

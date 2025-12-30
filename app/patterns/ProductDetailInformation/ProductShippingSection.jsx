@@ -3,10 +3,9 @@ import {useId, useState} from 'react';
 export function ProductShippingSection({
   title = 'Lead time + shipping',
   lines = [],
-  defaultOpen = false,
   idPrefix = 'pf-shipping',
 }) {
-  const [open, setOpen] = useState(defaultOpen);
+  const [open, setOpen] = useState(false);
 
   const reactId = useId();
   const panelId = `${idPrefix}-${reactId}`;
@@ -17,14 +16,14 @@ export function ProductShippingSection({
     <div className="shipping-item" data-open={open}>
       <button
         type="button"
-        className="shipping-summary"
+        className="cfg-toggle"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
       >
         <span className="cfg-title">{title}</span>
         <span
-          className={`shipping-plus ${open ? 'is-open' : ''}`}
+          className={`cfg-plus ${open ? 'is-open' : ''}`}
           aria-hidden="true"
         />
       </button>

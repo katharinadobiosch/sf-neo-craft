@@ -6,9 +6,8 @@ export function ProductDetailsSection({
   mfOthers = [],
   product,
   title = 'Details',
-  defaultOpen = false,
 }) {
-  const [open, setOpen] = useState(defaultOpen);
+  const [open, setOpen] = useState(false);
 
   // stabiler, eindeutiger ID für aria-controls
   const reactId = useId();
@@ -38,11 +37,7 @@ export function ProductDetailsSection({
         </button>
       </div>
 
-      <div
-        id={panelId}
-        className="cfg-panel pf-details-panel"
-        data-open={open}
-      >
+      <div id={panelId} className="cfg-panel pf-details-panel" data-open={open}>
         <div className="cfg-panel-inner">
           <div className="pf-section__body pf-section__body--flex nice-scrollbar">
             <div className="configurator__meta">
