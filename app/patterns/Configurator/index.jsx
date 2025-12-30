@@ -1,6 +1,8 @@
 import {useRef, useState, useEffect} from 'react';
 import colors from './colors.json';
 
+const cx = (...classes) => classes.filter(Boolean).join(' ');
+
 const hexToRgba = (hex) => {
   const h = hex.replace('#', '');
   const hasAlpha = h.length === 8;
@@ -138,14 +140,24 @@ export function Configurator({
       optionSlug === 'größe' ||
       optionSlug === 'groesse';
 
+    const rowClass = cx(
+      'cfg-row',
+      colorish && 'cfg-row--color',
+      !colorish && 'cfg-row--chip',
+      isModel && 'cfg-row--model',
+      isSize && 'cfg-row--size',
+    );
+
+    const valuesClass = cx(
+      'cfg-values',
+      colorish ? 'cfg-values--color' : 'cfg-values--chip',
+    );
+
     return (
-      <div
-        className={`cfg-row ${colorish ? 'cfg-row--color' : ''} ${!colorish ? 'cfg-row--chip' : ''} ${isModel ? 'cfg-row--model' : ''} ${isSize ? 'cfg-row--size' : ''}`}
-        key={option.name}
-      >
+      <div className={rowClass} key={option.name}>
         <div className="cfg-label">{label}</div>
         <div
-          className={`cfg-values ${colorish ? 'cfg-values--color' : 'cfg-values--chip'}`}
+          className={valuesClass}
           data-option={optionSlug}
           data-count={!colorish ? option.optionValues.length : undefined}
         >
@@ -155,9 +167,14 @@ export function Configurator({
             return (
               <button
                 key={value.name}
-                className={`cfg-item ${colorish ? 'is-color' : 'is-chip'} ${selected ? 'is-selected' : ''}`}
+                className={cx(
+                  'cfg-item',
+                  colorish ? 'is-color' : 'is-chip',
+                  selected && 'is-selected',
+                )}
                 disabled={disabled}
                 title={value.name}
+                aria-label={value.name}
                 onClick={() => {
                   if (!selected) {
                     navigate(`?${value.variantUriQuery}`, {

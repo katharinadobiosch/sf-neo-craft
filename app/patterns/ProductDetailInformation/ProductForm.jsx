@@ -1,4 +1,4 @@
-import {useMemo, useState, useRef, useEffect} from 'react';
+import {useMemo} from 'react';
 import {useAside} from '~/patterns/Aside';
 import {useNavigate} from 'react-router';
 import {Configurator} from '../Configurator';
@@ -25,11 +25,6 @@ export function ProductForm({
 }) {
   const {open: openAside} = useAside();
   const navigate = useNavigate();
-
-  const [detailsOpen, setDetailsOpen] = useState(false); // default closed
-
-  // NEW: refs + heights
-  const detailsRef = useRef(null);
 
   const BLACKLIST = new Set([
     'series_hero',
