@@ -58,4 +58,16 @@
   --nc-head-mobil-size: 1.2rem;
   --nc-head-mobil-line: 2.2rem;
   --nc-head-mobil-weight: 500;
+
+  --pf-shipping-slot: 112px; /* fixed shipping slot height (96–120 acceptable) */
+
+  --pf-label-col: 100px; // desktop wie cfg-label
+  --pf-col-gap: 2rem; // Abstand zwischen Label und Values
+}
+
+@media (max-width: 767px) {
+  :root {
+    --pf-label-col: 84px; // mobile tuning
+    --pf-col-gap: 1.5rem;
+  }
 }

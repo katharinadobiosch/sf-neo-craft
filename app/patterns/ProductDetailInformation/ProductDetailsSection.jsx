@@ -1,0 +1,54 @@
+import {useId, useState} from 'react';
+import {ProductMetaAccordion} from '../ProductMetaAccordion';
+
+export function ProductDetailsSection({
+  mfMeasurements = [],
+  mfOthers = [],
+  product,
+  title = 'Details',
+}) {
+  const [open, setOpen] = useState(false);
+
+  const reactId = useId();
+  const panelId = `pf-details-${reactId}`;
+
+  const hasAny =
+    (Array.isArray(mfMeasurements) && mfMeasurements.length > 0) ||
+    (Array.isArray(mfOthers) && mfOthers.length > 0);
+
+  if (!hasAny) return null;
+
+  return (
+    <section className="pf-section pf-section--details" data-open={open}>
+      <div className="cfg-head">
+        <button
+          type="button"
+          className="cfg-toggle"
+          aria-expanded={open}
+          aria-controls={panelId}
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className="cfg-title">{title}</span>
+          <span
+            className={`cfg-plus ${open ? 'is-open' : ''}`}
+            aria-hidden="true"
+          />
+        </button>
+      </div>
+
+      {/* Panel: bleibt im Layout, aber wird via CSS ein/ausgeblendet */}
+      <div id={panelId} className="cfg-panel pf-details-panel" data-open={open}>
+        <div className="cfg-panel-inner">
+          <div className="pf-section__body pf-section__body--flex nice-scrollbar">
+            <div className="configurator__meta">
+              <ProductMetaAccordion
+                metafields={[...mfMeasurements, ...mfOthers]}
+                product={product}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

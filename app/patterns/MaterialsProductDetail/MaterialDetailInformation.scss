@@ -52,6 +52,8 @@
 
     img {
       aspect-ratio: 781/520;
+      width: 100%;
+      height: auto;
     }
   }
 
@@ -69,6 +71,7 @@
 
       .teaser-duo__image img {
         aspect-ratio: auto;
+        width: 100%;
         height: auto;
       }
 
@@ -87,8 +90,6 @@
     /* Special rule for the top teaser in the square-variant wrapper to keep the purple block contained */
     .square-variant .teaser-duo__content {
       width: 100%;
-      margin-left: 0;
-      padding: 2rem 1.6rem 2.6rem;
     }
   }
 }
@@ -111,11 +112,15 @@
   flex-direction: row;
   aspect-ratio: 1560 / 780;
   align-items: stretch;
+  width: 100%;
+  height: auto;
 
   &__media {
     display: flex;
     width: 50%;
     aspect-ratio: 780 / 940;
+    width: 100%;
+    height: auto;
 
     img {
       height: 100%;
@@ -127,7 +132,8 @@
   &__info {
     width: 50%;
     aspect-ratio: 780 / 940;
-    height: 100%;
+    width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
     /* ensure it can shrink inside flex layouts */
@@ -154,6 +160,8 @@
   .pdp .product-material {
     flex-direction: column; /* instead of row */
     aspect-ratio: auto;
+    width: 100%;
+    height: auto;
   }
 
   /* move gallery above configurator if desired */
@@ -163,7 +171,8 @@
 
   .pdp .product-material__media,
   .pdp .product-material__info {
-    width: 100%;
     aspect-ratio: auto;
+    width: 100%;
+    height: auto;
   }
 }

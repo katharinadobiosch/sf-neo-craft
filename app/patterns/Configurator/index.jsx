@@ -1,6 +1,8 @@
 import {useRef, useState, useEffect} from 'react';
 import colors from './colors.json';
 
+const cx = (...classes) => classes.filter(Boolean).join(' ');
+
 const hexToRgba = (hex) => {
   const h = hex.replace('#', '');
   const hasAlpha = h.length === 8;
@@ -131,19 +133,48 @@ export function Configurator({
 
     const label = option.name.charAt(0).toUpperCase() + option.name.slice(1); // 👈 hier
 
+    const optionSlug = option.name.toLowerCase().trim();
+    const isModel = optionSlug === 'model' || optionSlug === 'modell';
+    const isSize =
+      optionSlug === 'size' ||
+      optionSlug === 'größe' ||
+      optionSlug === 'groesse';
+
+    const rowClass = cx(
+      'cfg-row',
+      colorish && 'cfg-row--color',
+      !colorish && 'cfg-row--chip',
+      isModel && 'cfg-row--model',
+      isSize && 'cfg-row--size',
+    );
+
+    const valuesClass = cx(
+      'cfg-values',
+      colorish ? 'cfg-values--color' : 'cfg-values--chip',
+    );
+
     return (
-      <div className="cfg-row" key={option.name}>
+      <div className={rowClass} key={option.name}>
         <div className="cfg-label">{label}</div>
-        <div className="cfg-values">
+        <div
+          className={valuesClass}
+          data-option={optionSlug}
+          data-count={!colorish ? option.optionValues.length : undefined}
+        >
           {option.optionValues.map((value) => {
             const selected = !!value.selected;
             const disabled = !value.exists;
             return (
               <button
                 key={value.name}
-                className={`cfg-item ${colorish ? 'is-color' : 'is-chip'} ${selected ? 'is-selected' : ''}`}
+                className={cx(
+                  'cfg-item',
+                  colorish ? 'is-color' : 'is-chip',
+                  selected && 'is-selected',
+                )}
                 disabled={disabled}
                 title={value.name}
+                aria-label={value.name}
                 onClick={() => {
                   if (!selected) {
                     navigate(`?${value.variantUriQuery}`, {
@@ -216,6 +247,8 @@ export function Configurator({
                     <button
                       key={p.id}
                       type="button"
+                      title={label}
+                      aria-label={label}
                       className={`cfg-item is-chip ${isActive ? 'is-selected' : ''}`}
                       onClick={() => onChangeSeriesProduct(index)}
                     >

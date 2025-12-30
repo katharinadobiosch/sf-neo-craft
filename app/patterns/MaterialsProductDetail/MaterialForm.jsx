@@ -112,8 +112,8 @@ export function MaterialForm({
   return (
     <div className="product-form">
       {/* Upper area: configurator + details */}
-      <div className="product-form-scroller">
-        {hasDetails && <div className="details-test">Details</div>}
+      <div className="product-form__scroller">
+        {hasDetails && <div className="product-form__details">Details</div>}
 
         {/* {hasDetails && (
           <div className="configurator__meta">

@@ -23,7 +23,6 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 1.5rem;
   }
 
   .product-main__media {
@@ -70,6 +69,7 @@
 
     .teaser-duo__image img {
       aspect-ratio: auto;
+      width: 100%;
       height: auto;
     }
 
@@ -88,8 +88,6 @@
   /* verhindert Overflow im quadratischen oberen Teaser */
   .square-variant .teaser-duo__content {
     width: 100%;
-    margin-left: 0;
-    padding: 2rem 1.6rem 2.6rem;
   }
 }
 
@@ -106,14 +104,14 @@
   height: auto;
 }
 
-.product-form-scroller {
+.product-form__scroller {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
   margin: 0;
 }
 
-.details-test {
+.product-form__details {
   font-size: var(--nc-konfigurator-head-desktop-size);
   line-height: var(--nc-konfigurator-head-desktop-line);
   font-weight: var(--nc-konfigurator-head-desktop-weight);
@@ -126,6 +124,7 @@
   top: auto;
   background: #fff;
   z-index: 3;
+  margin-right: 0.75rem;
 }
 
 @media (min-width: 768px) {
@@ -139,20 +138,25 @@
       align-items: stretch;
       height: calc(100vh - var(--header-h));
       overflow: hidden;
+      width: 100%;
+      height: auto;
+      border: 10px solid red;
     }
 
     .product-main__media {
       order: 0;
       width: 50%;
       aspect-ratio: 780 / 940;
+      width: 100%;
+      height: auto;
       min-height: 0;
-      height: 100%;
     }
 
     .product-main__info {
       width: 50%;
       aspect-ratio: 780 / 940;
-      height: 100%;
+      width: 100%;
+      height: auto;
     }
 
     .media-gallery,
@@ -162,10 +166,27 @@
     }
 
     .pdp__teaser-duo {
-      margin: 3rem 0 0 0;
+      .teaser-duo__images {
+        flex-direction: row;
+        width: 100%;
+        display: flex;
+        gap: 0;
+      }
+
+      .teaser-duo__image {
+        width: 50%;
+      }
+
+      .teaser-duo__image img {
+        aspect-ratio: auto;
+        width: 100%;
+        height: auto;
+      }
 
       img {
         aspect-ratio: 781 / 520;
+        width: 100%;
+        height: auto;
       }
     }
   }
@@ -177,5 +198,382 @@
   .product-form__configurator {
     position: sticky;
     top: 0;
+    padding-left: 15px;
+  }
+}
+
+/* =========================================================
+   SHARED CTA BAR (PDP + Materials)
+   ========================================================= */
+
+.pdp__cta-container {
+  flex: 0 0 auto;
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin-top: 1.5rem;
+  padding: 0.25rem 0;
+  background: var(--sf-white);
+  box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.08);
+  height: 72px;
+}
+
+.pdp__cta-container .cfg-cta {
+  flex: 1 1 auto;
+  min-width: 0;
+
+  display: grid;
+  grid-template-columns: 64px 120px 1fr;
+  align-items: stretch;
+
+  border: 1px solid var(--color-dark);
+  background: var(--sf-white);
+  color: var(--color-dark);
+}
+
+.pdp__cta-container .cfg-cta.is-active {
+  background: var(--color-dark);
+  color: var(--sf-white);
+}
+
+.pdp__cta-container .cfg-cta.is-idle {
+  background: var(--sf-white);
+  color: var(--color-dark);
+}
+
+.pdp__cta-container .cfg-cta .cta-arrow,
+.pdp__cta-container .cfg-cta .cta-price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdp__cta-container .cfg-cta .cta-arrow {
+  font-size: 18px;
+}
+
+.pdp__cta-container .cfg-cta .cta-price {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pdp__cta-container .cfg-cta form {
+  height: 100%;
+  width: 100%;
+}
+
+.pdp__cta-container .cfg-cta form > button {
+  all: unset;
+  cursor: pointer;
+
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 600;
+}
+
+.pdp__cta-container .cfg-cta form > button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.pdp__cta-container .pdp__question {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .pdp__cta-container {
+    position: static;
+    bottom: auto;
+    padding: 0;
+    margin-top: 1rem;
+    box-shadow: none;
+  }
+
+  .pdp__cta-container .cfg-cta {
+    grid-template-columns: 72px 140px 1fr;
+  }
+
+  .pdp__cta-container .pdp__question {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    width: 320px;
+    border: 1px solid var(--color-dark);
+    background: var(--sf-white);
+    color: var(--color-dark);
+    font-size: 12px;
+  }
+
+  .pdp__cta-container .pdp__question:hover {
+    background: var(--color-dark);
+    color: var(--sf-white);
+  }
+}
+
+/* =========================================================
+   PDP: segmented layout (fixed slots + inner scroll)
+   ========================================================= */
+
+.product-form--segmented {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-height: 0;
+  height: 100%;
+}
+
+@media (max-width: 767px) {
+  .product-form--segmented {
+    height: 100vh;
+  }
+}
+
+.product-form--segmented .product-form__configurator {
+  flex: 0 0 auto;
+}
+
+.product-form--segmented .product-form__sections {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* =========================================================
+   Shared toggle (Details / Shipping header buttons)
+   ========================================================= */
+
+/* =========================================================
+   Shared controls: toggle button + plus/minus icon
+   Single source of truth
+   ========================================================= */
+
+.cfg-toggle {
+  all: unset;
+  width: 100%;
+  min-height: 44px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1.2rem 0;
+}
+
+@media (min-width: 768px) {
+  .cfg-toggle {
+    width: 200px;
+    min-height: 0;
+    padding: 1.5rem 0;
+  }
+}
+
+/* Plus/Minus icon (default: plus; open: minus) */
+.cfg-plus {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  color: currentColor;
+}
+
+.cfg-plus::before,
+.cfg-plus::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease;
+}
+
+/* vertical stroke = plus */
+.cfg-plus::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* open = minus (remove vertical stroke by rotating to horizontal) */
+.cfg-plus.is-open::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* =========================================================
+   Details section panel
+   ========================================================= */
+
+.pf-section--details {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+@media (min-width: 768px) {
+  .pf-section--details {
+    padding-left: 15px;
+  }
+}
+
+.pf-section--details .cfg-head {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 3;
+}
+
+/* closed by default */
+.pf-section--details .cfg-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* open */
+.pf-section--details .cfg-panel[data-open='true'] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  display: flex;
+}
+
+.pf-section--details .cfg-panel-inner {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.pf-section--details .pf-section__body--flex {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+}
+
+/* =========================================================
+   Shipping (fixed small slot)
+   ========================================================= */
+
+.shipping-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  flex: 0 0 var(--pf-shipping-slot, 120px);
+  min-height: 0;
+  overflow: hidden;
+
+  border-top: 1px solid var(--color-dark);
+  padding: 1rem 0;
+}
+
+@media (min-width: 768px) {
+  .shipping-item {
+    border-top: 1px solid var(--text-default);
+    padding: 0;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .shipping-item .cfg-toggle {
+    flex: 0 0 200px;
+    width: 200px;
+    min-width: 200px;
+  }
+
+  .shipping-panel {
+    padding-left: 2rem;
+    gap: 0;
+  }
+}
+
+.shipping-summary {
+  all: unset;
+  width: 100%;
+  min-height: 44px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1.2rem 0;
+}
+
+@media (min-width: 768px) {
+  .shipping-summary {
+    min-height: 0;
+    padding: 1.5rem 0;
+    width: 200px;
+  }
+}
+
+/* =========================================================
+   Shared collapsible panel (shipping content)
+   ========================================================= */
+
+.pf-panel {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition: opacity 0.2s ease;
+}
+
+.pf-panel[data-open='true'] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  display: flex;
+}
+
+.pf-panel-inner {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .pf-panel-inner {
+    padding-top: 1rem;
+  }
+}
+
+.pf-panel-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .pf-panel-scroll {
+    padding-right: 0;
   }
 }

@@ -33,6 +33,8 @@
   .hs-leftTop {
     grid-area: leftTop;
     aspect-ratio: var(--hs-leftTop-aspect);
+    width: 100%;
+    height: auto;
   }
   .hs-leftBottom {
     display: none;
@@ -41,11 +43,15 @@
       display: block;
       grid-area: leftBottom;
       aspect-ratio: var(--hs-leftBottom-aspect);
+      width: 100%;
+      height: auto;
     }
   }
   .hs-right {
     grid-area: right;
     aspect-ratio: var(--hs-right-aspect);
+    width: 100%;
+    height: auto;
   }
 
   /* Responsive – unter 900px einspaltig */

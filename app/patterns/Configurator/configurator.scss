@@ -1,3 +1,7 @@
+/* =========================================================
+   CONFIGURATOR (component scoped)
+   ========================================================= */
+
 .configurator {
   --muted: #6b6b6b;
   --divider: #d9d9d9;
@@ -13,15 +17,12 @@
   color: var(--text-default);
 }
 
-.configurator .cfg-toggle {
-  all: unset;
-  width: auto;
-  min-height: 44px;
-  cursor: pointer;
+/* Head / Toggle wrapper (cfg-toggle kommt aus shared) */
+.configurator .cfg-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1.2rem 0;
+  gap: 0.75rem;
+  margin-bottom: 0.2rem;
 }
 
 .cfg-title,
@@ -31,35 +32,7 @@
   font-weight: var(--nc-head-mobil-weight);
 }
 
-.cfg-plus {
-  position: relative;
-  width: 18px;
-  height: 18px;
-}
-
-.cfg-plus::before,
-.cfg-plus::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 14px;
-  height: 2px;
-  background: var(--text-default);
-  transform: translate(-50%, -50%);
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.configurator .cfg-plus::after {
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.configurator[data-variants-open='true'] .cfg-plus::after {
-  transform: translate(-50%, -50%) rotate(0deg);
-}
-
+/* Panel */
 .configurator .cfg-panel {
   overflow: hidden;
   opacity: 0;
@@ -74,12 +47,7 @@
 
 .configurator .cfg-panel-inner {
   padding-top: 0.5rem;
-}
-
-.configurator .cfg-head {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
+  gap: 0.4rem;
 }
 
 .configurator .cfg-head__label {
@@ -90,50 +58,80 @@
   flex: 1 1 auto;
 }
 
+/* Rows */
 .configurator .cfg-row {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.8rem 0 1.2rem 0;
+  gap: 0.45rem;
+  padding: 0.5rem 0 0.9rem;
+  margin-bottom: 1rem;
 }
 
 .configurator .cfg-row::before {
   content: none;
 }
 
+/* Labels */
 .configurator .cfg-label {
   flex: 0 0 auto;
-  font-size: var(--nc-head-mobil-size);
-  line-height: var(--nc-head-mobil-line);
-  font-weight: var(--nc-head-mobil-weight);
+  font-size: 12px;
+  line-height: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-muted, #5a5a5a);
 }
 
+/* Values container */
 .configurator .cfg-values {
   flex: 1 1 auto;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 1.2rem;
+  gap: 3rem;
   margin-right: 0;
 }
 
+.configurator .cfg-values--color {
+  display: flex;
+  gap: 2rem;
+}
+
+/* Chips */
 .configurator .cfg-item.is-chip {
   all: unset;
   cursor: pointer;
-  min-width: 44px;
   min-height: 44px;
-  padding: 0.4rem 1.1rem;
-  border-radius: 999px;
-  background: var(--chip-bg);
-  border: 1px solid transparent;
+  padding: 0.2rem 0;
+
+  display: inline-flex;
+  align-items: center;
+  text-align: left;
+
+  font-size: 16px;
+  line-height: 1.3;
+  font-weight: 400;
+
+  position: relative;
+  transition:
+    opacity 0.12s ease,
+    color 0.12s ease;
 }
 
 .configurator .cfg-item.is-chip.is-selected {
-  font-weight: 600;
-  border-color: #000;
-  background: #fff;
+  font-weight: 500;
+}
+
+.configurator .cfg-item.is-chip.is-selected::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.6;
 }
 
 .configurator .cfg-item.is-chip:disabled {
@@ -141,39 +139,53 @@
   cursor: not-allowed;
 }
 
+.configurator .cfg-item.is-chip:active {
+  opacity: 0.65;
+}
+
+/* Color dots */
 .configurator .cfg-item.is-color {
   all: unset;
   cursor: pointer;
   width: 44px;
   height: 44px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
+  opacity: 0.85;
+  transition:
+    transform 0.12s ease,
+    opacity 0.12s ease;
 }
 
 .configurator .cfg-item.is-color .dot-ring {
   width: 32px;
   height: 32px;
-  border: 1px solid #cfcfcf;
   border-radius: 999px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   background: #fff;
+  border: 2px solid transparent;
+  transition:
+    transform 0.12s ease,
+    border-color 0.12s ease;
 }
 
 .configurator .cfg-item.is-color .dot {
   width: 28px;
   height: 28px;
   border-radius: 999px;
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.06);
 }
 
 .configurator .cfg-item.is-color.is-selected .dot-ring {
   border-color: var(--ring);
-  box-shadow:
-    0 0 0 2px #fff,
-    0 0 0 3px var(--ring);
+  box-shadow: 0 0 0 2px #fff;
 }
 
 .configurator .cfg-item.is-color:disabled {
@@ -181,19 +193,13 @@
   cursor: not-allowed;
 }
 
-@media (min-width: 768px) {
-  .configurator {
-    flex: 0 0 auto;
-    font-size: var(--nc-konfigurator-desktop-size);
-    line-height: var(--nc-konfigurator-desktop-line);
-    font-weight: var(--nc-konfigurator-desktop-weight);
-  }
+.configurator .cfg-item.is-color:active {
+  transform: scale(0.98);
+  opacity: 0.92;
+}
 
-  .configurator .cfg-toggle {
-    width: 163px;
-    min-height: 0;
-    padding: 1.5rem 0 1.5rem 0;
-  }
+/* Desktop overrides */
+@media (min-width: 768px) {
   .cfg-title,
   .acc-title {
     font-size: var(--nc-konfigurator-head-desktop-size);
@@ -210,51 +216,39 @@
   }
 
   .configurator .cfg-head .cfg-toggle {
-    flex: 0 0 163px;
+    flex: 0 0 200px; /* cfg-toggle kommt aus shared */
   }
 
   .configurator .cfg-head__label {
     flex: 0 0 100px;
   }
 
-  .configurator .cfg-head__values {
-    flex: 1 1 auto;
-  }
-
   .configurator .cfg-row {
     flex-direction: row;
     align-items: center;
-    gap: 1rem;
-    padding: 0.5rem 0 1.5rem 0;
+    padding: 0.5rem 0 4.5rem;
+    margin-bottom: 0;
+    gap: var(--pf-col-gap);
   }
 
   .configurator .cfg-row::before {
     content: '';
-    flex: 0 0 163px;
+    flex: 0 0 200px;
   }
 
   .configurator .cfg-label {
-    flex: 0 0 100px;
-    font-size: inherit;
-    line-height: inherit;
-    font-weight: inherit;
+    flex: 0 0 var(--pf-label-col);
   }
 
   .configurator .cfg-values {
-    flex: 1 1 auto;
     gap: 2rem;
     margin-right: 2rem;
   }
 
   .configurator .cfg-item.is-chip {
-    all: unset;
-    cursor: pointer;
-    min-width: auto;
     min-height: auto;
     padding: 0;
-    border-radius: 0;
-    background: transparent;
-    border: none;
+    font-size: 15px;
   }
 
   .configurator .cfg-item.is-color {
@@ -270,5 +264,9 @@
   .configurator .cfg-item.is-color .dot {
     width: 20px;
     height: 20px;
+  }
+
+  .configurator .cfg-item.is-color:hover .dot-ring {
+    transform: scale(1.25);
   }
 }

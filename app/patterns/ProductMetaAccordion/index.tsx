@@ -124,6 +124,10 @@ function buildItems(normalizedArray: NormalizedNode[]) {
   for (const def of FIELD_CONFIG) {
     if (EXCLUDE_FQ_KEYS.has(def.fqKey)) continue;
 
+    // ✅ NEU: wenn label leer ist -> Item niemals rendern
+    const label = String(def.label ?? '').trim();
+    if (!label) continue;
+
     const n = byKey.get(def.key) || byKey.get(def.fqKey);
     if (!n) continue;
 
@@ -133,7 +137,7 @@ function buildItems(normalizedArray: NormalizedNode[]) {
       const txt = metaobjectListToText(n);
       if (!txt.trim()) continue;
       items.push({
-        label: def.label,
+        label,
         fqKey: def.fqKey,
         type: 'text',
         value: txt,
@@ -145,7 +149,7 @@ function buildItems(normalizedArray: NormalizedNode[]) {
       const imgs = fileRefListToImgs(n);
       if (!imgs.length) continue;
       items.push({
-        label: def.label,
+        label,
         fqKey: def.fqKey,
         type: 'images',
         images: imgs,
@@ -158,7 +162,8 @@ function buildItems(normalizedArray: NormalizedNode[]) {
       : (n.display ?? '');
     const val = String(raw ?? '').trim();
     if (!val) continue;
-    items.push({label: def.label, fqKey: def.fqKey, type: 'text', value: val});
+
+    items.push({label, fqKey: def.fqKey, type: 'text', value: val});
   }
 
   const byFqKey = new Map<string, BuiltItem>();
@@ -181,6 +186,7 @@ export function ProductMetaAccordion({
 
   const visibleItems = useMemo(() => {
     return items.filter((item) => {
+      if (!String(item.label ?? '').trim()) return false;
       if (item.type === 'text') return Boolean(item.value?.trim());
       if (item.type === 'images')
         return Array.isArray(item.images) && item.images.length > 0;
@@ -209,7 +215,7 @@ export function ProductMetaAccordion({
             <details key={item.fqKey} className="acc-item">
               <summary>
                 <span className="acc-title">{item.label}</span>
-                <span className="acc-plus" aria-hidden />
+                <span className="acc-plus" aria-hidden="true" />
               </summary>
 
               <div className="acc-panel">
@@ -232,12 +238,12 @@ export function ProductMetaAccordion({
                           aria-label={item.label}
                         >
                           <div
-                            className="m-grid"
+                            className="meta-accordion__images-grid"
                             data-count={item.images.length}
                           >
                             {item.images.map((img, i) => (
                               <figure
-                                className="m-fig"
+                                className="meta-accordion__images-figure"
                                 key={`${item.fqKey}-${i}`}
                               >
                                 <img
