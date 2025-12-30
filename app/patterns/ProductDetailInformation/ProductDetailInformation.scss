@@ -374,7 +374,7 @@
 
 @media (min-width: 768px) {
   .cfg-toggle {
-    width: 163px;
+    width: 200px;
     min-height: 0;
     padding: 1.5rem 0;
   }
@@ -493,17 +493,12 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-
-    button {
-      border: 2px solid red;
-      width: 163px;
-    }
   }
 
   .shipping-item .cfg-toggle {
-    flex: 0 0 163px;
-    width: 163px;
-    min-width: 163px;
+    flex: 0 0 200px;
+    width: 200px;
+    min-width: 200px;
   }
 
   .shipping-panel {
@@ -529,7 +524,7 @@
   .shipping-summary {
     min-height: 0;
     padding: 1.5rem 0;
-    width: 163px;
+    width: 200px;
   }
 }
 

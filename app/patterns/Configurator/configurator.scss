@@ -216,7 +216,7 @@
   }
 
   .configurator .cfg-head .cfg-toggle {
-    flex: 0 0 163px; /* cfg-toggle kommt aus shared */
+    flex: 0 0 200px; /* cfg-toggle kommt aus shared */
   }
 
   .configurator .cfg-head__label {
@@ -233,7 +233,7 @@
 
   .configurator .cfg-row::before {
     content: '';
-    flex: 0 0 163px;
+    flex: 0 0 200px;
   }
 
   .configurator .cfg-label {
