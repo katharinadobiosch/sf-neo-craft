@@ -123,6 +123,13 @@
     width: 100%;
   }
 
+  .meta-accordion .acc-item > summary {
+    display: grid;
+    grid-template-columns: var(--pf-label-col) 1fr auto;
+    column-gap: var(--pf-col-gap);
+    align-items: center;
+  }
+
   .meta-accordion summary {
     flex-shrink: 0;
     width: 163px;
@@ -155,6 +162,7 @@
 
   .meta-accordion .acc-panel {
     padding-left: 2rem;
+    grid-column: 2 / -1;
   }
 
   .meta-accordion .acc-images {
