@@ -1,3 +1,9 @@
+/* ProductDetailInformation.scss (full file) */
+
+/* =========================================================
+   PDP base
+   ========================================================= */
+
 .pdp {
   display: flex;
   flex-direction: column;
@@ -23,6 +29,7 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    min-width: 0;
   }
 
   .product-main__media {
@@ -31,6 +38,7 @@
     min-height: 320px;
     display: flex;
     align-items: stretch;
+    min-width: 0;
 
     img {
       height: 100%;
@@ -45,6 +53,7 @@
     flex-direction: column;
     min-height: 0;
     gap: 1.5rem;
+    min-width: 0;
   }
 
   .media-gallery,
@@ -53,10 +62,11 @@
     width: 100%;
     min-height: 320px;
     height: auto;
+    min-width: 0;
   }
 
   .pdp__teaser-duo {
-    margin: 0 0 0 0;
+    margin: 0;
 
     .teaser-duo__images {
       flex-direction: column;
@@ -69,8 +79,8 @@
 
     .teaser-duo__image img {
       aspect-ratio: auto;
-      width: 100%;
       height: auto;
+      width: 100%;
     }
 
     .teaser-duo__content {
@@ -116,7 +126,7 @@
   line-height: var(--nc-konfigurator-head-desktop-line);
   font-weight: var(--nc-konfigurator-head-desktop-weight);
   width: auto;
-  padding: 1.5rem 0 1.5rem 0;
+  padding: 1.5rem 0;
 }
 
 .product-form__configurator {
@@ -124,10 +134,119 @@
   top: auto;
   background: #fff;
   z-index: 3;
-  margin-right: 0.75rem;
 }
 
-@media (min-width: 768px) {
+/* =========================================================
+   HARD mobile lock (prevents weird mid-width breakage)
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .pdp {
+    .product-main {
+      flex-direction: column !important;
+    }
+
+    .product-main__media,
+    .product-main__info {
+      width: 100% !important;
+      max-width: 100% !important;
+      flex: 0 0 auto !important;
+    }
+
+    .product-main__media {
+      min-height: 320px;
+      height: auto;
+    }
+
+    .media-gallery,
+    .nc-media-gallery {
+      height: auto;
+      min-height: 320px;
+    }
+  }
+
+  .product-form__configurator {
+    position: static !important;
+    top: auto !important;
+  }
+}
+
+/* =========================================================
+   Tablet: 50/50 split WITHOUT fragile constraints
+   (this is what usually breaks around ~794px)
+   ========================================================= */
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .pdp {
+    gap: 0;
+    margin: 2rem 0;
+
+    .product-main {
+      flex-direction: row;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    /* enforce real 50/50 even if other rules set width:100% somewhere */
+    .product-main__media,
+    .product-main__info {
+      flex: 0 0 50%;
+      max-width: 50%;
+      width: auto;
+      min-width: 0;
+    }
+
+    .product-main__media {
+      order: 0;
+      min-height: 0;
+      height: auto; /* no forced 100% height */
+    }
+
+    .product-main__info {
+      height: auto;
+    }
+
+    .media-gallery,
+    .nc-media-gallery {
+      height: auto; /* avoid 100% height collapsing/overflow */
+      min-height: var(--stage-min-h, 420px);
+    }
+
+    .pdp__teaser-duo {
+      .teaser-duo__images {
+        flex-direction: row;
+        width: 100%;
+        display: flex;
+        gap: 0;
+      }
+
+      .teaser-duo__image {
+        width: 50%;
+      }
+
+      .teaser-duo__image img {
+        aspect-ratio: auto;
+        height: auto;
+        width: 100%;
+      }
+    }
+  }
+
+  .product-main .product-form {
+    height: auto;
+  }
+
+  .product-form__configurator {
+    position: static;
+    top: auto;
+  }
+}
+
+/* =========================================================
+   Desktop: your "designed" layout (aspect-ratio + sticky etc.)
+   ========================================================= */
+
+@media (min-width: 992px) {
   .pdp {
     gap: 0;
     margin: 3rem 0;
@@ -138,24 +257,25 @@
       align-items: stretch;
       height: calc(100vh - var(--header-h));
       overflow: hidden;
-      width: 100%;
-      height: auto;
+    }
+
+    .product-main__media,
+    .product-main__info {
+      flex: 0 0 50%;
+      max-width: 50%;
+      min-width: 0;
     }
 
     .product-main__media {
       order: 0;
-      width: 50%;
       aspect-ratio: 780 / 940;
-      width: 100%;
-      height: auto;
       min-height: 0;
+      height: 100%;
     }
 
     .product-main__info {
-      width: 50%;
       aspect-ratio: 780 / 940;
-      width: 100%;
-      height: auto;
+      height: 100%;
     }
 
     .media-gallery,
@@ -173,15 +293,7 @@
       }
 
       .teaser-duo__image {
-        aspect-ratio: 780 / 519;
-        width: 100%;
-        height: auto;
-      }
-
-      .teaser-duo__image img {
-        aspect-ratio: auto;
-        width: 100%;
-        height: auto;
+        width: 50%;
       }
 
       img {
@@ -199,7 +311,6 @@
   .product-form__configurator {
     position: sticky;
     top: 0;
-    padding-left: 15px;
   }
 }
 
@@ -216,13 +327,19 @@
   bottom: 0;
   z-index: 5;
 
-  padding: 10px 0;
+  padding: 10px 0 12px;
   background: transparent;
   box-shadow: none;
   height: auto;
 
-  /* gibt dem "floating bar" Look Luft zum Atmen */
   backdrop-filter: blur(8px);
+}
+
+/* CTA stack on mobile: bar + secondary row */
+.pdp__cta-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
 }
 
 /* Outer "card" */
@@ -236,10 +353,10 @@
 
   background: var(--cta-bg);
 
-  height: 4rem
+  height: 4rem;
 }
 
-/* Left cells: ruhig, nicht invertiert */
+/* Left cells */
 .pdp__cta-container .cfg-cta .cta-arrow,
 .pdp__cta-container .cfg-cta .cta-price {
   display: flex;
@@ -259,17 +376,23 @@
   white-space: nowrap;
 }
 
-/* Divider lines innerhalb der Card (subtil) */
+/* Divider lines within the card */
 .pdp__cta-container .cfg-cta .cta-arrow {
   border-right: 1px solid
     color-mix(in oklab, var(--color-dark) 10%, transparent);
 }
+
 .pdp__cta-container .cfg-cta .cta-price {
   border-right: 1px solid
     color-mix(in oklab, var(--color-dark) 10%, transparent);
 }
 
-/* Button-Bereich: Akzentfläche statt komplett schwarz */
+.pdp__cta-container .cfg-cta form {
+  height: 100%;
+  width: 100%;
+}
+
+/* Button */
 .pdp__cta-container .cfg-cta form > button {
   all: unset;
   cursor: pointer;
@@ -284,30 +407,20 @@
   font-weight: 650;
   letter-spacing: 0.01em;
 
-  /* Akzent */
-  background: var(--color-dark);
-  color: #fff;
-
   transition:
     transform 0.12s ease,
     filter 0.12s ease,
     opacity 0.12s ease;
 }
 
-/* Active/Idle differenzieren: Idle nicht schwarz, sondern neutral */
-.pdp__cta-container .cfg-cta.is-idle form > button {
-  background: color-mix(in oklab, var(--color-dark) 8%, #fff);
-  color: color-mix(in oklab, var(--color-dark) 75%, transparent);
-  cursor: not-allowed;
-}
-
-/* Active: minimal "premium" Touch über subtile Highlight-Kante */
+/* Active: subtle gradient highlight */
 .pdp__cta-container .cfg-cta.is-active form > button {
   background: linear-gradient(
     to bottom,
     color-mix(in oklab, var(--cta-accent) 14%, var(--color-dark) 86%),
     var(--color-dark)
   );
+  color: #fff;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
@@ -316,37 +429,57 @@
   filter: brightness(0.98);
 }
 
+/* Idle */
+.pdp__cta-container .cfg-cta.is-idle form > button,
 .pdp__cta-container .cfg-cta form > button:disabled {
-  opacity: 1; /* idle-style regelt das; nicht zusätzlich ausgrauen */
+  background: color-mix(in oklab, var(--color-dark) 8%, #fff);
+  color: color-mix(in oklab, var(--color-dark) 75%, transparent);
+  cursor: not-allowed;
 }
 
-/* Desktop: etwas größer, weniger "floating", mehr inline */
-@media (min-width: 768px) {
+/* Secondary: Further Questions (mobile row) */
+.pdp__cta-container .pdp__question {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+
+  border: 1px solid var(--cta-border);
+  background: #fff;
+
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: color-mix(in oklab, var(--color-dark) 75%, transparent);
+
+  /* feels intentional, not "lost" */
+  text-transform: uppercase;
+}
+
+.pdp__cta-container .pdp__question:hover {
+  background: color-mix(in oklab, var(--color-dark) 4%, #fff);
+  color: var(--color-dark);
+}
+
+/* Desktop: inline (CTA + question side by side) */
+@media (min-width: 992px) {
   .pdp__cta-container {
     position: static;
     backdrop-filter: none;
     padding: 0;
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
   }
 
   .pdp__cta-container .cfg-cta {
-    margin: 0;
-    border-radius: 0;
-    box-shadow: none;
     grid-template-columns: 64px 140px 1fr;
     background: #fff;
+    height: 72px;
   }
 
-  .pdp__cta-container .cfg-cta form > button {
-    background: var(--color-dark);
-    color: #fff;
-  }
-
-  .pdp__cta-container .cfg-cta.is-active form > button {
-    background: linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--cta-accent) 10%, var(--color-dark) 90%),
-      var(--color-dark)
-    );
+  .pdp__cta-container .pdp__question {
+    width: 320px;
+    min-height: 72px;
   }
 }
 
@@ -382,12 +515,7 @@
 }
 
 /* =========================================================
-   Shared toggle (Details / Shipping header buttons)
-   ========================================================= */
-
-/* =========================================================
    Shared controls: toggle button + plus/minus icon
-   Single source of truth
    ========================================================= */
 
 .cfg-toggle {
@@ -403,7 +531,7 @@
   padding: 1.2rem 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .cfg-toggle {
     width: 200px;
     min-height: 0;
@@ -411,7 +539,6 @@
   }
 }
 
-/* Plus/Minus icon (default: plus; open: minus) */
 .cfg-plus {
   position: relative;
   width: 12px;
@@ -433,31 +560,26 @@
   transition: transform 0.2s ease;
 }
 
-/* vertical stroke = plus */
 .cfg-plus::after {
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-/* open = minus (remove vertical stroke by rotating to horizontal) */
 .cfg-plus.is-open::after {
   transform: translate(-50%, -50%) rotate(0deg);
 }
 
 /* =========================================================
-   Details: closed = nur Header (kein Whitespace)
+   Details: closed = only header
    ========================================================= */
 
-/* Section selbst soll im closed state nicht "resthöhe" fressen */
 .pf-section--details {
   flex: 0 0 auto;
 }
 
-/* Panel: closed -> komplett weg */
 .pf-section--details .cfg-panel[data-open='false'] {
   display: none;
 }
 
-/* Panel: open -> sichtbar + nimmt Platz ein */
 .pf-section--details .cfg-panel[data-open='true'] {
   display: flex;
   flex: 1 1 auto;
@@ -468,23 +590,19 @@
   pointer-events: auto;
 }
 
-/* Optional: Toggle im Details-Bereich kompakter auf Mobile */
 .pf-section--details .cfg-toggle {
   padding: 0.9rem 0;
 }
 
-/* Panel spacing etwas straffer (mobile) */
 .pf-section--details .cfg-panel-inner {
   padding-top: 0.35rem;
 }
 
-/* Scrollarea: weniger "Inset" */
 .pf-section--details .pf-section__body--flex {
   padding-right: 0;
 }
 
-/* Desktop: darf wieder wie geplant wachsen */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .pf-section--details {
     flex: 1 1 auto;
   }
@@ -492,48 +610,39 @@
   .pf-section--details .cfg-toggle {
     padding: 1.5rem 0;
   }
-
-  .pf-section--details .cfg-panel[data-open='true'] {
-    display: flex;
-  }
 }
 
 /* =========================================================
-   Shipping: closed = nur Header (keine weiße Fläche)
+   Shipping: closed = only header
    ========================================================= */
 
-/* Grundlayout kompakt */
 .shipping-item {
-  padding: 0; /* kein Extra-Weißraum */
+  padding: 0;
   gap: 0;
   border-top: 1px solid var(--color-dark);
 }
 
-/* Header (Toggle) etwas weniger hoch, aber Touch bleibt */
 .shipping-item .cfg-toggle {
-  padding: 0.8rem 0; /* kompakt */
+  padding: 0.8rem 0;
   min-height: 44px;
 }
 
-/* Panel: wenn zu -> komplett weg (nimmt keinen Platz ein) */
 .shipping-item .pf-panel[data-open='false'] {
   display: none;
 }
 
-/* Panel: wenn offen -> sauberer Abstand nach unten */
 .shipping-item .pf-panel[data-open='true'] {
-  display: block; /* statt flex */
+  display: block;
 }
 
 .shipping-item .pf-panel-inner {
-  padding: 0.35rem 0 0.9rem; /* top/bottom spacing nur im open state */
+  padding: 0.35rem 0 0.9rem;
 }
 
 .shipping-item .pf-panel-scroll {
   padding-right: 0;
 }
 
-/* Textblock kompakt */
 .shipping-item .shipping-panel {
   display: grid;
   gap: 0.2rem;
@@ -542,8 +651,7 @@
   color: color-mix(in oklab, var(--text-default) 85%, transparent);
 }
 
-/* Desktop bleibt wie gehabt / optional leicht luftiger */
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .shipping-item {
     padding: 0 15px;
     display: flex;
@@ -554,11 +662,6 @@
   .shipping-item .cfg-toggle {
     padding: 1.5rem 0;
     min-height: 0;
-  }
-
-  /* Desktop: closed auch wirklich nur Header */
-  .shipping-item .pf-panel[data-open='false'] {
-    display: none;
   }
 
   .shipping-item .pf-panel-inner {
@@ -574,7 +677,7 @@
 }
 
 /* =========================================================
-   Shared collapsible panel (shipping content)
+   Shared collapsible panel
    ========================================================= */
 
 .pf-panel {
@@ -604,7 +707,7 @@
   padding-top: 0.5rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .pf-panel-inner {
     padding-top: 1rem;
   }
@@ -617,7 +720,7 @@
   padding-right: 0.75rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .pf-panel-scroll {
     padding-right: 0;
   }
