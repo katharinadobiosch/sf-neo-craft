@@ -22,7 +22,6 @@
       // width: 100%;
       min-height: 44px;
       padding: 0.75rem 0;
-      align-items: center;
     }
 
     .acc-title {
@@ -79,6 +78,7 @@
         align-items: flex-start;
         gap: 1.5rem;
         margin: 1.5rem 0;
+        flex-direction: row;
 
         .meta-accordion__images-figure {
           width: 50%;

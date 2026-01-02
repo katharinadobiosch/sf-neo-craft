@@ -78,9 +78,19 @@ function fileRefListToImgs(
   return list
     .map((m: unknown) => {
       const obj = m as any;
-      if (obj?.image?.url) {
+
+      // ✅ 1) Normalized shape aus app/utils/metafields.ts:
+      // { __typename:'MediaImage', url, altText, width, height }
+      if (typeof obj?.url === 'string' && obj.url) {
+        return {url: obj.url, altText: obj.altText};
+      }
+
+      // ✅ 2) Shopify GraphQL shape (falls irgendwo unge-normalized durchrutscht):
+      // { image: { url, altText } }
+      if (typeof obj?.image?.url === 'string' && obj.image.url) {
         return {url: obj.image.url, altText: obj.image.altText};
       }
+
       return null;
     })
     .filter(Boolean) as Array<{url: string; altText?: string}>;
