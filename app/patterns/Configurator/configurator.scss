@@ -252,8 +252,35 @@
   }
 
   .configurator .cfg-item.is-color {
+    position: relative;
     width: 28px;
     height: 28px;
+  }
+
+  .configurator .cfg-item.is-color::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%);
+    white-space: nowrap;
+
+    /* Styling frei definierbar */
+    font-size: 12px;
+    line-height: 1.2;
+    padding: 6px 8px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.12s ease;
+    z-index: 20;
+  }
+
+  .configurator .cfg-item.is-color:hover::after,
+  .configurator .cfg-item.is-color:focus-visible::after {
+    opacity: 1;
   }
 
   .configurator .cfg-item.is-color .dot-ring {
@@ -266,7 +293,8 @@
     height: 20px;
   }
 
-  .configurator .cfg-item.is-color:hover .dot-ring {
-    transform: scale(1.25);
+  .configurator .cfg-item.is-color:hover .dot-ring,
+  .configurator .cfg-item.is-color:focus-visible .dot-ring {
+    transform: scale(2);
   }
 }

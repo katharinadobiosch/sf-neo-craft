@@ -173,7 +173,7 @@ export function Configurator({
                   selected && 'is-selected',
                 )}
                 disabled={disabled}
-                title={value.name}
+                data-tooltip={value.name}
                 aria-label={value.name}
                 onClick={() => {
                   if (!selected) {
