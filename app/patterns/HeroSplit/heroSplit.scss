@@ -207,3 +207,58 @@
     }
   }
 }
+
+/* =========================
+   NC Band Decor (HeroSplit_GalleryBand)
+   ========================= */
+
+/* Sicherstellen, dass die Band-Zelle die Farbe trägt */
+.hero-split[data-band='left'] .hs-leftBottom {
+  background: var(--hs-band-color);
+}
+
+/* Container für das NC-Motiv */
+.hero-split .hs-bandDecor {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Gemeinsame Typo-Eigenschaften */
+.hero-split .hs-bandDecor__n,
+.hero-split .hs-bandDecor__c {
+  position: absolute;
+  font-family: var(--brand-font, system-ui);
+  font-weight: 400;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: #0a0a0a;
+
+  /* groß genug für Anschnitt-Optik */
+  font-size: clamp(240px, 42vw, 1000px);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* N – links oben angeschnitten */
+.hero-split .hs-bandDecor__n {
+  left: -0.14em;
+  top: -0.08em;
+}
+
+/* C – rechts unten angeschnitten */
+.hero-split .hs-bandDecor__c {
+  right: -0.34em;
+  bottom: -0.38em;
+  transform: scale(1.05);
+  transform-origin: bottom right;
+}
+
+/* Mobile: Band + Typo komplett ausblenden */
+@media (max-width: 767px) {
+  .hero-split .hs-bandDecor {
+    display: none;
+  }
+}
