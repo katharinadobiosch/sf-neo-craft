@@ -1,9 +1,3 @@
-/* ProductDetailInformation.scss (full file) */
-
-/* =========================================================
-   PDP base
-   ========================================================= */
-
 .pdp {
   display: flex;
   flex-direction: column;
@@ -29,7 +23,6 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    min-width: 0;
   }
 
   .product-main__media {
@@ -38,7 +31,6 @@
     min-height: 320px;
     display: flex;
     align-items: stretch;
-    min-width: 0;
 
     img {
       height: 100%;
@@ -53,7 +45,6 @@
     flex-direction: column;
     min-height: 0;
     gap: 1.5rem;
-    min-width: 0;
   }
 
   .media-gallery,
@@ -62,7 +53,6 @@
     width: 100%;
     min-height: 320px;
     height: auto;
-    min-width: 0;
   }
 
   .pdp__teaser-duo {
@@ -79,8 +69,8 @@
 
     .teaser-duo__image img {
       aspect-ratio: auto;
-      height: auto;
       width: 100%;
+      height: auto;
     }
 
     .teaser-duo__content {
@@ -95,7 +85,6 @@
     }
   }
 
-  /* verhindert Overflow im quadratischen oberen Teaser */
   .square-variant .teaser-duo__content {
     width: 100%;
   }
@@ -134,48 +123,12 @@
   top: auto;
   background: #fff;
   z-index: 3;
+  margin-right: 0.75rem;
 }
 
 /* =========================================================
-   HARD mobile lock (prevents weird mid-width breakage)
+   768–991: robust 50/50 split (no aspect-ratio / no 100vh)
    ========================================================= */
-
-@media (max-width: 767px) {
-  .pdp {
-    .product-main {
-      flex-direction: column !important;
-    }
-
-    .product-main__media,
-    .product-main__info {
-      width: 100% !important;
-      max-width: 100% !important;
-      flex: 0 0 auto !important;
-    }
-
-    .product-main__media {
-      min-height: 320px;
-      height: auto;
-    }
-
-    .media-gallery,
-    .nc-media-gallery {
-      height: auto;
-      min-height: 320px;
-    }
-  }
-
-  .product-form__configurator {
-    position: static !important;
-    top: auto !important;
-  }
-}
-
-/* =========================================================
-   Tablet: 50/50 split WITHOUT fragile constraints
-   (this is what usually breaks around ~794px)
-   ========================================================= */
-
 @media (min-width: 768px) and (max-width: 991px) {
   .pdp {
     gap: 0;
@@ -184,10 +137,10 @@
     .product-main {
       flex-direction: row;
       align-items: stretch;
+      width: 100%;
       overflow: hidden;
     }
 
-    /* enforce real 50/50 even if other rules set width:100% somewhere */
     .product-main__media,
     .product-main__info {
       flex: 0 0 50%;
@@ -199,16 +152,11 @@
     .product-main__media {
       order: 0;
       min-height: 0;
-      height: auto; /* no forced 100% height */
-    }
-
-    .product-main__info {
-      height: auto;
     }
 
     .media-gallery,
     .nc-media-gallery {
-      height: auto; /* avoid 100% height collapsing/overflow */
+      height: auto;
       min-height: var(--stage-min-h, 420px);
     }
 
@@ -225,27 +173,26 @@
       }
 
       .teaser-duo__image img {
-        aspect-ratio: auto;
-        height: auto;
         width: 100%;
+        height: auto;
       }
     }
-  }
-
-  .product-main .product-form {
-    height: auto;
   }
 
   .product-form__configurator {
     position: static;
     top: auto;
+    padding-left: 0;
+  }
+
+  .product-main .product-form {
+    height: auto;
   }
 }
 
 /* =========================================================
-   Desktop: your "designed" layout (aspect-ratio + sticky etc.)
+   >= 992: designed desktop (aspect-ratio + sticky)
    ========================================================= */
-
 @media (min-width: 992px) {
   .pdp {
     gap: 0;
@@ -257,6 +204,7 @@
       align-items: stretch;
       height: calc(100vh - var(--header-h));
       overflow: hidden;
+      width: 100%;
     }
 
     .product-main__media,
@@ -311,11 +259,12 @@
   .product-form__configurator {
     position: sticky;
     top: 0;
+    padding-left: 15px;
   }
 }
 
 /* =========================================================
-   CTA – calmer, premium (mobile first)
+   CTA
    ========================================================= */
 
 .pdp__cta-container {
@@ -333,16 +282,12 @@
   height: auto;
 
   backdrop-filter: blur(8px);
-}
 
-/* CTA stack on mobile: bar + secondary row */
-.pdp__cta-container {
   display: grid;
   grid-template-columns: 1fr;
   gap: 8px;
 }
 
-/* Outer "card" */
 .pdp__cta-container .cfg-cta {
   border: 1px solid var(--cta-border);
   overflow: hidden;
@@ -352,11 +297,9 @@
   align-items: stretch;
 
   background: var(--cta-bg);
-
   height: 4rem;
 }
 
-/* Left cells */
 .pdp__cta-container .cfg-cta .cta-arrow,
 .pdp__cta-container .cfg-cta .cta-price {
   display: flex;
@@ -376,7 +319,6 @@
   white-space: nowrap;
 }
 
-/* Divider lines within the card */
 .pdp__cta-container .cfg-cta .cta-arrow {
   border-right: 1px solid
     color-mix(in oklab, var(--color-dark) 10%, transparent);
@@ -392,7 +334,6 @@
   width: 100%;
 }
 
-/* Button */
 .pdp__cta-container .cfg-cta form > button {
   all: unset;
   cursor: pointer;
@@ -413,7 +354,6 @@
     opacity 0.12s ease;
 }
 
-/* Active: subtle gradient highlight */
 .pdp__cta-container .cfg-cta.is-active form > button {
   background: linear-gradient(
     to bottom,
@@ -429,7 +369,6 @@
   filter: brightness(0.98);
 }
 
-/* Idle */
 .pdp__cta-container .cfg-cta.is-idle form > button,
 .pdp__cta-container .cfg-cta form > button:disabled {
   background: color-mix(in oklab, var(--color-dark) 8%, #fff);
@@ -437,7 +376,6 @@
   cursor: not-allowed;
 }
 
-/* Secondary: Further Questions (mobile row) */
 .pdp__cta-container .pdp__question {
   display: flex;
   align-items: center;
@@ -451,7 +389,6 @@
   letter-spacing: 0.02em;
   color: color-mix(in oklab, var(--color-dark) 75%, transparent);
 
-  /* feels intentional, not "lost" */
   text-transform: uppercase;
 }
 
@@ -460,12 +397,12 @@
   color: var(--color-dark);
 }
 
-/* Desktop: inline (CTA + question side by side) */
 @media (min-width: 992px) {
   .pdp__cta-container {
     position: static;
     backdrop-filter: none;
     padding: 0;
+
     display: flex;
     align-items: stretch;
     gap: 10px;
@@ -484,7 +421,7 @@
 }
 
 /* =========================================================
-   PDP: segmented layout (fixed slots + inner scroll)
+   segmented layout
    ========================================================= */
 
 .product-form--segmented {
@@ -515,7 +452,7 @@
 }
 
 /* =========================================================
-   Shared controls: toggle button + plus/minus icon
+   Shared controls
    ========================================================= */
 
 .cfg-toggle {
@@ -569,7 +506,7 @@
 }
 
 /* =========================================================
-   Details: closed = only header
+   Details
    ========================================================= */
 
 .pf-section--details {
@@ -613,7 +550,7 @@
 }
 
 /* =========================================================
-   Shipping: closed = only header
+   Shipping
    ========================================================= */
 
 .shipping-item {
