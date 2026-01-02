@@ -204,67 +204,72 @@
 }
 
 /* =========================================================
-   SHARED CTA BAR (PDP + Materials)
+   CTA – calmer, premium (mobile first)
    ========================================================= */
 
 .pdp__cta-container {
-  flex: 0 0 auto;
+  --cta-border: color-mix(in oklab, var(--color-dark) 18%, transparent);
+  --cta-bg: color-mix(in oklab, #fff 92%, var(--sf-purple, #8f8cf6) 8%);
+  --cta-accent: var(--sf-purple, #8f8cf6);
+
   position: sticky;
   bottom: 0;
   z-index: 5;
-  display: flex;
-  align-items: stretch;
-  gap: 0;
-  padding: 0.25rem 0;
-  background: var(--sf-white);
-  box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.08);
-  height: 72px;
+
+  padding: 10px 0;
+  background: transparent;
+  box-shadow: none;
+  height: auto;
+
+  /* gibt dem "floating bar" Look Luft zum Atmen */
+  backdrop-filter: blur(8px);
 }
 
+/* Outer "card" */
 .pdp__cta-container .cfg-cta {
-  flex: 1 1 auto;
-  min-width: 0;
+  border: 1px solid var(--cta-border);
+  overflow: hidden;
 
   display: grid;
-  grid-template-columns: 64px 120px 1fr;
+  grid-template-columns: 56px 118px 1fr;
   align-items: stretch;
 
-  border: 1px solid var(--color-dark);
-  background: var(--sf-white);
-  color: var(--color-dark);
+  background: var(--cta-bg);
+
+  height: 4rem
 }
 
-.pdp__cta-container .cfg-cta.is-active {
-  background: var(--color-dark);
-  color: var(--sf-white);
-}
-
-.pdp__cta-container .cfg-cta.is-idle {
-  background: var(--sf-white);
-  color: var(--color-dark);
-}
-
+/* Left cells: ruhig, nicht invertiert */
 .pdp__cta-container .cfg-cta .cta-arrow,
 .pdp__cta-container .cfg-cta .cta-price {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--color-dark);
 }
 
 .pdp__cta-container .cfg-cta .cta-arrow {
   font-size: 18px;
+  opacity: 0.9;
 }
 
 .pdp__cta-container .cfg-cta .cta-price {
   font-weight: 600;
+  letter-spacing: 0.01em;
   white-space: nowrap;
 }
 
-.pdp__cta-container .cfg-cta form {
-  height: 100%;
-  width: 100%;
+/* Divider lines innerhalb der Card (subtil) */
+.pdp__cta-container .cfg-cta .cta-arrow {
+  border-right: 1px solid
+    color-mix(in oklab, var(--color-dark) 10%, transparent);
+}
+.pdp__cta-container .cfg-cta .cta-price {
+  border-right: 1px solid
+    color-mix(in oklab, var(--color-dark) 10%, transparent);
 }
 
+/* Button-Bereich: Akzentfläche statt komplett schwarz */
 .pdp__cta-container .cfg-cta form > button {
   all: unset;
   cursor: pointer;
@@ -276,47 +281,72 @@
   align-items: center;
   justify-content: center;
 
-  font-weight: 600;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+
+  /* Akzent */
+  background: var(--color-dark);
+  color: #fff;
+
+  transition:
+    transform 0.12s ease,
+    filter 0.12s ease,
+    opacity 0.12s ease;
 }
 
-.pdp__cta-container .cfg-cta form > button:disabled {
-  opacity: 0.45;
+/* Active/Idle differenzieren: Idle nicht schwarz, sondern neutral */
+.pdp__cta-container .cfg-cta.is-idle form > button {
+  background: color-mix(in oklab, var(--color-dark) 8%, #fff);
+  color: color-mix(in oklab, var(--color-dark) 75%, transparent);
   cursor: not-allowed;
 }
 
-.pdp__cta-container .pdp__question {
-  display: none;
+/* Active: minimal "premium" Touch über subtile Highlight-Kante */
+.pdp__cta-container .cfg-cta.is-active form > button {
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--cta-accent) 14%, var(--color-dark) 86%),
+    var(--color-dark)
+  );
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
+.pdp__cta-container .cfg-cta.is-active form > button:active {
+  transform: translateY(1px);
+  filter: brightness(0.98);
+}
+
+.pdp__cta-container .cfg-cta form > button:disabled {
+  opacity: 1; /* idle-style regelt das; nicht zusätzlich ausgrauen */
+}
+
+/* Desktop: etwas größer, weniger "floating", mehr inline */
 @media (min-width: 768px) {
-  .pdp_ {
+  .pdp__cta-container {
     position: static;
-    bottom: auto;
+    backdrop-filter: none;
     padding: 0;
-    margin-top: 1rem;
-    box-shadow: none;
   }
 
   .pdp__cta-container .cfg-cta {
-    grid-template-columns: 72px 140px 1fr;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    grid-template-columns: 64px 140px 1fr;
+    background: #fff;
   }
 
-  .pdp__cta-container .pdp__question {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-
-    width: 320px;
-    border: 1px solid var(--color-dark);
-    background: var(--sf-white);
-    color: var(--color-dark);
-    font-size: 12px;
-  }
-
-  .pdp__cta-container .pdp__question:hover {
+  .pdp__cta-container .cfg-cta form > button {
     background: var(--color-dark);
-    color: var(--sf-white);
+    color: #fff;
+  }
+
+  .pdp__cta-container .cfg-cta.is-active form > button {
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklab, var(--cta-accent) 10%, var(--color-dark) 90%),
+      var(--color-dark)
+    );
   }
 }
 
