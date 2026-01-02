@@ -173,7 +173,9 @@
       }
 
       .teaser-duo__image {
-        width: 50%;
+        aspect-ratio: 780 / 519;
+        width: 100%;
+        height: auto;
       }
 
       .teaser-duo__image img {
