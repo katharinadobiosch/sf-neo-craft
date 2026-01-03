@@ -27,6 +27,18 @@ export function ProductShippingSection({
           aria-hidden="true"
         />
       </button>
+
+      <div className="ps-panel" id={panelId} role="region" aria-label={title}>
+        {safeLines.length ? (
+          <ul className="ps-lines">
+            {safeLines.map((line, i) => (
+              <li key={i} className="ps-line">
+                {line}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
     </div>
   );
 }
