@@ -57,17 +57,17 @@ export function ProductDetailsSection({
 
   return (
     <section className="pf-section pf-section--details" data-open={open}>
-      <div className="cfg-head">
+      <div className="pf-head">
         <button
           type="button"
-          className="cfg-toggle"
+          className="pf-toggle"
           aria-expanded={open}
           aria-controls={panelId}
           onClick={() => setOpen((v) => !v)}
         >
-          <span className="cfg-title">{title}</span>
+          <span className="pf-title">{title}</span>
           <span
-            className={`cfg-plus ${open ? 'is-open' : ''}`}
+            className={`pf-plus ${open ? 'is-open' : ''}`}
             aria-hidden="true"
           />
         </button>
@@ -75,20 +75,18 @@ export function ProductDetailsSection({
 
       <div
         id={panelId}
-        className="cfg-panel pf-details-panel"
-        // max-height animiert, 0 wenn zu
-        style={{maxHeight: open ? detailsHeight : 0}}
+        className="pf-panel **pf-panel--scroll**"
+        style={{
+          maxHeight: open ? `${detailsHeight}px` : '0px',
+          opacity: open ? 1 : 0,
+        }}
       >
-        {/* ref misst die echte Inhaltshöhe */}
-        <div ref={detailsRef} className="pf-details-panel__inner">
-          {/* Scroll passiert HIER drin */}
-          <div className="pf-panel-scroll nice-scrollbar">
-            <div className="product__meta">
-              <ProductMetaAccordion
-                metafields={allMetafields}
-                product={product}
-              />
-            </div>
+        <div ref={detailsRef}>
+          <div className="product__meta">
+            <ProductMetaAccordion
+              metafields={allMetafields}
+              product={product}
+            />
           </div>
         </div>
       </div>
