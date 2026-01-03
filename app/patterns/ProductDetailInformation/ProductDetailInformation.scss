@@ -1,8 +1,7 @@
 /* =========================================================
    PDP – Layout (mobile first)
-   Goal:
-   - 0–991px: ONE COLUMN (prevents the 615–991 weird split)
-   - >=992px: real 50/50 split + sticky configurator
+   - 0–991px: one column
+   - >=992px: 50/50 split + sticky configurator
    ========================================================= */
 
 .pdp {
@@ -15,6 +14,7 @@
     margin-top: 0;
   }
 
+  /* Options */
   .product-options-grid {
     display: flex;
     flex-wrap: wrap;
@@ -26,7 +26,7 @@
     background-color: transparent;
   }
 
-  /* Base: always column */
+  /* ---------- Main (always column by default) ---------- */
   .product-main {
     display: flex;
     flex-direction: column;
@@ -44,8 +44,8 @@
     align-items: stretch;
 
     img {
-      height: 100%;
       width: 100%;
+      height: 100%;
       object-fit: cover;
     }
   }
@@ -53,9 +53,9 @@
   .product-main__info {
     width: 100%;
     min-width: 0;
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    min-height: 0;
     gap: 1.5rem;
   }
 
@@ -67,10 +67,12 @@
     height: auto;
   }
 
+  /* ---------- Teaser duo (mobile) ---------- */
   .pdp__teaser-duo {
     margin: 0;
 
     .teaser-duo__images {
+      display: flex;
       flex-direction: column;
       gap: 1.5rem;
     }
@@ -80,18 +82,20 @@
     }
 
     .teaser-duo__image img {
-      aspect-ratio: auto;
       width: 100%;
       height: auto;
+      aspect-ratio: auto;
     }
 
     .teaser-duo__content {
       background: var(--sf-purple);
       margin-top: 1rem;
       padding: 2rem 1.6rem 2.6rem;
+
       font-size: var(--nc-fliesstext-mobil-size);
       line-height: var(--nc-fliesstext-mobil-line);
       font-weight: var(--nc-fliesstext-mobil-weight);
+
       overflow-wrap: break-word;
       word-break: break-word;
     }
@@ -101,86 +105,94 @@
   .square-variant .teaser-duo__content {
     width: 100%;
   }
-}
 
-.product-price-on-sale {
-  display: flex;
-  opacity: 0.5;
-}
+  /* ---------- Price ---------- */
+  .product-price-on-sale {
+    display: flex;
+    opacity: 0.5;
+  }
 
-.product-main .product-form {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-height: 0;
-  height: auto;
-}
+  /* ---------- Product form ---------- */
+  .product-form {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+    height: auto;
+  }
 
-.product-form__scroller {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  margin: 0;
-}
+  .product-form__scroller {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    margin: 0;
+  }
 
-.product-form__details {
-  font-size: var(--nc-konfigurator-head-desktop-size);
-  line-height: var(--nc-konfigurator-head-desktop-line);
-  font-weight: var(--nc-konfigurator-head-desktop-weight);
-  width: auto;
-  padding: 1.5rem 0;
-}
+  .product-form__details {
+    width: auto;
+    padding: 1.5rem 0;
 
-/* mobile/tablet: NOT sticky */
-.product-form__configurator {
-  position: static;
-  top: auto;
-  background: #fff;
-  z-index: 3;
+    font-size: var(--nc-konfigurator-head-desktop-size);
+    line-height: var(--nc-konfigurator-head-desktop-line);
+    font-weight: var(--nc-konfigurator-head-desktop-weight);
+  }
+
+  /* mobile/tablet: NOT sticky */
+  .product-form__configurator {
+    position: static;
+    top: auto;
+    background: #fff;
+    z-index: 3;
+    padding-left: 0; /* default */
+  }
 }
 
 /* =========================================================
-   HARD LOCK: stop any external split rules (e.g. hero-split)
-   from breaking 615–991px
+   SAFETY LOCK (615–991)
+   Falls externe Layout-Regeln (z.B. hero-split) reingrätschen.
+   -> so wenig wie möglich, aber wirksam.
    ========================================================= */
-
-@media (min-width: 615px) and (max-width: 991px) {
+/* =========================================================
+   Guardrail: ab 615px one-column erzwingen
+   (neutralisiert externe Split-Regeln; wird ab 992px überschrieben)
+   ========================================================= */
+@media (min-width: 615px) {
   .pdp {
+    /* nur die Properties, die externe Regeln typischerweise ändern */
     .product-main {
-      flex-direction: column !important;
-      width: 100% !important;
-      overflow: visible !important;
+      flex-direction: column;
+      width: 100%;
+      overflow: visible;
     }
 
     .product-main__media,
     .product-main__info {
-      width: 100% !important;
-      max-width: 100% !important;
-      flex: 0 0 auto !important;
-      min-width: 0 !important;
+      width: 100%;
+      max-width: 100%;
+      flex: 0 0 auto;
+      min-width: 0;
     }
 
     .media-gallery,
     .nc-media-gallery {
-      height: auto !important;
+      height: auto;
       min-height: 320px;
     }
-  }
 
-  .product-form__configurator {
-    position: static !important;
-    top: auto !important;
-    padding-left: 0 !important;
+    .product-form__configurator {
+      position: static;
+      top: auto;
+      padding-left: 0;
+    }
   }
 }
 
 /* =========================================================
-   DESKTOP SPLIT: >= 992px (real 50/50)
+   DESKTOP SPLIT: >= 992px (real 50/50 + sticky)
    ========================================================= */
-
 @media (min-width: 992px) {
   .pdp {
-    gap: 0;
+    gap: 1.5rem;
     margin: 3rem 0;
 
     .product-main {
@@ -190,7 +202,7 @@
       min-width: 0;
       overflow: hidden;
 
-      /* optional: if you want the designed proportions back */
+      /* optional: designed proportions */
       aspect-ratio: 1560 / 780;
     }
 
@@ -225,167 +237,165 @@
       min-height: var(--stage-min-h);
       height: 100%;
     }
-  }
 
-  .product-main .product-form {
-    height: calc(100% - 4rem);
-  }
+    .product-form {
+      height: calc(100% - 4rem);
+    }
 
-  .product-form__configurator {
-    position: sticky;
-    top: 0;
-    padding-left: 15px;
+    .product-form__configurator {
+      position: sticky;
+      top: 0;
+    }
   }
 }
 
 /* =========================================================
-   CTA – calmer, premium (mobile first)
+   CTA – mobile sticky, desktop static
    ========================================================= */
-
 .pdp__cta-container {
   --cta-border: color-mix(in oklab, var(--color-dark) 18%, transparent);
-  --cta-bg: color-mix(in oklab, #fff 92%, var(--sf-purple, #8f8cf6) 8%);
   --cta-accent: var(--sf-purple, #8f8cf6);
 
   position: sticky;
   bottom: 0;
   z-index: 5;
 
-  padding: 10px 0;
   background: transparent;
   box-shadow: none;
   height: auto;
 
   backdrop-filter: blur(8px);
-}
 
-/* Outer "card" */
-.pdp__cta-container .cfg-cta {
-  border: 1px solid var(--cta-border);
-  overflow: hidden;
+  .cfg-cta {
+    border: 1px solid var(--cta-border);
+    overflow: hidden;
 
-  display: grid;
-  grid-template-columns: 56px 118px 1fr;
-  align-items: stretch;
+    display: grid;
+    grid-template-columns: 56px 118px 1fr;
+    align-items: stretch;
 
-  background: var(--cta-bg);
-  height: 4rem;
-}
+    height: 4rem;
 
-.pdp__cta-container .cfg-cta .cta-arrow,
-.pdp__cta-container .cfg-cta .cta-price {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-dark);
-}
+    .cta-arrow,
+    .cta-price {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-dark);
+    }
 
-.pdp__cta-container .cfg-cta .cta-arrow {
-  font-size: 18px;
-  opacity: 0.9;
-}
+    .cta-arrow {
+      font-size: 18px;
+      opacity: 0.9;
+    }
 
-.pdp__cta-container .cfg-cta .cta-price {
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-}
+    .cta-price {
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
 
-.pdp__cta-container .cfg-cta .cta-arrow {
-  border-right: 1px solid
-    color-mix(in oklab, var(--color-dark) 10%, transparent);
-}
-.pdp__cta-container .cfg-cta .cta-price {
-  border-right: 1px solid
-    color-mix(in oklab, var(--color-dark) 10%, transparent);
-}
+    form > button {
+      all: unset;
+      cursor: pointer;
 
-.pdp__cta-container .cfg-cta form > button {
-  all: unset;
-  cursor: pointer;
+      height: 100%;
+      width: 100%;
 
-  height: 100%;
-  width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+      font-weight: 650;
+      letter-spacing: 0.01em;
 
-  font-weight: 650;
-  letter-spacing: 0.01em;
+      background: var(--color-dark);
+      color: #fff;
 
-  background: var(--color-dark);
-  color: #fff;
+      transition:
+        transform 0.12s ease,
+        filter 0.12s ease,
+        opacity 0.12s ease;
 
-  transition:
-    transform 0.12s ease,
-    filter 0.12s ease,
-    opacity 0.12s ease;
-}
+      &:disabled {
+        opacity: 1;
+      }
+    }
 
-.pdp__cta-container .cfg-cta.is-idle form > button {
-  background: color-mix(in oklab, var(--color-dark) 8%, #fff);
-  color: color-mix(in oklab, var(--color-dark) 75%, transparent);
-  cursor: not-allowed;
-}
+    &.is-idle form > button {
+      background: color-mix(in oklab, var(--color-dark) 8%, #fff);
+      color: color-mix(in oklab, var(--color-dark) 75%, transparent);
+      cursor: not-allowed;
+    }
 
-.pdp__cta-container .cfg-cta.is-active form > button {
-  background: linear-gradient(
-    to bottom,
-    color-mix(in oklab, var(--cta-accent) 14%, var(--color-dark) 86%),
-    var(--color-dark)
-  );
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
-}
+    &.is-active form > button {
+      background: linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--cta-accent) 14%, var(--color-dark) 86%),
+        var(--color-dark)
+      );
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
 
-.pdp__cta-container .cfg-cta.is-active form > button:active {
-  transform: translateY(1px);
-  filter: brightness(0.98);
-}
-
-.pdp__cta-container .cfg-cta form > button:disabled {
-  opacity: 1;
+      &:active {
+        transform: translateY(1px);
+        filter: brightness(0.98);
+      }
+    }
+  }
+  .pdp__question {
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    border: 1px solid var(--cta-border);
+    margin: 1rem 0 0 0;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 @media (min-width: 992px) {
   .pdp__cta-container {
     position: static;
     backdrop-filter: none;
-    padding: 0;
-  }
+    padding: 0 1.5rem;
 
-  .pdp__cta-container .cfg-cta {
-    margin: 0;
-    border-radius: 0;
-    box-shadow: none;
-    grid-template-columns: 64px 140px 1fr;
-    background: #fff;
-  }
+    .cfg-cta {
+      grid-template-columns: 64px 140px 1fr;
+      background: #fff;
+    }
 
-  .pdp__cta-container .cfg-cta form > button {
-    background: var(--color-dark);
-    color: #fff;
-  }
-
-  .pdp__cta-container .cfg-cta.is-active form > button {
-    background: linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--cta-accent) 10%, var(--color-dark) 90%),
-      var(--color-dark)
-    );
+    .cfg-cta.is-active form > button {
+      background: linear-gradient(
+        to bottom,
+        color-mix(in oklab, var(--cta-accent) 10%, var(--color-dark) 90%),
+        var(--color-dark)
+      );
+    }
   }
 }
 
 /* =========================================================
    PDP: segmented layout (fixed slots + inner scroll)
    ========================================================= */
-
 .product-form--segmented {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   min-height: 0;
   height: 100%;
+
+  .product-form__configurator {
+    flex: 0 0 auto;
+  }
+
+  .product-form__sections {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 }
 
 @media (max-width: 767px) {
@@ -395,22 +405,9 @@
   }
 }
 
-.product-form--segmented .product-form__configurator {
-  flex: 0 0 auto;
-}
-
-.product-form--segmented .product-form__sections {
-  flex: 1 1 auto;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
 /* =========================================================
    Shared controls: toggle button + plus/minus icon
    ========================================================= */
-
 .cfg-toggle {
   all: unset;
   width: 100%;
@@ -438,141 +435,32 @@
   height: 12px;
   flex: 0 0 12px;
   color: currentColor;
-}
 
-.cfg-plus::before,
-.cfg-plus::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 14px;
-  height: 2px;
-  background: currentColor;
-  transform: translate(-50%, -50%);
-  transition: transform 0.2s ease;
-}
-
-.cfg-plus::after {
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.cfg-plus.is-open::after {
-  transform: translate(-50%, -50%) rotate(0deg);
-}
-
-/* =========================================================
-   Details: closed = only header (no whitespace)
-   ========================================================= */
-
-.pf-section--details {
-  flex: 0 0 auto;
-}
-
-.pf-section--details .cfg-panel[data-open='false'] {
-  display: none;
-}
-
-.pf-section--details .cfg-panel[data-open='true'] {
-  display: flex;
-  flex: 1 1 auto;
-  min-height: 0;
-
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-.pf-section--details .cfg-toggle {
-  padding: 0.9rem 0;
-}
-
-.pf-section--details .cfg-panel-inner {
-  padding-top: 0.35rem;
-}
-
-.pf-section--details .pf-section__body--flex {
-  padding-right: 0;
-}
-
-@media (min-width: 992px) {
-  .pf-section--details {
-    flex: 1 1 auto;
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 2px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease;
   }
 
-  .pf-section--details .cfg-toggle {
-    padding: 1.5rem 0;
-  }
-}
-
-/* =========================================================
-   Shipping: closed = only header (no whitespace)
-   ========================================================= */
-
-.shipping-item {
-  padding: 0;
-  gap: 0;
-  border-top: 1px solid var(--color-dark);
-}
-
-.shipping-item .cfg-toggle {
-  padding: 0.8rem 0;
-  min-height: 44px;
-}
-
-.shipping-item .pf-panel[data-open='false'] {
-  display: none;
-}
-
-.shipping-item .pf-panel[data-open='true'] {
-  display: block;
-}
-
-.shipping-item .pf-panel-inner {
-  padding: 0.35rem 0 0.9rem;
-}
-
-.shipping-item .pf-panel-scroll {
-  padding-right: 0;
-}
-
-.shipping-item .shipping-panel {
-  display: grid;
-  gap: 0.2rem;
-  font-size: 13px;
-  line-height: 1.25;
-  color: color-mix(in oklab, var(--text-default) 85%, transparent);
-}
-
-@media (min-width: 992px) {
-  .shipping-item {
-    padding: 0 15px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  &::after {
+    transform: translate(-50%, -50%) rotate(90deg);
   }
 
-  .shipping-item .cfg-toggle {
-    padding: 1.5rem 0;
-    min-height: 0;
-  }
-
-  .shipping-item .pf-panel-inner {
-    padding: 1rem 0;
-  }
-
-  .shipping-item .shipping-panel {
-    padding-left: 2rem;
-    gap: 0;
-    font-size: 12px;
-    line-height: 1.4;
+  &.is-open::after {
+    transform: translate(-50%, -50%) rotate(0deg);
   }
 }
 
 /* =========================================================
    Shared collapsible panel
    ========================================================= */
-
 .pf-panel {
   flex: 1 1 auto;
   min-height: 0;
@@ -583,13 +471,13 @@
   pointer-events: none;
 
   transition: opacity 0.2s ease;
-}
 
-.pf-panel[data-open='true'] {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  display: flex;
+  &[data-open='true'] {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    display: flex;
+  }
 }
 
 .pf-panel-inner {
@@ -616,5 +504,110 @@
 @media (min-width: 992px) {
   .pf-panel-scroll {
     padding-right: 0;
+  }
+}
+
+/* =========================================================
+   Details: closed = header only
+   ========================================================= */
+.pf-section--details {
+  flex: 0 0 auto;
+
+  .cfg-panel[data-open='false'] {
+    display: none;
+  }
+
+  .cfg-panel[data-open='true'] {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .cfg-toggle {
+    padding: 0.9rem 0;
+  }
+
+  .cfg-panel-inner {
+    padding-top: 0.35rem;
+  }
+
+  .pf-section__body--flex {
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 992px) {
+  .pf-section--details {
+    flex: 1 1 auto;
+
+    .cfg-toggle {
+      padding: 1.5rem 0;
+    }
+  }
+}
+
+/* =========================================================
+   Shipping: closed = header only
+   ========================================================= */
+.shipping-item {
+  padding: 0;
+  gap: 0;
+  border-top: 1px solid var(--color-dark);
+
+  .cfg-toggle {
+    padding: 0.8rem 0;
+    min-height: 44px;
+  }
+
+  .pf-panel[data-open='false'] {
+    display: none;
+  }
+
+  .pf-panel[data-open='true'] {
+    display: block;
+  }
+
+  .pf-panel-inner {
+    padding: 0.35rem 0 0.9rem;
+  }
+
+  .pf-panel-scroll {
+    padding-right: 0;
+  }
+
+  .shipping-panel {
+    display: grid;
+    gap: 0.2rem;
+    font-size: 13px;
+    line-height: 1.25;
+    color: color-mix(in oklab, var(--text-default) 85%, transparent);
+  }
+}
+
+@media (min-width: 992px) {
+  .shipping-item {
+    padding: 0 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .cfg-toggle {
+      padding: 1.5rem 0;
+      min-height: 0;
+    }
+
+    .pf-panel-inner {
+      padding: 1rem 0;
+    }
+
+    .shipping-panel {
+      padding-left: 2rem;
+      gap: 0;
+      font-size: 12px;
+      line-height: 1.4;
+    }
   }
 }
