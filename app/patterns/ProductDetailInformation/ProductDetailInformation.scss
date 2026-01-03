@@ -594,4 +594,26 @@
       font-weight: 500;
     }
   }
+
+  /* =========================================================
+   FIX: Details Panel muss im Desktop scrollen
+   (überschreibt das mobile "overflow:hidden" + max-height:0)
+   ========================================================= */
+  @media (min-width: 992px) {
+    .product-form__sections .pf-panel {
+      overflow: auto !important;
+      max-height: none !important; /* wichtig: sonst bleibt es 0 */
+      opacity: 1; /* optional, falls du Flicker hast */
+    }
+
+    /* wenn du die Header-Zeile NICHT mitscrollen willst */
+    .product-form__sections .pf-head {
+      flex: 0 0 auto;
+    }
+
+    /* damit Flex-Child wirklich scrollen darf */
+    .product-form__sections .pf-section {
+      min-height: 0;
+    }
+  }
 }
