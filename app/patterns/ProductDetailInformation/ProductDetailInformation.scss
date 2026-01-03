@@ -66,6 +66,7 @@
       @media (min-width: 992px) {
         // width: 50%;
         padding-right: 1.5rem;
+        border: 2px solid yellow;
       }
     }
 
@@ -307,10 +308,6 @@
       opacity: 1;
     }
 
-    .pf-panel-scroll {
-      /* Scroll-Container, Styling kommt ggf. von .nice-scrollbar */
-    }
-
     /* ================= Plus Icon ================= */
 
     .pf-plus {
@@ -371,7 +368,7 @@
       }
 
       .pf-panel {
-        // border: 2px solid pink;
+        border: 2px solid pink;
       }
     }
   }
@@ -437,6 +434,12 @@
 
       &.is-open::after {
         transform: translate(-50%, -50%) rotate(0deg);
+      }
+    }
+
+    @media (min-width: 992px) {
+      .ps-panel {
+        border: 2px solid red;
       }
     }
   }
