@@ -267,7 +267,7 @@
     .pf-head {
       display: flex;
       align-items: center;
-      margin-top: 2.5rem;
+      margin-top: 1rem;
       height: 44px;
     }
 
@@ -291,6 +291,7 @@
 
     .pf-panel {
       overflow: hidden;
+      max-height: 0;
       opacity: 0;
       transition:
         max-height 0.35s ease,
