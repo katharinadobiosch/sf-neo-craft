@@ -46,7 +46,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+
+  .cfg-row:last-child {
+    margin-bottom: 0;
   }
 
   .cfg-row::before {
@@ -75,6 +79,7 @@
   .cfg-values--color {
     display: flex;
     gap: 1rem;
+    margin-top: 1rem;
   }
 
   .cfg-row--color .cfg-values {
@@ -181,132 +186,132 @@
     transform: scale(0.98);
     opacity: 0.92;
   }
-}
 
-/* Headings shared across components (global) */
-.cfg-title,
-.acc-title {
-  font-size: var(--nc-head-mobil-size);
-  line-height: var(--nc-head-mobil-line);
-  font-weight: var(--nc-head-mobil-weight);
-}
+  /* Headings shared across components (global) */
+  .cfg-title,
+  .acc-title {
+    font-size: var(--nc-head-mobil-size);
+    line-height: var(--nc-head-mobil-line);
+    font-weight: var(--nc-head-mobil-weight);
+  }
 
-/* =========================================================
+  /* =========================================================
    Desktop overrides (>= 768px)
    ========================================================= */
-@media (min-width: 768px) {
-  .configurator {
-    font-size: var(--nc-konfigurator-desktop-size);
-    line-height: var(--nc-konfigurator-desktop-line);
-    font-weight: var(--nc-konfigurator-desktop-weight);
+  @media (min-width: 768px) {
+    .configurator {
+      font-size: var(--nc-konfigurator-desktop-size);
+      line-height: var(--nc-konfigurator-desktop-line);
+      font-weight: var(--nc-konfigurator-desktop-weight);
 
-    .cfg-panel-inner {
-      padding-top: 1rem;
-      gap: 0.4rem;
-    }
+      .cfg-panel-inner {
+        padding-top: 1rem;
+        gap: 0.4rem;
+      }
 
-    .cfg-head {
-      gap: 1rem;
+      .cfg-head {
+        gap: 1rem;
 
-      .cfg-toggle {
-        flex: 0 0 200px;
+        .cfg-toggle {
+          flex: 0 0 200px;
+        }
+      }
+
+      .cfg-head__label {
+        flex: 0 0 100px;
+      }
+
+      .cfg-row {
+        flex-direction: row;
+        align-items: center;
+        padding: 0.5rem 0 2.5rem;
+        margin-bottom: 0;
+        gap: var(--pf-col-gap);
+      }
+
+      .cfg-row::before {
+        content: '';
+      }
+
+      .cfg-label {
+        flex: 0 0 var(--pf-label-col);
+        line-height: 1.5rem;
+      }
+
+      .cfg-item.is-chip {
+        min-height: auto;
+        font-size: 15px;
+        line-height: 1.3;
+      }
+
+      .cfg-item.is-chip.is-selected::after {
+        bottom: -3px;
+      }
+
+      .cfg-item.is-color:hover::after,
+      .cfg-item.is-color:focus-visible::after {
+        opacity: 1;
       }
     }
 
-    .cfg-head__label {
-      flex: 0 0 100px;
-    }
-
-    .cfg-row {
-      flex-direction: row;
-      align-items: center;
-      padding: 0.5rem 0 2.5rem;
-      margin-bottom: 0;
-      gap: var(--pf-col-gap);
-    }
-
-    .cfg-row::before {
-      content: '';
-    }
-
-    .cfg-label {
-      flex: 0 0 var(--pf-label-col);
-      line-height: 1.5rem;
-    }
-
-    .cfg-item.is-chip {
-      min-height: auto;
-      font-size: 15px;
-      line-height: 1.3;
-    }
-
-    .cfg-item.is-chip.is-selected::after {
-      bottom: -3px;
-    }
-
-    .cfg-item.is-color:hover::after,
-    .cfg-item.is-color:focus-visible::after {
-      opacity: 1;
+    .cfg-title,
+    .acc-title {
+      font-size: var(--nc-konfigurator-head-desktop-size);
+      line-height: var(--nc-konfigurator-head-desktop-line);
+      font-weight: var(--nc-konfigurator-head-desktop-weight);
     }
   }
 
-  .cfg-title,
-  .acc-title {
-    font-size: var(--nc-konfigurator-head-desktop-size);
-    line-height: var(--nc-konfigurator-head-desktop-line);
-    font-weight: var(--nc-konfigurator-head-desktop-weight);
-  }
-}
-
-/* =========================================================
+  /* =========================================================
    Shared controls: toggle button + plus/minus icon
    ========================================================= */
-.cfg-toggle {
-  all: unset;
-  width: 100%;
-  min-height: 44px;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 1.2rem 0 0 0;
-}
-
-@media (min-width: 992px) {
   .cfg-toggle {
-    width: 215px;
-    min-height: 0;
-    padding: 1.5rem 0;
-  }
-}
+    all: unset;
+    width: 100%;
+    min-height: 44px;
+    cursor: pointer;
 
-.cfg-plus {
-  position: relative;
-  width: 12px;
-  height: 12px;
-  flex: 0 0 12px;
-  color: currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 14px;
-    height: 2px;
-    background: currentColor;
-    transform: translate(-50%, -50%);
-    transition: transform 0.2s ease;
+    padding: 1.2rem 0 0 0;
   }
 
-  &::after {
-    transform: translate(-50%, -50%) rotate(90deg);
+  @media (min-width: 992px) {
+    .cfg-toggle {
+      width: 215px;
+      min-height: 0;
+      padding: 1.5rem 0;
+    }
   }
 
-  &.is-open::after {
-    transform: translate(-50%, -50%) rotate(0deg);
+  .cfg-plus {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    color: currentColor;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 14px;
+      height: 2px;
+      background: currentColor;
+      transform: translate(-50%, -50%);
+      transition: transform 0.2s ease;
+    }
+
+    &::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    &.is-open::after {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
   }
 }
