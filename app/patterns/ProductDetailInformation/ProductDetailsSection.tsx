@@ -73,24 +73,21 @@ export function ProductDetailsSection({
         </button>
       </div>
 
-      <div
+      {/* <div
         id={panelId}
         className="pf-panel pf-details-panel"
         // max-height animiert, 0 wenn zu
         // style={{maxHeight: open ? detailsHeight : 0}}
-      >
-        {/* ref misst die echte Inhaltshöhe */}
-        <div ref={detailsRef} className="pf-details-panel__inner">
-          {/* Scroll passiert HIER drin */}
-          <div className="pf-panel-scroll nice-scrollbar">
-            <div className="product__meta">
-              <ProductMetaAccordion
-                metafields={allMetafields}
-                product={product}
-              />
-            </div>
-          </div>
-        </div>
+      > */}
+      {/* ref misst die echte Inhaltshöhe */}
+      {/* <div ref={detailsRef} className="pf-details-panel__inner"> */}
+      {/* Scroll passiert HIER drin */}
+      {/* <div className="pf-panel-scroll nice-scrollbar"> */}
+      <div className="product__meta">
+        <ProductMetaAccordion metafields={allMetafields} product={product} />
+        {/* </div> */}
+        {/* </div> */}
+        {/* </div> */}
       </div>
     </section>
   );
