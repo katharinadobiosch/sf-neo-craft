@@ -16,14 +16,14 @@ export function ProductShippingSection({
     <div className="shipping-item" data-open={open}>
       <button
         type="button"
-        className="cfg-toggle"
+        className="pf-toggle"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="cfg-title">{title}</span>
+        <span className="pf-title">{title}</span>
         <span
-          className={`cfg-plus ${open ? 'is-open' : ''}`}
+          className={`pf-plus ${open ? 'is-open' : ''}`}
           aria-hidden="true"
         />
       </button>
