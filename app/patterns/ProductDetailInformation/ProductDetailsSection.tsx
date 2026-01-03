@@ -77,7 +77,7 @@ export function ProductDetailsSection({
         id={panelId}
         className="cfg-panel pf-details-panel"
         // max-height animiert, 0 wenn zu
-        style={{maxHeight: open ? detailsHeight : 0}}
+        // style={{maxHeight: open ? detailsHeight : 0}}
       >
         {/* ref misst die echte Inhaltshöhe */}
         <div ref={detailsRef} className="pf-details-panel__inner">

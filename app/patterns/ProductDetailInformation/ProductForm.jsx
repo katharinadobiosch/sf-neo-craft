@@ -143,16 +143,16 @@ export function ProductForm({
       </div>
 
       {/* 2) Middle section: Details fill the remaining space */}
-      <div className="product-form__sections">
+      {/* <div className="product-form__sections">
         <ProductDetailsSection
           mfMeasurements={mfMeasurements}
           mfOthers={mfOthers}
           product={activeProduct}
         />
-      </div>
+      </div> */}
 
       {/* 3) Shipping (keep your classes, just animate panel like cfg-panel) */}
-      <ProductShippingSection title={shippingTitle} lines={shippingLines} />
+      {/* <ProductShippingSection title={shippingTitle} lines={shippingLines} /> */}
 
       {/* 4) CTA */}
       <div className="pdp__cta-container">
