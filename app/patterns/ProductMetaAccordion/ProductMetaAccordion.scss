@@ -108,8 +108,9 @@
 
       summary {
         flex-shrink: 0;
-        width: 185px;
-        padding: 1.5rem 0;
+        width: 200px;
+        display: flex;
+        align-items: center;
       }
 
       .acc-title {
@@ -121,6 +122,7 @@
       .acc-panel {
         padding-left: 2rem;
         margin-right: 15px;
+        height: 100%;
       }
 
       .acc-images {
