@@ -28,7 +28,12 @@ export function ProductShippingSection({
         />
       </button>
 
-      <div className="ps-panel" id={panelId} role="region" aria-label={title}>
+      <div
+        className="ps-panel **ps-panel--scroll**"
+        id={panelId}
+        role="region"
+        aria-label={title}
+      >
         {safeLines.length ? (
           <ul className="ps-lines">
             {safeLines.map((line, i) => (

@@ -75,7 +75,7 @@ export function ProductDetailsSection({
 
       <div
         id={panelId}
-        className="pf-panel"
+        className="pf-panel **pf-panel--scroll**"
         style={{
           maxHeight: open ? `${detailsHeight}px` : '0px',
           opacity: open ? 1 : 0,

@@ -1,7 +1,8 @@
 /* =========================================================
    PDP – Layout (mobile first)
    - 0–991px: one column
-   - >=992px: 50/50 split + sticky configurator
+   - >=992px: 50/50 split + info-height = media aspect-ratio
+   - desktop: Configurator / Details / Shipping = 3 scroll areas
    ========================================================= */
 
 .pdp {
@@ -26,7 +27,7 @@
     background-color: transparent;
   }
 
-  /* ---------- Main (always column by default) ---------- */
+  /* ---------- Main (mobile: column) ---------- */
   .product-main {
     display: flex;
     flex-direction: column;
@@ -34,9 +35,12 @@
     width: 100%;
     min-width: 0;
 
+    /* ---------- Desktop: GRID (locks info height to media height) ---------- */
     @media (min-width: 992px) {
-      // width: 50%;
-      flex-direction: row-reverse; /* Reihenfolge umkehren */
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+      column-gap: 1.5rem;
     }
 
     .product-main__media {
@@ -53,6 +57,12 @@
         object-fit: cover;
         aspect-ratio: 780 / 940;
       }
+
+      @media (min-width: 992px) {
+        order: 2;
+        min-height: 0;
+        aspect-ratio: 780 / 940; /* defines row height */
+      }
     }
 
     .product-main__info {
@@ -64,9 +74,11 @@
       gap: 1.5rem;
 
       @media (min-width: 992px) {
-        // width: 50%;
+        order: 1;
         padding-right: 1.5rem;
-        border: 2px solid yellow;
+        height: 100%;
+        min-height: 0;
+        gap: 0; /* important: don't waste height on gaps */
       }
     }
 
@@ -76,6 +88,10 @@
       width: 100%;
       min-height: 320px;
       height: auto;
+
+      @media (min-width: 992px) {
+        min-height: 0;
+      }
     }
 
     /* ---------- Teaser duo (mobile) ---------- */
@@ -130,8 +146,14 @@
       flex: 1 1 auto;
       min-height: 0;
       height: auto;
+
+      @media (min-width: 992px) {
+        height: 100%;
+        min-height: 0;
+      }
     }
 
+    /* (optional legacy) */
     .product-form__scroller {
       flex: 1 1 auto;
       min-height: 0;
@@ -147,10 +169,9 @@
       line-height: var(--nc-konfigurator-head-desktop-line);
       font-weight: var(--nc-konfigurator-head-desktop-weight);
     }
-
-    /* mobile/tablet: NOT sticky */
   }
 
+  /* ---------- CTA ---------- */
   .pdp__cta-container {
     --cta-border: color-mix(in oklab, var(--color-dark) 18%, transparent);
     --cta-accent: var(--sf-purple, #8f8cf6);
@@ -242,6 +263,7 @@
         }
       }
     }
+
     .pdp__question {
       letter-spacing: 0.01em;
       white-space: nowrap;
@@ -258,8 +280,148 @@
     }
   }
 
+  /* =========================================================
+   DESKTOP: Header bleibt sichtbar, nur Panel-Inhalt scrollt
+   ========================================================= */
+  @media (min-width: 992px) {
+    .product-form.pf--segmented {
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* 3 Segmente teilen die Höhe, aber NICHT scrollen */
+    .product-form__configurator {
+      flex: 1 1 0;
+      min-height: 0;
+      overflow: hidden; /* wichtig */
+    }
+
+    .product-form__sections {
+      flex: 2 1 0;
+      min-height: 0;
+      overflow: hidden; /* wichtig */
+    }
+
+    .shipping-item {
+      flex: 1 1 0;
+      min-height: 0;
+      overflow: hidden; /* wichtig */
+      padding-top: 0;
+    }
+
+    /* CTA bleibt unten */
+    .pdp__cta-container {
+      flex: 0 0 auto;
+      margin-top: auto;
+    }
+
+    /* ----------------------------
+     Configurator: Header fixed
+     Panel scrollt
+     ---------------------------- */
+    .product-form__configurator .configurator {
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-form__configurator .cfg-head {
+      flex: 0 0 auto;
+    }
+
+    /* überschreibt dein "overflow: hidden" aus configurator.scss */
+    .product-form__configurator .cfg-panel {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto; /* nur hier scrollen */
+    }
+
+    /* ----------------------------
+     Details: Header fixed
+     Panel scrollt
+     ---------------------------- */
+    .product-form__sections .pf-section {
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-form__sections .pf-head {
+      flex: 0 0 auto;
+      margin-top: 0; /* du setzt es ohnehin im Desktop */
+    }
+
+    .product-form__sections .pf-panel {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto; /* nur hier scrollen */
+    }
+
+    /* ----------------------------
+     Shipping: Header fixed
+     Panel scrollt
+     ---------------------------- */
+    .shipping-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .shipping-item .ps-toggle {
+      flex: 0 0 auto;
+    }
+
+    .shipping-item .ps-panel {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto; /* nur hier scrollen */
+    }
+
+    /* ----------------------------
+     Scrollbar: schwarz (nur Panels)
+     ---------------------------- */
+    .product-form__configurator .cfg-panel,
+    .product-form__sections .pf-panel,
+    .shipping-item .ps-panel {
+      scrollbar-width: thin;
+      scrollbar-color: #111 transparent;
+    }
+
+    .product-form__configurator .cfg-panel::-webkit-scrollbar,
+    .product-form__sections .pf-panel::-webkit-scrollbar,
+    .shipping-item .ps-panel::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .product-form__configurator .cfg-panel::-webkit-scrollbar-track,
+    .product-form__sections .pf-panel::-webkit-scrollbar-track,
+    .shipping-item .ps-panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .product-form__configurator .cfg-panel::-webkit-scrollbar-thumb,
+    .product-form__sections .pf-panel::-webkit-scrollbar-thumb,
+    .shipping-item .ps-panel::-webkit-scrollbar-thumb {
+      background: #111;
+      border-radius: 999px;
+    }
+
+    .product-form__configurator .cfg-panel::-webkit-scrollbar-thumb:hover,
+    .product-form__sections .pf-panel::-webkit-scrollbar-thumb:hover,
+    .shipping-item .ps-panel::-webkit-scrollbar-thumb:hover {
+      background: #000;
+    }
+  }
+
+  /* =========================================================
+     Details section (keep your existing styles)
+     ========================================================= */
+
   .product-form__sections {
-    /* CSS Variables + Typo */
     --muted: #6b6b6b;
     --divider: #d9d9d9;
 
@@ -267,8 +429,6 @@
     line-height: var(--nc-konfigurator-mobil-line, 1.4);
     font-weight: var(--nc-konfigurator-mobil-weight, 400);
     color: var(--text-default);
-
-    /* ================= Head ================= */
 
     .pf-head {
       display: flex;
@@ -293,8 +453,6 @@
       font-weight: var(--nc-head-mobil-weight);
     }
 
-    /* ================= Panel ================= */
-
     .pf-panel {
       overflow: hidden;
       max-height: 0;
@@ -307,8 +465,6 @@
     .pf-details-panel {
       opacity: 1;
     }
-
-    /* ================= Plus Icon ================= */
 
     .pf-plus {
       position: relative;
@@ -344,11 +500,8 @@
         font-size: 1.5rem;
         line-height: 2.2rem;
         font-weight: 500;
-        // border: 2px solid pink;
       }
     }
-
-    /* ================= Desktop ================= */
 
     @media (min-width: 992px) {
       height: 100%;
@@ -362,16 +515,12 @@
         min-height: 0;
         padding: 1.5rem 0 0rem 0;
       }
-
-      .pf--segmented {
-        border: 1px solid green;
-      }
-
-      .pf-panel {
-        border: 2px solid pink;
-      }
     }
   }
+
+  /* =========================================================
+     Shipping section (keep your existing styles)
+     ========================================================= */
 
   .shipping-item {
     padding-top: 1.5rem;
@@ -404,7 +553,7 @@
     }
 
     &[data-open='true'] .ps-panel {
-      max-height: 999px; // pragmatisch; wenn Inhalte sehr groß: höher setzen oder messen
+      max-height: 999px;
       opacity: 1;
     }
 
@@ -436,12 +585,6 @@
         transform: translate(-50%, -50%) rotate(0deg);
       }
     }
-
-    @media (min-width: 992px) {
-      .ps-panel {
-        border: 2px solid red;
-      }
-    }
   }
 
   @media (min-width: 768px) {
@@ -449,7 +592,6 @@
       font-size: 1.5rem;
       line-height: 2.2rem;
       font-weight: 500;
-      // border: 2px solid pink;
     }
   }
 }

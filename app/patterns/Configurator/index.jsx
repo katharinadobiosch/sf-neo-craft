@@ -230,7 +230,7 @@ export function Configurator({
       {/* Container 1: Varianten */}
       <div
         id="cfg-variants"
-        className="cfg-panel"
+        className="cfg-panel **cfg-panel--scroll**"
         style={{maxHeight: variantsOpen ? `${panelHeight}px` : '0px'}}
         aria-hidden={!variantsOpen}
       >

@@ -152,7 +152,9 @@ export function ProductForm({
       </div>
 
       {/* 3) Shipping (keep your classes, just animate panel like cfg-panel) */}
-      <ProductShippingSection title={shippingTitle} lines={shippingLines} />
+      <div className="product-form__shipping">
+        <ProductShippingSection title={shippingTitle} lines={shippingLines} />
+      </div>
 
       {/* 4) CTA */}
       <div className="pdp__cta-container">
