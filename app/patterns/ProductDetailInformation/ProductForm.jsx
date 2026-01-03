@@ -129,7 +129,7 @@ export function ProductForm({
   // --------- DETAILS: measure height like Configurator ----------
 
   return (
-    <div className="product-form product-form--segmented">
+    <div className="product-form pf--segmented">
       {/* 1) Configurator – fixed */}
       <div className="product-form__configurator">
         <Configurator
@@ -152,7 +152,7 @@ export function ProductForm({
       </div>
 
       {/* 3) Shipping (keep your classes, just animate panel like cfg-panel) */}
-      {/* <ProductShippingSection title={shippingTitle} lines={shippingLines} /> */}
+      <ProductShippingSection title={shippingTitle} lines={shippingLines} />
 
       {/* 4) CTA */}
       <div className="pdp__cta-container">

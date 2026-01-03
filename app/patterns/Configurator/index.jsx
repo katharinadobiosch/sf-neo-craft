@@ -231,7 +231,8 @@ export function Configurator({
       <div
         id="cfg-variants"
         className="cfg-panel"
-        // style={{maxHeight: variantsOpen ? panelHeight : 0}}
+        style={{maxHeight: variantsOpen ? `${panelHeight}px` : '0px'}}
+        aria-hidden={!variantsOpen}
       >
         <div ref={panelRef} className="cfg-panel-inner">
           {/* 🔹 neue Modell-Zeile */}

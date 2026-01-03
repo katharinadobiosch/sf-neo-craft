@@ -51,6 +51,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        aspect-ratio: 780 / 940;
       }
     }
 
@@ -62,7 +63,7 @@
       flex-direction: column;
       gap: 1.5rem;
 
-      @media (min-width: 991px) {
+      @media (min-width: 992px) {
         // width: 50%;
         padding-right: 1.5rem;
       }
@@ -250,6 +251,10 @@
       justify-content: center;
       align-items: center;
     }
+
+    @media (min-width: 992px) {
+      padding-top: 1.5rem;
+    }
   }
 
   .product-form__sections {
@@ -340,8 +345,13 @@
     /* ================= Desktop ================= */
 
     @media (min-width: 992px) {
+      height: 100%;
+
+      .pf-head {
+        margin-top: 0;
+      }
       .pf-toggle {
-        width: 215px;
+        width: 135px;
         min-height: 0;
         padding: 1.5rem 0;
       }
@@ -351,6 +361,87 @@
         line-height: var(--nc-konfigurator-head-desktop-line);
         font-weight: var(--nc-konfigurator-head-desktop-weight);
       }
+
+      .pf--segmented {
+        border: 1px solid green;
+      }
+
+      .pf-panel {
+        border: 2px solid pink;
+      }
+    }
+  }
+
+  .shipping-item {
+    padding-top: 1.5rem;
+    // border: 2px solid orange;
+    .ps-head {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+      height: 44px;
+    }
+
+    .ps-toggle {
+      all: unset;
+      width: 100%;
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ps-panel {
+      border: 2px solid blue;
+    }
+
+    .ps-title {
+      font-size: var(--nc-konfigurator-head-desktop-size);
+      line-height: var(--nc-konfigurator-head-desktop-line);
+      font-weight: var(--nc-konfigurator-head-desktop-weight);
+    }
+
+    .ps-plus {
+      position: relative;
+      width: 12px;
+      height: 12px;
+      flex: 0 0 12px;
+      color: currentColor;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 14px;
+        height: 2px;
+        background: currentColor;
+        transform: translate(-50%, -50%);
+        transition: transform 0.2s ease;
+      }
+
+      &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+
+      &.is-open::after {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+    }
+    .ps-panel {
+      overflow: hidden;
+      max-height: 0; // wichtig: default collapsed
+      opacity: 0;
+
+      transition:
+        max-height 0.35s ease,
+        opacity 0.2s ease;
+    }
+
+    &[data-variants-open='true'] .ps-panel {
+      opacity: 1;
     }
   }
 }
