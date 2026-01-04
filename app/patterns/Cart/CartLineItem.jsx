@@ -33,9 +33,16 @@ export function CartLineItem({layout, line}) {
 
         {/* Einzelpreis unter dem Bild (TASCHEN-style) */}
         <div className="cart-line__price-block">
-          <ProductPrice price={line?.cost?.amountPerQuantity} />
-          <CartLineQuantity line={line} />
-          <ProductPrice price={line?.cost?.totalAmount} />
+          <div className="cart-line__unit-price">
+            <ProductPrice price={line?.cost?.amountPerQuantity} />
+          </div>
+
+          <div className="cart-line__right">
+            <CartLineQuantity line={line} />
+            <div className="cart-line__total">
+              <ProductPrice price={line?.cost?.totalAmount} />
+            </div>
+          </div>
         </div>
       </div>
 
