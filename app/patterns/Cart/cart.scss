@@ -334,25 +334,34 @@
 /* --------------------------------------------------
    BREAKPOINTS
 -------------------------------------------------- */
+/* --------------------------------------------------
+   BREAKPOINTS: Desktop Layout wie TASCHEN
+-------------------------------------------------- */
 
 @media (min-width: 768px) {
-  .cart {
-    padding: 1.75rem 0 2.75rem;
-  }
-
   .cart > h1 {
+    max-width: 980px;
     padding: 0 2rem;
     font-size: 2rem;
   }
 
+  .cart-main {
+    max-width: 980px;
+  }
+
   .cart-details > div[aria-labelledby='cart-lines'] {
-    padding: 0 2rem 1rem;
+    padding: 0 2rem 1.25rem;
+  }
+
+  .cart-summary-aside,
+  .cart-summary-page {
+    padding: 2rem;
   }
 
   .cart-line {
     grid-template-columns: 140px 1fr;
-    gap: 1.5rem;
-    padding: 1.5rem 0;
+    gap: 1.6rem;
+    padding: 1.6rem 0;
   }
 
   .cart-line__media :is(img, picture, svg) {
@@ -362,48 +371,60 @@
 
   .cart-line__unit-price {
     width: 140px;
-    font-size: 0.95em;
   }
 
-  .cart-line__title {
-    font-size: 1.3rem;
-  }
-
-  .cart-line__meta {
-    font-size: 1rem;
-    margin-bottom: 0.75rem;
-  }
-
-  /* Stepper etwas “ruhiger” und besser bedienbar */
   .qty-btn,
   .qty-value {
     height: 34px;
     min-width: 34px;
   }
-
-  .cart-summary-aside,
-  .cart-summary-page {
-    padding: 2rem;
-  }
 }
 
 @media (min-width: 992px) {
-  .cart {
-    padding: 2.25rem 0 3.25rem;
-  }
-
+  /* Mehr Raum, nicht mehr "mobile in groß" */
   .cart > h1 {
+    max-width: 1160px;
+    padding: 0 2.5rem;
     font-size: 2.15rem;
   }
 
   .cart-main {
-    max-width: 860px; /* etwas großzügiger als 780 */
+    max-width: 1160px;
   }
 
+  /* 2-Spalten Grid: links Lines, rechts Summary */
+  .cart-details {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  /* Lines-Spalte: normales Padding, keine "Karte in der Karte" */
+  .cart-details > div[aria-labelledby='cart-lines'] {
+    padding: 0 0 1.5rem;
+  }
+
+  /* Summary rechts: sticky wie TASCHEN */
+  .cart-summary-aside,
+  .cart-summary-page {
+    position: sticky;
+    top: calc(var(--header-height) + 1.25rem);
+    margin-top: 0;
+    padding: 2rem;
+  }
+
+  /* Optional: zarter visueller Rahmen rechts (wie Seitenpanel) */
+  .cart-summary-aside,
+  .cart-summary-page {
+    border-left: 1px solid var(--line);
+  }
+
+  /* Lines selbst größer/luftiger */
   .cart-line {
     grid-template-columns: 160px 1fr;
-    gap: 1.75rem;
-    padding: 1.75rem 0;
+    gap: 1.9rem;
+    padding: 1.9rem 0;
   }
 
   .cart-line__media :is(img, picture, svg) {
@@ -413,23 +434,12 @@
 
   .cart-line__unit-price {
     width: 160px;
-    font-size: 0.95em;
-  }
-
-  /* Stepper Desktop: minimal größer + etwas mehr Abstand */
-  .cart-line-quantity {
-    padding-right: 18px;
   }
 
   .qty-btn,
   .qty-value {
     height: 36px;
     min-width: 36px;
-  }
-
-  .cart-summary-aside,
-  .cart-summary-page {
-    padding: 2.25rem;
   }
 
   .cart-checkout {
