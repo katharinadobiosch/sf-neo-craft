@@ -25,6 +25,8 @@ export function MaterialForm({
   const {open: openAside} = useAside();
   const navigate = useNavigate();
 
+  console.log('MaterialForm render', product.description);
+
   const BLACKLIST = new Set([
     'series_hero',
     'product_tile',
@@ -130,13 +132,7 @@ export function MaterialForm({
   return (
     <div className="product-form pf--segmented">
       {/* 2) Middle section: Details fill the remaining space */}
-      <div className="product-form__sections">
-        <ProductDetailsSection
-          mfMeasurements={mfMeasurements}
-          mfOthers={mfOthers}
-          product={activeProduct}
-        />
-      </div>
+      <div className="product-form__sections">{product.description}</div>
 
       {/* 3) Shipping (keep your classes, just animate panel like cfg-panel) */}
       <div className="product-form__shipping">
