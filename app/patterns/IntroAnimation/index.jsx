@@ -74,7 +74,10 @@ export default function IntroAnimation({
     <div className="animation-container" aria-hidden="true">
       <div className="letter n">N</div>
       <div className="letter c">C</div>
-      <div className="brand-reveal">NEO CRAFT</div>
+      <div className="brand-reveal">
+        <span className="brand-line">NEO</span>
+        <span className="brand-line">CRAFT</span>
+      </div>
       <div className="purple-overlay" />
     </div>
   );
