@@ -1,6 +1,8 @@
 import {useRef, useState, useEffect} from 'react';
 import colors from './colors.json';
 
+const cx = (...classes) => classes.filter(Boolean).join(' ');
+
 const hexToRgba = (hex) => {
   const h = hex.replace('#', '');
   const hasAlpha = h.length === 8;
@@ -131,19 +133,48 @@ export function Configurator({
 
     const label = option.name.charAt(0).toUpperCase() + option.name.slice(1); // 👈 hier
 
+    const optionSlug = option.name.toLowerCase().trim();
+    const isModel = optionSlug === 'model' || optionSlug === 'modell';
+    const isSize =
+      optionSlug === 'size' ||
+      optionSlug === 'größe' ||
+      optionSlug === 'groesse';
+
+    const rowClass = cx(
+      'cfg-row',
+      colorish && 'cfg-row--color',
+      !colorish && 'cfg-row--chip',
+      isModel && 'cfg-row--model',
+      isSize && 'cfg-row--size',
+    );
+
+    const valuesClass = cx(
+      'cfg-values',
+      colorish ? 'cfg-values--color' : 'cfg-values--chip',
+    );
+
     return (
-      <div className="cfg-row" key={option.name}>
+      <div className={rowClass} key={option.name}>
         <div className="cfg-label">{label}</div>
-        <div className="cfg-values">
+        <div
+          className={valuesClass}
+          data-option={optionSlug}
+          data-count={!colorish ? option.optionValues.length : undefined}
+        >
           {option.optionValues.map((value) => {
             const selected = !!value.selected;
             const disabled = !value.exists;
             return (
               <button
                 key={value.name}
-                className={`cfg-item ${colorish ? 'is-color' : 'is-chip'} ${selected ? 'is-selected' : ''}`}
+                className={cx(
+                  'cfg-item',
+                  colorish ? 'is-color' : 'is-chip',
+                  selected && 'is-selected',
+                )}
                 disabled={disabled}
-                title={value.name}
+                data-tooltip={value.name}
+                aria-label={value.name}
                 onClick={() => {
                   if (!selected) {
                     navigate(`?${value.variantUriQuery}`, {
@@ -175,6 +206,10 @@ export function Configurator({
     );
   };
 
+  const isDesktop =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(min-width: 992px)').matches;
+
   return (
     <div className="configurator" data-variants-open={variantsOpen}>
       {/* Kopf: toggelt NUR Varianten */}
@@ -200,35 +235,46 @@ export function Configurator({
       <div
         id="cfg-variants"
         className="cfg-panel"
-        style={{maxHeight: variantsOpen ? panelHeight : 0}}
+        style={
+          variantsOpen
+            ? isDesktop
+              ? {maxHeight: 'none'}
+              : {maxHeight: `${panelHeight}px`}
+            : {maxHeight: '0px'}
+        }
+        aria-hidden={!variantsOpen}
       >
-        <div ref={panelRef} className="cfg-panel-inner">
-          {/* 🔹 neue Modell-Zeile */}
-          {hasSeriesOptions && (
-            <div className="cfg-row cfg-row--model">
-              <div className="cfg-label">Model</div>
-              <div className="cfg-values">
-                {seriesProducts.map((p, index) => {
-                  const label = p.title.replace(/^OSOM\s+/i, '');
-                  const isActive = index === seriesActiveIndex;
+        <div className="cfg-panel-scroll">
+          <div ref={panelRef} className="cfg-panel-inner">
+            {/* 🔹 neue Modell-Zeile */}
+            {hasSeriesOptions && (
+              <div className="cfg-row cfg-row--model">
+                <div className="cfg-label">Model</div>
+                <div className="cfg-values">
+                  {seriesProducts.map((p, index) => {
+                    const label = p.title.replace(/^OSOM\s+/i, '');
+                    const isActive = index === seriesActiveIndex;
 
-                  return (
-                    <button
-                      key={p.id}
-                      type="button"
-                      className={`cfg-item is-chip ${isActive ? 'is-selected' : ''}`}
-                      onClick={() => onChangeSeriesProduct(index)}
-                    >
-                      <span className="chip-text">{label}</span>
-                    </button>
-                  );
-                })}
+                    return (
+                      <button
+                        key={p.id}
+                        type="button"
+                        title={label}
+                        aria-label={label}
+                        className={`cfg-item is-chip ${isActive ? 'is-selected' : ''}`}
+                        onClick={() => onChangeSeriesProduct(index)}
+                      >
+                        <span className="chip-text">{label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* bestehende Variant-Optionen */}
-          {variantOptions.map(renderOption)}
+            {/* bestehende Variant-Optionen */}
+            {variantOptions.map(renderOption)}
+          </div>
         </div>
       </div>
     </div>

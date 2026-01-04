@@ -1,3 +1,10 @@
+/* =========================================================
+   PDP – Layout (mobile first)
+   - 0–991px: one column
+   - >=992px: 50/50 split + info-height = media aspect-ratio
+   - desktop: Configurator / Details / Shipping = 3 scroll areas
+   ========================================================= */
+
 .pdp {
   display: flex;
   flex-direction: column;
@@ -8,6 +15,7 @@
     margin-top: 0;
   }
 
+  /* Options */
   .product-options-grid {
     display: flex;
     flex-wrap: wrap;
@@ -19,174 +27,620 @@
     background-color: transparent;
   }
 
+  /* ---------- Main (mobile: column) ---------- */
   .product-main {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-  }
-
-  .product-main__media {
-    order: -1;
     width: 100%;
-    min-height: 320px;
-    display: flex;
-    align-items: stretch;
+    min-width: 0;
 
-    img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-    }
-  }
-
-  .product-main__info {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    gap: 1.5rem;
-  }
-
-  .media-gallery,
-  .nc-media-gallery {
-    flex: 1 1 auto;
-    width: 100%;
-    min-height: 320px;
-    height: auto;
-  }
-
-  .pdp__teaser-duo {
-    margin: 0 0 0 0;
-
-    .teaser-duo__images {
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .teaser-duo__image {
-      width: 100%;
-    }
-
-    .teaser-duo__image img {
-      aspect-ratio: auto;
-      height: auto;
-    }
-
-    .teaser-duo__content {
-      background: var(--sf-purple);
-      margin-top: 1rem;
-      padding: 2rem 1.6rem 2.6rem;
-      font-size: var(--nc-fliesstext-mobil-size);
-      line-height: var(--nc-fliesstext-mobil-line);
-      font-weight: var(--nc-fliesstext-mobil-weight);
-      overflow-wrap: break-word;
-      word-break: break-word;
-    }
-  }
-
-  /* verhindert Overflow im quadratischen oberen Teaser */
-  .square-variant .teaser-duo__content {
-    width: 100%;
-  }
-}
-
-.product-price-on-sale {
-  display: flex;
-  opacity: 0.5;
-}
-
-.product-main .product-form {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-height: 0;
-  height: auto;
-}
-
-.product-form__scroller {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow-y: auto;
-  margin: 0;
-}
-
-.product-form__details {
-  font-size: var(--nc-konfigurator-head-desktop-size);
-  line-height: var(--nc-konfigurator-head-desktop-line);
-  font-weight: var(--nc-konfigurator-head-desktop-weight);
-  width: auto;
-  padding: 1.5rem 0 1.5rem 0;
-}
-
-.product-form__configurator {
-  position: static;
-  top: auto;
-  background: #fff;
-  z-index: 3;
-}
-
-@media (min-width: 768px) {
-  .pdp {
-    gap: 0;
-    margin: 3rem 0;
-
-    .product-main {
-      flex-direction: row;
-      aspect-ratio: 1560 / 780;
+    /* ---------- Desktop: GRID (locks info height to media height) ---------- */
+    @media (min-width: 992px) {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       align-items: stretch;
-      height: calc(100vh - var(--header-h));
-      overflow: hidden;
+      column-gap: 1.5rem;
     }
 
     .product-main__media {
-      order: 0;
-      width: 50%;
-      aspect-ratio: 780 / 940;
-      min-height: 0;
-      height: 100%;
+      order: -1;
+      width: 100%;
+      min-width: 0;
+      min-height: 320px;
+      display: flex;
+      align-items: stretch;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        aspect-ratio: 780 / 940;
+      }
+
+      @media (min-width: 992px) {
+        order: 2;
+        min-height: 0;
+        aspect-ratio: 780 / 940; /* defines row height */
+        align-items: start; // statt stretch
+      }
     }
 
     .product-main__info {
-      width: 50%;
-      aspect-ratio: 780 / 940;
-      height: 100%;
+      width: 100%;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      @media (min-width: 992px) {
+        order: 1;
+        padding-right: 1.5rem;
+        height: 100%;
+        min-height: 0;
+        gap: 0; /* important: don't waste height on gaps */
+      }
     }
 
     .media-gallery,
     .nc-media-gallery {
-      min-height: var(--stage-min-h);
-      height: 100%;
+      flex: 1 1 auto;
+      width: 100%;
+      min-height: 320px;
+      height: auto;
+
+      @media (min-width: 992px) {
+        min-height: 0;
+      }
     }
 
+    /* ---------- Teaser duo (mobile) ---------- */
     .pdp__teaser-duo {
+      margin: 0;
+
       .teaser-duo__images {
-        flex-direction: row;
-        width: 100%;
         display: flex;
-        gap: 0;
+        flex-direction: column;
+        gap: 1.5rem;
       }
 
       .teaser-duo__image {
-        width: 50%;
+        width: 100%;
       }
 
       .teaser-duo__image img {
-        aspect-ratio: auto;
+        width: 100%;
         height: auto;
+        aspect-ratio: auto;
       }
 
-      img {
-        aspect-ratio: 781 / 520;
+      .teaser-duo__content {
+        background: var(--sf-purple);
+        margin-top: 1rem;
+        padding: 2rem 1.6rem 2.6rem;
+
+        font-size: var(--nc-fliesstext-mobil-size);
+        line-height: var(--nc-fliesstext-mobil-line);
+        font-weight: var(--nc-fliesstext-mobil-weight);
+
+        overflow-wrap: break-word;
+        word-break: break-word;
+      }
+    }
+
+    /* verhindert Overflow im quadratischen oberen Teaser */
+    .square-variant .teaser-duo__content {
+      width: 100%;
+    }
+
+    /* ---------- Price ---------- */
+    .product-price-on-sale {
+      display: flex;
+      opacity: 0.5;
+    }
+
+    /* ---------- Product form ---------- */
+    .product-form {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      min-height: 0;
+      height: auto;
+
+      @media (min-width: 992px) {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 0;
+        justify-content: flex-start; // statt space-between o.ä.
+        align-content: flex-start;
+      }
+    }
+
+    /* (optional legacy) */
+    .product-form__scroller {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      margin: 0;
+    }
+
+    .product-form__details {
+      width: auto;
+      padding: 1.5rem 0;
+
+      font-size: var(--nc-konfigurator-head-desktop-size);
+      line-height: var(--nc-konfigurator-head-desktop-line);
+      font-weight: var(--nc-konfigurator-head-desktop-weight);
+    }
+  }
+
+  /* ---------- CTA ---------- */
+  .pdp__cta-container {
+    --cta-border: color-mix(in oklab, var(--color-dark) 18%, transparent);
+    --cta-accent: var(--sf-purple, #8f8cf6);
+
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    padding-top: 3rem;
+
+    background: transparent;
+    box-shadow: none;
+    height: auto;
+
+    backdrop-filter: blur(8px);
+
+    .pf-cta {
+      border: 1px solid var(--cta-border);
+      overflow: hidden;
+
+      display: grid;
+      grid-template-columns: 56px 118px 1fr;
+      align-items: stretch;
+
+      height: 4rem;
+
+      .cta-arrow,
+      .cta-price {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-dark);
+      }
+
+      .cta-arrow {
+        font-size: 18px;
+        opacity: 0.9;
+      }
+
+      .cta-price {
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+      }
+
+      form > button {
+        all: unset;
+        cursor: pointer;
+
+        height: 100%;
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: 650;
+        letter-spacing: 0.01em;
+
+        background: var(--color-dark);
+        color: #fff;
+
+        transition:
+          transform 0.12s ease,
+          filter 0.12s ease,
+          opacity 0.12s ease;
+
+        &:disabled {
+          opacity: 1;
+        }
+      }
+
+      &.is-idle form > button {
+        background: color-mix(in oklab, var(--color-dark) 8%, #fff);
+        color: color-mix(in oklab, var(--color-dark) 75%, transparent);
+        cursor: not-allowed;
+      }
+
+      &.is-active form > button {
+        background: linear-gradient(
+          to bottom,
+          color-mix(in oklab, var(--cta-accent) 14%, var(--color-dark) 86%),
+          var(--color-dark)
+        );
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+
+        &:active {
+          transform: translateY(1px);
+          filter: brightness(0.98);
+        }
+      }
+    }
+
+    .pdp__question {
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      border: 1px solid var(--cta-border);
+      margin: 1rem 0 0 0;
+      height: 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media (min-width: 992px) {
+      padding-top: 1.5rem;
+    }
+  }
+
+  /* =========================================================
+   DESKTOP: Header bleibt sichtbar, nur Panel-Inhalt scrollt
+   ========================================================= */
+  @media (min-width: 992px) {
+    .product-form.pf--segmented {
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* 3 Segmente teilen die Höhe, aber NICHT scrollen */
+    .product-form__configurator {
+      flex: 1 1 0;
+      min-height: 0;
+      overflow: hidden; /* wichtig */
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .product-form__sections {
+      display: flex;
+      flex-direction: column;
+      flex: 2 1 0;
+      min-height: 0;
+      overflow: hidden; /* wichtig */
+    }
+
+    .shipping-item {
+      flex: 1 1 0;
+      min-height: 0;
+      overflow: hidden; /* wichtig */
+      padding-top: 0;
+    }
+
+    /* CTA bleibt unten */
+    .pdp__cta-container {
+      flex: 0 0 auto;
+      margin-top: auto;
+    }
+
+    /* ----------------------------
+     Configurator: Header fixed
+     Panel scrollt
+     ---------------------------- */
+    .product-form__configurator .configurator {
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-form__configurator .cfg-panel-scroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto; /* nur hier scrollen */
+      overflow-x: hidden;
+    }
+
+    .product-form__configurator .cfg-head {
+      flex: 0 0 auto;
+    }
+
+    /* überschreibt dein "overflow: hidden" aus configurator.scss */
+    .product-form__configurator .cfg-panel {
+      // flex: 1 1 auto;
+      // min-height: 0;
+      // overflow: auto; /* nur hier scrollen */
+      /* Accordion-Hülle darf im Desktop nicht limitieren */
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    /* ----------------------------
+     Details: Header fixed
+     Panel scrollt
+     ---------------------------- */
+    .product-form__sections .pf-section {
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-form__sections .pf-head {
+      flex: 0 0 auto;
+      margin-top: 0; /* du setzt es ohnehin im Desktop */
+    }
+
+    .product-form__sections .pf-panel {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto; /* nur hier scrollen */
+      // padding-top: 1rem;
+    }
+
+    /* ----------------------------
+     Shipping: Header fixed
+     Panel scrollt
+     ---------------------------- */
+    .shipping-item {
+      display: flex;
+      flex-direction: column;
+
+      .ps-toggle {
+        flex: 0 0 auto;
+      }
+
+      .shipping-item .ps-panel {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto; /* nur hier scrollen */
+      }
+    }
+
+    /* ----------------------------
+     Scrollbar: schwarz (nur Panels)
+     ---------------------------- */
+    .product-form__configurator .cfg-panel,
+    .product-form__sections .pf-panel,
+    .shipping-item .ps-panel {
+      scrollbar-width: thin;
+      scrollbar-color: #111 transparent;
+    }
+
+    .product-form__configurator .cfg-panel::-webkit-scrollbar,
+    .product-form__sections .pf-panel::-webkit-scrollbar,
+    .shipping-item .ps-panel::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .product-form__configurator .cfg-panel::-webkit-scrollbar-track,
+    .product-form__sections .pf-panel::-webkit-scrollbar-track,
+    .shipping-item .ps-panel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .product-form__configurator .cfg-panel::-webkit-scrollbar-thumb,
+    .product-form__sections .pf-panel::-webkit-scrollbar-thumb,
+    .shipping-item .ps-panel::-webkit-scrollbar-thumb {
+      background: #111;
+      border-radius: 999px;
+    }
+
+    .product-form__configurator .cfg-panel::-webkit-scrollbar-thumb:hover,
+    .product-form__sections .pf-panel::-webkit-scrollbar-thumb:hover,
+    .shipping-item .ps-panel::-webkit-scrollbar-thumb:hover {
+      background: #000;
+    }
+  }
+
+  /* =========================================================
+     Details section (keep your existing styles)
+     ========================================================= */
+
+  .product-form__sections {
+    font-size: var(--nc-konfigurator-mobil-size, 14px);
+    line-height: var(--nc-konfigurator-mobil-line, 1.4);
+    font-weight: var(--nc-konfigurator-mobil-weight, 400);
+    color: var(--text-default);
+
+    .pf-head {
+      display: flex;
+      align-items: center;
+      margin-top: 1rem;
+      height: 44px;
+    }
+
+    .pf-toggle {
+      all: unset;
+      width: 100%;
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pf-title {
+      font-size: var(--nc-head-mobil-size);
+      line-height: var(--nc-head-mobil-line);
+      font-weight: var(--nc-head-mobil-weight);
+    }
+
+    .pf-panel {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition:
+        max-height 0.35s ease,
+        opacity 0.2s ease;
+    }
+
+    .pf-details-panel {
+      opacity: 1;
+    }
+
+    .pf-plus {
+      position: relative;
+      width: 12px;
+      height: 12px;
+      flex: 0 0 12px;
+      color: currentColor;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 14px;
+        height: 2px;
+        background: currentColor;
+        transform: translate(-50%, -50%);
+        transition: transform 0.2s ease;
+      }
+
+      &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+
+      &.is-open::after {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .pf-title {
+        font-size: 1.5rem;
+        line-height: 2.2rem;
+        font-weight: 500;
+      }
+
+      .pf-toggle {
+        width: 200px;
+      }
+    }
+
+    @media (min-width: 992px) {
+      height: 100%;
+
+      .pf-head {
+        margin-top: 0;
+      }
+
+      .pf-toggle {
+        width: 135px;
+        min-height: 0;
+        padding: 1.5rem 0 0rem 0;
       }
     }
   }
 
-  .product-main .product-form {
-    height: calc(100% - 4rem);
+  /* =========================================================
+     Shipping section (keep your existing styles)
+     ========================================================= */
+
+  .shipping-item {
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--divider);
+
+    .ps-toggle {
+      all: unset;
+      width: 100%;
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      @media (min-width: 768px) {
+        width: 200px;
+      }
+    }
+
+    .ps-panel {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition:
+        max-height 0.35s ease,
+        opacity 0.2s ease;
+
+      display: flex;
+      align-items: center;
+      padding-left: 2rem;
+      padding-top: 1rem;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-muted, #5a5a5a);
+    }
+
+    &[data-open='true'] .ps-panel {
+      max-height: 999px;
+      opacity: 1;
+    }
+
+    .ps-plus {
+      position: relative;
+      width: 12px;
+      height: 12px;
+      flex: 0 0 12px;
+      color: currentColor;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 14px;
+        height: 2px;
+        background: currentColor;
+        transform: translate(-50%, -50%);
+        transition: transform 0.2s ease;
+      }
+
+      &::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+
+      &.is-open::after {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+    }
   }
 
-  .product-form__configurator {
-    position: sticky;
-    top: 0;
+  .ps-title {
+    font-size: 1.2rem;
+    line-height: 2.2rem;
+    font-weight: 500;
+
+    @media (min-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  /* =========================================================
+   FIX: Details Panel muss im Desktop scrollen
+   (überschreibt das mobile "overflow:hidden" + max-height:0)
+   ========================================================= */
+  @media (min-width: 992px) {
+    .product-form__sections .pf-panel {
+      overflow: auto !important;
+      max-height: none !important; /* wichtig: sonst bleibt es 0 */
+      opacity: 1; /* optional, falls du Flicker hast */
+    }
+
+    /* wenn du die Header-Zeile NICHT mitscrollen willst */
+    .product-form__sections .pf-head {
+      flex: 0 0 auto;
+    }
+
+    /* damit Flex-Child wirklich scrollen darf */
+    .product-form__sections .pf-section {
+      min-height: 0;
+    }
   }
 }

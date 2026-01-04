@@ -1,6 +1,7 @@
 // app/patterns/ProductDetailInformation/ProductMain.jsx
 import {MediaGallery} from '~/patterns/MediaGallery';
 import {MaterialForm} from './MaterialForm';
+import {ProductForm} from '@/patterns/ProductDetailInformation/ProductForm';
 
 import {
   getProductOptions,
@@ -24,13 +25,9 @@ export function MaterialMain({
   const description = product?.descriptionHtml ?? product?.description;
 
   return (
-    <>
-      <div className="product-material">
-        <div className="product-material__info">
-          <div
-            className="pdp-materials__text"
-            dangerouslySetInnerHTML={{__html: description}}
-          />
+    <div className="pdp">
+      <div className="product-main">
+        <div className="product-main__info">
           <MaterialForm
             productOptions={productOptions}
             selectedVariant={selectedVariant}
@@ -40,19 +37,11 @@ export function MaterialMain({
             onChangeSeriesProduct={onChangeSeriesProduct}
           />
         </div>
-        <div className="product-material__media">
+
+        <div className="product-main__media">
           <MediaGallery product={product} variant={selectedVariant} />
         </div>
       </div>
-
-      {/* <HeroSplit_GalleryBand leftImg={thirdImage} rightImg={mainImage} />
-      <TeaserDuo
-        className="pdp__teaser-duo"
-        left={productDuoTopLeft}
-        leftHover={productDuoTopLeftHover}
-        right={productDuoTopRight}
-        rightHover={productDuoTopRightHover}
-      /> */}
-    </>
+    </div>
   );
 }

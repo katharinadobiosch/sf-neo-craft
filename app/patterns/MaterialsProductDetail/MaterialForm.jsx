@@ -1,22 +1,31 @@
 import {useMemo} from 'react';
 import {useAside} from '~/patterns/Aside';
-// import {ProductMetaAccordion} from './ProductMetaAccordion';
+import {useNavigate} from 'react-router';
 import {AddToCartButton} from '~/patterns/Cart/AddToCartButton';
+import {ProductDetailsSection} from '@/patterns/ProductDetailInformation/ProductDetailsSection';
+import {ProductShippingSection} from '@/patterns/ProductDetailInformation/ProductShippingSection';
 
-/**
- * @param {{
- *   productOptions: MappedProductOptions[];
- *   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
- * }}
- */
+function getMfByKey(metafields, key) {
+  const k = String(key).toLowerCase().trim();
+  return (metafields || []).find(
+    (m) =>
+      String(m?.key || '')
+        .toLowerCase()
+        .trim() === k,
+  );
+}
 
 export function MaterialForm({
   productOptions,
   product,
   seriesProducts,
   seriesActiveIndex,
+  onChangeSeriesProduct,
 }) {
   const {open: openAside} = useAside();
+  const navigate = useNavigate();
+
+  console.log('MaterialForm render', product.description);
 
   const BLACKLIST = new Set([
     'series_hero',
@@ -30,16 +39,15 @@ export function MaterialForm({
     'hero_split_text',
     'product_series',
     'content',
+    'shipping', // ensure shipping metafield does not land in "mfOthers"
   ]);
 
   const hasContent = (m) => {
     if (!m) return false;
     const v = m.value;
-
     if (typeof v === 'string') return v.trim().length > 0;
     if (typeof v === 'number') return !Number.isNaN(v);
     if (typeof v === 'boolean') return true;
-
     return false;
   };
 
@@ -63,28 +71,22 @@ export function MaterialForm({
   const allMetafieldsRaw = Array.isArray(activeProduct?.metafields)
     ? activeProduct.metafields
     : [];
-
   const allMetafields = allMetafieldsRaw.filter(Boolean);
 
-  // Measurements
+  const mfShipping = getMfByKey(allMetafields, 'shipping');
+
   const mfMeasurements = allMetafields.filter(
     (m) => m && isMeasurementsMeta(m) && hasContent(m),
   );
 
-  // Other metafields
   const mfOthers = allMetafields.filter((m) => {
     if (!m) return false;
-
     const key = (m.key || '').toLowerCase().trim();
-
     if (isMeasurementsMeta(m)) return false;
     if (BLACKLIST.has(key)) return false;
     if (!hasContent(m)) return false;
-
     return true;
   });
-
-  const hasDetails = mfMeasurements.length > 0 || mfOthers.length > 0;
 
   const currentVariant = useMemo(() => {
     for (const opt of productOptions || []) {
@@ -99,48 +101,51 @@ export function MaterialForm({
     new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
       Number(num || 0),
     );
+
+  const hasOptionsArray = Array.isArray(productOptions);
   const allSelected =
-    Array.isArray(productOptions) &&
+    hasOptionsArray &&
     (productOptions.length === 0 ||
-      productOptions.every((opt) => opt?.optionValues?.some((v) => v.selected)));
+      productOptions.every((opt) =>
+        opt?.optionValues?.some((v) => v.selected),
+      ));
 
   const isReady = !!currentVariant?.availableForSale && allSelected;
-
   const price = Number(currentVariant?.price?.amount || 0);
   const currency = currentVariant?.price?.currencyCode || 'USD';
 
+  const shippingTitle =
+    mfShipping?.name || mfShipping?.key || 'Lead time + shipping';
+  const shippingRaw =
+    typeof mfShipping?.value === 'string' && mfShipping.value.trim().length > 0
+      ? mfShipping.value
+      : null;
+  const shippingLines = shippingRaw?.split(/\r?\n/).filter(Boolean) || [
+    '2–4 weeks (depending on stock)',
+    'parcel-delivery (door to door)',
+    'depending on shipping rates:',
+    'higher quantities via pallet-delivery (curbside)',
+  ];
+
+  // --------- DETAILS: measure height like Configurator ----------
+
   return (
-    <div className="product-form">
-      {/* Upper area: configurator + details */}
-      <div className="product-form__scroller">
-        {hasDetails && <div className="product-form__details">Details</div>}
+    <div className="product-form pf--segmented">
+      {/* 2) Middle section: Details fill the remaining space */}
+      <div className="product-form__sections">{product.description}</div>
 
-        {/* {hasDetails && (
-          <div className="configurator__meta">
-            {mfMeasurements.length > 0 && (
-              <ProductMetaAccordion
-                metafields={mfMeasurements}
-                product={activeProduct}
-              />
-            )}
-
-            {mfOthers.length > 0 && (
-              <ProductMetaAccordion
-                metafields={mfOthers}
-                product={activeProduct}
-              />
-            )}
-          </div>
-        )} */}
+      {/* 3) Shipping (keep your classes, just animate panel like cfg-panel) */}
+      <div className="product-form__shipping">
+        <ProductShippingSection title={shippingTitle} lines={shippingLines} />
       </div>
 
-      {/* Lower area: CTA stays pinned to bottom */}
+      {/* 4) CTA */}
       <div className="pdp__cta-container">
-        <div className={`cfg-cta ${isReady ? 'is-active' : 'is-idle'}`}>
+        <div className={`pf-cta ${isReady ? 'is-active' : 'is-idle'}`}>
           <span className="cta-arrow">→</span>
           <span className="cta-price">{money(price, currency)}</span>
           <AddToCartButton
-            disabled={!isReady}
+            disabled={!currentVariant || !currentVariant.availableForSale}
             onClick={() => openAside('cart')}
             lines={
               currentVariant
@@ -159,15 +164,3 @@ export function MaterialForm({
     </div>
   );
 }
-
-/**
- * @param {{
- *   swatch?: Maybe<ProductOptionValueSwatch> | undefined;
- *   name: string;
- * }}
- */
-
-/** @typedef {import('@shopify/hydrogen').MappedProductOptions} MappedProductOptions */
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').Maybe} Maybe */
-/** @typedef {import('@shopify/hydrogen/storefront-api-types').ProductOptionValueSwatch} ProductOptionValueSwatch */
-/** @typedef {import('storefrontapi.generated').ProductFragment} ProductFragment */

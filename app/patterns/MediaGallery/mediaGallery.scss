@@ -1,15 +1,6 @@
 /* Bühne / Wrapper */
 .nc-media-gallery {
   position: relative;
-  --stage-bg: #e9e9ee;
-  --stage-max-w: 860px;
-  --stage-min-h: 320px;
-  --stage-max-h: 900px;
-
-  /* Swiper-Theme-Farbe (aktiv) auf schwarz setzen */
-  --swiper-theme-color: #000;
-  --swiper-pagination-color: #000;
-
   width: 100%;
   min-height: var(--stage-min-h);
   height: auto;
@@ -21,9 +12,8 @@
 /* Swiper-Basis */
 .nc-media-gallery .swiper {
   width: 100%;
-  max-width: var(--stage-max-w);
   height: 100%;
-  position: relative; /* Anker für Buttons & Pagination */
+  position: relative;
 }
 
 .nc-media-gallery .swiper-wrapper {
@@ -44,26 +34,74 @@
   display: block;
 }
 
-/* Navigation – mittig links/rechts */
-.nc-media-gallery .swiper-button-prev,
-.nc-media-gallery .swiper-button-next {
+/* NEW: Custom Navigation Buttons */
+.nc-media-gallery .nc-swiper-nav {
   display: none;
 }
 
-.nc-media-gallery .swiper-button-prev {
-  left: 12px;
+@media (min-width: 768px) {
+  .nc-media-gallery {
+    --stage-min-h: 420px;
+    height: 100%;
+  }
+
+  .nc-media-gallery .nc-swiper-nav {
+    display: grid;
+    place-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+
+    width: 42px;
+    height: 42px;
+    border-radius: 9999px;
+    background: #fff;
+    box-shadow: 0 0 6px #00000029;
+    border: 0;
+    color: #222;
+
+    opacity: 0;
+    transition:
+      opacity 0.25s ease,
+      transform 0.25s ease;
+
+    /* saubere Klickfläche */
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .nc-media-gallery .nc-swiper-nav--prev {
+    left: 12px;
+  }
+
+  .nc-media-gallery .nc-swiper-nav--next {
+    right: 12px;
+  }
+
+  .nc-media-gallery .nc-swiper-nav i {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .nc-media-gallery:hover .nc-swiper-nav {
+      opacity: 0.2;
+    }
+
+    .nc-media-gallery .nc-swiper-nav:hover {
+      transform: translateY(-50%) scale(1.04);
+    }
+  }
+
+  /* Tastatur-Fokus (wichtig, weil Buttons) */
+  .nc-media-gallery .nc-swiper-nav:focus-visible {
+    outline: 2px solid #111;
+    outline-offset: 2px;
+  }
 }
 
-.nc-media-gallery .swiper-button-next {
-  right: 12px;
-}
-
-.nc-media-gallery .swiper-button-prev::after,
-.nc-media-gallery .swiper-button-next::after {
-  font-size: 18px;
-}
-
-/* Pagination-Dots unten mittig + schwarz */
+/* Pagination wie gehabt */
 .nc-media-gallery .swiper-pagination {
   position: absolute;
   bottom: clamp(8px, 1.8vh, 18px);
@@ -76,7 +114,7 @@
 .nc-media-gallery .swiper-pagination-bullet-active {
   width: 6px;
   height: 6px;
-  background: #000 !important; /* überschreibt Swiper-Default */
+  background: #000 !important;
 }
 
 .nc-media-gallery .swiper-pagination-bullet {
@@ -85,52 +123,4 @@
 
 .nc-media-gallery .swiper-pagination-bullet-active {
   opacity: 1;
-}
-
-@media (min-width: 768px) {
-  .nc-media-gallery {
-    --stage-min-h: 420px;
-    height: 100%;
-  }
-
-  .nc-media-gallery .swiper {
-    width: min(100%, var(--stage-max-w));
-  }
-
-  .nc-media-gallery .swiper-button-prev,
-  .nc-media-gallery .swiper-button-next {
-    display: flex;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-
-    border-radius: 9999px;
-    background: #fff;
-    box-shadow: 0 0 6px #00000029;
-    color: #222;
-    width: 42px;
-    height: 42px;
-    opacity: 0;
-    transition:
-      opacity 0.25s ease,
-      transform 0.25s ease;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .nc-media-gallery:hover .swiper-button-prev,
-    .nc-media-gallery:hover .swiper-button-next {
-      opacity: 1;
-    }
-
-    .nc-media-gallery .swiper-button-prev:hover,
-    .nc-media-gallery .swiper-button-next:hover {
-      transform: translateY(-50%) scale(1.04);
-    }
-  }
-
-  .nc-media-gallery .swiper-button-prev::after,
-  .nc-media-gallery .swiper-button-next::after {
-    font-size: 20px;
-  }
 }

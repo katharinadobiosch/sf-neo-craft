@@ -1,4 +1,4 @@
-import {ProductForm} from '~/patterns/ProductForm';
+import {ProductForm} from './ProductForm';
 import {MediaGallery} from '~/patterns/MediaGallery';
 
 import {

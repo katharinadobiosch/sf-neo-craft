@@ -175,7 +175,7 @@ export function HeroSplit_Poster({
 export function HeroSplit_GalleryBand({
   leftImg,
   rightImg,
-  bandColor = '#8F8CF6', // lila Band wie Screenshot 3
+  bandColor = '#8F8CF6',
 }: {
   leftImg?: ImgLike;
   rightImg?: ImgLike;
@@ -189,7 +189,12 @@ export function HeroSplit_GalleryBand({
       bandDecor="left"
       bandColor={bandColor}
       leftTop={<HoverImage image={leftImg} />}
-      leftBottom={<div className="hs-spacer" />}
+      leftBottom={
+        <div className="hs-bandDecor" aria-hidden="true">
+          <span className="hs-bandDecor__n">N</span>
+          <span className="hs-bandDecor__c">C</span>
+        </div>
+      }
       right={<HoverImage image={rightImg} />}
     />
   );

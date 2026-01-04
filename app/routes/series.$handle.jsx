@@ -70,6 +70,7 @@ export default function SeriesPage() {
 
       {activeProduct ? (
         <ProductDetailInformation
+          key={activeProduct.id}
           product={activeProduct}
           seriesProducts={safeProducts}
           seriesActiveIndex={activeIndex}

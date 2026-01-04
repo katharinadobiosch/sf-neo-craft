@@ -1,275 +1,417 @@
+/* =========================================================
+   CONFIGURATOR (component scoped) — mobile first
+   ========================================================= */
+
 .configurator {
-  --muted: #6b6b6b;
-  --divider: #d9d9d9;
-  --chip-bg: #f3f3f3;
-  --chip-bg-hover: #ececec;
-  --ring: var(--text-default);
-  --cta-bg: #8ea0ff;
-  --cta-text: #0a0a0a;
-
-  font-size: var(--nc-konfigurator-desktop-size);
-  line-height: var(--nc-konfigurator-desktop-line);
-  font-weight: var(--nc-konfigurator-desktop-weight);
+  font-size: var(--nc-konfigurator-mobil-size, 14px);
+  line-height: var(--nc-konfigurator-mobil-line, 1.4);
+  font-weight: var(--nc-konfigurator-mobil-weight, 400);
   color: var(--text-default);
-}
 
-.configurator .cfg-toggle {
-  all: unset;
-  width: auto;
-  min-height: 44px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.2rem 0;
-  width: 100%;
-}
+  .cfg-head {
+    display: flex;
+    align-items: center;
+  }
 
-.cfg-title,
-.acc-title {
-  font-size: var(--nc-head-mobil-size);
-  line-height: var(--nc-head-mobil-line);
-  font-weight: var(--nc-head-mobil-weight);
-}
+  &[data-variants-open='true'] .cfg-panel {
+    opacity: 1;
+  }
 
-.cfg-plus {
-  position: relative;
-  width: 18px;
-  height: 18px;
-}
-
-.cfg-plus::before,
-.cfg-plus::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 14px;
-  height: 2px;
-  background: var(--text-default);
-  transform: translate(-50%, -50%);
-  transition:
-    transform 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.configurator .cfg-plus::after {
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.configurator[data-variants-open='true'] .cfg-plus::after {
-  transform: translate(-50%, -50%) rotate(0deg);
-}
-
-.configurator .cfg-panel {
-  overflow: hidden;
-  opacity: 0;
-  transition:
-    max-height 0.35s ease,
-    opacity 0.2s ease;
-}
-
-.configurator[data-variants-open='true'] .cfg-panel {
-  opacity: 1;
-}
-
-.configurator .cfg-panel-inner {
-  padding-top: 0.5rem;
-}
-
-.configurator .cfg-head {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
-}
-
-.configurator .cfg-head__label {
-  flex: 0 0 auto;
-}
-
-.configurator .cfg-head__values {
-  flex: 1 1 auto;
-}
-
-.configurator .cfg-row {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.8rem 0 1.2rem 0;
-}
-
-.configurator .cfg-row::before {
-  content: none;
-}
-
-.configurator .cfg-label {
-  flex: 0 0 auto;
-  font-size: var(--nc-head-mobil-size);
-  line-height: var(--nc-head-mobil-line);
-  font-weight: var(--nc-head-mobil-weight);
-}
-
-.configurator .cfg-values {
-  flex: 1 1 auto;
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1.2rem;
-  margin-right: 0;
-}
-
-.configurator .cfg-item.is-chip {
-  all: unset;
-  cursor: pointer;
-  min-width: 44px;
-  min-height: 44px;
-  padding: 0.4rem 1.1rem;
-  border-radius: 999px;
-  background: var(--chip-bg);
-  border: 1px solid transparent;
-}
-
-.configurator .cfg-item.is-chip.is-selected {
-  font-weight: 600;
-  border-color: #000;
-  background: #fff;
-}
-
-.configurator .cfg-item.is-chip:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
-
-.configurator .cfg-item.is-color {
-  all: unset;
-  cursor: pointer;
-  width: 44px;
-  height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.configurator .cfg-item.is-color .dot-ring {
-  width: 32px;
-  height: 32px;
-  border: 1px solid #cfcfcf;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-}
-
-.configurator .cfg-item.is-color .dot {
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
-  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.08);
-}
-
-.configurator .cfg-item.is-color.is-selected .dot-ring {
-  border-color: var(--ring);
-  box-shadow:
-    0 0 0 2px #fff,
-    0 0 0 3px var(--ring);
-}
-
-.configurator .cfg-item.is-color:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
-
-@media (min-width: 768px) {
-  .configurator {
+  .cfg-head__label {
     flex: 0 0 auto;
+  }
+
+  .cfg-head__values {
+    flex: 1 1 auto;
+  }
+
+  .cfg-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 2.5rem;
+  }
+
+  .cfg-row:last-child {
+    padding-bottom: 2.5rem;
+  }
+
+  .cfg-row::before {
+    content: none;
+  }
+
+  .cfg-label {
+    flex: 0 0 auto;
+    font-size: 12px;
+    line-height: 1.35rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--text-muted, #5a5a5a);
+  }
+
+  .cfg-values {
+    flex: 1 1 auto;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-right: 0;
+    gap: 1.5rem;
+  }
+
+  .cfg-item.is-chip {
+    all: unset;
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    text-align: left;
+
+    transition:
+      opacity 0.12s ease,
+      color 0.12s ease;
+
+    /* Touch target */
+    min-height: 44px;
+
+    /* mobile refined */
+    font-size: 14px;
+    line-height: 1.15;
+    font-weight: 400;
+
+    position: relative;
+    padding: 0;
+  }
+
+  .cfg-item.is-chip.is-selected {
+    font-weight: 500;
+  }
+
+  .cfg-item.is-chip.is-selected::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+    height: 1px;
+    background-color: currentColor;
+    opacity: 0.6;
+  }
+
+  .cfg-item.is-chip:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .cfg-item.is-chip:active {
+    opacity: 0.65;
+  }
+
+  /* Headings shared across components (global) */
+  .cfg-title,
+  .acc-title {
+    font-size: var(--nc-head-mobil-size);
+    line-height: var(--nc-head-mobil-line);
+    font-weight: var(--nc-head-mobil-weight);
+  }
+
+  // =========================================================
+  //  Shared controls: toggle button + plus/minus icon
+  //  =========================================================
+  .cfg-toggle {
+    all: unset;
+    width: 100%;
+    min-height: 44px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1.2rem 0 0 0;
+  }
+
+  .cfg-plus {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    color: currentColor;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 14px;
+      height: 2px;
+      background: currentColor;
+      transform: translate(-50%, -50%);
+      transition: transform 0.2s ease;
+    }
+
+    &::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    &.is-open::after {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+  }
+
+  /* =========================================================
+   Desktop overrides (>= 768px)
+   ========================================================= */
+
+  @media (min-width: 768px) {
     font-size: var(--nc-konfigurator-desktop-size);
     line-height: var(--nc-konfigurator-desktop-line);
     font-weight: var(--nc-konfigurator-desktop-weight);
+
+    .cfg-panel-inner {
+      padding-top: 1rem;
+      gap: 0.4rem;
+    }
+
+    .cfg-head {
+      gap: 1rem;
+    }
+    .cfg-toggle {
+      flex: 0 0 200px;
+    }
+
+    .cfg-head__label {
+      flex: 0 0 100px;
+    }
+
+    .cfg-row {
+      flex-direction: row;
+      align-items: center;
+      padding: 0.5rem 0 2.5rem;
+      margin-bottom: 0;
+      gap: var(--pf-col-gap);
+
+      @media (min-width: 992px) {
+        padding: 0.5rem 0 1.5rem;
+      }
+    }
+
+    .cfg-row::before {
+      content: '';
+    }
+
+    .cfg-label {
+      flex: 0 0 var(--pf-label-col);
+      line-height: 1.5rem;
+    }
+
+    .cfg-item.is-chip {
+      min-height: auto;
+      font-size: 15px;
+      line-height: 1.3;
+    }
+
+    .cfg-item.is-chip.is-selected::after {
+      bottom: -3px;
+    }
+
+    .cfg-title,
+    .acc-title {
+      font-size: var(--nc-konfigurator-head-desktop-size);
+      line-height: var(--nc-konfigurator-head-desktop-line);
+      font-weight: var(--nc-konfigurator-head-desktop-weight);
+    }
   }
 
-  .configurator .cfg-toggle {
-    width: 163px;
+  @media (min-width: 992px) {
+    display: flex;
+    flex-direction: column;
     min-height: 0;
-    padding: 1.5rem 0 1.5rem 0;
-  }
-  .cfg-title,
-  .acc-title {
-    font-size: var(--nc-konfigurator-head-desktop-size);
-    line-height: var(--nc-konfigurator-head-desktop-line);
-    font-weight: var(--nc-konfigurator-head-desktop-weight);
+    height: 100%;
+
+    .cfg-toggle {
+      width: 135px;
+      min-height: 0;
+      padding: 0 0 0rem 0;
+      flex: 0 0 135px;
+    }
+
+    .cfg-row:last-child {
+      padding-bottom: 1.5rem;
+    }
+
+    // #cfg-variants {
+    //   border: 2px solid green;
+    // }
+    .cfg-panel-scroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+      overflow-x: hidden;
+    }
   }
 
-  .configurator .cfg-panel-inner {
-    padding-top: 1rem;
+  .cfg-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    max-height: none; // Desktop: nicht über max-height collapse steuern
+    overflow: hidden;
+    opacity: 1;
+
+    transition:
+      max-height 0.35s ease,
+      opacity 0.2s ease;
+  }
+  .cfg-item.is-color::after {
+    bottom: auto;
+    top: calc(100% + 10px);
   }
 
-  .configurator .cfg-head {
-    gap: 1rem;
+  .cfg-item.is-color::before {
+    bottom: auto;
+    top: calc(100% + 4px);
   }
 
-  .configurator .cfg-head .cfg-toggle {
-    flex: 0 0 163px;
+  &[data-variants-open='true'] .cfg-panel {
+    opacity: 1;
   }
 
-  .configurator .cfg-head__label {
-    flex: 0 0 100px;
+  /* Wichtig: Tooltip darf nicht abgeschnitten werden */
+  .cfg-values--color {
+    overflow: visible;
   }
 
-  .configurator .cfg-head__values {
-    flex: 1 1 auto;
+  .cfg-item.is-color {
+    position: relative;
+    outline: none;
   }
 
-  .configurator .cfg-row {
-    flex-direction: row;
+  /* Swatch-Animation */
+  .cfg-item.is-color .dot-ring {
+    display: inline-flex;
     align-items: center;
-    gap: 1rem;
-    padding: 0.5rem 0 1.5rem 0;
+    justify-content: center;
+    transition: transform 140ms ease;
+    transform-origin: center;
   }
 
-  .configurator .cfg-row::before {
-    content: '';
-    flex: 0 0 163px;
+  .cfg-item.is-color .dot {
+    transition: transform 140ms ease;
+    transform-origin: center;
   }
 
-  .configurator .cfg-label {
-    flex: 0 0 100px;
-    font-size: inherit;
-    line-height: inherit;
-    font-weight: inherit;
+  /* Hover/Fokus: größer */
+  .cfg-item.is-color:hover .dot-ring,
+  .cfg-item.is-color:focus-visible .dot-ring {
+    transform: scale(1.12);
   }
 
-  .configurator .cfg-values {
-    flex: 1 1 auto;
-    gap: 2rem;
-    margin-right: 2rem;
+  .cfg-item.is-color:hover .dot,
+  .cfg-item.is-color:focus-visible .dot {
+    transform: scale(1.18);
   }
 
-  .configurator .cfg-item.is-chip {
+  /* Color buttons brauchen eigene Reset + Layout */
+  .cfg-item.is-color {
     all: unset;
     cursor: pointer;
-    min-width: auto;
-    min-height: auto;
-    padding: 0;
-    border-radius: 0;
-    background: transparent;
-    border: none;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 44px; /* Touch target */
+    position: relative;
   }
 
-  .configurator .cfg-item.is-color {
-    width: 28px;
-    height: 28px;
+  /* Swatch-Größen (ansonsten sieht man nur den Button-Default) */
+  .cfg-item.is-color .dot-ring {
+    width: 34px;
+    height: 34px;
+    border-radius: 999px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .configurator .cfg-item.is-color .dot-ring {
-    width: 22px;
-    height: 22px;
+  .cfg-item.is-color .dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    display: block;
   }
 
-  .configurator .cfg-item.is-color .dot {
-    width: 20px;
-    height: 20px;
+  /* Optional: ausgewählt klar markieren */
+  .cfg-item.is-color.is-selected .dot-ring {
+    box-shadow: inset 0 0 0 2px currentColor;
+  }
+
+  /* Tooltip-Bubble */
+  .cfg-item.is-color::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%) translateY(4px);
+    white-space: nowrap;
+
+    padding: 6px 10px;
+
+    background: rgba(25, 25, 25, 0.92);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1;
+
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 140ms ease,
+      transform 140ms ease;
+    z-index: 20;
+  }
+
+  /* Tooltip-Pfeil */
+  .cfg-item.is-color::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 4px);
+    transform: translateX(-50%);
+
+    width: 10px;
+    height: 10px;
+    background: rgba(25, 25, 25, 0.92);
+    transform: translateX(-50%) rotate(45deg);
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 140ms ease;
+    z-index: 19;
+  }
+
+  /* Tooltip sichtbar bei Hover und Tastaturfokus */
+  .cfg-item.is-color:hover::after,
+  .cfg-item.is-color:focus-visible::after,
+  .cfg-item.is-color:hover::before,
+  .cfg-item.is-color:focus-visible::before {
+    opacity: 1;
+  }
+
+  .cfg-item.is-color:hover::after,
+  .cfg-item.is-color:focus-visible::after {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Optional: Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    .cfg-item.is-color .dot-ring,
+    .cfg-item.is-color .dot,
+    .cfg-item.is-color::after,
+    .cfg-item.is-color::before {
+      transition: none;
+    }
   }
 }

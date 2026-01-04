@@ -114,5 +114,34 @@
         line-height: 7rem;
       }
     }
+    .overlay-link {
+      text-decoration: none;
+      color: #222;
+      font-weight: 400;
+      opacity: 0.78;
+      transition:
+        opacity 160ms ease,
+        transform 160ms ease,
+        letter-spacing 160ms ease;
+      letter-spacing: 0.02em;
+
+      &:hover {
+        opacity: 1;
+        transform: translateY(-1px);
+      }
+
+      &.is-active {
+        opacity: 1;
+        font-weight: 500; // subtiler als bold
+        letter-spacing: 0.04em;
+      }
+
+      &:focus-visible {
+        text-decoration: none;
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.55);
+        border-radius: 999px;
+        padding: 0 0.3em;
+      }
+    }
   }
 }

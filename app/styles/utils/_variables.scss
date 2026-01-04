@@ -20,10 +20,20 @@
   --border-color: #e9e9ed;
   --swiper-theme-color: #000;
 
+  --muted: #6b6b6b;
+  --divider: #d9d9d9;
+  --chip-bg: #f3f3f3;
+  --chip-bg-hover: #ececec;
+  --ring: var(--text-default);
+  --cta-bg: #8ea0ff;
+  --cta-text: #0a0a0a;
+
   --text-muted: var(--muted);
   --surface: var(--paper);
   --surface-contrast: var(--sf-white);
   --border: var(--line);
+
+  --dealers-line-inset: 24px;
 
   --header-h: 6.6rem;
 
@@ -58,4 +68,30 @@
   --nc-head-mobil-size: 1.2rem;
   --nc-head-mobil-line: 2.2rem;
   --nc-head-mobil-weight: 500;
+
+  --pf-shipping-slot: 112px; /* fixed shipping slot height (96–120 acceptable) */
+
+  --pf-label-col: 100px; // desktop wie cfg-label
+  --pf-col-gap: 2rem; // Abstand zwischen Label und Values
+
+  --hs-right-aspect: 781/941;
+  --hs-leftTop-aspect: 781/520;
+  --hs-leftBottom-aspect: 781/422;
+  --hs-band-color: #8f8cf6;
+
+  --stage-bg: #e9e9ee;
+  --stage-max-w: 860px;
+  --stage-min-h: 320px;
+  --stage-max-h: 900px;
+
+  /* Swiper-Theme-Farbe (aktiv) auf schwarz setzen */
+  --swiper-theme-color: #000;
+  --swiper-pagination-color: #000;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --pf-label-col: 84px; // mobile tuning
+    --pf-col-gap: 1.5rem;
+  }
 }

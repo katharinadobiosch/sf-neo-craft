@@ -78,9 +78,19 @@ function fileRefListToImgs(
   return list
     .map((m: unknown) => {
       const obj = m as any;
-      if (obj?.image?.url) {
+
+      // ✅ 1) Normalized shape aus app/utils/metafields.ts:
+      // { __typename:'MediaImage', url, altText, width, height }
+      if (typeof obj?.url === 'string' && obj.url) {
+        return {url: obj.url, altText: obj.altText};
+      }
+
+      // ✅ 2) Shopify GraphQL shape (falls irgendwo unge-normalized durchrutscht):
+      // { image: { url, altText } }
+      if (typeof obj?.image?.url === 'string' && obj.image.url) {
         return {url: obj.image.url, altText: obj.image.altText};
       }
+
       return null;
     })
     .filter(Boolean) as Array<{url: string; altText?: string}>;
@@ -215,7 +225,7 @@ export function ProductMetaAccordion({
             <details key={item.fqKey} className="acc-item">
               <summary>
                 <span className="acc-title">{item.label}</span>
-                <span className="acc-plus" aria-hidden />
+                <span className="acc-plus" aria-hidden="true" />
               </summary>
 
               <div className="acc-panel">
@@ -238,12 +248,12 @@ export function ProductMetaAccordion({
                           aria-label={item.label}
                         >
                           <div
-                            className="m-grid"
+                            className="meta-accordion__images-grid"
                             data-count={item.images.length}
                           >
                             {item.images.map((img, i) => (
                               <figure
-                                className="m-fig"
+                                className="meta-accordion__images-figure"
                                 key={`${item.fqKey}-${i}`}
                               >
                                 <img
