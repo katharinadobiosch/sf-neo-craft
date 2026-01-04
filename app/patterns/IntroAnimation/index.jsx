@@ -7,11 +7,9 @@ export default function IntroAnimation({
   hideIntroAfterMs = 5700,
 }) {
   const [showIntro, setShowIntro] = useState(false);
-  const [mainVisible, setMainVisible] = useState(false);
   const timers = useRef([]);
 
   useEffect(() => {
-    // prefers-reduced-motion => keine Intro-Animation
     const reduce =
       typeof window !== 'undefined' &&
       window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
@@ -27,9 +25,12 @@ export default function IntroAnimation({
     })();
 
     setShowIntro(shouldShow);
-    setMainVisible(!shouldShow);
 
-    if (!shouldShow) return;
+    // Wenn kein Intro: Content sofort freigeben
+    if (!shouldShow) {
+      document.body.classList.add('intro-done');
+      return;
+    }
 
     if (oncePerSession) {
       try {
@@ -37,25 +38,26 @@ export default function IntroAnimation({
       } catch {}
     }
 
+    // Content freigeben
     timers.current.push(
-      setTimeout(() => setMainVisible(true), showMainAfterMs),
+      setTimeout(() => {
+        document.body.classList.add('intro-done');
+      }, showMainAfterMs),
     );
+
+    // Overlay entfernen
     timers.current.push(
-      setTimeout(() => setShowIntro(false), hideIntroAfterMs),
+      setTimeout(() => {
+        setShowIntro(false);
+      }, hideIntroAfterMs),
     );
 
     return () => {
       timers.current.forEach(clearTimeout);
       timers.current = [];
+      // intro-done NICHT entfernen, sonst kann es bei Navigation wieder “zu” gehen
     };
   }, [oncePerSession, storageKey, showMainAfterMs, hideIntroAfterMs]);
-
-  timers.current.push(
-    setTimeout(() => {
-      setMainVisible(true);
-      document.body.classList.add('intro-done');
-    }, showMainAfterMs),
-  );
 
   useEffect(() => {
     if (!showIntro) return;
@@ -66,19 +68,14 @@ export default function IntroAnimation({
     };
   }, [showIntro]);
 
-  return (
-    <>
-      {showIntro && (
-        <div className="animation-container" aria-hidden="true">
-          <div className="letter n">N</div>
-          <div className="letter c">C</div>
-          <div className="brand-reveal">NEO CRAFT</div>
-          <div className="purple-overlay" />
-        </div>
-      )}
+  if (!showIntro) return null;
 
-      {/* Diese Klasse kannst du im Layout nutzen, um z.B. initiale Opacity zu steuern */}
-      <div className={`intro-main ${mainVisible ? 'visible' : ''}`} />
-    </>
+  return (
+    <div className="animation-container" aria-hidden="true">
+      <div className="letter n">N</div>
+      <div className="letter c">C</div>
+      <div className="brand-reveal">NEO CRAFT</div>
+      <div className="purple-overlay" />
+    </div>
   );
 }

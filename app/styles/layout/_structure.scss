@@ -8,3 +8,12 @@
   transform: translateX(-50%);
   z-index: 0;
 }
+
+#appShell {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+body.intro-done #appShell {
+  opacity: 1;
+}
