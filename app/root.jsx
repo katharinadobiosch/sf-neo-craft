@@ -46,7 +46,7 @@ import appStyles from '~/styles/main.scss?url';
 import {PageLayout} from './patterns/PageLayout';
 import fontAwesomeCss from '@fortawesome/fontawesome-free/css/all.min.css?url';
 
-import {introAnimationCss} from '~/patterns/IntroAnimation/introAnimation.scss?url';
+import introAnimationCss from '~/patterns/IntroAnimation/introAnimation.scss?url';
 import IntroAnimation from '~/patterns/IntroAnimation';
 
 /**
@@ -215,7 +215,7 @@ export function Layout({children}) {
         <Links />
       </head>
       <body>
-        <IntroAnimation />
+        <IntroAnimation oncePerSession={false} />
 
         {data ? (
           <Analytics.Provider
