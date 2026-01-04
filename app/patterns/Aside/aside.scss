@@ -157,23 +157,6 @@ aside main {
   margin: 1.5rem !important;
 }
 
-/* --------------------------------------------------
-   DESKTOP: wieder “klassischer” Drawer (breiter, unter Header)
--------------------------------------------------- */
-@media (min-width: 768px) {
-  .overlay.expanded aside {
-    transform: translateX(calc(-1 * min(var(--aside-width), 42vw))) !important;
-  }
-
-  aside header {
-    padding: 0 3rem !important; /* dein Desktop-Wert aus dem Commit */
-  }
-
-  aside main {
-    margin: 3rem !important;
-  }
-}
-
 /* Overlay base (MUST exist even when not expanded) */
 .overlay {
   background: rgba(0, 0, 0, 0.2);
@@ -212,13 +195,6 @@ aside {
   --aside-width-current: var(--aside-width-mobile);
 }
 
-/* Desktop overrides */
-@media (min-width: 768px) {
-  .overlay {
-    --aside-width-current: var(--aside-width-desktop);
-  }
-}
-
 /* Reveal drawer */
 .overlay.expanded aside {
   transform: translateX(calc(-1 * var(--aside-width-current)));
@@ -234,12 +210,6 @@ aside header {
   position: relative;
   z-index: 1002; /* above overlay bg */
   padding: 0 1.5rem;
-}
-
-@media (min-width: 768px) {
-  aside header {
-    padding: 0 3rem;
-  }
 }
 
 aside header h3 {
@@ -260,12 +230,6 @@ aside header .close:hover {
 
 aside main {
   margin: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  aside main {
-    margin: 3rem;
-  }
 }
 
 .overlay .close-outside {

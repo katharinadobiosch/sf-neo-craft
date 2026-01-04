@@ -290,31 +290,6 @@
   align-items: center;
 }
 
-/* desktop */
-@media (min-width: 992px) {
-  .cart {
-    padding: 2rem 0 3rem;
-  }
-
-  .cart-details > div[aria-labelledby='cart-lines'] {
-    padding: 0 2rem 1rem;
-  }
-
-  .cart-summary-aside,
-  .cart-summary-page {
-    padding: 2rem;
-  }
-
-  .cart-line {
-    grid-template-columns: 150px 1fr;
-  }
-
-  .cart-line__media :is(img, picture, svg) {
-    width: 150px;
-    height: 190px;
-  }
-}
-
 .cart-aside-heading__title {
   letter-spacing: -0.01em;
 }
