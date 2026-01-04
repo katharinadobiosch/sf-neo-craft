@@ -13,14 +13,6 @@
     align-items: center;
   }
 
-  .cfg-panel {
-    overflow: hidden;
-    opacity: 0;
-    transition:
-      max-height 0.35s ease,
-      opacity 0.2s ease;
-  }
-
   &[data-variants-open='true'] .cfg-panel {
     opacity: 1;
   }
@@ -271,6 +263,15 @@
     transition:
       max-height 0.35s ease,
       opacity 0.2s ease;
+  }
+  .cfg-item.is-color::after {
+    bottom: auto;
+    top: calc(100% + 10px);
+  }
+
+  .cfg-item.is-color::before {
+    bottom: auto;
+    top: calc(100% + 4px);
   }
 
   &[data-variants-open='true'] .cfg-panel {
