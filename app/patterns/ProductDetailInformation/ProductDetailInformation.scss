@@ -62,6 +62,7 @@
         order: 2;
         min-height: 0;
         aspect-ratio: 780 / 940; /* defines row height */
+        align-items: start; // statt stretch
       }
     }
 
@@ -148,8 +149,12 @@
       height: auto;
 
       @media (min-width: 992px) {
+        display: flex;
+        flex-direction: column;
         height: 100%;
         min-height: 0;
+        justify-content: flex-start; // statt space-between o.ä.
+        align-content: flex-start;
       }
     }
 
@@ -301,6 +306,8 @@
     }
 
     .product-form__sections {
+      display: flex;
+      flex-direction: column;
       flex: 2 1 0;
       min-height: 0;
       overflow: hidden; /* wichtig */
@@ -371,6 +378,7 @@
       flex: 1 1 auto;
       min-height: 0;
       overflow: auto; /* nur hier scrollen */
+      padding-top: 1rem;
     }
 
     /* ----------------------------

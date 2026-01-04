@@ -3,7 +3,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2.5rem;
 
   .acc-item {
     display: flex;
@@ -27,6 +27,15 @@
       line-height: var(--nc-head-mobil-line);
       font-weight: var(--nc-head-mobil-weight);
       color: var(--text-muted, #5a5a5a);
+
+      @media (min-width: 992px) {
+        // flex-direction: row;
+        // align-items: center;
+        padding: 0.5rem 0px 1.5rem;
+        margin-bottom: 0px;
+        gap: var(--pf-col-gap);
+        padding-bottom: 1.5rem;
+      }
     }
 
     .acc-plus {
@@ -62,8 +71,7 @@
     .acc-panel {
       display: flex;
       align-items: center;
-      padding-left: 3rem;
-      padding-top: 1rem;
+      min-height: 44px;
     }
 
     .acc-panel p {
@@ -97,6 +105,10 @@
         }
       }
     }
+  }
+
+  @media (min-width: 992px) {
+    padding-left: 2rem;
   }
 }
 
