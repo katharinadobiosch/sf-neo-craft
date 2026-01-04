@@ -6,8 +6,6 @@ import {useAside} from '~/patterns/Aside';
 import './cart.scss';
 
 /**
- * A single line item in the cart. It displays the product image, title, price.
- * It also provides controls to update the quantity or remove the line item.
  * @param {{
  *   layout: CartLayout;
  *   line: CartLine;
@@ -35,12 +33,11 @@ export function CartLineItem({layout, line}) {
       </div>
 
       <div className="cart-line__info">
-        <button
-          className="cart-line__remove"
-          type="button"
-          onClick={() => {}}
-          aria-hidden="true"
-        />
+        {/* <CartLineRemoveButton
+          lineIds={[line.id]}
+          disabled={!!line.isOptimistic}
+        /> */}
+
         <Link
           className="cart-line__title"
           prefetch="intent"
@@ -63,7 +60,7 @@ export function CartLineItem({layout, line}) {
 
         <div className="cart-line__controls">
           <div className="cart-line__price">
-            <ProductPrice price={line?.cost?.totalAmount} />
+            <ProductPrice price={line?.cost?.amountPerQuantity} />
           </div>
 
           <CartLineQuantity line={line} />
@@ -77,14 +74,10 @@ export function CartLineItem({layout, line}) {
   );
 }
 
-/**
- * Provides the controls to update the quantity of a line item in the cart.
- * These controls are disabled when the line item is new, and the server
- * hasn't yet responded that it was successfully added to the cart.
- * @param {{line: CartLine}}
- */
+/** @param {{line: CartLine}} */
 function CartLineQuantity({line}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
+
   const {id: lineId, quantity, isOptimistic} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
   const nextQuantity = Number((quantity + 1).toFixed(0));
@@ -120,16 +113,11 @@ function CartLineQuantity({line}) {
           +
         </button>
       </CartLineUpdateButton>
-
-      <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} />
     </div>
   );
 }
 
 /**
- * A button that removes a line item from the cart. It is disabled
- * when the line item is new, and the server hasn't yet responded
- * that it was successfully added to the cart.
  * @param {{
  *   lineIds: string[];
  *   disabled: boolean;
@@ -143,7 +131,12 @@ function CartLineRemoveButton({lineIds, disabled}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button className="cart-line__remove" disabled={disabled} type="submit">
+      <button
+        className="cart-line__remove"
+        disabled={disabled}
+        type="submit"
+        aria-label="Remove item"
+      >
         Remove
       </button>
     </CartForm>
@@ -171,19 +164,11 @@ function CartLineUpdateButton({children, lines}) {
   );
 }
 
-/**
- * Returns a unique key for the update action. This is used to make sure actions modifying the same line
- * items are not run concurrently, but cancel each other. For example, if the user clicks "Increase quantity"
- * and "Decrease quantity" in rapid succession, the actions will cancel each other and only the last one will run.
- * @returns
- * @param {string[]} lineIds - line ids affected by the update
- */
 function getUpdateKey(lineIds) {
   return [CartForm.ACTIONS.LinesUpdate, ...lineIds].join('-');
 }
 
 /** @typedef {OptimisticCartLine<CartApiQueryFragment>} CartLine */
-
 /** @typedef {import('@shopify/hydrogen/storefront-api-types').CartLineUpdateInput} CartLineUpdateInput */
 /** @typedef {import('~/patterns/Cart/CartMain').CartLayout} CartLayout */
 /** @typedef {import('@shopify/hydrogen').OptimisticCartLine} OptimisticCartLine */
