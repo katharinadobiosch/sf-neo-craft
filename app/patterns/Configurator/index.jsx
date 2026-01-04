@@ -236,9 +236,11 @@ export function Configurator({
         id="cfg-variants"
         className="cfg-panel"
         style={
-          isDesktop
-            ? undefined
-            : {maxHeight: variantsOpen ? `${panelHeight}px` : '0px'}
+          variantsOpen
+            ? isDesktop
+              ? {maxHeight: 'none'}
+              : {maxHeight: `${panelHeight}px`}
+            : {maxHeight: '0px'}
         }
         aria-hidden={!variantsOpen}
       >
