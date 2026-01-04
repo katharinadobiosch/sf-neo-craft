@@ -1,5 +1,16 @@
 @use '../../styles/utils/_mixins' as *;
 
+/* --------------------------------------------------
+   Aside (Cart/Search/Menu) + Overlay
+   - Mobile: fullscreen drawer
+   - Desktop: fixed-width drawer
+-------------------------------------------------- */
+
+:root {
+  --aside-width-mobile: 100vw;
+  --aside-width-desktop: min(var(--aside-width, 420px), 42vw);
+}
+
 aside {
   background: var(--sf-white);
   box-shadow: 0 0 5rem rgba(0, 0, 0, 0.3);
@@ -161,4 +172,122 @@ aside main {
   aside main {
     margin: 3rem !important;
   }
+}
+
+/* Overlay base (MUST exist even when not expanded) */
+.overlay {
+  background: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 240ms ease-in-out;
+  z-index: 1000; /* above header/content, below aside header */
+}
+
+.overlay.expanded {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Drawer base */
+aside {
+  background: var(--sf-white);
+  box-shadow: 0 0 5rem rgba(0, 0, 0, 0.3);
+
+  position: fixed;
+  top: var(--header-height);
+  height: 100dvh; /* better than 100vh on mobile */
+  right: calc(-1 * var(--aside-width-current));
+  width: var(--aside-width-current);
+
+  transition: transform 200ms ease-in-out;
+  will-change: transform;
+}
+
+/* Mobile default */
+.overlay {
+  --aside-width-current: var(--aside-width-mobile);
+}
+
+/* Desktop overrides */
+@media (min-width: 768px) {
+  .overlay {
+    --aside-width-current: var(--aside-width-desktop);
+  }
+}
+
+/* Reveal drawer */
+.overlay.expanded aside {
+  transform: translateX(calc(-1 * var(--aside-width-current)));
+  z-index: 1001;
+}
+
+aside header {
+  align-items: center;
+  border-bottom: 0.1rem solid var(--color-dark);
+  display: flex;
+  height: var(--header-height);
+  justify-content: space-between;
+  position: relative;
+  z-index: 1002; /* above overlay bg */
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  aside header {
+    padding: 0 3rem;
+  }
+}
+
+aside header h3 {
+  margin: 0;
+}
+
+aside header .close {
+  font-weight: bold;
+  opacity: 0.8;
+  text-decoration: none;
+  transition: opacity 200ms;
+  width: 2rem;
+}
+
+aside header .close:hover {
+  opacity: 1;
+}
+
+aside main {
+  margin: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  aside main {
+    margin: 3rem;
+  }
+}
+
+.overlay .close-outside {
+  background: transparent;
+  border: none;
+  color: transparent;
+  position: absolute;
+  inset: 0;
+  width: calc(100% - var(--aside-width-current));
+  height: 100%;
+}
+
+button.reset {
+  border: 0;
+  background: inherit;
+  font-size: inherit;
+}
+
+button.reset > * {
+  margin: 0;
+}
+
+button.reset:hover:not(:has(> *)) {
+  cursor: pointer;
 }
