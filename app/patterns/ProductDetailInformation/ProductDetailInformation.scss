@@ -330,15 +330,25 @@
       flex-direction: column;
     }
 
+    .product-form__configurator .cfg-panel-scroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto; /* nur hier scrollen */
+      overflow-x: hidden;
+    }
+
     .product-form__configurator .cfg-head {
       flex: 0 0 auto;
     }
 
     /* überschreibt dein "overflow: hidden" aus configurator.scss */
     .product-form__configurator .cfg-panel {
-      flex: 1 1 auto;
-      min-height: 0;
-      overflow: auto; /* nur hier scrollen */
+      // flex: 1 1 auto;
+      // min-height: 0;
+      // overflow: auto; /* nur hier scrollen */
+      /* Accordion-Hülle darf im Desktop nicht limitieren */
+      max-height: none !important;
+      overflow: visible !important;
     }
 
     /* ----------------------------
