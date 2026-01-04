@@ -422,9 +422,6 @@
      ========================================================= */
 
   .product-form__sections {
-    --muted: #6b6b6b;
-    --divider: #d9d9d9;
-
     font-size: var(--nc-konfigurator-mobil-size, 14px);
     line-height: var(--nc-konfigurator-mobil-line, 1.4);
     font-weight: var(--nc-konfigurator-mobil-weight, 400);
@@ -524,6 +521,7 @@
 
   .shipping-item {
     padding-top: 1.5rem;
+    border-top: 1px solid var(--divider);
 
     .ps-toggle {
       all: unset;
