@@ -98,18 +98,9 @@
 /* --- FIX: prevent price/qty/total overlap --- */
 .cart-line__controls {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 12px;
   width: 100%;
-}
-
-/* left price can shrink but never hide behind controls */
-.cart-line__price {
-  flex: 1 1 auto;
-  min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* qty block must keep its size */
@@ -136,11 +127,7 @@
 
 /* quantity stepper */
 .cart-line-quantity {
-  display: inline-grid;
-  grid-auto-flow: column;
-  align-items: center;
-  gap: 0.5rem;
-  justify-self: center;
+  flex: 0 0 auto;
 }
 
 .qty-btn,
@@ -279,11 +266,10 @@
 .cart-code-row input {
   letter-spacing: 0.01em;
   white-space: nowrap;
+
+  letter-spacing: 0.01em;
   border: 1px solid color-mix(in oklab, var(--color-dark) 18%, transparent);
   height: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 0 12px;
   width: 100%;
 }
@@ -340,4 +326,24 @@
 
 .is-strong {
   font-weight: 600;
+}
+
+.cart-line__media {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cart-line__unit-price {
+  white-space: nowrap;
+  line-height: 1.1;
+}
+
+.cart-line__price-block {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: end;
+  border: 1px solid red;
+  width: 100%;
 }

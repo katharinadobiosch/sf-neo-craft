@@ -30,14 +30,16 @@ export function CartLineItem({layout, line}) {
             width={160}
           />
         )}
+
+        {/* Einzelpreis unter dem Bild (TASCHEN-style) */}
+        <div className="cart-line__price-block">
+          <ProductPrice price={line?.cost?.amountPerQuantity} />
+          <CartLineQuantity line={line} />
+          <ProductPrice price={line?.cost?.totalAmount} />
+        </div>
       </div>
 
       <div className="cart-line__info">
-        {/* <CartLineRemoveButton
-          lineIds={[line.id]}
-          disabled={!!line.isOptimistic}
-        /> */}
-
         <Link
           className="cart-line__title"
           prefetch="intent"
@@ -58,16 +60,11 @@ export function CartLineItem({layout, line}) {
           ))}
         </div>
 
+        {/* rechts: qty + gesamtpreis */}
         <div className="cart-line__controls">
-          <div className="cart-line__price">
-            <ProductPrice price={line?.cost?.amountPerQuantity} />
-          </div>
+          {/* <CartLineQuantity line={line} /> */}
 
-          <CartLineQuantity line={line} />
-
-          <div className="cart-line__total">
-            <ProductPrice price={line?.cost?.totalAmount} />
-          </div>
+          <div className="cart-line__total"></div>
         </div>
       </div>
     </li>
@@ -79,38 +76,41 @@ function CartLineQuantity({line}) {
   if (!line || typeof line?.quantity === 'undefined') return null;
 
   const {id: lineId, quantity, isOptimistic} = line;
-  const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
-  const nextQuantity = Number((quantity + 1).toFixed(0));
+  const prevQuantity = Math.max(1, quantity - 1);
+  const nextQuantity = quantity + 1;
 
   return (
-    <div className="cart-line-quantity">
+    <div
+      className="cart-line__qty cart-line-quantity"
+      aria-label="Quantity selector"
+    >
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
+          type="submit"
           className="qty-btn"
           aria-label="Decrease quantity"
           disabled={quantity <= 1 || !!isOptimistic}
           name="decrease-quantity"
           value={prevQuantity}
-          type="submit"
         >
-          −
+          &#8722;
         </button>
       </CartLineUpdateButton>
 
-      <span className="qty-value" aria-label="Quantity">
+      <span className="qty-value" aria-live="polite">
         {quantity}
       </span>
 
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
+          type="submit"
           className="qty-btn"
           aria-label="Increase quantity"
+          disabled={!!isOptimistic}
           name="increase-quantity"
           value={nextQuantity}
-          disabled={!!isOptimistic}
-          type="submit"
         >
-          +
+          &#43;
         </button>
       </CartLineUpdateButton>
     </div>
