@@ -2,7 +2,6 @@ import {CartForm, Money} from '@shopify/hydrogen';
 import {useRef} from 'react';
 import './cart.scss';
 
-
 /**
  * @param {CartSummaryProps}
  */
@@ -36,12 +35,9 @@ function CartCheckoutActions({checkoutUrl}) {
   if (!checkoutUrl) return null;
 
   return (
-    <div>
-      <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
-      </a>
-      <br />
-    </div>
+    <a className="cart-checkout" href={checkoutUrl} target="_self">
+      Zur Kasse gehen
+    </a>
   );
 }
 
@@ -57,26 +53,18 @@ function CartDiscounts({discountCodes}) {
       ?.map(({code}) => code) || [];
 
   return (
-    <div>
-      {/* Have existing discount, display it with a remove option */}
-      <dl hidden={!codes.length}>
-        <div>
-          <dt>Discount(s)</dt>
-          <UpdateDiscountForm>
-            <div className="cart-discount">
-              <code>{codes?.join(', ')}</code>
-              &nbsp;
-              <button>Remove</button>
-            </div>
-          </UpdateDiscountForm>
-        </div>
-      </dl>
+    <div className="cart-extras">
+      <div className="cart-extras__title">Rabatt</div>
 
-      {/* Show an input to apply a discount */}
+      <div className="cart-extras__applied" hidden={!codes.length}>
+        {codes.map((c) => (
+          <code key={c}>{c}</code>
+        ))}
+      </div>
+
       <UpdateDiscountForm discountCodes={codes}>
-        <div>
+        <div className="cart-code-row">
           <input type="text" name="discountCode" placeholder="Discount code" />
-          &nbsp;
           <button type="submit">Apply</button>
         </div>
       </UpdateDiscountForm>
@@ -133,11 +121,18 @@ function CartGiftCard({giftCardCodes}) {
       <dl hidden={!codes.length}>
         <div>
           <dt>Applied Gift Card(s)</dt>
-          <UpdateGiftCardForm>
-            <div className="cart-discount">
-              <code>{codes?.join(', ')}</code>
-              &nbsp;
-              <button onSubmit={() => removeAppliedCode}>Remove</button>
+          <UpdateGiftCardForm
+            giftCardCodes={appliedGiftCardCodes.current}
+            saveAppliedCode={saveAppliedCode}
+          >
+            <div className="cart-code-row">
+              <input
+                type="text"
+                name="giftCardCode"
+                placeholder="Gift card code"
+                ref={giftCardCodeInput}
+              />
+              <button type="submit">Apply</button>
             </div>
           </UpdateGiftCardForm>
         </div>

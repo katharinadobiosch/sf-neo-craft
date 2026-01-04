@@ -5,7 +5,6 @@ import {ProductPrice} from '../ProductPrice';
 import {useAside} from '~/patterns/Aside';
 import './cart.scss';
 
-
 /**
  * A single line item in the cart. It displays the product image, title, price.
  * It also provides controls to update the quantity or remove the line item.
@@ -22,42 +21,57 @@ export function CartLineItem({layout, line}) {
 
   return (
     <li key={id} className="cart-line">
-      {image && (
-        <Image
-          alt={title}
-          aspectRatio="1/1"
-          data={image}
-          height={100}
-          loading="lazy"
-          width={100}
-        />
-      )}
+      <div className="cart-line__media">
+        {image && (
+          <Image
+            alt={title}
+            aspectRatio="1/1"
+            data={image}
+            height={160}
+            loading="lazy"
+            width={160}
+          />
+        )}
+      </div>
 
-      <div>
+      <div className="cart-line__info">
+        <button
+          className="cart-line__remove"
+          type="button"
+          onClick={() => {}}
+          aria-hidden="true"
+        />
         <Link
+          className="cart-line__title"
           prefetch="intent"
           to={lineItemUrl}
           onClick={() => {
-            if (layout === 'aside') {
-              close();
-            }
+            if (layout === 'aside') close();
           }}
         >
-          <p>
-            <strong>{product.title}</strong>
-          </p>
+          <strong>{product.title}</strong>
         </Link>
-        <ProductPrice price={line?.cost?.totalAmount} />
-        <ul>
+
+        <div className="cart-line__meta">
           {selectedOptions.map((option) => (
-            <li key={option.name}>
-              <small>
-                {option.name}: {option.value}
-              </small>
-            </li>
+            <div key={option.name} className="cart-line__meta-row">
+              <span className="cart-line__meta-label">{option.name}:</span>{' '}
+              <span className="cart-line__meta-value">{option.value}</span>
+            </div>
           ))}
-        </ul>
-        <CartLineQuantity line={line} />
+        </div>
+
+        <div className="cart-line__controls">
+          <div className="cart-line__price">
+            <ProductPrice price={line?.cost?.totalAmount} />
+          </div>
+
+          <CartLineQuantity line={line} />
+
+          <div className="cart-line__total">
+            <ProductPrice price={line?.cost?.totalAmount} />
+          </div>
+        </div>
       </div>
     </li>
   );
@@ -77,29 +91,36 @@ function CartLineQuantity({line}) {
 
   return (
     <div className="cart-line-quantity">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
+          className="qty-btn"
           aria-label="Decrease quantity"
           disabled={quantity <= 1 || !!isOptimistic}
           name="decrease-quantity"
           value={prevQuantity}
+          type="submit"
         >
-          <span>&#8722; </span>
+          −
         </button>
       </CartLineUpdateButton>
-      &nbsp;
+
+      <span className="qty-value" aria-label="Quantity">
+        {quantity}
+      </span>
+
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
+          className="qty-btn"
           aria-label="Increase quantity"
           name="increase-quantity"
           value={nextQuantity}
           disabled={!!isOptimistic}
+          type="submit"
         >
-          <span>&#43;</span>
+          +
         </button>
       </CartLineUpdateButton>
-      &nbsp;
+
       <CartLineRemoveButton lineIds={[lineId]} disabled={!!isOptimistic} />
     </div>
   );
@@ -122,7 +143,7 @@ function CartLineRemoveButton({lineIds, disabled}) {
       action={CartForm.ACTIONS.LinesRemove}
       inputs={{lineIds}}
     >
-      <button disabled={disabled} type="submit">
+      <button className="cart-line__remove" disabled={disabled} type="submit">
         Remove
       </button>
     </CartForm>
