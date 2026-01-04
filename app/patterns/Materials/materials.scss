@@ -1,8 +1,5 @@
-/* ===== Page & grid ===== */
-
 .materials {
   margin: 2rem 0 0 0;
-
   font-size: 12px;
   line-height: var(--nc-navigation-name-desktop-line);
   font-weight: var(--nc-navigation-name-desktop-weight);
@@ -23,10 +20,8 @@
     }
 
     @media (min-width: 768px) {
-      /* Keep the list single-column (one card per row) */
       display: block;
 
-      /* Midline across all cards */
       &::before {
         content: '';
         position: absolute;
@@ -48,7 +43,11 @@
     }
   }
 
-  /* ===== Card (mobile: image above text) ===== */
+  /* =========================
+     Card
+     Mobile: Grid (media over content)
+     Desktop: Flex (guaranteed equal height + CTA pinned)
+     ========================= */
   .material-card {
     display: grid;
     grid-template-columns: 1fr;
@@ -63,26 +62,25 @@
     margin-bottom: 2rem;
 
     @media (min-width: 768px) {
-      /* Important: full width, one card per row */
+      display: flex;
       width: 100%;
       margin-bottom: 0;
 
-      /* Inside the card: two columns */
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas: 'content media';
-
       border-top: 1px solid var(--ink);
       border-bottom: 1px solid var(--ink);
+      border-left: 0;
+      border-right: 0;
 
-      grid-template-rows: 1fr;
+      /* equal-height columns */
       align-items: stretch;
+    }
 
-      &.material-card--reverse {
-        grid-template-areas: 'media content';
+    &.material-card--reverse {
+      @media (min-width: 768px) {
+        flex-direction: row-reverse;
       }
     }
 
-    /* (keeping: lower block overrides earlier h3 margins) */
     h3 {
       font-size: 12px;
       line-height: var(--nc-navigation-name-desktop-line);
@@ -95,15 +93,11 @@
         margin: 0 0 2rem 0;
       }
     }
-
-    ul {
-      display: flex;
-      align-items: flex-end;
-      padding-bottom: 1.5rem;
-    }
   }
 
-  /* ===== Media ===== */
+  /* =========================
+     Media
+     ========================= */
   .product-media {
     grid-area: media;
     position: relative;
@@ -111,10 +105,12 @@
     overflow: hidden;
     width: 100%;
     height: auto;
+
     @media (min-width: 768px) {
-      height: 100%;
-      aspect-ratio: auto; /* wichtig: sonst begrenzt aspect-ratio die Höhe */
-      min-height: 560px; /* optional: falls du eine Mindesthöhe willst */
+      flex: 1 1 50%;
+      height: auto;
+      aspect-ratio: auto; /* wichtig: sonst begrenzt es die Höhe */
+      min-height: 560px; /* optional */
     }
   }
 
@@ -133,18 +129,27 @@
     }
   }
 
-  /* ===== Text column ===== */
+  /* =========================
+     Content column
+     ========================= */
   .material-card__content {
     grid-area: content;
-    display: grid;
-    /* keeping lower block override: extra row for swatches */
-    grid-template-rows: auto auto auto 1fr auto;
     background: var(--bg);
-    padding: 1.5rem 1.5rem 0rem 1.5rem;
-    height: 100%;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+
+    /* Mobile: Grid ok */
+    display: grid;
+    grid-template-rows: auto auto auto 1fr; /* last row = CTA */
+    height: auto;
 
     @media (min-width: 768px) {
-      padding: 5rem 7.5rem 0rem 7.5rem;
+      flex: 1 1 50%;
+      padding: 5rem 7.5rem 0 7.5rem;
+
+      /* Desktop: Flex column to pin CTA */
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
   }
 
@@ -158,8 +163,6 @@
     font-size: 12px;
     line-height: var(--nc-navigation-name-desktop-line);
     font-weight: var(--nc-navigation-name-desktop-weight);
-
-    /* keeping newest override: more spacing + clamp on mobile */
     margin: 0 0 1.75rem 0;
 
     display: -webkit-box;
@@ -174,6 +177,7 @@
 
       -webkit-line-clamp: unset;
       overflow: visible;
+      margin-bottom: 2.5rem; /* optional mehr Luft */
     }
   }
 
@@ -181,17 +185,16 @@
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-
     text-decoration: none;
     opacity: 0.7;
   }
 
-  /* ===== Swatches ===== */
+  /* =========================
+     Swatches
+     ========================= */
   .material-card__swatches {
     display: flex;
-    overflow: visible; /* Tooltip darf raus */
-
-    /* keeping newest override */
+    overflow: visible;
     margin-top: 0.25rem;
     padding-bottom: 1.25rem;
     gap: 12px;
@@ -204,7 +207,6 @@
   }
 
   .material-card__swatch {
-    /* keeping lower overrides: button reset + size + ring */
     appearance: none;
     border: 0;
     padding: 0;
@@ -236,7 +238,6 @@
     outline: none;
   }
 
-  /* Tooltip Bubble */
   .material-card__swatch::after {
     content: attr(data-tooltip);
     position: absolute;
@@ -244,14 +245,11 @@
     bottom: calc(100% + 10px);
     transform: translateX(-50%) translateY(2px);
     white-space: nowrap;
-
     padding: 6px 10px;
-
     background: rgba(25, 25, 25, 0.92);
     color: #fff;
     font-size: 12px;
     line-height: 1;
-
     opacity: 0;
     pointer-events: none;
     transition:
@@ -260,18 +258,15 @@
     z-index: 20;
   }
 
-  /* Tooltip Pfeil */
   .material-card__swatch::before {
     content: '';
     position: absolute;
     left: 50%;
     bottom: calc(100% + 4px);
     transform: translateX(-50%) rotate(45deg);
-
     width: 10px;
     height: 10px;
     background: rgba(25, 25, 25, 0.92);
-
     opacity: 0;
     pointer-events: none;
     transition: opacity 120ms ease;
@@ -290,36 +285,42 @@
     transform: translateX(-50%) translateY(0);
   }
 
-  /* ===== CTA bar ===== */
+  /* =========================
+     CTA bar (pinned)
+     ========================= */
   .material-card__ctaBar {
     grid-column: 1 / -1;
     width: calc(100% + 3rem);
     margin-left: -1.5rem;
     margin-right: -1.5rem;
+
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-top: auto;
+
     padding: 1rem;
     height: 3rem;
 
-    /* keeping newest override */
     border-top: 1px solid rgba(0, 0, 0, 0.12);
     background: #fff;
     color: #101010;
-    position: relative;
     cursor: pointer;
 
     transition:
       background 140ms ease,
       color 140ms ease;
 
+    /* Desktop: push to bottom */
     @media (min-width: 768px) {
+      margin-top: auto;
+
       font-size: 2.2rem;
       font-weight: 300;
       line-height: 3.2rem;
+
       padding-left: 7.5rem;
       height: 6rem;
+
       width: calc(100% + 15rem);
       margin-left: -7.5rem;
       margin-right: -7.5rem;
@@ -335,13 +336,11 @@
     text-decoration: none;
   }
 
-  /* Hover: invert */
   .material-card:hover .material-card__ctaBar {
     background: #101010;
     color: #fff;
   }
 
-  /* Focus visible (keyboard) */
   .material-card:focus-visible .material-card__ctaBar {
     outline: 2px solid rgba(0, 0, 0, 0.7);
     outline-offset: 2px;
