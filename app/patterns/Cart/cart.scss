@@ -76,9 +76,7 @@
     padding: 0;
 
     .cart-main.with-discount {
-      max-height: calc(
-        100vh - var(--cart-aside-summary-height-with-discount)
-      );
+      max-height: calc(100vh - var(--cart-aside-summary-height-with-discount));
     }
 
     .cart-line {
@@ -114,4 +112,191 @@
       gap: 0;
     }
   }
+}
+
+/* --------------------------------------------------
+   CART -> PDP Look (mobile first)
+   Ziel: klare Typo, dünne Linien, konsistente Inputs/Buttons
+-------------------------------------------------- */
+
+:root {
+  /* falls du diese Tokens schon hast: egal. ansonsten wirken sie als fallback */
+  --ui-border: rgba(0, 0, 0, 0.18);
+  --ui-border-strong: rgba(0, 0, 0, 0.32);
+  --ui-radius: 0px;
+  --ui-font: inherit;
+  --ui-text: var(--color-dark, #111);
+  --ui-muted: rgba(0, 0, 0, 0.55);
+  --ui-bg: #fff;
+  --ui-gap: 1.25rem;
+}
+
+/* Aside Container (Cart) */
+.overlay.expanded aside {
+  background: var(--ui-bg);
+}
+
+.overlay aside header {
+  border-bottom: 1px solid var(--ui-border);
+}
+
+.overlay aside header h3 {
+  font-family: var(--ui-font);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 1rem;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--ui-text);
+}
+
+/* Close Button: unauffällig wie PDP */
+.overlay aside header .close.reset {
+  all: unset;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  font-size: 1.25rem;
+  color: var(--ui-text);
+  opacity: 0.7;
+}
+.overlay aside header .close.reset:hover {
+  opacity: 1;
+}
+
+/* Main Spacing */
+.overlay aside main {
+  margin: 1.25rem !important;
+}
+
+/* Generic typography inside cart */
+.overlay aside main,
+.overlay aside main * {
+  font-family: var(--ui-font);
+  color: var(--ui-text);
+}
+
+/* Remove “boxed” feel */
+.overlay aside main hr {
+  border: 0;
+  border-top: 1px solid var(--ui-border);
+  margin: var(--ui-gap) 0;
+}
+
+/* Product block layout (works with most Hydrogen cart markup) */
+.overlay aside main img {
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+  background: #fff;
+}
+
+/* Titles / labels */
+.overlay aside main h1,
+.overlay aside main h2,
+.overlay aside main h3,
+.overlay aside main h4 {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.overlay aside main small,
+.overlay aside main .muted,
+.overlay aside main [data-muted='true'] {
+  color: var(--ui-muted);
+}
+
+/* Inputs: wie PDP (flach, Linien) */
+.overlay aside main input[type='text'],
+.overlay aside main input[type='email'],
+.overlay aside main input[type='tel'],
+.overlay aside main input[type='number'],
+.overlay aside main input[type='search'] {
+  appearance: none;
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+  padding: 0.55rem 0.7rem;
+  width: 100%;
+  background: #fff;
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.overlay aside main input:focus {
+  border-color: var(--ui-border-strong);
+}
+
+/* Buttons: neutral (PDP-like) */
+.overlay aside main button {
+  appearance: none;
+  border: 1px solid var(--ui-border);
+  background: #fff;
+  color: var(--ui-text);
+  border-radius: var(--ui-radius);
+  padding: 0.55rem 0.7rem;
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.overlay aside main button:hover {
+  border-color: var(--ui-border-strong);
+}
+
+/* Quantity controls: square, minimal */
+.overlay aside main button[aria-label*='Decrease'],
+.overlay aside main button[aria-label*='Increase'],
+.overlay aside main .quantity button {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* “Remove” als Link-Stil (wie PDP sekundär) */
+.overlay aside main button.remove,
+.overlay aside main button[aria-label*='Remove'] {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  opacity: 0.75;
+}
+.overlay aside main button.remove:hover,
+.overlay aside main button[aria-label*='Remove']:hover {
+  opacity: 1;
+}
+
+/* Totals / sections: klare Trennung */
+.overlay aside main .totals,
+.overlay aside main [data-cart-totals] {
+  border-top: 1px solid var(--ui-border);
+  padding-top: var(--ui-gap);
+  margin-top: var(--ui-gap);
+}
+
+/* Primary CTA (Checkout): als „PDP CTA-Bar“ */
+.overlay aside main a[href*='checkout'],
+.overlay aside main a.checkout,
+.overlay aside main button[name='checkout'],
+.overlay aside main button.checkout {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-top: 1px solid var(--ui-border);
+  padding: 1rem 0;
+  background: transparent;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* optional: Pfeil rechts */
+.overlay aside main a[href*='checkout']::after,
+.overlay aside main a.checkout::after {
+  content: ' →';
 }

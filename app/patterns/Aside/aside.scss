@@ -131,3 +131,60 @@ button.reset:hover:not(:has(> *)) {
   // text-decoration: underline;
   cursor: pointer;
 }
+
+/* --------------------------------------------------
+   MOBILE FIRST: Aside (Cart/Search/Menu) = Fullscreen Drawer
+   Fix: width/right/transform müssen zusammenpassen
+-------------------------------------------------- */
+
+/* Default (mobile): full width drawer */
+aside {
+  top: 0 !important;
+  height: 100dvh !important; /* besser als 100vh auf mobile */
+  width: 100vw !important;
+
+  /* komplett rechts parken */
+  right: -100vw !important;
+}
+
+/* Wenn Overlay geöffnet: Drawer komplett reinziehen */
+.overlay.expanded aside {
+  transform: translateX(-100vw) !important;
+}
+
+/* Innenabstände für mobile etwas kleiner als die 3rem aus dem Deploy-Commit */
+aside header {
+  padding: 0 1.5rem !important;
+}
+
+aside main {
+  margin: 1.5rem !important;
+}
+
+/* --------------------------------------------------
+   DESKTOP: wieder “klassischer” Drawer (breiter, unter Header)
+-------------------------------------------------- */
+@media (min-width: 768px) {
+  aside {
+    top: var(--header-height) !important;
+    height: calc(100vh - var(--header-height)) !important;
+
+    /* desktop drawer-breite: nimm die Variable (und cappe auf Viewport) */
+    width: min(var(--aside-width), 42vw) !important;
+
+    /* passend zur Breite offscreen parken */
+    right: calc(-1 * min(var(--aside-width), 42vw)) !important;
+  }
+
+  .overlay.expanded aside {
+    transform: translateX(calc(-1 * min(var(--aside-width), 42vw))) !important;
+  }
+
+  aside header {
+    padding: 0 3rem !important; /* dein Desktop-Wert aus dem Commit */
+  }
+
+  aside main {
+    margin: 3rem !important;
+  }
+}
