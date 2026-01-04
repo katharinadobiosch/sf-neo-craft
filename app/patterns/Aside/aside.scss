@@ -1,20 +1,28 @@
 @use '../../styles/utils/_mixins' as *;
 
-@media (max-width: 45em) {
-  // html:has(.overlay.expanded) {
-  //   overflow: hidden;
-  // }
+/* --------------------------------------------------
+   Aside (Cart/Search/Menu) + Overlay
+   - Mobile: fullscreen drawer
+   - Desktop: fixed-width drawer
+-------------------------------------------------- */
+
+:root {
+  --aside-width-mobile: 100vw;
+  --aside-width-desktop: min(var(--aside-width, 420px), 42vw);
 }
 
 aside {
   background: var(--sf-white);
   box-shadow: 0 0 5rem rgba(0, 0, 0, 0.3);
   height: calc(100vh - var(--header-height));
-  width: 25%;
   position: fixed;
-  right: calc(-1 * var(--aside-width));
   top: var(--header-height);
   transition: transform 200ms ease-in-out;
+  height: 100dvh !important; /* besser als 100vh auf mobile */
+  width: 100vw !important;
+
+  /* komplett rechts parken */
+  right: -100vw !important;
 }
 
 aside header {
@@ -65,20 +73,20 @@ aside li {
   margin-bottom: 0.125rem;
 }
 
-.overlay {
-  background: rgba(0, 0, 0, 0.2);
-  bottom: 0;
-  left: 0;
-  opacity: 0;
-  pointer-events: none;
-  position: fixed;
-  right: 0;
-  top: 0;
-  transition: opacity 400ms ease-in-out;
-  transition: opacity 400ms;
-  visibility: hidden;
-  z-index: 1000; // oberhalb Header & Content
-}
+// .overlay {
+//   background: rgba(0, 0, 0, 0.2);
+//   bottom: 0;
+//   left: 0;
+//   opacity: 0;
+//   pointer-events: none;
+//   position: fixed;
+//   right: 0;
+//   top: 0;
+//   transition: opacity 400ms ease-in-out;
+//   transition: opacity 400ms;
+//   visibility: hidden;
+//   z-index: 1000; // oberhalb Header & Content
+// }
 
 .overlay .close-outside {
   background: transparent;
@@ -123,11 +131,167 @@ button.reset > * {
   margin: 0;
 }
 
-button.reset:not(:has(> *)) {
-  height: 1.5rem;
-}
-
 button.reset:hover:not(:has(> *)) {
   // text-decoration: underline;
   cursor: pointer;
+}
+
+/* --------------------------------------------------
+   MOBILE FIRST: Aside (Cart/Search/Menu) = Fullscreen Drawer
+   Fix: width/right/transform müssen zusammenpassen
+-------------------------------------------------- */
+
+/* Default (mobile): full width drawer */
+
+/* Wenn Overlay geöffnet: Drawer komplett reinziehen */
+.overlay.expanded aside {
+  transform: translateX(-100vw) !important;
+}
+
+/* Innenabstände für mobile etwas kleiner als die 3rem aus dem Deploy-Commit */
+aside header {
+  padding: 0 1.5rem !important;
+}
+
+aside main {
+  margin: 1.5rem !important;
+}
+
+/* Overlay base (MUST exist even when not expanded) */
+.overlay {
+  background: rgba(0, 0, 0, 0.2);
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transition: opacity 240ms ease-in-out;
+  z-index: 1000; /* above header/content, below aside header */
+}
+
+.overlay.expanded {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+/* Drawer base */
+aside {
+  background: var(--sf-white);
+  box-shadow: 0 0 5rem rgba(0, 0, 0, 0.3);
+
+  position: fixed;
+  top: var(--header-height);
+  height: 100dvh; /* better than 100vh on mobile */
+  right: calc(-1 * var(--aside-width-current));
+  width: var(--aside-width-current);
+
+  transition: transform 200ms ease-in-out;
+  will-change: transform;
+}
+
+/* Mobile default */
+.overlay {
+  --aside-width-current: var(--aside-width-mobile);
+}
+
+/* Reveal drawer */
+.overlay.expanded aside {
+  transform: translateX(calc(-1 * var(--aside-width-current)));
+  z-index: 1001;
+}
+
+aside header {
+  align-items: center;
+  border-bottom: 0.1rem solid var(--color-dark);
+  display: flex;
+  height: var(--header-height);
+  justify-content: space-between;
+  position: relative;
+  z-index: 1002; /* above overlay bg */
+  padding: 0 1.5rem;
+}
+
+aside header h3 {
+  margin: 0;
+}
+
+aside header .close {
+  font-weight: bold;
+  opacity: 0.8;
+  text-decoration: none;
+  transition: opacity 200ms;
+  width: 2rem;
+}
+
+aside header .close:hover {
+  opacity: 1;
+}
+
+aside main {
+  margin: 1.5rem;
+}
+
+.overlay .close-outside {
+  background: transparent;
+  border: none;
+  color: transparent;
+  position: absolute;
+  inset: 0;
+  width: calc(100% - var(--aside-width-current));
+  height: 100%;
+}
+
+button.reset {
+  border: 0;
+  background: inherit;
+  font-size: inherit;
+}
+
+button.reset > * {
+  margin: 0;
+}
+
+button.reset:hover:not(:has(> *)) {
+  cursor: pointer;
+}
+
+/* --------------------------------------------------
+   BREAKPOINTS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+  /* Desktop drawer width */
+  .overlay {
+    --aside-width-current: var(--aside-width-desktop);
+  }
+
+  /* etwas mehr “Desktop-Luft” */
+  aside header {
+    padding: 0 2rem;
+  }
+
+  aside main {
+    margin: 2rem;
+  }
+
+  /* draußen klickbare Fläche bleibt links neben dem Drawer */
+  .overlay .close-outside {
+    width: calc(100% - var(--aside-width-current));
+  }
+}
+
+@media (min-width: 992px) {
+  /* auf großen Screens darf der Drawer etwas “premium” breiter wirken */
+  :root {
+    --aside-width-desktop: min(var(--aside-width, 480px), 40vw);
+  }
+
+  aside header {
+    padding: 0 2.5rem;
+  }
+
+  aside main {
+    margin: 2.5rem;
+  }
 }
