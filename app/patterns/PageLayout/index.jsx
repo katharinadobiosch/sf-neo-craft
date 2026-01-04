@@ -1,6 +1,5 @@
 import {Await, Link} from 'react-router';
 import {Suspense, useId} from 'react';
-import {Aside} from '~/patterns/Aside';
 import {Footer} from '~/patterns/Footer';
 import {Header, HeaderMenu} from '~/patterns/Header';
 import {CartMain} from '~/patterns/Cart/CartMain';
@@ -10,6 +9,7 @@ import {
 } from '~/patterns/Search/SearchFormPredictive';
 import {SearchResultsPredictive} from '~/patterns/Search/SearchResultsPredictive';
 import {useLocation} from 'react-router';
+import {Aside, AsideProvider} from '~/patterns/Aside';
 
 /**
  * @param {PageLayoutProps}
@@ -23,7 +23,6 @@ export function PageLayout({
   publicStoreDomain,
 }) {
   const location = useLocation();
-
 
   function getHeaderVariant(pathname) {
     // header orange: about
@@ -58,7 +57,7 @@ export function PageLayout({
   const bgFooterColor = getFooterVariant(location.pathname);
 
   return (
-    <Aside.Provider>
+    <AsideProvider>
       <CartAside cart={cart} />
       <SearchAside />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
@@ -79,7 +78,7 @@ export function PageLayout({
         publicStoreDomain={publicStoreDomain}
         variant={bgFooterColor}
       />
-    </Aside.Provider>
+    </AsideProvider>
   );
 }
 
@@ -88,7 +87,15 @@ export function PageLayout({
  */
 function CartAside({cart}) {
   return (
-    <Aside type="cart" heading="CART">
+    <Aside
+      type="cart"
+      heading={
+        <div className="cart-aside-heading">
+          <div className="cart-aside-heading__title">Dein Warenkorb</div>
+          <Suspense></Suspense>
+        </div>
+      }
+    >
       <Suspense fallback={<p>Loading cart ...</p>}>
         <Await resolve={cart}>
           {(cart) => {

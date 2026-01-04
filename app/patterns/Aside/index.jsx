@@ -1,20 +1,17 @@
-import {createContext, useContext, useEffect, useState} from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+} from 'react';
 import './aside.scss';
 
 /**
  * A side bar component with Overlay
  * @example
- * ```jsx
- * <Aside type="search" heading="SEARCH">
- *  <input type="search" />
- *  ...
- * </Aside>
- * ```
- * @param {{
- *   children?: React.ReactNode;
- *   type: AsideType;
- *   heading: React.ReactNode;
- * }}
+ * <Aside type="search" heading="SEARCH">...</Aside>
  */
 export function Aside({children, heading, type}) {
   const {type: activeType, close} = useAside();
@@ -27,9 +24,7 @@ export function Aside({children, heading, type}) {
       document.addEventListener(
         'keydown',
         function handler(event) {
-          if (event.key === 'Escape') {
-            close();
-          }
+          if (event.key === 'Escape') close();
         },
         {signal: abortController.signal},
       );
@@ -39,15 +34,26 @@ export function Aside({children, heading, type}) {
 
   return (
     <div
-      aria-modal
+      aria-modal="true"
       className={`overlay ${expanded ? 'expanded' : ''}`}
+      data-aside-type={type}
       role="dialog"
     >
-      <button className="close-outside" onClick={close} />
-      <aside>
+      <button
+        type="button"
+        className="close-outside"
+        onClick={close}
+        aria-label="Close dialog"
+      />
+      <aside data-aside-type={type}>
         <header>
           <h3>{heading}</h3>
-          <button className="close reset" onClick={close} aria-label="Close">
+          <button
+            type="button"
+            className="close reset"
+            onClick={close}
+            aria-label="Close dialog"
+          >
             &times;
           </button>
         </header>
@@ -59,37 +65,36 @@ export function Aside({children, heading, type}) {
 
 const AsideContext = createContext(null);
 
-Aside.Provider = function AsideProvider({children}) {
+/**
+ * IMPORTANT:
+ * - avoid attaching to Aside.Provider directly (HMR/SSR can detach it)
+ * - dedicated export stays more reliable
+ */
+export function AsideProvider({children}) {
   const [type, setType] = useState('closed');
 
+  const open = useCallback((nextType) => setType(nextType), []);
+  const close = useCallback(() => setType('closed'), []);
+
+  const value = useMemo(() => ({type, open, close}), [type, open, close]);
+
   return (
-    <AsideContext.Provider
-      value={{
-        type,
-        open: setType,
-        close: () => setType('closed'),
-      }}
-    >
-      {children}
-    </AsideContext.Provider>
+    <AsideContext.Provider value={value}>{children}</AsideContext.Provider>
   );
-};
+}
 
 export function useAside() {
   const aside = useContext(AsideContext);
+
+  // Dev/HMR: kurzzeitige "Provider fehlt"-Momente nicht als SSR-500 eskalieren lassen
   if (!aside) {
+    if (import.meta?.hot) {
+      return {type: 'closed', open: () => {}, close: () => {}};
+    }
     throw new Error('useAside must be used within an AsideProvider');
   }
+
   return aside;
 }
 
 /** @typedef {'search' | 'cart' | 'mobile' | 'closed'} AsideType */
-/**
- * @typedef {{
- *   type: AsideType;
- *   open: (mode: AsideType) => void;
- *   close: () => void;
- * }} AsideContextValue
- */
-
-/** @typedef {import('react').ReactNode} ReactNode */
