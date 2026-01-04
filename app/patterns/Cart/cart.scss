@@ -18,6 +18,18 @@
   color: #0f0f0f;
 }
 
+.overlay[data-aside-type='cart'] aside {
+  --cart-aside-padding: 1.5rem;
+}
+
+.overlay[data-aside-type='cart'] aside header {
+  padding: 0 var(--cart-aside-padding);
+}
+
+.overlay[data-aside-type='cart'] aside main {
+  margin: var(--cart-aside-padding);
+}
+
 .cart-main {
   --line: rgba(0, 0, 0, 0.12);
   --line-strong: rgba(0, 0, 0, 0.2);
@@ -337,6 +349,10 @@
 -------------------------------------------------- */
 
 @media (min-width: 768px) {
+  .overlay[data-aside-type='cart'] aside {
+    --cart-aside-padding: 2rem;
+  }
+
   .cart > h1 {
     max-width: 980px;
     padding: 0 2rem;
@@ -380,6 +396,10 @@
 
 @media (min-width: 992px) {
   /* Mehr Raum, nicht mehr "mobile in groß" */
+  .overlay[data-aside-type='cart'] aside {
+    --cart-aside-padding: 2.5rem;
+  }
+
   .cart > h1 {
     max-width: 1160px;
     padding: 0 2.5rem;

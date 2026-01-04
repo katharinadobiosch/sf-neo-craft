@@ -69,3 +69,13 @@ a {
   cursor: pointer;
 }
 
+.main-page {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  min-height: 100vh;
+}
+
+/* Wenn Intro durch ist, setzen wir eine Klasse am body ODER am wrapper */
+body.intro-done .main-page {
+  opacity: 1;
+}

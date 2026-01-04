@@ -18,11 +18,11 @@ aside {
   position: fixed;
   top: var(--header-height);
   transition: transform 200ms ease-in-out;
-  height: 100dvh !important; /* besser als 100vh auf mobile */
-  width: 100vw !important;
+  height: 100dvh; /* better than 100vh on mobile */
+  width: 100vw;
 
   /* komplett rechts parken */
-  right: -100vw !important;
+  right: -100vw;
 }
 
 aside header {
@@ -145,16 +145,16 @@ button.reset:hover:not(:has(> *)) {
 
 /* Wenn Overlay geöffnet: Drawer komplett reinziehen */
 .overlay.expanded aside {
-  transform: translateX(-100vw) !important;
+  transform: translateX(-100vw);
 }
 
 /* Innenabstände für mobile etwas kleiner als die 3rem aus dem Deploy-Commit */
 aside header {
-  padding: 0 1.5rem !important;
+  padding: 0 1.5rem;
 }
 
 aside main {
-  margin: 1.5rem !important;
+  margin: 1.5rem;
 }
 
 /* Overlay base (MUST exist even when not expanded) */
@@ -228,6 +228,12 @@ aside header .close:hover {
   opacity: 1;
 }
 
+aside header .close:focus,
+aside header .close:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
 aside main {
   margin: 1.5rem;
 }
@@ -254,6 +260,13 @@ button.reset > * {
 
 button.reset:hover:not(:has(> *)) {
   cursor: pointer;
+}
+
+.overlay aside input:focus-visible,
+.overlay .close-outside:focus,
+.overlay .close-outside:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 /* --------------------------------------------------

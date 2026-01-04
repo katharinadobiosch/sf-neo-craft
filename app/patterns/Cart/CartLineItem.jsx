@@ -31,7 +31,7 @@ export function CartLineItem({layout, line}) {
           />
         )}
 
-        {/* Einzelpreis unter dem Bild (TASCHEN-style) */}
+        {/* Unit price under the image (TASCHEN-style) */}
         <div className="cart-line__price-block">
           <div className="cart-line__unit-price">
             <ProductPrice price={line?.cost?.amountPerQuantity} />
@@ -67,7 +67,7 @@ export function CartLineItem({layout, line}) {
           ))}
         </div>
 
-        {/* rechts: qty + gesamtpreis */}
+        {/* Right side: qty + total price */}
         <div className="cart-line__controls">
           {/* <CartLineQuantity line={line} /> */}
 

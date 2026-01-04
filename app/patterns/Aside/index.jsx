@@ -36,6 +36,7 @@ export function Aside({children, heading, type}) {
     <div
       aria-modal="true"
       className={`overlay ${expanded ? 'expanded' : ''}`}
+      data-aside-type={type}
       role="dialog"
     >
       <button
@@ -44,7 +45,7 @@ export function Aside({children, heading, type}) {
         onClick={close}
         aria-label="Close dialog"
       />
-      <aside>
+      <aside data-aside-type={type}>
         <header>
           <h3>{heading}</h3>
           <button
@@ -65,9 +66,9 @@ export function Aside({children, heading, type}) {
 const AsideContext = createContext(null);
 
 /**
- * WICHTIG:
- * - nicht mehr an Aside.Provider "dranhängen" (HMR/SSR kann das entkoppeln)
- * - eigener Export ist stabiler
+ * IMPORTANT:
+ * - avoid attaching to Aside.Provider directly (HMR/SSR can detach it)
+ * - dedicated export stays more reliable
  */
 export function AsideProvider({children}) {
   const [type, setType] = useState('closed');

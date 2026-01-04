@@ -104,8 +104,8 @@ function UpdateDiscountForm({discountCodes, children}) {
 
 /** @param {{giftCardCodes: CartApiQueryFragment['appliedGiftCards'] | undefined;}} */
 function CartGiftCards({giftCardCodes}) {
-  // Hydrogen erwartet beim Update die "raw codes". Wir speichern die vom User eingegebenen Codes,
-  // damit "Apply" konsistent bleibt, und zeigen parallel die bereits angewendeten Codes (***1234) an.
+  // Hydrogen expects the raw gift card codes. Persist user-entered codes so the Apply button stays consistent,
+  // while still showing the already-applied codes (***1234).
   const appliedCodesRef = useRef([]);
 
   const visibleCodes =
