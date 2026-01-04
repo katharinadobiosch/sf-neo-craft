@@ -15,6 +15,7 @@
   },
   "prettier": "@shopify/prettier-config",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "7.1.0",
     "@remix-run/react": "2.16.6",
     "@remix-run/server-runtime": "2.16.6",
     "@shopify/hydrogen": "^2025.7.0",
