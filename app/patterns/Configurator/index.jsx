@@ -206,6 +206,10 @@ export function Configurator({
     );
   };
 
+  const isDesktop =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(min-width: 992px)').matches;
+
   return (
     <div className="configurator" data-variants-open={variantsOpen}>
       {/* Kopf: toggelt NUR Varianten */}
@@ -230,39 +234,47 @@ export function Configurator({
       {/* Container 1: Varianten */}
       <div
         id="cfg-variants"
-        className="cfg-panel **cfg-panel--scroll**"
-        style={{maxHeight: variantsOpen ? `${panelHeight}px` : '0px'}}
+        className="cfg-panel"
+        style={
+          variantsOpen
+            ? isDesktop
+              ? {maxHeight: 'none'}
+              : {maxHeight: `${panelHeight}px`}
+            : {maxHeight: '0px'}
+        }
         aria-hidden={!variantsOpen}
       >
-        <div ref={panelRef} className="cfg-panel-inner">
-          {/* 🔹 neue Modell-Zeile */}
-          {hasSeriesOptions && (
-            <div className="cfg-row cfg-row--model">
-              <div className="cfg-label">Model</div>
-              <div className="cfg-values">
-                {seriesProducts.map((p, index) => {
-                  const label = p.title.replace(/^OSOM\s+/i, '');
-                  const isActive = index === seriesActiveIndex;
+        <div className="cfg-panel-scroll">
+          <div ref={panelRef} className="cfg-panel-inner">
+            {/* 🔹 neue Modell-Zeile */}
+            {hasSeriesOptions && (
+              <div className="cfg-row cfg-row--model">
+                <div className="cfg-label">Model</div>
+                <div className="cfg-values">
+                  {seriesProducts.map((p, index) => {
+                    const label = p.title.replace(/^OSOM\s+/i, '');
+                    const isActive = index === seriesActiveIndex;
 
-                  return (
-                    <button
-                      key={p.id}
-                      type="button"
-                      title={label}
-                      aria-label={label}
-                      className={`cfg-item is-chip ${isActive ? 'is-selected' : ''}`}
-                      onClick={() => onChangeSeriesProduct(index)}
-                    >
-                      <span className="chip-text">{label}</span>
-                    </button>
-                  );
-                })}
+                    return (
+                      <button
+                        key={p.id}
+                        type="button"
+                        title={label}
+                        aria-label={label}
+                        className={`cfg-item is-chip ${isActive ? 'is-selected' : ''}`}
+                        onClick={() => onChangeSeriesProduct(index)}
+                      >
+                        <span className="chip-text">{label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {/* bestehende Variant-Optionen */}
-          {variantOptions.map(renderOption)}
+            {/* bestehende Variant-Optionen */}
+            {variantOptions.map(renderOption)}
+          </div>
         </div>
       </div>
     </div>

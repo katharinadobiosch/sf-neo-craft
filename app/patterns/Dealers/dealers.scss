@@ -8,10 +8,9 @@
   display: flex;
   flex-direction: column;
 
-  --dealers-line-inset: 24px;
 
   @media (min-width: 768px) {
-    --dealers-line-inset: 40px;
+    // --dealers-line-inset: 40px;
   }
 
   .dealers {

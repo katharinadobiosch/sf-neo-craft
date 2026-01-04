@@ -62,6 +62,7 @@
         order: 2;
         min-height: 0;
         aspect-ratio: 780 / 940; /* defines row height */
+        align-items: start; // statt stretch
       }
     }
 
@@ -148,8 +149,12 @@
       height: auto;
 
       @media (min-width: 992px) {
+        display: flex;
+        flex-direction: column;
         height: 100%;
         min-height: 0;
+        justify-content: flex-start; // statt space-between o.ä.
+        align-content: flex-start;
       }
     }
 
@@ -297,9 +302,12 @@
       flex: 1 1 0;
       min-height: 0;
       overflow: hidden; /* wichtig */
+      border-bottom: 1px solid var(--divider);
     }
 
     .product-form__sections {
+      display: flex;
+      flex-direction: column;
       flex: 2 1 0;
       min-height: 0;
       overflow: hidden; /* wichtig */
@@ -329,15 +337,25 @@
       flex-direction: column;
     }
 
+    .product-form__configurator .cfg-panel-scroll {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto; /* nur hier scrollen */
+      overflow-x: hidden;
+    }
+
     .product-form__configurator .cfg-head {
       flex: 0 0 auto;
     }
 
     /* überschreibt dein "overflow: hidden" aus configurator.scss */
     .product-form__configurator .cfg-panel {
-      flex: 1 1 auto;
-      min-height: 0;
-      overflow: auto; /* nur hier scrollen */
+      // flex: 1 1 auto;
+      // min-height: 0;
+      // overflow: auto; /* nur hier scrollen */
+      /* Accordion-Hülle darf im Desktop nicht limitieren */
+      max-height: none !important;
+      overflow: visible !important;
     }
 
     /* ----------------------------
@@ -360,6 +378,7 @@
       flex: 1 1 auto;
       min-height: 0;
       overflow: auto; /* nur hier scrollen */
+      // padding-top: 1rem;
     }
 
     /* ----------------------------
@@ -369,16 +388,16 @@
     .shipping-item {
       display: flex;
       flex-direction: column;
-    }
 
-    .shipping-item .ps-toggle {
-      flex: 0 0 auto;
-    }
+      .ps-toggle {
+        flex: 0 0 auto;
+      }
 
-    .shipping-item .ps-panel {
-      flex: 1 1 auto;
-      min-height: 0;
-      overflow: auto; /* nur hier scrollen */
+      .shipping-item .ps-panel {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto; /* nur hier scrollen */
+      }
     }
 
     /* ----------------------------
@@ -422,9 +441,6 @@
      ========================================================= */
 
   .product-form__sections {
-    --muted: #6b6b6b;
-    --divider: #d9d9d9;
-
     font-size: var(--nc-konfigurator-mobil-size, 14px);
     line-height: var(--nc-konfigurator-mobil-line, 1.4);
     font-weight: var(--nc-konfigurator-mobil-weight, 400);
@@ -501,6 +517,10 @@
         line-height: 2.2rem;
         font-weight: 500;
       }
+
+      .pf-toggle {
+        width: 200px;
+      }
     }
 
     @media (min-width: 992px) {
@@ -524,6 +544,7 @@
 
   .shipping-item {
     padding-top: 1.5rem;
+    border-top: 1px solid var(--divider);
 
     .ps-toggle {
       all: unset;
@@ -533,6 +554,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      @media (min-width: 768px) {
+        width: 200px;
+      }
     }
 
     .ps-panel {
@@ -545,11 +570,11 @@
 
       display: flex;
       align-items: center;
-      padding-left: 3rem;
+      padding-left: 2rem;
       padding-top: 1rem;
       font-size: 12px;
       font-weight: 400;
-      color: var(--text-default);
+      color: var(--text-muted, #5a5a5a);
     }
 
     &[data-open='true'] .ps-panel {
@@ -587,11 +612,13 @@
     }
   }
 
-  @media (min-width: 768px) {
-    .ps-title {
+  .ps-title {
+    font-size: 1.2rem;
+    line-height: 2.2rem;
+    font-weight: 500;
+
+    @media (min-width: 768px) {
       font-size: 1.5rem;
-      line-height: 2.2rem;
-      font-weight: 500;
     }
   }
 
