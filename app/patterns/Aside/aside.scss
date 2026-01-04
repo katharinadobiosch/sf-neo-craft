@@ -120,10 +120,6 @@ button.reset > * {
   margin: 0;
 }
 
-button.reset:not(:has(> *)) {
-  height: 1.5rem;
-}
-
 button.reset:hover:not(:has(> *)) {
   // text-decoration: underline;
   cursor: pointer;
