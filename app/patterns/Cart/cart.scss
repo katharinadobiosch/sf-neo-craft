@@ -95,26 +95,43 @@
 }
 
 /* price + qty + total row */
+/* --- FIX: prevent price/qty/total overlap --- */
 .cart-line__controls {
-  margin-top: 0.75rem;
-  padding-top: 0.95rem;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 12px;
+  width: 100%;
 }
 
-.cart-line__price,
-.cart-line__total {
-  letter-spacing: -0.01em;
-}
-
+/* left price can shrink but never hide behind controls */
 .cart-line__price {
-  justify-self: start;
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* qty block must keep its size */
+.cart-line__qty,
+.cart-line__quantity,
+.cart-line__stepper {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* right total sticks to the right */
 .cart-line__total {
-  justify-self: end;
+  flex: 0 0 auto;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+/* safety: if any child is grid-item-like, allow shrinking */
+.cart-line__controls > * {
+  min-width: 0;
 }
 
 /* quantity stepper */
