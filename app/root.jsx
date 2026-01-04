@@ -46,6 +46,9 @@ import appStyles from '~/styles/main.scss?url';
 import {PageLayout} from './patterns/PageLayout';
 import fontAwesomeCss from '@fortawesome/fontawesome-free/css/all.min.css?url';
 
+import {introAnimationCss} from '~/patterns/IntroAnimation/introAnimation.scss?url';
+import IntroAnimation from '~/patterns/IntroAnimation';
+
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
  * @type {ShouldRevalidateFunction}
@@ -105,6 +108,7 @@ export function links() {
     {rel: 'stylesheet', href: mainCollectionStyles},
     {rel: 'stylesheet', href: aboutStyles},
     {rel: 'stylesheet', href: MaterialPDP},
+    {rel: 'stylesheet', href: introAnimationCss},
     {rel: 'stylesheet', href: fontAwesomeCss},
 
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
@@ -211,6 +215,8 @@ export function Layout({children}) {
         <Links />
       </head>
       <body>
+        <IntroAnimation />
+
         {data ? (
           <Analytics.Provider
             cart={data.cart}
