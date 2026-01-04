@@ -130,13 +130,43 @@
   }
 }
 
+.brand-reveal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  align-items: center;
+}
+
+.brand-line {
+  display: block;
+}
+
 /* optional: responsive */
 @media (max-width: 768px) {
-  .brand-reveal {
-    font-size: 10vw;
-    letter-spacing: 0.1em;
-  }
   .letter {
-    font-size: 22vw;
+    font-size: 30vw;
+  }
+
+  /* näher zur Mitte, sonst wirkt’s “weg” */
+  .letter.n {
+    left: 28%;
+  }
+
+  .letter.c {
+    right: 28%;
+  }
+
+  /* Brand als Stack, etwas kleiner und weniger Tracking */
+  .brand-reveal {
+    font-size: 11vw;
+    letter-spacing: 0.08em;
+    line-height: 1.05;
+    width: 86vw;
+    text-align: center;
+  }
+
+  /* Optional: NEO / CRAFT zweizeilig (ohne JSX ändern) */
+  .brand-reveal {
+    white-space: pre-line;
   }
 }
