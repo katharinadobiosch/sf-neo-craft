@@ -109,6 +109,8 @@ function ProductItem({
       to={`/products/${product.handle}`}
       className={`material-card ${isReversed ? 'material-card--reverse' : ''}`}
       prefetch="intent"
+      aria-labelledby={`title-${product.id}`}
+      aria-describedby={`desc-${product.id}`}
     >
       <div
         className="product-media"
@@ -160,35 +162,44 @@ function ProductItem({
           {product.title}
         </h3>
 
-        <p className="material-card__description">
+        <p id={`desc-${product.id}`} className="material-card__description">
           Ein Material voller Magie: Dichroisches Glas verändert je nach
           Blickwinkel und Lichteinfall seine Farbe – schillernd, lebendig, immer
-          im Wandel.
+          im Wandel.{' '}
+          <span className="material-card__more" aria-hidden="true">
+            Mehr erfahren
+          </span>
         </p>
 
         {colors?.length > 0 && (
           <ul className="material-card__swatches" aria-label="Farbvarianten">
             {colors.map((c, i) => (
               <li key={`${c.hex}-${i}`}>
-                <span
+                <button
+                  type="button"
                   className="material-card__swatch"
                   style={{backgroundColor: c.hex}}
-                  title={c.label}
+                  data-tooltip={c.label}
                   aria-label={c.label}
-                  role="img"
-                  tabIndex={0}
+                  onClick={(e) => e.preventDefault()}
+                  onMouseDown={(e) => e.preventDefault()}
                 />
               </li>
             ))}
           </ul>
         )}
 
-        <span className="material-card__ctaBar" aria-hidden="true">
+        <div
+          className="material-card__ctaBar"
+          aria-label="Materialmuster bestellen"
+        >
           <span className="material-card__ctaIcon" aria-hidden="true">
             →
           </span>
-          Order your Sample
-        </span>
+          <span className="material-card__ctaText">
+            Materialmuster bestellen
+          </span>
+        </div>
       </div>
     </Link>
   );

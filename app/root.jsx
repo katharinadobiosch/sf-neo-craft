@@ -44,6 +44,7 @@ import MaterialPDP from '~/patterns/MaterialsProductDetail/MaterialDetailInforma
 import appStyles from '~/styles/main.scss?url';
 
 import {PageLayout} from './patterns/PageLayout';
+import fontAwesomeCss from '@fortawesome/fontawesome-free/css/all.min.css?url';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -104,6 +105,7 @@ export function links() {
     {rel: 'stylesheet', href: mainCollectionStyles},
     {rel: 'stylesheet', href: aboutStyles},
     {rel: 'stylesheet', href: MaterialPDP},
+    {rel: 'stylesheet', href: fontAwesomeCss},
 
     {rel: 'icon', type: 'image/svg+xml', href: favicon},
   ];

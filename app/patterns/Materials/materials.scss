@@ -1,8 +1,5 @@
-/* ===== Page & grid ===== */
-
 .materials {
   margin: 2rem 0 0 0;
-
   font-size: 12px;
   line-height: var(--nc-navigation-name-desktop-line);
   font-weight: var(--nc-navigation-name-desktop-weight);
@@ -23,10 +20,8 @@
     }
 
     @media (min-width: 768px) {
-      /* Keep the list single-column (one card per row) */
       display: block;
 
-      /* Midline across all cards */
       &::before {
         content: '';
         position: absolute;
@@ -48,7 +43,11 @@
     }
   }
 
-  /* ===== Card (mobile: image above text) ===== */
+  /* =========================
+     Card
+     Mobile: Grid (media over content)
+     Desktop: Flex (guaranteed equal height + CTA pinned)
+     ========================= */
   .material-card {
     display: grid;
     grid-template-columns: 1fr;
@@ -63,18 +62,22 @@
     margin-bottom: 2rem;
 
     @media (min-width: 768px) {
-      /* Important: full width, one card per row */
+      display: flex;
       width: 100%;
       margin-bottom: 0;
 
-      /* Inside the card: two columns */
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas: 'content media';
-
       border-top: 1px solid var(--ink);
       border-bottom: 1px solid var(--ink);
-      &.material-card--reverse {
-        grid-template-areas: 'media content';
+      border-left: 0;
+      border-right: 0;
+
+      /* equal-height columns */
+      align-items: stretch;
+    }
+
+    &.material-card--reverse {
+      @media (min-width: 768px) {
+        flex-direction: row-reverse;
       }
     }
 
@@ -82,21 +85,19 @@
       font-size: 12px;
       line-height: var(--nc-navigation-name-desktop-line);
       font-weight: 600;
-      margin: 1rem 0 2rem 0;
+      margin: 0 0 1.25rem 0;
 
       @media (min-width: 768px) {
         font-size: var(--nc-warenkorb-desktop-size);
         line-height: var(--nc-warenkorb-desktop-line);
+        margin: 0 0 2rem 0;
       }
-    }
-
-    ul {
-      display: flex;
-      align-items: flex-end;
     }
   }
 
-  /* ===== Media ===== */
+  /* =========================
+     Media
+     ========================= */
   .product-media {
     grid-area: media;
     position: relative;
@@ -104,6 +105,13 @@
     overflow: hidden;
     width: 100%;
     height: auto;
+
+    @media (min-width: 768px) {
+      flex: 1 1 50%;
+      height: auto;
+      aspect-ratio: auto; /* wichtig: sonst begrenzt es die Höhe */
+      min-height: 560px; /* optional */
+    }
   }
 
   .product-media img {
@@ -121,115 +129,234 @@
     }
   }
 
-  /* ===== Text column ===== */
+  /* =========================
+     Content column
+     ========================= */
   .material-card__content {
     grid-area: content;
-    display: grid;
-    grid-template-rows: auto auto 1fr auto;
     background: var(--bg);
-    padding: 1.5rem 1.5rem 0rem 1.5rem;
+    padding: 1.5rem 1.5rem 0 1.5rem;
+
+    /* Mobile: Grid ok */
+    display: grid;
+    grid-template-rows: auto auto auto 1fr; /* last row = CTA */
+    height: auto;
 
     @media (min-width: 768px) {
-      padding: 5rem 7.5rem 0rem 7.5rem;
+      flex: 1 1 50%;
+      padding: 5rem 7.5rem 0 7.5rem;
+
+      /* Desktop: Flex column to pin CTA */
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
     }
   }
 
   .material-card__title {
     margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.01em;
   }
 
   .material-card__description {
     font-size: 12px;
     line-height: var(--nc-navigation-name-desktop-line);
     font-weight: var(--nc-navigation-name-desktop-weight);
+    margin: 0 0 1.75rem 0;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 
     @media (min-width: 768px) {
-      margin: 0;
       font-size: var(--nc-fliesstext-desktop-size);
       line-height: var(--nc-fliesstext-desktop-line);
       font-weight: var(--nc-fliesstext-desktop-weight);
+
+      -webkit-line-clamp: unset;
+      overflow: visible;
+      margin-bottom: 2.5rem; /* optional mehr Luft */
     }
   }
 
+  .material-card__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    text-decoration: none;
+    opacity: 0.7;
+  }
+
+  /* =========================
+     Swatches
+     ========================= */
   .material-card__swatches {
     display: flex;
-    gap: 1.5rem;
+    overflow: visible;
+    margin-top: 0.25rem;
+    padding-bottom: 1.25rem;
+    gap: 12px;
     align-items: center;
-    margin: 8px 0 1.5rem;
-    padding: 0;
-    list-style: none;
   }
 
   .material-card__swatches li {
+    overflow: visible;
     list-style: none;
   }
 
   .material-card__swatch {
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-    flex: 0 0 12px;
+    appearance: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+
     position: relative;
-    z-index: 1;
-    transition:
-      transform 150ms ease,
-      box-shadow 150ms ease;
-    transform-origin: center;
-    will-change: transform;
-  }
+    display: inline-block;
 
-  .material-card__swatches li:hover .material-card__swatch,
-  .material-card__swatches li:focus-within .material-card__swatch,
-  .material-card__swatch:focus {
-    transform: scale(4);
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+
     box-shadow:
-      0 0 0 2px #fff,
-      0 0 0 3px rgba(0, 0, 0, 0.25);
+      inset 0 0 0 1px rgba(0, 0, 0, 0.22),
+      0 0 0 0 rgba(0, 0, 0, 0);
+
+    transition:
+      transform 140ms ease,
+      box-shadow 140ms ease;
+    transform-origin: center;
+  }
+
+  .material-card__swatch:hover,
+  .material-card__swatch:focus-visible {
+    transform: scale(1.18);
+    box-shadow:
+      inset 0 0 0 1px rgba(0, 0, 0, 0.22),
+      0 0 0 2px rgba(0, 0, 0, 0.7);
     outline: none;
-    z-index: 10;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .material-card__swatch {
-      transition: none;
-    }
+  .material-card__swatch::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 10px);
+    transform: translateX(-50%) translateY(2px);
+    white-space: nowrap;
+    padding: 6px 10px;
+    background: rgba(25, 25, 25, 0.92);
+    color: #fff;
+    font-size: 12px;
+    line-height: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 120ms ease,
+      transform 120ms ease;
+    z-index: 20;
   }
 
-  /* CTA bar */
+  .material-card__swatch::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: calc(100% + 4px);
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: rgba(25, 25, 25, 0.92);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 120ms ease;
+    z-index: 19;
+  }
+
+  .material-card__swatch:hover::after,
+  .material-card__swatch:focus-visible::after,
+  .material-card__swatch:hover::before,
+  .material-card__swatch:focus-visible::before {
+    opacity: 1;
+  }
+
+  .material-card__swatch:hover::after,
+  .material-card__swatch:focus-visible::after {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* =========================
+     CTA bar (pinned)
+     ========================= */
   .material-card__ctaBar {
     grid-column: 1 / -1;
     width: calc(100% + 3rem);
     margin-left: -1.5rem;
     margin-right: -1.5rem;
+
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: #fff;
-    margin-top: auto;
+
     padding: 1rem;
     height: 3rem;
 
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    background: #fff;
+    color: #101010;
+    cursor: pointer;
+
+    transition:
+      background 140ms ease,
+      color 140ms ease;
+
+    /* Desktop: push to bottom */
     @media (min-width: 768px) {
+      margin-top: auto;
+
       font-size: 2.2rem;
       font-weight: 300;
       line-height: 3.2rem;
+
       padding-left: 7.5rem;
       height: 6rem;
+
       width: calc(100% + 15rem);
       margin-left: -7.5rem;
       margin-right: -7.5rem;
     }
   }
 
-  .material-card__ctaBar:hover {
-    background: #101010;
-    color: #fff;
-  }
-
   .material-card__ctaIcon {
     font-weight: 600;
     padding-right: 1rem;
   }
+
+  .material-card__ctaText {
+    text-decoration: none;
+  }
+
+  .material-card:hover .material-card__ctaBar {
+    background: #101010;
+    color: #fff;
+  }
+
+  .material-card:focus-visible .material-card__ctaBar {
+    outline: 2px solid rgba(0, 0, 0, 0.7);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .material-card__swatch,
+    .material-card__swatch::before,
+    .material-card__swatch::after,
+    .material-card__ctaBar {
+      transition: none;
+    }
+  }
+}
+
+.pdp-materials .product-form__sections {
+  display: flex;
+  padding: 2rem;
 }
