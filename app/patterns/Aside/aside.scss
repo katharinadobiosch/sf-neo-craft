@@ -255,3 +255,43 @@ button.reset > * {
 button.reset:hover:not(:has(> *)) {
   cursor: pointer;
 }
+
+/* --------------------------------------------------
+   BREAKPOINTS
+-------------------------------------------------- */
+
+@media (min-width: 768px) {
+  /* Desktop drawer width */
+  .overlay {
+    --aside-width-current: var(--aside-width-desktop);
+  }
+
+  /* etwas mehr “Desktop-Luft” */
+  aside header {
+    padding: 0 2rem;
+  }
+
+  aside main {
+    margin: 2rem;
+  }
+
+  /* draußen klickbare Fläche bleibt links neben dem Drawer */
+  .overlay .close-outside {
+    width: calc(100% - var(--aside-width-current));
+  }
+}
+
+@media (min-width: 992px) {
+  /* auf großen Screens darf der Drawer etwas “premium” breiter wirken */
+  :root {
+    --aside-width-desktop: min(var(--aside-width, 480px), 40vw);
+  }
+
+  aside header {
+    padding: 0 2.5rem;
+  }
+
+  aside main {
+    margin: 2.5rem;
+  }
+}
