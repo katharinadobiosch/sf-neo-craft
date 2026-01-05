@@ -20,14 +20,20 @@
 
 .overlay[data-aside-type='cart'] aside {
   --cart-aside-padding: 1.5rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .overlay[data-aside-type='cart'] aside header {
+  flex: 0 0 auto;
   padding: 0 var(--cart-aside-padding);
 }
 
 .overlay[data-aside-type='cart'] aside main {
-  margin: var(--cart-aside-padding);
+  margin: 0;
+  padding: var(--cart-aside-padding);
+  padding-bottom: calc(var(--cart-aside-padding) + env(safe-area-inset-bottom));
 }
 
 .cart-main {
@@ -40,17 +46,23 @@
   background: #fff;
   max-width: 780px;
   margin: 0 auto;
-  overflow: hidden;
+  // overflow: hidden;
+  // overflow: visible; // oder komplett entfernen
 }
 
 .cart-details {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  min-height: 0;
 }
 
 .cart-details > div[aria-labelledby='cart-lines'] {
   padding: 0 1.25rem 0.75rem;
   background: #fff;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .cart-details ul {

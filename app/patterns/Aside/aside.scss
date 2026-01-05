@@ -182,7 +182,7 @@ aside {
 
   position: fixed;
   top: var(--header-height);
-  height: 100dvh; /* better than 100vh on mobile */
+  height: calc(100dvh - var(--header-height)); /* statt 100dvh */
   right: calc(-1 * var(--aside-width-current));
   // width: var(--aside-width-current);
 
@@ -210,6 +210,7 @@ aside header {
   position: relative;
   z-index: 1002; /* above overlay bg */
   padding: 0 1.5rem;
+  flex: 0 0 auto;
 }
 
 aside header h3 {
@@ -235,7 +236,14 @@ aside header .close:focus-visible {
 }
 
 aside main {
-  margin: 1.5rem;
+  flex: 1 1 auto;
+  min-height: 0; /* wichtig, damit overflow greifen darf */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  margin: 0; /* Margin raus */
+  padding: 1.5rem; /* stattdessen Padding */
+  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
 }
 
 .overlay .close-outside {
