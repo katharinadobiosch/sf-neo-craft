@@ -89,7 +89,7 @@ body {
   color: var(--text-default);
 }
 
-body > main {
+#appShell > main {
   flex: 1 0 auto;
   margin: 0 1.5rem;
   padding-top: var(--header-h);
