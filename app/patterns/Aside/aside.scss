@@ -184,7 +184,7 @@ aside {
   top: var(--header-height);
   height: 100dvh; /* better than 100vh on mobile */
   right: calc(-1 * var(--aside-width-current));
-  width: var(--aside-width-current);
+  // width: var(--aside-width-current);
 
   transition: transform 200ms ease-in-out;
   will-change: transform;
