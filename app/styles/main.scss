@@ -89,7 +89,7 @@ body {
   color: var(--text-default);
 }
 
-body > main {
+#appShell > main {
   flex: 1 0 auto;
   margin: 0 1.5rem;
   padding-top: var(--header-h);
@@ -120,4 +120,20 @@ body > main {
 
 .hover-wrap:hover .hover-img {
   opacity: 1;
+}
+
+.home {
+  .teaser-duo {
+    .teaser-duo__content {
+      background-color: white;
+      padding: 15px 0
+    }
+
+    .teaser-duo__image:nth-child(2) {
+      @media (max-width: 767px) {
+        display: none;
+        
+      }
+    }
+  }
 }

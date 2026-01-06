@@ -18,7 +18,12 @@ export default function About() {
       <HeroSplit_Poster
         quote={quote}
         rightImg={heroSplitRight}
-        graphicColor="#F6A94A" // optional
+        leftTop={
+          <div className="hs-bandDecor" aria-hidden="true">
+            <span className="hs-bandDecor__n">N</span>
+            <span className="hs-bandDecor__c">C</span>
+          </div>
+        }
       />
     </div>
   );
