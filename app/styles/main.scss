@@ -126,11 +126,13 @@ body {
   .teaser-duo {
     .teaser-duo__content {
       background-color: white;
+      padding: 15px 0
     }
 
     .teaser-duo__image:nth-child(2) {
       @media (max-width: 767px) {
         display: none;
+        
       }
     }
   }
