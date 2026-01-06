@@ -7,4 +7,18 @@
   .teaser-duo .teaser-duo__content {
     background: white;
   }
+  .teaser-duo__images {
+    display: flex;
+    align-items: stretch; // wichtig
+  }
+  .teaser-duo__image {
+    flex: 1;
+    position: relative;
+  }
+  .teaser-duo__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 }
