@@ -12,4 +12,12 @@
   &__middle {
     margin: 0 0 3rem 0;
   }
+  @media (min-width: 768px) {
+    .teaser-duo .hover-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 774 / 516;
+      overflow: hidden;
+    }
+  }
 }
