@@ -1,6 +1,7 @@
 import {TeaserDuoHomepage} from '~/patterns/TeaserDuoHomepage';
 import teaserImageRight from '../patterns/TeaserDuoHomepage/NC_HR_Rho_Detail_01_2.png';
 import teaserImageLeft from '../patterns/TeaserDuoHomepage/NC_LR_Dia_Detail_02_2.png';
+import {TeaserDuo} from '~/patterns/TeaserDuo';
 
 /**
  * @type {MetaFunction}
@@ -61,15 +62,15 @@ function loadDeferredData({context}) {
 export default function Homepage() {
   /** @type {LoaderReturnData} */
   return (
-    <div className="home">
-      {/* <FeaturedCollection collection={data.featuredCollection} /> */}
-      {/* <RecommendedProducts products={data.recommendedProducts} /> */}
-      <TeaserDuoHomepage
-        teaserImageLeft={teaserImageLeft}
-        teaserImageRight={teaserImageRight}
-        content="NEO CRAFT is a Berlin-based furniture label founded by designer Sebastian Scherer in 2015. It is dedicated to merging traditional craftsmanship with contemporary production techniques. NEO/CRAFT challenges conventional ideas of material, form, and function, reinterpreting them to create innovative and unexpected designs. At the heart of NEO/CRAFT lies a distinctive approach to material exploration and development. While the current focus is on metal, glass, and wood, the search for new directions and fresh perspectives remains a fundamental part of the brand’s philosophy."
-      />
-    </div>
+    <>
+      <div className="home">
+        <TeaserDuo
+          left={teaserImageLeft}
+          right={teaserImageRight}
+          content="NEO CRAFT is a Berlin-based furniture label founded by designer Sebastian Scherer in 2015 , dedicated to blending traditional craftsmanship with modern production techniques. The label challenges conventional ideas about materials, form, and function, reinterpreting them to create innovative and unexpected designs. At the heart of NEO/CRAFT lies a distinctive approach to material exploration and development processes. While the current focus is on metal, glass, and wood, the pursuit of new directions and fresh perspectives remains a fundamental part of NEO/CRAFT's ethos."
+        />
+      </div>
+    </>
   );
 }
 
