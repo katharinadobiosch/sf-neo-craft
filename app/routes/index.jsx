@@ -58,17 +58,17 @@ function loadDeferredData({context}) {
   };
 }
 
-export default function Homepage() {
-  /** @type {LoaderReturnData} */
-  // const data = useLoaderData();
-  return (
-    <div className="home">
-      {/* <FeaturedCollection collection={data.featuredCollection} /> */}
-      {/* <RecommendedProducts products={data.recommendedProducts} /> */}
-      <TeaserDuoHomepage />
-    </div>
-  );
-}
+// export default function Homepage() {
+//   /** @type {LoaderReturnData} */
+//   // const data = useLoaderData();
+//   return (
+//     <div className="home">
+//       <FeaturedCollection collection={data.featuredCollection} />
+//       <RecommendedProducts products={data.recommendedProducts} />
+//       <TeaserDuoHomepage />
+//     </div>
+//   );
+// }
 
 /**
 //  * @param {{

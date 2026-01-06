@@ -121,3 +121,17 @@ body {
 .hover-wrap:hover .hover-img {
   opacity: 1;
 }
+
+.home {
+  .teaser-duo {
+    .teaser-duo__content {
+      background-color: white;
+    }
+
+    .teaser-duo__image:nth-child(2) {
+      @media (max-width: 767px) {
+        display: none;
+      }
+    }
+  }
+}
