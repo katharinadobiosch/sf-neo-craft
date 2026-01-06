@@ -73,6 +73,8 @@
 
       /* equal-height columns */
       align-items: stretch;
+
+      margin-bottom: 22px;
     }
 
     &.material-card--reverse {
@@ -109,7 +111,6 @@
     @media (min-width: 768px) {
       flex: 1 1 50%;
       height: auto;
-      aspect-ratio: auto; /* wichtig: sonst begrenzt es die Höhe */
       min-height: 560px; /* optional */
     }
   }
