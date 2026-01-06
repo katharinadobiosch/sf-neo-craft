@@ -40,6 +40,7 @@
       aspect-ratio: var(--hs-leftBottom-aspect);
       width: 100%;
       height: auto;
+      container-type: inline-size;
     }
   }
   .hs-right {
@@ -115,10 +116,36 @@
       // line-height: 50;
       font-size: 2rem;
       font-weight: 300;
+      /* keine flex-box nötig */
+      display: block;
+      text-align: center;
+
+      /* proportional zur Containerbreite (der Quote-Zelle) */
+      font-size: clamp(1.1rem, 4.2cqi, 3rem);
+      line-height: 1.15;
+
+      padding: clamp(16px, 3.2cqi, 40px);
+
+      /* optional: besserer Zeilenumbruch */
+      text-wrap: balance;
+      overflow-wrap: anywhere;
 
       @media (min-width: 768px) {
         font-size: 3rem;
         padding: 1rem 5rem 1rem 10rem;
+        /* keine flex-box nötig */
+        display: block;
+        text-align: center;
+
+        /* proportional zur Containerbreite (der Quote-Zelle) */
+        font-size: clamp(1.1rem, 4.2cqi, 3rem);
+        line-height: 1.15;
+
+        padding: clamp(16px, 3.2cqi, 40px);
+
+        /* optional: besserer Zeilenumbruch */
+        text-wrap: balance;
+        overflow-wrap: anywhere;
       }
     }
   }

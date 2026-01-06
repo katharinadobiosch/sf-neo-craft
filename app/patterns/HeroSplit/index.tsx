@@ -145,10 +145,12 @@ export function HeroSplit_ClassicFromMetafields() {
 }
 
 export function HeroSplit_Poster({
+  leftTop,
   graphicColor = '#F6A94A',
   quote,
   rightImg,
 }: {
+  leftTop?: React.ReactNode;
   graphicColor?: string;
   quote: string;
   rightImg?: ImgLike;
@@ -160,7 +162,9 @@ export function HeroSplit_Poster({
       leftBottomAspect="781/422"
       bandDecor={null}
       leftTop={
-        <div className="hs-graphic" style={{background: graphicColor}} />
+        leftTop ?? (
+          <div className="hs-graphic" style={{background: graphicColor}} />
+        )
       }
       leftBottom={
         <blockquote className="hs-quote hs-quote--light">
