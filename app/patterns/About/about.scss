@@ -21,4 +21,10 @@
     object-fit: cover;
     display: block;
   }
+
+  .hs-leftTop {
+    @media (max-width: 767px) {
+      display: none;
+    }
+  }
 }
