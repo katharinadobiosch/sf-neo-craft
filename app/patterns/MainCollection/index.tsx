@@ -156,6 +156,18 @@ function ProductItem({product}: {product: ProductLike}) {
   );
 }
 
+export function MainCollectionGrid({products}: {products: ProductLike[]}) {
+  return (
+    <div className="collections">
+      <div className="collections-grid">
+        {products?.map((product) => (
+          <ProductItem key={product.id} product={product} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function CollectionsIndex() {
   const {collection: _collection, products} = useLoaderData<typeof loader>();
 

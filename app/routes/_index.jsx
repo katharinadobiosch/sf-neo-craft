@@ -1,183 +1,100 @@
-import {TeaserDuoHomepage} from '~/patterns/TeaserDuoHomepage';
-import teaserImageRight from '../patterns/TeaserDuoHomepage/NC_HR_Rho_Detail_01_2.png';
-import teaserImageLeft from '../patterns/TeaserDuoHomepage/NC_LR_Dia_Detail_02_2.png';
-import {TeaserDuo} from '~/patterns/TeaserDuo';
+// app/routes/_index.jsx
+import {useLoaderData} from 'react-router';
+import {MainCollectionGrid} from '~/patterns/MainCollection';
 
-/**
- * @type {MetaFunction}
- */
-export const meta = () => {
-  return [{title: 'Hydrogen | Home'}];
-};
+function groupProductsBySeries(products) {
+  const seenSeries = new Set();
+  const result = [];
 
-/**
- * @param {LoaderFunctionArgs} args
- */
-export async function loader(args) {
-  // Start fetching non-critical data without blocking time to first byte
-  const deferredData = loadDeferredData(args);
+  for (const product of products) {
+    const seriesRef = product?.metafieldSeries?.reference;
+    const isMetaobject = seriesRef?.__typename === 'Metaobject';
+    const seriesHandle = isMetaobject ? seriesRef?.handle : null;
 
-  // Await the critical data required to render initial state of the page
-  const criticalData = await loadCriticalData(args);
+    if (seriesHandle) {
+      if (seenSeries.has(seriesHandle)) continue;
+      seenSeries.add(seriesHandle);
+    }
 
-  return {...deferredData, ...criticalData};
+    result.push(product);
+  }
+
+  return result;
 }
 
-/**
- * Load data necessary for rendering content above the fold. This is the critical data
- * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
- * @param {LoaderFunctionArgs}
- */
-async function loadCriticalData({context}) {
-  const [{collections}] = await Promise.all([
-    context.storefront.query(FEATURED_COLLECTION_QUERY),
-    // Add other queries here, so that they are loaded in parallel
-  ]);
+export async function loader({context}) {
+  const {collection} = await context.storefront.query(
+    COLLECTION_BY_HANDLE_QUERY,
+    {
+      variables: {handle: 'main-collection'},
+    },
+  );
 
-  return {
-    featuredCollection: collections.nodes[0],
-  };
-}
+  const productsRaw = collection?.products?.nodes ?? [];
+  const products = groupProductsBySeries(productsRaw);
 
-/**
- * Load data for rendering content below the fold. This data is deferred and will be
- * fetched after the initial page load. If it's unavailable, the page should still 200.
- * Make sure to not throw any errors here, as it will cause the page to 500.
- * @param {LoaderFunctionArgs}
- */
-function loadDeferredData({context}) {
-  const recommendedProducts = context.storefront
-    .query(RECOMMENDED_PRODUCTS_QUERY)
-    .catch((error) => {
-      // Log query errors, but don't throw them so the page can still render
-      console.error(error);
-      return null;
-    });
-
-  return {
-    recommendedProducts,
-  };
+  return {products};
 }
 
 export default function Homepage() {
-  /** @type {LoaderReturnData} */
+  const {products} = useLoaderData();
   return (
-    <>
-      <div className="home">
-        <TeaserDuo
-          left={teaserImageLeft}
-          right={teaserImageRight}
-          content="NEO CRAFT is a Berlin-based furniture label founded by designer Sebastian Scherer in 2015 , dedicated to blending traditional craftsmanship with modern production techniques. The label challenges conventional ideas about materials, form, and function, reinterpreting them to create innovative and unexpected designs. At the heart of NEO/CRAFT lies a distinctive approach to material exploration and development processes. While the current focus is on metal, glass, and wood, the pursuit of new directions and fresh perspectives remains a fundamental part of NEO/CRAFT's ethos."
-        />
-      </div>
-    </>
+    <div className="home">
+      <MainCollectionGrid products={products} />
+    </div>
   );
 }
 
-/**
- * @param {{
- *   collection: FeaturedCollectionFragment;
- * }}
- */
-// function FeaturedCollection({collection}) {
-//   if (!collection) return null;
-//   const image = collection?.image;
-//   return (
-//     <Link
-//       className="featured-collection"
-//       to={`/collections/${collection.handle}`}
-//     >
-//       {image && (
-//         <div className="featured-collection-image">
-//           <Image data={image} sizes="100vw" />
-//         </div>
-//       )}
-//       <h1>{collection.title}</h1>
-//     </Link>
-//   );
-// }
-
-/**
- * @param {{
- *   products: Promise<RecommendedProductsQuery | null>;
- * }}
- */
-// function RecommendedProducts({products}) {
-//   return (
-//     <div className="recommended-products">
-//       <h2>Recommended Products</h2>
-//       <Suspense fallback={<div>Loading...</div>}>
-//         <Await resolve={products}>
-//           {(response) => (
-//             <div className="recommended-products-grid">
-//               {response
-//                 ? response.products.nodes.map((product) => (
-//                     <ProductItem key={product.id} product={product} />
-//                   ))
-//                 : null}
-//             </div>
-//           )}
-//         </Await>
-//       </Suspense>
-//       <br />
-//     </div>
-//   );
-// }
-
-const FEATURED_COLLECTION_QUERY = `#graphql
-  fragment FeaturedCollection on Collection {
-    id
-    title
-    image {
+const COLLECTION_BY_HANDLE_QUERY = `#graphql
+  query CollectionByHandle__Home(
+    $handle: String!
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    collection(handle: $handle) {
       id
-      url
-      altText
-      width
-      height
-    }
-    handle
-  }
-  query FeaturedCollection($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    collections(first: 1, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...FeaturedCollection
+      title
+      handle
+      products(first: 50) {
+        nodes {
+          id
+          title
+          handle
+          featuredImage {
+            url
+            altText
+            width
+            height
+          }
+          metafield: metafield(namespace: "custom", key: "tile_images") {
+            references(first: 10) {
+              nodes {
+                ... on MediaImage {
+                  image {
+                    url
+                    altText
+                    width
+                    height
+                  }
+                }
+              }
+            }
+          }
+          metafieldSeries: metafield(namespace: "custom", key: "product_series") {
+            reference {
+              __typename
+              ... on Metaobject {
+                handle
+                type
+                fields {
+                  key
+                  value
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
 `;
-
-const RECOMMENDED_PRODUCTS_QUERY = `#graphql
-  fragment RecommendedProduct on Product {
-    id
-    title
-    handle
-    priceRange {
-      minVariantPrice {
-        amount
-        currencyCode
-      }
-    }
-    featuredImage {
-      id
-      url
-      altText
-      width
-      height
-    }
-  }
-  query RecommendedProducts ($country: CountryCode, $language: LanguageCode)
-    @inContext(country: $country, language: $language) {
-    products(first: 4, sortKey: UPDATED_AT, reverse: true) {
-      nodes {
-        ...RecommendedProduct
-      }
-    }
-  }
-`;
-
-/** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
-/** @template T @typedef {import('react-router').MetaFunction<T>} MetaFunction */
-/** @typedef {import('storefrontapi.generated').FeaturedCollectionFragment} FeaturedCollectionFragment */
-/** @typedef {import('storefrontapi.generated').RecommendedProductsQuery} RecommendedProductsQuery */
-/** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
