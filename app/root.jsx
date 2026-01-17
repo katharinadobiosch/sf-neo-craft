@@ -215,7 +215,7 @@ export function Layout({children}) {
         <Links />
       </head>
       <body>
-        <IntroAnimation oncePerSession={false} />
+        {/* <IntroAnimation oncePerSession={false} /> */}
 
         <div id="appShell">
           {data ? (
