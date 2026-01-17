@@ -11,6 +11,10 @@
   gap: 1.5rem;
   margin: 1.5rem 0 3rem;
 
+  @media (min-width: 768px) {
+    margin: 3rem 0 3rem;
+  }
+
   h1 {
     margin-top: 0;
   }
@@ -648,7 +652,7 @@
   .pdp .teaser-duo .hover-wrap {
     position: relative;
     width: 100%;
-    aspect-ratio: 774 / 516;
+    aspect-ratio: 1 / 1;
     overflow: hidden;
   }
 }
