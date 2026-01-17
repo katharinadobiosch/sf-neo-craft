@@ -1,84 +1,126 @@
-.highlights {
+/* highlights.scss */
+
+/* optional: nur damit du die Seite separat adressieren kannst */
+
+/* Reuse: gleiche Grundstruktur wie Collection */
+.collections {
   margin: 2rem 0 0 0;
+
   @media (min-width: 768px) {
     margin: 3rem 0 0 0;
   }
-}
 
-.highlights__grid {
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
-  position: relative;
-
-  @media (min-width: 768px) {
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      width: 0.1rem;
-      background-color: black;
-      transform: translateX(-0.5px);
-      z-index: 1;
-    }
-  }
-
-  .highlights__grid > *:nth-child(odd) figcaption {
-    padding-left: 0;
-  }
-
-  .highlights__item {
+  .collections-grid {
+    background: white;
     width: 100%;
-    @media (min-width: 768px) {
-      width: 50%;
-    }
-  }
-  .card {
-    overflow: hidden;
-  }
-
-  .card__media {
     position: relative;
-    border-top: 1px solid #000;
-    border-bottom: 1px solid #000;
-    aspect-ratio: 778/519;
-    width: 100%;
-    height: auto;
-  }
-
-  .card__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
     display: block;
-  }
 
-  .card__overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    text-align: center;
-    color: #fff;
-    opacity: 1;
-    transition:
-      opacity 0.25s ease,
-      transform 0.25s ease;
-    pointer-events: none;
-
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.35)
-    );
-    backdrop-filter: blur(2.5px);
-    -webkit-backdrop-filter: blur(2.5px);
+    &::before {
+      content: none;
+    }
 
     @media (min-width: 768px) {
+      display: flex;
+      flex-wrap: wrap;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 1px;
+        background-color: #000;
+        transform: translateX(-0.5px);
+        z-index: 1;
+      }
+    }
+
+    .product-item {
+      width: 100%;
+      display: block;
+      color: inherit;
+
+      @media (min-width: 768px) {
+        width: 50%;
+      }
+    }
+
+    /* Media-Rahmen exakt wie Collection */
+    .product-media {
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
+    }
+
+    .product-caption {
+      height: 8.7rem;
+    }
+
+    .product-title {
+      position: relative;
+      display: inline-block;
+      margin: 0;
+      padding-top: 1.5rem;
+
+      font-size: var(--nc-navigation-name-desktop-size);
+      line-height: var(--nc-navigation-name-desktop-line);
+      font-weight: var(--nc-navigation-name-desktop-weight);
+    }
+
+    @media (min-width: 768px) {
+      /* Underline-Animation wie Collection (getriggert über das Item) */
+      .product-title::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0em;
+        width: 100%;
+        height: 1px;
+        background-color: currentColor;
+
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 180ms ease;
+      }
+
+      .product-item:hover .product-title::after,
+      .product-item:focus-within .product-title::after {
+        transform: scaleX(1);
+      }
+
+      /* Spalten-Offset wie Collection */
+      .product-item:nth-of-type(even) .product-title {
+        margin-left: 2rem;
+      }
+      .product-item:nth-of-type(odd) .product-title {
+        margin-left: 0;
+      }
+    }
+
+    /* --- Overlay-/Card-spezifisch (aus deinem bisherigen Highlights) --- */
+
+    .card {
+      overflow: hidden;
+      margin: 0; /* falls Browser default margins */
+    }
+
+    .card__media {
+      position: relative;
+      aspect-ratio: 778/519;
+      width: 100%;
+      height: auto;
+    }
+
+    .card__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Overlay: mobil sichtbar, desktop erst auf hover (wie bei dir) */
+    .card__overlay {
       position: absolute;
       inset: 0;
       display: flex;
@@ -87,10 +129,6 @@
       padding: 16px;
       text-align: center;
       color: #fff;
-      opacity: 0;
-      transition:
-        opacity 0.25s ease,
-        transform 0.25s ease;
       pointer-events: none;
 
       background: linear-gradient(
@@ -100,31 +138,23 @@
       );
       backdrop-filter: blur(2.5px);
       -webkit-backdrop-filter: blur(2.5px);
-    }
-  }
 
-  .card:hover .card__overlay {
-    @media (min-width: 768px) {
       opacity: 1;
-      transform: translateY(0);
-      font-size: 1.5rem;
-      line-height: 3.4rem;
-    }
-  }
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
 
-  .card__caption {
-    font-size: 12px;
-    line-height: var(--nc-navigation-name-desktop-line);
-    font-weight: var(--nc-navigation-name-desktop-weight);
-    height: 3rem;
-    margin: 0;
-    display: flex;
-    align-items: flex-start;
-    margin-top: 1rem;
+      @media (min-width: 768px) {
+        opacity: 0;
+      }
+    }
 
     @media (min-width: 768px) {
-      font-size: var(--nc-navigation-name-desktop-size);
-      padding-left: 2rem;
+      .product-item:hover .card__overlay,
+      .product-item:focus-within .card__overlay {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   }
 }

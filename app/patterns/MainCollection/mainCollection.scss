@@ -1,5 +1,6 @@
 .collections {
   margin: 2rem 0 0 0;
+
   @media (min-width: 768px) {
     margin: 3rem 0 0 0;
   }
@@ -41,58 +42,54 @@
         width: 50%;
       }
 
-      .h4-test {
-        height: 8.7rem;
-
-        h4 {
-          position: relative;
-          display: inline-block;
-          font-size: var(--nc-navigation-name-desktop-size);
-          line-height: var(--nc-navigation-name-desktop-line);
-          font-weight: var(--nc-navigation-name-desktop-weight);
-          margin: 0;
-          align-items: flex-start;
-          padding-top: 1.5rem;
-
-          @media (min-width: 768px) {
-            font-size: var(--nc-navigation-name-desktop-size);
-            // height: 4rem;
-
-            &::after {
-              content: '';
-              position: absolute;
-              left: 0;
-              bottom: 0em;
-              width: 100%;
-              height: 1px;
-              background-color: currentColor;
-
-              transform: scaleX(0);
-              transform-origin: left;
-              transition: transform 180ms ease;
-            }
-
-            &:hover::after,
-            &:focus-visible::after {
-              transform: scaleX(1);
-            }
-          }
-        }
-      }
-
-      @media (min-width: 768px) {
-        &:nth-of-type(odd) h4 {
-          padding-left: 0;
-        }
-
-        &:nth-of-type(even) h4 {
-          margin-left: 2rem;
-        }
-      }
-
       .product-media {
         border-top: 1px solid #000;
         border-bottom: 1px solid #000;
+      }
+
+      .product-caption {
+        height: 8.7rem;
+      }
+
+      .product-title {
+        position: relative;
+        display: inline-block;
+        margin: 0;
+        padding-top: 1.5rem;
+
+        font-size: var(--nc-navigation-name-desktop-size);
+        line-height: var(--nc-navigation-name-desktop-line);
+        font-weight: var(--nc-navigation-name-desktop-weight);
+      }
+
+      @media (min-width: 768px) {
+        // underline animation (triggered by the link hover/focus, not only h4 hover)
+        .product-title::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0em;
+          width: 100%;
+          height: 1px;
+          background-color: currentColor;
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 180ms ease;
+        }
+
+        &:hover .product-title::after,
+        &:focus-visible .product-title::after {
+          transform: scaleX(1);
+        }
+
+        // column spacing
+        &:nth-of-type(odd) .product-title {
+          padding-left: 0;
+        }
+
+        &:nth-of-type(even) .product-title {
+          margin-left: 2rem;
+        }
       }
     }
   }

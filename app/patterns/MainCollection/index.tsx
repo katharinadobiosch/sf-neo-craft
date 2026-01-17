@@ -151,8 +151,8 @@ function ProductItem({product}: {product: ProductLike}) {
           />
         )}
       </div>
-      <div className="h4-test">
-        <h4>{title}</h4>
+      <div className="product-caption">
+        <h4 className="product-title">{title}</h4>
       </div>
     </Link>
   );

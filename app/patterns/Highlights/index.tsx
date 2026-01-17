@@ -157,18 +157,18 @@ export default function ProjectsPage() {
   const {items = []} = useLoaderData() as LoaderData;
 
   return (
-    <div className="highlights">
-      <ul className="highlights__grid">
+    <div className="collections highlights">
+      <div className="collections-grid">
         {items.map((it: ProjectItem) => (
-          <li key={it.id} className="highlights__item">
+          <div key={it.id} className="product-item">
             <FigureCard
               image={it.image}
               overlay={it.overlay}
               title={it.title}
             />
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
@@ -189,23 +189,20 @@ function FigureCard({
     height: image?.height,
   };
 
-  if (!image) {
-    return (
-      <figure className="card">
-        <figcaption>Kein Bild</figcaption>
-      </figure>
-    );
-  }
+  const displayTitle = (title?.trim() || overlay).trim();
 
   return (
     <figure className="card">
-      <div className="card__media">
-        <Image
-          data={imageData}
-          className="card__img"
-          sizes="(min-width:1200px) 33vw, (min-width:768px) 47vw, 100vw"
-          loading="lazy"
-        />
+      <div className="product-media card__media">
+        {image ? (
+          <Image
+            data={imageData}
+            className="card__img"
+            sizes="(min-width:1200px) 33vw, (min-width:768px) 47vw, 100vw"
+            loading="lazy"
+          />
+        ) : null}
+
         {overlay && (
           <figcaption className="card__overlay">
             <span className="card__overlayText">{overlay}</span>
@@ -213,9 +210,9 @@ function FigureCard({
         )}
       </div>
 
-      <figcaption className="card__caption">
-        {title?.trim() || overlay}
-      </figcaption>
+      <div className="product-caption">
+        <h4 className="product-title">{displayTitle}</h4>
+      </div>
     </figure>
   );
 }
