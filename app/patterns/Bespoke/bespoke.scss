@@ -3,6 +3,20 @@
 
   @media (min-width: 768px) {
     margin: 3rem 0 8.7rem 0;
+    position: relative; /* <- wichtig */
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0; /* geht durch alles innerhalb .bespoke */
+      width: 1px;
+      background: #000;
+      transform: translateX(-0.5px);
+      z-index: 5;
+      pointer-events: none;
+    }
   }
   .teaser-duo .teaser-duo__content {
     background: white;
