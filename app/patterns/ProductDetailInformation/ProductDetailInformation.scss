@@ -29,6 +29,8 @@
       z-index: 2;
       pointer-events: none;
     }
+
+    
   }
 
   h1 {
@@ -597,7 +599,7 @@
 
   @media (min-width: 768px) {
     .hs-grid {
-      padding-bottom: 8.6rem;
+      margin-bottom: 8.6rem;
     }
   }
 
