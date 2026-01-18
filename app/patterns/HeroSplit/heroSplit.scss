@@ -70,6 +70,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      border-bottom: 1px solid black;
     }
     &__hover {
       position: absolute;
@@ -199,7 +200,7 @@
   height: 100%;
   overflow: hidden;
   isolation: isolate;
-  border-bottom: 1px solid black;
+  border-top: 1px solid black;
 }
 
 /* Gemeinsame Typo-Eigenschaften */
