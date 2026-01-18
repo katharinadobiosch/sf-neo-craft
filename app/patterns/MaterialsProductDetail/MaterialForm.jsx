@@ -141,7 +141,7 @@ export function MaterialForm({
 
       {/* 4) CTA */}
       <div className="pdp__cta-container">
-        <div className={`pf-cta ${isReady ? 'is-active' : 'is-idle'}`}>
+        <div className="cta-button">
           <span className="cta-arrow">→</span>
           <span className="cta-price">{money(price, currency)}</span>
           <AddToCartButton
@@ -156,9 +156,11 @@ export function MaterialForm({
             {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
           </AddToCartButton>
         </div>
-
-        <div className="pdp__question">
-          <div>Further Questions?</div>
+        <div
+          className="cta-question"
+          onClick={() => (window.location = 'mailto:test@example.com')}
+        >
+          Further Questions?
         </div>
       </div>
     </div>

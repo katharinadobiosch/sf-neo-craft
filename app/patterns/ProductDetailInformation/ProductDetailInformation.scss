@@ -12,8 +12,23 @@
   gap: 1.5rem;
 
   @media (min-width: 768px) {
+    position: relative; /* <- DAS fehlt */
+
     margin: 3rem 0 8.6rem 0;
     gap: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: #000;
+      transform: translateX(-0.5px);
+      z-index: 2;
+      pointer-events: none;
+    }
   }
 
   h1 {
@@ -74,6 +89,7 @@
       min-height: 0;
       display: flex;
       flex-direction: column;
+      border-top: 1px solid black;
     }
 
     .media-gallery,
@@ -91,6 +107,7 @@
     /* ---------- Teaser duo (mobile) ---------- */
     .pdp__teaser-duo {
       margin: 0;
+      border: 10px solid red;
 
       .teaser-duo__images {
         display: flex;
@@ -202,7 +219,7 @@
     .cta-question {
       width: 43%;
       height: 100%;
-      border-left: 1px solid black;
+      // border-left: 1px solid black;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -581,16 +598,16 @@
 
   @media (min-width: 768px) {
     .hs-grid {
-      padding-bottom: 8.6rem;
+      margin-bottom: 8.6rem;
     }
   }
-}
 
-@media (min-width: 768px) {
-  .pdp .teaser-duo .hover-wrap {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
+  .pdp__teaser-duo .hover-wrap {
+    @media (min-width: 768px) {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 780 / 519;
+      overflow: hidden;
+    }
   }
 }

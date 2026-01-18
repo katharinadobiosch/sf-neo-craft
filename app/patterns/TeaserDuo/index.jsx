@@ -51,7 +51,12 @@ export function TeaserDuo({
         ) : null}
       </div>
 
-      {content ? <div className="teaser-duo__content">{content}</div> : null}
+      {content ? (
+        <div
+          className="teaser-duo__content"
+          dangerouslySetInnerHTML={{__html: content}}
+        />
+      ) : null}
     </section>
   );
 }

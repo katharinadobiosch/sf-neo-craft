@@ -18,6 +18,7 @@ export function ProductDetailInformation({
     getAdjacentAndFirstAvailableVariants(product),
   );
 
+  console.log('ProductDetailInformation render', product);
   const metafields = normalizeAllMetafields(product.metafields ?? []);
 
   // ===== TOP (Square Variant): Series-Hero ODER Standard-Duo + Description =====
@@ -59,7 +60,8 @@ export function ProductDetailInformation({
           right={hasSeriesHero ? null : topRight}
           rightHover={hasSeriesHero ? null : topRightHover}
           isSingle={hasSeriesHero}
-          content={product.description}
+          content={product.descriptionHtml}
+          
         />
       </div>
 
