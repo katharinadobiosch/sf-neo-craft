@@ -40,5 +40,9 @@
     @media (max-width: 767px) {
       display: none;
     }
+
+    @media (min-width: 768px) {
+      border-bottom: 1px solid black;
+    }
   }
 }

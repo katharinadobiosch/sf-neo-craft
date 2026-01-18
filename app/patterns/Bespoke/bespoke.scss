@@ -4,7 +4,7 @@
   @media (min-width: 768px) {
     margin: 3rem 0 8.7rem 0;
     position: relative; /* <- wichtig */
-    
+
     &::before {
       content: '';
       position: absolute;
@@ -39,6 +39,10 @@
   .hs-leftTop {
     @media (max-width: 767px) {
       display: none;
+    }
+
+    @media (min-width: 768px) {
+      border-bottom: 1px solid black;
     }
   }
 
