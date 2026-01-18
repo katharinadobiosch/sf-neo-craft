@@ -12,8 +12,23 @@
   gap: 1.5rem;
 
   @media (min-width: 768px) {
+    position: relative; /* <- DAS fehlt */
+
     margin: 3rem 0 8.6rem 0;
     gap: 0;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: #000;
+      transform: translateX(-0.5px);
+      z-index: 2;
+      pointer-events: none;
+    }
   }
 
   h1 {
@@ -119,6 +134,8 @@
 
         overflow-wrap: break-word;
         word-break: break-word;
+
+        z-index: 9;
       }
     }
 
