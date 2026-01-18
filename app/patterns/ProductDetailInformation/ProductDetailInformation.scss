@@ -106,6 +106,7 @@
     /* ---------- Teaser duo (mobile) ---------- */
     .pdp__teaser-duo {
       margin: 0;
+      border: 10px solid red;
 
       .teaser-duo__images {
         display: flex;
@@ -134,8 +135,6 @@
 
         overflow-wrap: break-word;
         word-break: break-word;
-
-        z-index: 9;
       }
     }
 
@@ -601,13 +600,13 @@
       padding-bottom: 8.6rem;
     }
   }
-}
 
-@media (min-width: 768px) {
-  .pdp .teaser-duo .hover-wrap {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
+  .pdp__teaser-duo .hover-wrap {
+    @media (min-width: 768px) {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 780 / 519;
+      overflow: hidden;
+    }
   }
 }
