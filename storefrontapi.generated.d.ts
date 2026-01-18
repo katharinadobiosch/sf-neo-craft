@@ -368,6 +368,65 @@ export type CollectionByHandle__CollectionsRouteQuery = {
             featuredImage?: StorefrontAPI.Maybe<
               Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
             >;
+            metafields: Array<
+              StorefrontAPI.Maybe<
+                Pick<
+                  StorefrontAPI.Metafield,
+                  'namespace' | 'key' | 'type' | 'value'
+                > & {
+                  reference?: StorefrontAPI.Maybe<
+                    | {
+                        __typename:
+                          | 'Collection'
+                          | 'Metaobject'
+                          | 'Model3d'
+                          | 'Page'
+                          | 'Product'
+                          | 'ProductVariant'
+                          | 'Video';
+                      }
+                    | ({__typename: 'GenericFile'} & Pick<
+                        StorefrontAPI.GenericFile,
+                        'url' | 'mimeType'
+                      >)
+                    | ({__typename: 'MediaImage'} & {
+                        image?: StorefrontAPI.Maybe<
+                          Pick<
+                            StorefrontAPI.Image,
+                            'url' | 'altText' | 'width' | 'height'
+                          >
+                        >;
+                      })
+                  >;
+                  references?: StorefrontAPI.Maybe<{
+                    nodes: Array<
+                      | {
+                          __typename:
+                            | 'Collection'
+                            | 'Metaobject'
+                            | 'Model3d'
+                            | 'Page'
+                            | 'Product'
+                            | 'ProductVariant'
+                            | 'Video';
+                        }
+                      | ({__typename: 'GenericFile'} & Pick<
+                          StorefrontAPI.GenericFile,
+                          'url' | 'mimeType'
+                        >)
+                      | ({__typename: 'MediaImage'} & {
+                          image?: StorefrontAPI.Maybe<
+                            Pick<
+                              StorefrontAPI.Image,
+                              'url' | 'altText' | 'width' | 'height'
+                            >
+                          >;
+                        })
+                    >;
+                  }>;
+                }
+              >
+            >;
             metafieldSeries?: StorefrontAPI.Maybe<{
               reference?: StorefrontAPI.Maybe<
                 | {
@@ -2060,7 +2119,7 @@ interface GeneratedQueryTypes {
     return: ProjectsQuery;
     variables: ProjectsQueryVariables;
   };
-  '#graphql\n  query CollectionByHandle__CollectionsRoute(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      handle\n      image {\n        id\n        url\n        altText\n        width\n        height\n      }\n      products(first: 50) {\n        nodes {\n          id\n          title\n          handle\n          featuredImage {\n            url\n            altText\n            width\n            height\n          }\n\n          metafieldSeries: metafield(namespace: "custom", key: "product_series") {\n            reference {\n              __typename\n              ... on Metaobject {\n                handle\n                type\n                fields {\n                  key\n                  value\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
+  '#graphql\n  query CollectionByHandle__CollectionsRoute(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      handle\n      image {\n        id\n        url\n        altText\n        width\n        height\n      }\n      products(first: 50) {\n        nodes {\n          id\n          title\n          handle\n          featuredImage {\n            url\n            altText\n            width\n            height\n          }\n          metafields(identifiers: [{namespace: "custom", key: "product_tile"}]) {\n            namespace\n            key\n            type\n            value\n            reference {\n              __typename\n              ... on MediaImage {\n                image {\n                  url\n                  altText\n                  width\n                  height\n                }\n              }\n              ... on GenericFile {\n                url\n                mimeType\n              }\n            }\n            references(first: 2) {\n              nodes {\n                __typename\n                ... on MediaImage {\n                  image {\n                    url\n                    altText\n                    width\n                    height\n                  }\n                }\n                ... on GenericFile {\n                  url\n                  mimeType\n                }\n              }\n            }\n          }\n\n          metafieldSeries: metafield(namespace: "custom", key: "product_series") {\n            reference {\n              __typename\n              ... on Metaobject {\n                handle\n                type\n                fields {\n                  key\n                  value\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
     return: CollectionByHandle__CollectionsRouteQuery;
     variables: CollectionByHandle__CollectionsRouteQueryVariables;
   };
