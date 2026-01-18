@@ -45,7 +45,6 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: stretch;
-      column-gap: 1.5rem;
     }
 
     .product-main__media {
@@ -75,16 +74,16 @@
       width: 100%;
       min-width: 0;
       min-height: 0;
-      display: flex;
       flex-direction: column;
       gap: 1.5rem;
+      display: flex;
+      align-items: stretch; // wichtig
 
       @media (min-width: 992px) {
-        order: 1;
-        padding-right: 1.5rem;
-        height: 100%;
-        min-height: 0;
-        gap: 0; /* important: don't waste height on gaps */
+        // order: 1;
+        // height: 100%;
+        // min-height: 0;
+        // gap: 0; /* important: don't waste height on gaps */
       }
     }
 
@@ -183,110 +182,46 @@
 
   /* ---------- CTA ---------- */
   .pdp__cta-container {
-    --cta-border: color-mix(in oklab, var(--color-dark) 18%, transparent);
-    --cta-accent: var(--sf-purple, #8f8cf6);
+    width: 100%;
+    display: flex;
+    border: 1px solid black;
+    align-items: stretch;
+    height: 6.3rem;
+    font-size: var(--nc-fliesstext-desktop-size);
+    line-height: var(--nc-fliesstext-desktop-line);
+    font-weight: var(--nc-fliesstext-desktop-weight);
+    // --cta-border: color-mix(in oklab, var(--color-dark) 18%, transparent);
+    // --cta-accent: var(--sf-purple, #8f8cf6);
 
-    position: sticky;
-    bottom: 0;
-    z-index: 5;
-    padding-top: 3rem;
-
-    background: transparent;
-    box-shadow: none;
-    height: auto;
-
-    backdrop-filter: blur(8px);
-
-    .pf-cta {
-      border: 1px solid var(--cta-border);
-      overflow: hidden;
-
-      display: grid;
-      grid-template-columns: 56px 118px 1fr;
-      align-items: stretch;
-
-      height: 4rem;
-
-      .cta-arrow,
-      .cta-price {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--color-dark);
-      }
-
-      .cta-arrow {
-        font-size: 18px;
-        opacity: 0.9;
-      }
-
-      .cta-price {
-        font-weight: 600;
-        letter-spacing: 0.01em;
-        white-space: nowrap;
-      }
-
-      form > button {
-        all: unset;
-        cursor: pointer;
-
-        height: 100%;
-        width: 100%;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-weight: 650;
-        letter-spacing: 0.01em;
-
-        background: var(--color-dark);
-        color: #fff;
-
-        transition:
-          transform 0.12s ease,
-          filter 0.12s ease,
-          opacity 0.12s ease;
-
-        &:disabled {
-          opacity: 1;
-        }
-      }
-
-      &.is-idle form > button {
-        background: color-mix(in oklab, var(--color-dark) 8%, #fff);
-        color: color-mix(in oklab, var(--color-dark) 75%, transparent);
-        cursor: not-allowed;
-      }
-
-      &.is-active form > button {
-        background: linear-gradient(
-          to bottom,
-          color-mix(in oklab, var(--cta-accent) 14%, var(--color-dark) 86%),
-          var(--color-dark)
-        );
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
-
-        &:active {
-          transform: translateY(1px);
-          filter: brightness(0.98);
-        }
-      }
-    }
-
-    .pdp__question {
-      letter-spacing: 0.01em;
-      white-space: nowrap;
-      border: 1px solid var(--cta-border);
-      margin: 1rem 0 0 0;
-      height: 3rem;
+    .cta-button {
+      width: 57%;
+      height: 100%;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: space-around;
+      &:hover {
+        background: black;
+        color: white;
+      }
     }
 
-    @media (min-width: 992px) {
-      padding-top: 1.5rem;
+    button {
+      background: none;
+      border: none;
+    }
+
+    .cta-question {
+      width: 43%;
+      height: 100%;
+      border-left: 1px solid black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover {
+        background: black;
+        color: white;
+        cursor: pointer;
+      }
     }
   }
 
