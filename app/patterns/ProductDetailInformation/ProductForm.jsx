@@ -158,7 +158,6 @@ export function ProductForm({
 
       {/* 4) CTA */}
       <div className="pdp__cta-container">
-        {/* <div className={`pf-cta ${isReady ? 'is-active' : 'is-idle'}`}> */}
         <div className="cta-button">
           <span className="cta-arrow">→</span>
           <span className="cta-price">{money(price, currency)}</span>
@@ -174,7 +173,6 @@ export function ProductForm({
             {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
           </AddToCartButton>
         </div>
-        {/* click on further question and open email program */}
         <div
           className="cta-question"
           onClick={() => (window.location = 'mailto:test@example.com')}
@@ -182,7 +180,6 @@ export function ProductForm({
           Further Questions?
         </div>
       </div>
-      {/* </div> */}
     </div>
   );
 }

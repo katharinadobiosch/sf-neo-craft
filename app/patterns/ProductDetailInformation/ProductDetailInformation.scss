@@ -48,12 +48,11 @@
     }
 
     .product-main__media {
-      order: -1;
+      aspect-ratio: 1 / 1; // DAS ist die Referenz
       width: 100%;
-      min-width: 0;
-      min-height: 320px;
+      height: auto;
+      min-height: 0;
       display: flex;
-      align-items: stretch;
 
       img {
         width: 100%;
@@ -65,26 +64,16 @@
       @media (min-width: 992px) {
         order: 2;
         min-height: 0;
-        aspect-ratio: 780 / 940; /* defines row height */
+        aspect-ratio: 780 / 780; /* defines row height */
         align-items: start; // statt stretch
       }
     }
 
     .product-main__info {
-      width: 100%;
-      min-width: 0;
+      height: 100%; // jetzt wirksam
       min-height: 0;
-      flex-direction: column;
-      gap: 1.5rem;
       display: flex;
-      align-items: stretch; // wichtig
-
-      @media (min-width: 992px) {
-        // order: 1;
-        // height: 100%;
-        // min-height: 0;
-        // gap: 0; /* important: don't waste height on gaps */
-      }
+      flex-direction: column;
     }
 
     .media-gallery,
