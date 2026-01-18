@@ -12,7 +12,8 @@
   gap: 1.5rem;
 
   @media (min-width: 768px) {
-    margin: 3rem 0 3rem;
+    margin: 3rem 0 8.6rem 0;
+    gap: 0;
   }
 
   h1 {
@@ -59,7 +60,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        aspect-ratio: 780 / 940;
+        aspect-ratio: 1 / 1;
       }
 
       @media (min-width: 992px) {
@@ -647,7 +648,14 @@
       min-height: 0;
     }
   }
+
+  .hero-split {
+    @media (min-width: 768px) {
+      padding: 8.6rem 0;
+    }
+  }
 }
+
 @media (min-width: 768px) {
   .pdp .teaser-duo .hover-wrap {
     position: relative;
