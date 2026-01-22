@@ -1,20 +1,25 @@
 {
   "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "Bundler",
-    "jsx": "react-jsx",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
-    "allowJs": true,
-    // "moduleResolution": "node",
-    "skipLibCheck": true,
+
     "paths": {
       "~/*": ["app/*"],
       "@/*": ["app/*"]
     },
+
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    // "moduleResolution": "node",
+    "skipLibCheck": true,
+
     "types": ["vite/client"]
   },
   "include": [

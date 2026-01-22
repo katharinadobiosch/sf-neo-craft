@@ -131,35 +131,6 @@
     padding: 1.2rem 0 0 0;
   }
 
-  .cfg-plus {
-    position: relative;
-    width: 12px;
-    height: 12px;
-    flex: 0 0 12px;
-    color: currentColor;
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 14px;
-      height: 2px;
-      background: currentColor;
-      transform: translate(-50%, -50%);
-      transition: transform 0.2s ease;
-    }
-
-    &::after {
-      transform: translate(-50%, -50%) rotate(90deg);
-    }
-
-    &.is-open::after {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
-  }
-
   /* =========================================================
    Desktop overrides (>= 768px)
    ========================================================= */
@@ -269,11 +240,6 @@
     top: calc(100% + 10px);
   }
 
-  .cfg-item.is-color::before {
-    bottom: auto;
-    top: calc(100% + 4px);
-  }
-
   &[data-variants-open='true'] .cfg-panel {
     opacity: 1;
   }
@@ -290,6 +256,7 @@
 
   /* Swatch-Animation */
   .cfg-item.is-color .dot-ring {
+    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -346,19 +313,23 @@
 
   /* Optional: ausgewählt klar markieren */
   .cfg-item.is-color.is-selected .dot-ring {
-    box-shadow: inset 0 0 0 2px currentColor;
+    box-shadow: none;
+    border: 2px solid #000;
   }
 
   /* Tooltip-Bubble */
   .cfg-item.is-color::after {
+    display: flex;
+    align-items: center;
     content: attr(data-tooltip);
     position: absolute;
     left: 50%;
-    bottom: calc(100% + 10px);
+    top: -65%;
     transform: translateX(-50%) translateY(4px);
     white-space: nowrap;
+    border-radius: 50%;
 
-    padding: 6px 10px;
+    padding: 15px 7px;
 
     background: rgba(25, 25, 25, 0.92);
     color: #fff;
@@ -370,26 +341,7 @@
     transition:
       opacity 140ms ease,
       transform 140ms ease;
-    z-index: 20;
-  }
-
-  /* Tooltip-Pfeil */
-  .cfg-item.is-color::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: calc(100% + 4px);
-    transform: translateX(-50%);
-
-    width: 10px;
-    height: 10px;
-    background: rgba(25, 25, 25, 0.92);
-    transform: translateX(-50%) rotate(45deg);
-
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 140ms ease;
-    z-index: 19;
+    z-index: 999999;
   }
 
   /* Tooltip sichtbar bei Hover und Tastaturfokus */
