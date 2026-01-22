@@ -41,6 +41,13 @@ const getSwatchStyle = (name) => {
 
   const hex = getHex(name);
   if (hex) {
+    if (hex.toLowerCase() === '#000000') {
+      return {
+        backgroundColor: hex,
+        boxShadow: 'inset 0 0 0 1px #fff', // innere Trennlinie
+      };
+    }
+
     return needsChecker(hex)
       ? {
           ...checkerBg,

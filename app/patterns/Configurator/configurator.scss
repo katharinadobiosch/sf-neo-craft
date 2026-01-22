@@ -256,6 +256,7 @@
 
   /* Swatch-Animation */
   .cfg-item.is-color .dot-ring {
+    box-sizing: border-box;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -312,7 +313,8 @@
 
   /* Optional: ausgewählt klar markieren */
   .cfg-item.is-color.is-selected .dot-ring {
-    box-shadow: inset 0 0 0 2px currentColor;
+    box-shadow: none;
+    border: 2px solid #000;
   }
 
   /* Tooltip-Bubble */
