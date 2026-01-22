@@ -131,35 +131,6 @@
     padding: 1.2rem 0 0 0;
   }
 
-  .cfg-plus {
-    position: relative;
-    width: 12px;
-    height: 12px;
-    flex: 0 0 12px;
-    color: currentColor;
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 14px;
-      height: 2px;
-      background: currentColor;
-      transform: translate(-50%, -50%);
-      transition: transform 0.2s ease;
-    }
-
-    &::after {
-      transform: translate(-50%, -50%) rotate(90deg);
-    }
-
-    &.is-open::after {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
-  }
-
   /* =========================================================
    Desktop overrides (>= 768px)
    ========================================================= */
