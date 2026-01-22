@@ -97,7 +97,7 @@ export function Configurator({
   onChangeSeriesProduct,
 }) {
   // Nur die Varianten-Sektion toggeln
-  const [variantsOpen, setVariantsOpen] = useState(true);
+  // const [variantsOpen, setVariantsOpen] = useState(true);
   const panelRef = useRef(null);
   const [panelHeight, setPanelHeight] = useState(0);
 
@@ -109,24 +109,19 @@ export function Configurator({
     typeof onChangeSeriesProduct === 'function';
 
   useEffect(() => {
-    if (!variantsOpen) return;
     const id = requestAnimationFrame(() => {
       if (panelRef.current) {
         setPanelHeight(panelRef.current.scrollHeight || 0);
       }
     });
     return () => cancelAnimationFrame(id);
-  }, [variantsOpen, productOptions, seriesProducts, seriesActiveIndex]);
+  }, [productOptions, seriesProducts, seriesActiveIndex]);
 
   useEffect(() => {
-    const onResize = () => {
-      if (variantsOpen && panelRef.current) {
-        setPanelHeight(panelRef.current.scrollHeight || 0);
-      }
-    };
+    const onResize = () => {};
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
-  }, [variantsOpen]);
+  }, []);
 
   const renderOption = (option) => {
     const colorish = isColorOption(option.name);
@@ -211,7 +206,7 @@ export function Configurator({
     window.matchMedia('(min-width: 992px)').matches;
 
   return (
-    <div className="configurator" data-variants-open={variantsOpen}>
+    <div className="configurator">
       {/* Kopf: toggelt NUR Varianten */}
       <div className="cfg-head">
         <span className="cfg-title">Configurator</span>
@@ -222,13 +217,10 @@ export function Configurator({
         id="cfg-variants"
         className="cfg-panel"
         style={
-          variantsOpen
-            ? isDesktop
+              isDesktop
               ? {maxHeight: 'none'}
               : {maxHeight: `${panelHeight}px`}
-            : {maxHeight: '0px'}
         }
-        aria-hidden={!variantsOpen}
       >
         <div className="cfg-panel-scroll">
           <div ref={panelRef} className="cfg-panel-inner">
@@ -239,7 +231,6 @@ export function Configurator({
                   {seriesProducts.map((variants, index) => {
                     const label = variants.title;
                     const isActive = index === seriesActiveIndex;
-                    console.log('label:', variants.title);
 
                     return (
                       <button
