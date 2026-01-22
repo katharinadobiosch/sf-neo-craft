@@ -1,4 +1,3 @@
-import {useRef, useState, useEffect} from 'react';
 import colors from './colors.json';
 
 const cx = (...classes) => classes.filter(Boolean).join(' ');
@@ -96,32 +95,12 @@ export function Configurator({
   seriesActiveIndex = 0,
   onChangeSeriesProduct,
 }) {
-  // Nur die Varianten-Sektion toggeln
-  // const [variantsOpen, setVariantsOpen] = useState(true);
-  const panelRef = useRef(null);
-  const [panelHeight, setPanelHeight] = useState(0);
-
   const variantOptions = productOptions || [];
 
   const hasSeriesOptions =
     Array.isArray(seriesProducts) &&
     seriesProducts.length > 1 &&
     typeof onChangeSeriesProduct === 'function';
-
-  useEffect(() => {
-    const id = requestAnimationFrame(() => {
-      if (panelRef.current) {
-        setPanelHeight(panelRef.current.scrollHeight || 0);
-      }
-    });
-    return () => cancelAnimationFrame(id);
-  }, [productOptions, seriesProducts, seriesActiveIndex]);
-
-  useEffect(() => {
-    const onResize = () => {};
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, []);
 
   const renderOption = (option) => {
     const colorish = isColorOption(option.name);
@@ -170,6 +149,7 @@ export function Configurator({
                 disabled={disabled}
                 data-tooltip={value.name}
                 aria-label={value.name}
+                type="button"
                 onClick={() => {
                   if (!selected) {
                     navigate(`?${value.variantUriQuery}`, {
@@ -182,11 +162,7 @@ export function Configurator({
               >
                 {colorish ? (
                   <span className="dot-ring">
-                    <span
-                      className="dot"
-                      style={getSwatchStyle(value.name)}
-                      aria-label={value.name}
-                    />
+                    <span className="dot" style={getSwatchStyle(value.name)} />
                   </span>
                 ) : (
                   <span className="chip-text">
@@ -201,30 +177,16 @@ export function Configurator({
     );
   };
 
-  const isDesktop =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(min-width: 992px)').matches;
-
   return (
     <div className="configurator">
-      {/* Kopf: toggelt NUR Varianten */}
       <div className="cfg-head">
         <span className="cfg-title">Configurator</span>
       </div>
 
       {/* Container 1: Varianten */}
-      <div
-        id="cfg-variants"
-        className="cfg-panel"
-        style={
-              isDesktop
-              ? {maxHeight: 'none'}
-              : {maxHeight: `${panelHeight}px`}
-        }
-      >
+      <div id="cfg-variants" className="cfg-panel">
         <div className="cfg-panel-scroll">
-          <div ref={panelRef} className="cfg-panel-inner">
-            {/* 🔹 neue Modell-Zeile */}
+          <div className="cfg-panel-inner">
             {hasSeriesOptions && (
               <div className="cfg-row cfg-row--model">
                 <div className="cfg-values">
