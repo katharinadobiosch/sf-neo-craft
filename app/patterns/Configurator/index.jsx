@@ -1,4 +1,3 @@
-import {useRef, useState, useEffect} from 'react';
 import colors from './colors.json';
 
 const cx = (...classes) => classes.filter(Boolean).join(' ');
@@ -41,14 +40,11 @@ const getSwatchStyle = (name) => {
   }
 
   const hex = getHex(name);
-  if (hex) {
-    return needsChecker(hex)
-      ? {
-          ...checkerBg,
-          backgroundColor: hex,
-          boxShadow: 'inset 0 0 0 1px #cfcfcf',
-        }
-      : {backgroundColor: hex};
+  if (hex.toLowerCase() === '#000000') {
+    return {
+      backgroundColor: hex,
+      boxShadow: 'inset 0 0 0 1px #fff', // innere Trennlinie
+    };
   }
 
   // Fallback
@@ -97,9 +93,6 @@ export function Configurator({
   onChangeSeriesProduct,
 }) {
   // Nur die Varianten-Sektion toggeln
-  const [variantsOpen, setVariantsOpen] = useState(true);
-  const panelRef = useRef(null);
-  const [panelHeight, setPanelHeight] = useState(0);
 
   const variantOptions = productOptions || [];
 
@@ -107,26 +100,6 @@ export function Configurator({
     Array.isArray(seriesProducts) &&
     seriesProducts.length > 1 &&
     typeof onChangeSeriesProduct === 'function';
-
-  useEffect(() => {
-    if (!variantsOpen) return;
-    const id = requestAnimationFrame(() => {
-      if (panelRef.current) {
-        setPanelHeight(panelRef.current.scrollHeight || 0);
-      }
-    });
-    return () => cancelAnimationFrame(id);
-  }, [variantsOpen, productOptions, seriesProducts, seriesActiveIndex]);
-
-  useEffect(() => {
-    const onResize = () => {
-      if (variantsOpen && panelRef.current) {
-        setPanelHeight(panelRef.current.scrollHeight || 0);
-      }
-    };
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [variantsOpen]);
 
   const renderOption = (option) => {
     const colorish = isColorOption(option.name);
@@ -186,13 +159,7 @@ export function Configurator({
                 aria-pressed={selected}
               >
                 {colorish ? (
-                  <span className="dot-ring">
-                    <span
-                      className="dot"
-                      style={getSwatchStyle(value.name)}
-                      aria-label={value.name}
-                    />
-                  </span>
+                  <span className="dot-ring"></span>
                 ) : (
                   <span className="chip-text">
                     {value.name.replace('ø ', '')}
@@ -206,61 +173,44 @@ export function Configurator({
     );
   };
 
-  const isDesktop =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(min-width: 992px)').matches;
-
   return (
-    <div className="configurator" data-variants-open={variantsOpen}>
-      {/* Kopf: toggelt NUR Varianten */}
+    <div className="configurator">
       <div className="cfg-head">
         <span className="cfg-title">Configurator</span>
       </div>
 
       {/* Container 1: Varianten */}
-      <div
-        id="cfg-variants"
-        className="cfg-panel"
-        style={
-          variantsOpen
-            ? isDesktop
-              ? {maxHeight: 'none'}
-              : {maxHeight: `${panelHeight}px`}
-            : {maxHeight: '0px'}
-        }
-        aria-hidden={!variantsOpen}
-      >
-        <div className="cfg-panel-scroll">
-          <div ref={panelRef} className="cfg-panel-inner">
-            {/* 🔹 neue Modell-Zeile */}
-            {hasSeriesOptions && (
-              <div className="cfg-row cfg-row--model">
-                <div className="cfg-values">
-                  {seriesProducts.map((variants, index) => {
-                    const label = variants.title;
-                    const isActive = index === seriesActiveIndex;
-                    console.log('label:', variants.title);
 
-                    return (
-                      <button
-                        key={variants.id}
-                        type="button"
-                        title={label}
-                        aria-label={label}
-                        className={`cfg-item is-chip ${isActive ? 'is-selected' : ''}`}
-                        onClick={() => onChangeSeriesProduct(index)}
-                      >
-                        <span className="chip-text">{label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+      <div className="cfg-panel-scroll">
+        <div className="cfg-panel-inner">
+          {/* 🔹 neue Modell-Zeile */}
+          {hasSeriesOptions && (
+            <div className="cfg-row cfg-row--model">
+              <div className="cfg-values">
+                {seriesProducts.map((variants, index) => {
+                  const label = variants.title;
+                  const isActive = index === seriesActiveIndex;
+                  console.log('label:', variants.title);
+
+                  return (
+                    <button
+                      key={variants.id}
+                      type="button"
+                      title={label}
+                      aria-label={label}
+                      className={`cfg-item is-chip ${isActive ? 'is-selected' : ''}`}
+                      onClick={() => onChangeSeriesProduct(index)}
+                    >
+                      <span className="chip-text">{label}</span>
+                    </button>
+                  );
+                })}
               </div>
-            )}
+            </div>
+          )}
 
-            {/* bestehende Variant-Optionen */}
-            {variantOptions.map(renderOption)}
-          </div>
+          {/* bestehende Variant-Optionen */}
+          {variantOptions.map(renderOption)}
         </div>
       </div>
     </div>
