@@ -159,7 +159,9 @@ export function Configurator({
                 aria-pressed={selected}
               >
                 {colorish ? (
-                  <span className="dot-ring"></span>
+                  <span className="dot-ring">
+                    <span className="dot" style={getSwatchStyle(value.name)} />
+                  </span>
                 ) : (
                   <span className="chip-text">
                     {value.name.replace('ø ', '')}
