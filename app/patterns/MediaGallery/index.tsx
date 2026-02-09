@@ -26,9 +26,15 @@ type Props = {
   product: Product;
   variant?: Variant | null;
   className?: string;
+  reselectKey?: number;
 };
 
-export function MediaGallery({product, variant, className}: Props) {
+export function MediaGallery({
+  product,
+  variant,
+  className,
+  reselectKey = 0,
+}: Props) {
   const swiperRef = useRef<SwiperType | null>(null);
 
   // NEW: Refs für eigene Nav-Buttons
@@ -103,16 +109,25 @@ export function MediaGallery({product, variant, className}: Props) {
 
   // Beim Variantenwechsel aktiv auf das Variantenbild springen
   useEffect(() => {
-    if (!swiperRef.current) return;
+    const s = swiperRef.current;
+    if (!s) return;
+
     const vUrl = variant?.image?.url;
     if (!vUrl) return;
-    const idx = slides.findIndex((s) => s.url === vUrl);
+
+    const idx = slides.findIndex((slide) => slide.url === vUrl);
     if (idx < 0) return;
 
-    const s = swiperRef.current;
-    if (s.params.loop) s.slideToLoop(idx, 0, false);
-    else s.slideTo(idx, 0, false);
-  }, [variant?.id, slides]);
+    // IMPORTANT:
+    // Swiper kann denken, der Slide sei schon aktiv,
+    // obwohl er visuell nicht angezeigt wird (Loop + Navigation).
+    // Deshalb immer hart springen.
+    if (s.params.loop) {
+      s.slideToLoop(idx, 0, true);
+    } else {
+      s.slideTo(idx, 0, true);
+    }
+  }, [variant?.id, variant?.image?.url, slides, reselectKey]);
 
   console.log('[nav-effect]', {
     hasMultiple,

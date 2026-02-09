@@ -95,6 +95,7 @@ export function Configurator({
   seriesProducts = [],
   seriesActiveIndex = 0,
   onChangeSeriesProduct,
+  onVariantReselect,
 }) {
   // Nur die Varianten-Sektion toggeln
   const [variantsOpen, setVariantsOpen] = useState(true);
@@ -176,6 +177,8 @@ export function Configurator({
                 data-tooltip={value.name}
                 aria-label={value.name}
                 onClick={() => {
+                  onVariantReselect?.();
+
                   if (!selected) {
                     navigate(`?${value.variantUriQuery}`, {
                       replace: true,

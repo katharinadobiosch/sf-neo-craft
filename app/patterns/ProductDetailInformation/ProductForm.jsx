@@ -22,6 +22,7 @@ export function ProductForm({
   seriesProducts,
   seriesActiveIndex,
   onChangeSeriesProduct,
+  onVariantReselect,
 }) {
   const {open: openAside} = useAside();
   const navigate = useNavigate();
@@ -139,6 +140,7 @@ export function ProductForm({
           seriesActiveIndex={seriesActiveIndex}
           onChangeSeriesProduct={onChangeSeriesProduct}
           product={activeProduct}
+          onVariantReselect={onVariantReselect}
         />
       </div>
 
