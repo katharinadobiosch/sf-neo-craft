@@ -214,21 +214,7 @@ export function Configurator({
     <div className="configurator" data-variants-open={variantsOpen}>
       {/* Kopf: toggelt NUR Varianten */}
       <div className="cfg-head">
-        <button
-          type="button"
-          className="cfg-toggle"
-          aria-expanded={variantsOpen}
-          aria-controls="cfg-variants"
-          onClick={() => setVariantsOpen((v) => !v)}
-        >
-          <span className="cfg-title">Configurator</span>
-          <span
-            className={`cfg-plus ${variantsOpen ? 'is-open' : ''}`}
-            aria-hidden="true"
-          />
-        </button>
-        <div className="cfg-head__label" />
-        <div className="cfg-head__values" />
+        <span className="cfg-title">Configurator</span>
       </div>
 
       {/* Container 1: Varianten */}
@@ -249,15 +235,15 @@ export function Configurator({
             {/* 🔹 neue Modell-Zeile */}
             {hasSeriesOptions && (
               <div className="cfg-row cfg-row--model">
-                <div className="cfg-label">Model</div>
                 <div className="cfg-values">
-                  {seriesProducts.map((p, index) => {
-                    const label = p.title.replace(/^OSOM\s+/i, '');
+                  {seriesProducts.map((variants, index) => {
+                    const label = variants.title;
                     const isActive = index === seriesActiveIndex;
+                    console.log('label:', variants.title);
 
                     return (
                       <button
-                        key={p.id}
+                        key={variants.id}
                         type="button"
                         title={label}
                         aria-label={label}

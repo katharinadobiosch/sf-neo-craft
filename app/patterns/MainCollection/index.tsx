@@ -3,6 +3,7 @@ import {useState} from 'react';
 import {useLoaderData, Link} from 'react-router';
 import {Image} from '@shopify/hydrogen';
 import type {LoaderFunctionArgs} from '@shopify/remix-oxygen';
+import {normalizeAllMetafields} from '~/utils/metafields';
 
 type SeriesField = {key: string; value?: string | null};
 type MetaobjectRef = {
@@ -16,9 +17,14 @@ type ProductLike = {
   title: string;
   handle: string;
   featuredImage?: unknown | null;
-  metafield?: {
-    references?: {nodes?: Array<{image?: unknown | null} | null> | null} | null;
-  } | null;
+  metafields?: Array<{
+    namespace?: string;
+    key?: string;
+    type?: string;
+    value?: string | null;
+    reference?: unknown | null;
+    references?: {nodes?: Array<unknown | null> | null} | null;
+  }> | null;
   metafieldSeries?: {
     reference?: MetaobjectRef | {__typename?: string} | null;
   } | null;
@@ -73,14 +79,13 @@ function groupProductsBySeries(products: ProductLike[]) {
 }
 
 function getTileImages(product: ProductLike) {
-  const refs =
-    product.metafield?.references?.nodes
-      ?.map((n) => n?.image ?? null)
-      .filter(Boolean) ?? [];
+  const mf = normalizeAllMetafields(product.metafields ?? []).product_tile;
+  const main = mf?.list?.[0] ?? product.featuredImage ?? null;
+  const hover = mf?.list?.[1] ?? null;
 
   return {
-    main: refs[0] || product.featuredImage || null,
-    hover: refs[1] || null,
+    main,
+    hover,
   };
 }
 
@@ -211,6 +216,44 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
             altText
             width
             height
+          }
+          metafields(identifiers: [{namespace: "custom", key: "product_tile"}]) {
+            namespace
+            key
+            type
+            value
+            reference {
+              __typename
+              ... on MediaImage {
+                image {
+                  url
+                  altText
+                  width
+                  height
+                }
+              }
+              ... on GenericFile {
+                url
+                mimeType
+              }
+            }
+            references(first: 2) {
+              nodes {
+                __typename
+                ... on MediaImage {
+                  image {
+                    url
+                    altText
+                    width
+                    height
+                  }
+                }
+                ... on GenericFile {
+                  url
+                  mimeType
+                }
+              }
+            }
           }
 
           metafieldSeries: metafield(namespace: "custom", key: "product_series") {
