@@ -1,14 +1,8 @@
-import {useState} from 'react';
-import {Link, NavLink} from 'react-router';
+import {useState, Suspense} from 'react';
+import {Link, NavLink, Await} from 'react-router';
 import {useAside} from '~/patterns/Aside';
 import {normalizeMenuUrl} from 'utils/normalizeMenuUrl';
-import {Await} from 'react-router';
-import {Suspense} from 'react';
 import './header.scss';
-
-/**
- * @param {HeaderProps}
- */
 
 export function Header({
   header,
@@ -21,62 +15,71 @@ export function Header({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className={`header ${variant ? `header--${variant}` : ''}`}>
-      <div className="header__container">
-        <div className="header__left">
-          <NavLink to="/">N</NavLink>
-        </div>
+    <Suspense fallback={null}>
+      <Await resolve={cart}>
+        {(c) => {
+          const count = c?.totalQuantity ?? 0;
+          const hasCart = count >= 1;
 
-        <div className="header__center">
-          <button
-            className={`burger ${isMenuOpen ? 'active' : ''}`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-
-        <div className="header__right">
-          <NavLink to="/">C</NavLink>
-          {/* <Suspense fallback={null}> */}
-          <Await resolve={cart}>
-            {(c) => {
-              const count = c?.totalQuantity ?? 0;
-              return (
-                <div className="header__cart">
-                  <Link to="/cart"> {count === 1 ? '(1)' : `(${count})`}</Link>
-                </div>
-              );
-            }}
-          </Await>
-          {/* </Suspense> */}
-        </div>
-      </div>
-
-      <div className={`header__overlay ${isMenuOpen ? 'open' : ''}`}>
-        <nav className="header__overlay__menu">
-          {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
-            const url = normalizeMenuUrl(
-              item.url,
-              publicStoreDomain,
-              primaryDomainUrl,
-            );
-            return (
-              <NavLink
-                key={item.id}
-                to={url}
-                onClick={() => setIsMenuOpen(false)}
+          return (
+            <header className={`header ${variant ? `header--${variant}` : ''}`}>
+              <div
+                className={`header__container ${
+                  hasCart ? 'header__container--has-cart' : ''
+                }`}
               >
-                {item.title}
-              </NavLink>
-            );
-          })}
-        </nav>
-      </div>
-    </header>
+                <div className="header__left">
+                  <NavLink to="/">N</NavLink>
+                </div>
+
+                <div className="header__center">
+                  <button
+                    className={`burger ${isMenuOpen ? 'active' : ''} ${
+                      hasCart ? 'burger--inverted' : ''
+                    }`}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    aria-label="Toggle menu"
+                  >
+                    <span />
+                    <span />
+                    <span />
+                  </button>
+                </div>
+
+                <div className="header__right">
+                  <NavLink to="/">C</NavLink>
+
+                  <div className="header__cart">
+                    <Link to="/cart">{hasCart ? `(${count})` : null}</Link>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`header__overlay ${isMenuOpen ? 'open' : ''}`}>
+                <nav className="header__overlay__menu">
+                  {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+                    const url = normalizeMenuUrl(
+                      item.url,
+                      publicStoreDomain,
+                      primaryDomainUrl,
+                    );
+                    return (
+                      <NavLink
+                        key={item.id}
+                        to={url}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.title}
+                      </NavLink>
+                    );
+                  })}
+                </nav>
+              </div>
+            </header>
+          );
+        }}
+      </Await>
+    </Suspense>
   );
 }
 

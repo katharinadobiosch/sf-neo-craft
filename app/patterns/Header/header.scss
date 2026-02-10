@@ -171,4 +171,16 @@
     font-size: 1.2rem;
     padding: 0 0 8px 8px;
   }
+
+  &__container--has-cart {
+    background: #000;
+    color: #fff;
+  }
+
+  &__container--has-cart a {
+    color: #fff;
+  }
+  .burger--inverted span {
+    background: #fff;
+  }
 }
