@@ -1,7 +1,9 @@
 import {useState} from 'react';
-import {NavLink} from 'react-router';
+import {Link, NavLink} from 'react-router';
 import {useAside} from '~/patterns/Aside';
 import {normalizeMenuUrl} from 'utils/normalizeMenuUrl';
+import {Await} from 'react-router';
+import {Suspense} from 'react';
 import './header.scss';
 
 /**
@@ -13,6 +15,7 @@ export function Header({
   variant = 'default',
   publicStoreDomain,
   primaryDomainUrl,
+  cart,
 }) {
   const {menu} = header;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,6 +41,18 @@ export function Header({
 
         <div className="header__right">
           <NavLink to="/">C</NavLink>
+          {/* <Suspense fallback={null}> */}
+          <Await resolve={cart}>
+            {(c) => {
+              const count = c?.totalQuantity ?? 0;
+              return (
+                <div className="header__cart">
+                  <Link to="/cart"> {count === 1 ? '(1)' : `(${count})`}</Link>
+                </div>
+              );
+            }}
+          </Await>
+          {/* </Suspense> */}
         </div>
       </div>
 

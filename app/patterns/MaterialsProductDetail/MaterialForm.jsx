@@ -25,7 +25,7 @@ export function MaterialForm({
   const {open: openAside} = useAside();
   const navigate = useNavigate();
 
-  console.log('MaterialForm render', product.description);
+  // console.log('MaterialForm render', product.description);
 
   const BLACKLIST = new Set([
     'series_hero',

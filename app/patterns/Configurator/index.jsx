@@ -242,7 +242,7 @@ export function Configurator({
                   {seriesProducts.map((variants, index) => {
                     const label = variants.title;
                     const isActive = index === seriesActiveIndex;
-                    console.log('label:', variants.title);
+                    // console.log('label:', variants.title);
 
                     return (
                       <button

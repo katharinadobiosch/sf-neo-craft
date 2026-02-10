@@ -129,17 +129,17 @@ export function MediaGallery({
     }
   }, [variant?.id, variant?.image?.url, slides, reselectKey]);
 
-  console.log('[nav-effect]', {
-    hasMultiple,
-    variantId: variant?.id,
-    slidesLen: slides.length,
-    hasSwiper: !!swiperRef.current,
-    destroyed: swiperRef.current?.destroyed,
-    prev: !!prevRef.current,
-    next: !!nextRef.current,
-    navType: typeof swiperRef.current?.params?.navigation,
-    navValue: swiperRef.current?.params?.navigation,
-  });
+  // console.log('[nav-effect]', {
+  //   hasMultiple,
+  //   variantId: variant?.id,
+  //   slidesLen: slides.length,
+  //   hasSwiper: !!swiperRef.current,
+  //   destroyed: swiperRef.current?.destroyed,
+  //   prev: !!prevRef.current,
+  //   next: !!nextRef.current,
+  //   navType: typeof swiperRef.current?.params?.navigation,
+  //   navValue: swiperRef.current?.params?.navigation,
+  // });
 
   return (
     <section className={`nc-media-gallery ${className ?? ''}`}>
