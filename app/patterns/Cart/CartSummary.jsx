@@ -1,5 +1,4 @@
-import {CartForm, Money} from '@shopify/hydrogen';
-import {useRef} from 'react';
+import {Money} from '@shopify/hydrogen';
 import './cart.scss';
 
 /**
@@ -8,162 +7,62 @@ import './cart.scss';
 export function CartSummary({cart, layout}) {
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
-  const itemCount = cart?.totalQuantity ?? 0;
+
+  const subtotal = cart?.cost?.subtotalAmount;
+  const total = cart?.cost?.totalAmount;
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Zusammenfassung</h4>
+      <div className="cart-summary-grid">
+        <div className="cell label">Nachricht</div>
+        <div className="cell value">
+          <textarea
+            className="cart-note"
+            placeholder="Hinterlasse eine Nachricht zu deiner Bestellung"
+          />
+        </div>
 
-      <dl className="cart-list">
-        {/* <dt>{itemCount === 1 ? '1 Artikel' : `${itemCount} Artikel`}</dt>
-        <dd>
-          {cart.cost?.totalAmount?.amount ? (
-            <Money data={cart.cost?.totalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd> */}
+        <div className="cell label">Zwischensumme</div>
+        <div className="cell value price">
+          {subtotal?.amount ? <Money data={subtotal} /> : '—'}
+        </div>
 
-        <dt>Zwischensumme</dt>
-        <dd>
-          {cart.cost?.subtotalAmount?.amount ? (
-            <Money data={cart.cost?.subtotalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
+        <div className="cell label">Lieferung</div>
+        <div className="cell value muted">
+          Versandkosten &amp; Steuern werden beim Check-out berechnet
+        </div>
 
-        <dt className="is-strong">Summe</dt>
-        <dd className="is-strong">
-          {cart.cost?.totalAmount?.amount ? (
-            <Money data={cart.cost?.totalAmount} />
-          ) : (
-            '-'
-          )}
-        </dd>
-      </dl>
+        <div className="cell total">
+          {total?.amount ? <Money data={total} /> : '—'}
+        </div>
 
-      <CartDiscounts discountCodes={cart.discountCodes} />
-      <CartGiftCards giftCardCodes={cart.appliedGiftCards} />
-
-      <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+        <CartCheckoutActions checkoutUrl={cart.checkoutUrl} />
+      </div>
     </div>
   );
 }
 
 /** @param {{checkoutUrl?: string}} */
 function CartCheckoutActions({checkoutUrl}) {
-  if (!checkoutUrl) return null;
+  if (!checkoutUrl) {
+    return <div className="cell checkout is-disabled">Zur Kasse gehen</div>;
+  }
 
   return (
-    <a className="cart-checkout" href={checkoutUrl} target="_self">
+    <a
+      className="cell checkout"
+      href={checkoutUrl}
+      target="_self"
+      rel="noreferrer"
+    >
       Zur Kasse gehen
     </a>
   );
 }
 
-/** @param {{discountCodes?: CartApiQueryFragment['discountCodes'];}} */
-function CartDiscounts({discountCodes}) {
-  const codes =
-    discountCodes
-      ?.filter((discount) => discount.applicable)
-      ?.map(({code}) => code) || [];
-
-  return (
-    <div className="cart-extras">
-      <div className="cart-extras__title">Rabatt</div>
-
-      <div className="cart-extras__applied" hidden={!codes.length}>
-        {codes.map((c) => (
-          <code key={c}>{c}</code>
-        ))}
-      </div>
-
-      <UpdateDiscountForm discountCodes={codes}>
-        <div className="cart-code-row">
-          <input type="text" name="discountCode" placeholder="Discount code" />
-          <button type="submit">Apply</button>
-        </div>
-      </UpdateDiscountForm>
-    </div>
-  );
-}
-
-/** @param {{discountCodes?: string[]; children: React.ReactNode;}} */
-function UpdateDiscountForm({discountCodes, children}) {
-  return (
-    <CartForm
-      route="/cart"
-      action={CartForm.ACTIONS.DiscountCodesUpdate}
-      inputs={{discountCodes: discountCodes || []}}
-    >
-      {children}
-    </CartForm>
-  );
-}
-
-/** @param {{giftCardCodes: CartApiQueryFragment['appliedGiftCards'] | undefined;}} */
-function CartGiftCards({giftCardCodes}) {
-  // Hydrogen expects the raw gift card codes. Persist user-entered codes so the Apply button stays consistent,
-  // while still showing the already-applied codes (***1234).
-  const appliedCodesRef = useRef([]);
-
-  const visibleCodes =
-    giftCardCodes?.map(({lastCharacters}) => `***${lastCharacters}`) || [];
-
-  return (
-    <div className="cart-extras">
-      <div className="cart-extras__title">Gift card</div>
-
-      <div className="cart-extras__applied" hidden={!visibleCodes.length}>
-        {visibleCodes.map((c) => (
-          <code key={c}>{c}</code>
-        ))}
-      </div>
-
-      <UpdateGiftCardForm appliedCodesRef={appliedCodesRef}>
-        <div className="cart-code-row">
-          <input type="text" name="giftCardCode" placeholder="Gift card code" />
-          <button type="submit">Apply</button>
-        </div>
-      </UpdateGiftCardForm>
-    </div>
-  );
-}
-
-/**
- * @param {{
- *   appliedCodesRef: {current: string[]};
- *   children: React.ReactNode;
- * }}
- */
-function UpdateGiftCardForm({appliedCodesRef, children}) {
-  return (
-    <CartForm
-      route="/cart"
-      action={CartForm.ACTIONS.GiftCardCodesUpdate}
-      inputs={{giftCardCodes: appliedCodesRef.current || []}}
-    >
-      {(fetcher) => {
-        const codeRaw = fetcher.formData?.get('giftCardCode')?.toString();
-        if (codeRaw) {
-          const formatted = codeRaw.replace(/\s/g, '');
-          if (formatted && !appliedCodesRef.current.includes(formatted)) {
-            appliedCodesRef.current.push(formatted);
-          }
-        }
-        return children;
-      }}
-    </CartForm>
-  );
-}
-
 /**
  * @typedef {{
- *   cart: OptimisticCart<CartApiQueryFragment | null>;
- *   layout: CartLayout;
+ *   cart: import('@shopify/hydrogen').OptimisticCart<import('storefrontapi.generated').CartApiQueryFragment | null>;
+ *   layout: import('~/patterns/Cart/CartMain').CartLayout;
  * }} CartSummaryProps
  */
-/** @typedef {import('storefrontapi.generated').CartApiQueryFragment} CartApiQueryFragment */
-/** @typedef {import('~/patterns/Cart/CartMain').CartLayout} CartLayout */
-/** @typedef {import('@shopify/hydrogen').OptimisticCart} OptimisticCart */
