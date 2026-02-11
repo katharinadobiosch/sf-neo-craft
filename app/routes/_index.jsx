@@ -66,20 +66,17 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
             width
             height
           }
-          metafield: metafield(namespace: "custom", key: "tile_images") {
-            references(first: 10) {
+
+          metafield: metafield(namespace: "custom", key: "product_tile") {
+            references(first: 2) {
               nodes {
                 ... on MediaImage {
-                  image {
-                    url
-                    altText
-                    width
-                    height
-                  }
+                  image { url altText width height }
                 }
               }
             }
           }
+
           metafieldSeries: metafield(namespace: "custom", key: "product_series") {
             reference {
               __typename
@@ -93,7 +90,8 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
               }
             }
           }
-        }
+
+        }  ← nodes endet hier korrekt
       }
     }
   }

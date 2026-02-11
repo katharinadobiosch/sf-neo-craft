@@ -17,14 +17,28 @@ type ProductLike = {
   title: string;
   handle: string;
   featuredImage?: unknown | null;
-  metafields?: Array<{
-    namespace?: string;
-    key?: string;
-    type?: string;
-    value?: string | null;
-    reference?: unknown | null;
-    references?: {nodes?: Array<unknown | null> | null} | null;
-  }> | null;
+  metafield?: {
+    references?: {nodes?: Array<{image?: unknown | null} | null> | null} | null;
+  } | null;
+
+  productTile?: {
+    references?: {
+      nodes?: Array<
+        | {__typename?: 'MediaImage'; image?: unknown | null}
+        | {__typename?: 'GenericFile'; url?: string | null}
+        | null
+      > | null;
+    } | null;
+  } | null;
+
+  variants?: {
+    nodes?: Array<{
+      neoColorVariants?: {
+        references?: {nodes?: unknown[] | null} | null;
+      } | null;
+    } | null> | null;
+  } | null;
+
   metafieldSeries?: {
     reference?: MetaobjectRef | {__typename?: string} | null;
   } | null;
@@ -79,13 +93,16 @@ function groupProductsBySeries(products: ProductLike[]) {
 }
 
 function getTileImages(product: ProductLike) {
-  const mf = normalizeAllMetafields(product.metafields ?? []).product_tile;
-  const main = mf?.list?.[0] ?? product.featuredImage ?? null;
-  const hover = mf?.list?.[1] ?? null;
+  const refs =
+    product.metafield?.references?.nodes
+      ?.map((n) => n?.image ?? null)
+      .filter(Boolean) ?? [];
+
+  console.log(product.productTile);
 
   return {
-    main,
-    hover,
+    main: refs[0] || product.featuredImage || null,
+    hover: refs[1] || null,
   };
 }
 
@@ -125,7 +142,9 @@ function ProductItem({product}: {product: ProductLike}) {
         {main && (
           <Image
             data={main as any}
-            alt={(main as any)?.altText || title}
+            alt={(main as any)?.altText || product.title}
+            className="material-card__image"
+            sizes="(min-width: 60rem) 40rem, 100vw"
             style={{
               position: 'absolute',
               inset: 0,
@@ -135,14 +154,14 @@ function ProductItem({product}: {product: ProductLike}) {
               opacity: showHover ? 0 : 1,
               transition: 'opacity .25s ease',
             }}
-            sizes="(min-width: 45em) 30rem, 100vw"
           />
         )}
         {hover && (
           <Image
             data={hover as any}
-            alt={(hover as any)?.altText || title}
-            loading="lazy"
+            alt={(hover as any)?.altText || product.title}
+            className="material-card__image"
+            sizes="(min-width: 60rem) 40rem, 100vw"
             style={{
               position: 'absolute',
               inset: 0,
@@ -152,7 +171,7 @@ function ProductItem({product}: {product: ProductLike}) {
               opacity: showHover ? 1 : 0,
               transition: 'opacity .25s ease',
             }}
-            sizes="(min-width: 45em) 30rem, 100vw"
+            loading="lazy"
           />
         )}
       </div>
@@ -190,81 +209,74 @@ export default function CollectionsIndex() {
 }
 
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
-  query CollectionByHandle__CollectionsRoute(
-    $handle: String!
-    $country: CountryCode
-    $language: LanguageCode
-  ) @inContext(country: $country, language: $language) {
-    collection(handle: $handle) {
-      id
-      title
-      handle
-      image {
+query CollectionByHandle_Materials(
+  $handle: String!
+  $country: CountryCode
+  $language: LanguageCode
+) @inContext(country: $country, language: $language) {
+  collection(handle: $handle) {
+    id
+    title
+    handle
+    image { id url altText width height }
+    products(first: 20) {
+      nodes {
         id
-        url
-        altText
-        width
-        height
-      }
-      products(first: 50) {
-        nodes {
-          id
-          title
-          handle
-          featuredImage {
-            url
-            altText
-            width
-            height
-          }
-          metafields(identifiers: [{namespace: "custom", key: "product_tile"}]) {
-            namespace
-            key
-            type
-            value
-            reference {
-              __typename
-              ... on MediaImage {
-                image {
-                  url
-                  altText
-                  width
-                  height
-                }
-              }
-              ... on GenericFile {
-                url
-                mimeType
-              }
-            }
-            references(first: 2) {
-              nodes {
-                __typename
-                ... on MediaImage {
-                  image {
-                    url
-                    altText
-                    width
-                    height
-                  }
-                }
-                ... on GenericFile {
-                  url
-                  mimeType
-                }
-              }
-            }
-          }
+        title
+        handle
+        featuredImage { url altText width height }
 
-          metafieldSeries: metafield(namespace: "custom", key: "product_series") {
-            reference {
-              __typename
+        metafield(namespace: "custom", key: "product_tile") {
+          type
+          references(first: 2) {
+            nodes {
+              ... on MediaImage {
+                image { url altText width height }
+              }
+            }
+          }
+        }
+
+        neoColorProduct: metafield(namespace: "custom", key: "neo_color_product") {
+          type
+          references(first: 50) {
+            nodes {
               ... on Metaobject {
-                handle
-                type
-                fields {
-                  key
-                  value
+                id
+                hex:   field(key: "hex_code") { value }
+                label: field(key: "label")    { value }
+                image: field(key: "image")    { value }
+              }
+            }
+          }
+        }
+
+        materialTileColors: metafield(namespace: "custom", key: "material_tile_color") {
+          type
+          references(first: 50) {
+            nodes {
+              ... on Metaobject {
+                id
+                hex:   field(key: "hex_code") { value }
+                label: field(key: "label")    { value }
+                image: field(key: "image")    { value }
+              }
+            }
+          }
+        }
+
+        variants(first: 50) {
+          nodes {
+            id
+            neoColorVariants: metafield(namespace: "custom", key: "color") {
+              type
+              references(first: 50) {
+                nodes {
+                  ... on Metaobject {
+                    id
+                    hex:   field(key: "hex_code") { value }
+                    label: field(key: "label")    { value }
+                  }
                 }
               }
             }
@@ -273,4 +285,5 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
       }
     }
   }
+}
 `;

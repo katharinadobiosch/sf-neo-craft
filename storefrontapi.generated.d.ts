@@ -349,114 +349,6 @@ export type ProjectsQuery = {
   };
 };
 
-export type CollectionByHandle__CollectionsRouteQueryVariables =
-  StorefrontAPI.Exact<{
-    handle: StorefrontAPI.Scalars['String']['input'];
-    country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
-    language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
-  }>;
-
-export type CollectionByHandle__CollectionsRouteQuery = {
-  collection?: StorefrontAPI.Maybe<
-    Pick<StorefrontAPI.Collection, 'id' | 'title' | 'handle'> & {
-      image?: StorefrontAPI.Maybe<
-        Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
-      >;
-      products: {
-        nodes: Array<
-          Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
-            featuredImage?: StorefrontAPI.Maybe<
-              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
-            >;
-            metafields: Array<
-              StorefrontAPI.Maybe<
-                Pick<
-                  StorefrontAPI.Metafield,
-                  'namespace' | 'key' | 'type' | 'value'
-                > & {
-                  reference?: StorefrontAPI.Maybe<
-                    | {
-                        __typename:
-                          | 'Collection'
-                          | 'Metaobject'
-                          | 'Model3d'
-                          | 'Page'
-                          | 'Product'
-                          | 'ProductVariant'
-                          | 'Video';
-                      }
-                    | ({__typename: 'GenericFile'} & Pick<
-                        StorefrontAPI.GenericFile,
-                        'url' | 'mimeType'
-                      >)
-                    | ({__typename: 'MediaImage'} & {
-                        image?: StorefrontAPI.Maybe<
-                          Pick<
-                            StorefrontAPI.Image,
-                            'url' | 'altText' | 'width' | 'height'
-                          >
-                        >;
-                      })
-                  >;
-                  references?: StorefrontAPI.Maybe<{
-                    nodes: Array<
-                      | {
-                          __typename:
-                            | 'Collection'
-                            | 'Metaobject'
-                            | 'Model3d'
-                            | 'Page'
-                            | 'Product'
-                            | 'ProductVariant'
-                            | 'Video';
-                        }
-                      | ({__typename: 'GenericFile'} & Pick<
-                          StorefrontAPI.GenericFile,
-                          'url' | 'mimeType'
-                        >)
-                      | ({__typename: 'MediaImage'} & {
-                          image?: StorefrontAPI.Maybe<
-                            Pick<
-                              StorefrontAPI.Image,
-                              'url' | 'altText' | 'width' | 'height'
-                            >
-                          >;
-                        })
-                    >;
-                  }>;
-                }
-              >
-            >;
-            metafieldSeries?: StorefrontAPI.Maybe<{
-              reference?: StorefrontAPI.Maybe<
-                | {
-                    __typename:
-                      | 'Collection'
-                      | 'GenericFile'
-                      | 'MediaImage'
-                      | 'Model3d'
-                      | 'Page'
-                      | 'Product'
-                      | 'ProductVariant'
-                      | 'Video';
-                  }
-                | ({__typename: 'Metaobject'} & Pick<
-                    StorefrontAPI.Metaobject,
-                    'handle' | 'type'
-                  > & {
-                      fields: Array<
-                        Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'>
-                      >;
-                    })
-              >;
-            }>;
-          }
-        >;
-      };
-    }
-  >;
-};
-
 export type CollectionByHandle_MaterialsQueryVariables = StorefrontAPI.Exact<{
   handle: StorefrontAPI.Scalars['String']['input'];
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
@@ -562,63 +454,6 @@ export type StoreRobotsQueryVariables = StorefrontAPI.Exact<{
 }>;
 
 export type StoreRobotsQuery = {shop: Pick<StorefrontAPI.Shop, 'id'>};
-
-export type CollectionByHandle__HomeQueryVariables = StorefrontAPI.Exact<{
-  handle: StorefrontAPI.Scalars['String']['input'];
-  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
-  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
-}>;
-
-export type CollectionByHandle__HomeQuery = {
-  collection?: StorefrontAPI.Maybe<
-    Pick<StorefrontAPI.Collection, 'id' | 'title' | 'handle'> & {
-      products: {
-        nodes: Array<
-          Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
-            featuredImage?: StorefrontAPI.Maybe<
-              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
-            >;
-            metafield?: StorefrontAPI.Maybe<{
-              references?: StorefrontAPI.Maybe<{
-                nodes: Array<{
-                  image?: StorefrontAPI.Maybe<
-                    Pick<
-                      StorefrontAPI.Image,
-                      'url' | 'altText' | 'width' | 'height'
-                    >
-                  >;
-                }>;
-              }>;
-            }>;
-            metafieldSeries?: StorefrontAPI.Maybe<{
-              reference?: StorefrontAPI.Maybe<
-                | {
-                    __typename:
-                      | 'Collection'
-                      | 'GenericFile'
-                      | 'MediaImage'
-                      | 'Model3d'
-                      | 'Page'
-                      | 'Product'
-                      | 'ProductVariant'
-                      | 'Video';
-                  }
-                | ({__typename: 'Metaobject'} & Pick<
-                    StorefrontAPI.Metaobject,
-                    'handle' | 'type'
-                  > & {
-                      fields: Array<
-                        Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'>
-                      >;
-                    })
-              >;
-            }>;
-          }
-        >;
-      };
-    }
-  >;
-};
 
 export type ArticleQueryVariables = StorefrontAPI.Exact<{
   articleHandle: StorefrontAPI.Scalars['String']['input'];
@@ -2119,10 +1954,6 @@ interface GeneratedQueryTypes {
     return: ProjectsQuery;
     variables: ProjectsQueryVariables;
   };
-  '#graphql\n  query CollectionByHandle__CollectionsRoute(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      handle\n      image {\n        id\n        url\n        altText\n        width\n        height\n      }\n      products(first: 50) {\n        nodes {\n          id\n          title\n          handle\n          featuredImage {\n            url\n            altText\n            width\n            height\n          }\n          metafields(identifiers: [{namespace: "custom", key: "product_tile"}]) {\n            namespace\n            key\n            type\n            value\n            reference {\n              __typename\n              ... on MediaImage {\n                image {\n                  url\n                  altText\n                  width\n                  height\n                }\n              }\n              ... on GenericFile {\n                url\n                mimeType\n              }\n            }\n            references(first: 2) {\n              nodes {\n                __typename\n                ... on MediaImage {\n                  image {\n                    url\n                    altText\n                    width\n                    height\n                  }\n                }\n                ... on GenericFile {\n                  url\n                  mimeType\n                }\n              }\n            }\n          }\n\n          metafieldSeries: metafield(namespace: "custom", key: "product_series") {\n            reference {\n              __typename\n              ... on Metaobject {\n                handle\n                type\n                fields {\n                  key\n                  value\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
-    return: CollectionByHandle__CollectionsRouteQuery;
-    variables: CollectionByHandle__CollectionsRouteQueryVariables;
-  };
   '#graphql\nquery CollectionByHandle_Materials(\n  $handle: String!\n  $country: CountryCode\n  $language: LanguageCode\n) @inContext(country: $country, language: $language) {\n  collection(handle: $handle) {\n    id\n    title\n    handle\n    image { id url altText width height }\n    products(first: 20) {\n      nodes {\n        id\n        title\n        handle\n        featuredImage { url altText width height }\n\n        metafield(namespace: "custom", key: "product_tile") {\n          type\n          references(first: 2) {\n            nodes {\n              ... on MediaImage {\n                image { url altText width height }\n              }\n            }\n          }\n        }\n\n        neoColorProduct: metafield(namespace: "custom", key: "neo_color_product") {\n          type\n          references(first: 50) {\n            nodes {\n              ... on Metaobject {\n                id\n                hex:   field(key: "hex_code") { value }\n                label: field(key: "label")    { value }\n                image: field(key: "image")    { value }\n              }\n            }\n          }\n        }\n\n        materialTileColors: metafield(namespace: "custom", key: "material_tile_color") {\n          type\n          references(first: 50) {\n            nodes {\n              ... on Metaobject {\n                id\n                hex:   field(key: "hex_code") { value }\n                label: field(key: "label")    { value }\n                image: field(key: "image")    { value }\n              }\n            }\n          }\n        }\n\n        variants(first: 50) {\n          nodes {\n            id\n            neoColorVariants: metafield(namespace: "custom", key: "color") {\n              type\n              references(first: 50) {\n                nodes {\n                  ... on Metaobject {\n                    id\n                    hex:   field(key: "hex_code") { value }\n                    label: field(key: "label")    { value }\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}\n': {
     return: CollectionByHandle_MaterialsQuery;
     variables: CollectionByHandle_MaterialsQueryVariables;
@@ -2130,10 +1961,6 @@ interface GeneratedQueryTypes {
   '#graphql\n  query StoreRobots($country: CountryCode, $language: LanguageCode)\n   @inContext(country: $country, language: $language) {\n    shop {\n      id\n    }\n  }\n': {
     return: StoreRobotsQuery;
     variables: StoreRobotsQueryVariables;
-  };
-  '#graphql\n  query CollectionByHandle__Home(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      handle\n      products(first: 50) {\n        nodes {\n          id\n          title\n          handle\n          featuredImage {\n            url\n            altText\n            width\n            height\n          }\n          metafield: metafield(namespace: "custom", key: "tile_images") {\n            references(first: 10) {\n              nodes {\n                ... on MediaImage {\n                  image {\n                    url\n                    altText\n                    width\n                    height\n                  }\n                }\n              }\n            }\n          }\n          metafieldSeries: metafield(namespace: "custom", key: "product_series") {\n            reference {\n              __typename\n              ... on Metaobject {\n                handle\n                type\n                fields {\n                  key\n                  value\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
-    return: CollectionByHandle__HomeQuery;
-    variables: CollectionByHandle__HomeQueryVariables;
   };
   '#graphql\n  query Article(\n    $articleHandle: String!\n    $blogHandle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(language: $language, country: $country) {\n    blog(handle: $blogHandle) {\n      handle\n      articleByHandle(handle: $articleHandle) {\n        handle\n        title\n        contentHtml\n        publishedAt\n        author: authorV2 {\n          name\n        }\n        image {\n          id\n          altText\n          url\n          width\n          height\n        }\n        seo {\n          description\n          title\n        }\n      }\n    }\n  }\n': {
     return: ArticleQuery;
