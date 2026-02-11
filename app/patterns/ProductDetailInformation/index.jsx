@@ -33,11 +33,12 @@ export function ProductDetailInformation({
   const hasSeriesHero = Boolean(seriesImage);
 
   // ===== HERO SPLIT (Band): aus Metafeldern (jeweils [0]=main, [1]=hover) =====
-  const leftImage = metafields?.hero_split_links?.list?.[0]?.url ?? null;
-  const leftImageHover = metafields?.hero_split_links?.list?.[1]?.url ?? null;
+  const heroSplitLeftImage = metafields?.hero_split_links?.list?.[0]?.url ?? null;
+  const heroSplitLeftHover = metafields?.hero_split_links?.list?.[1]?.url ?? null;
 
-  const rightImage = metafields?.hero_split_rechts?.list?.[0]?.url ?? null;
-  const rightImageHover = metafields?.hero_split_rechts?.list?.[1]?.url ?? null;
+  const heroSplitRightImage = metafields?.hero_split_rechts?.list?.[0]?.url ?? null;
+  const heroSplitRightHover = metafields?.hero_split_rechts?.list?.[1]?.url ?? null;
+  const heroSplitText = metafields?.hero_split_text?.value ?? '';
 
   // ===== BOTTOM TeaserDuo (aus Metafeldern) =====
   const bottomLeft = metafields?.teaser_duo_bottom_links?.list?.[0]?.url;
@@ -71,10 +72,11 @@ export function ProductDetailInformation({
 
       {/* BELOW MAIN: Band + TeaserDuo */}
       <HeroSplit_GalleryBand
-        leftImg={leftImage}
-        leftHoverImg={leftImageHover}
-        rightImg={rightImage}
-        rightHoverImg={rightImageHover}
+        leftImg={heroSplitLeftImage}
+        leftHoverImg={heroSplitLeftHover}
+        rightImg={heroSplitRightImage}
+        rightHoverImg={heroSplitRightHover}
+        heroSplitText={heroSplitText}
       />
 
       <TeaserDuo
