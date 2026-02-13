@@ -48,17 +48,20 @@ export async function loader({params, context, request}) {
   const refToUrl = (node) => {
     if (!node) return null;
 
-    // häufigster Fall
+    // explizite Typen aus deiner Query
     if (node.__typename === 'MediaImage') return node.image?.url ?? null;
     if (node.__typename === 'GenericFile') return node.url ?? null;
 
-    // fallback: falls Shopify/Query einen anderen Typ liefert, aber eine URL irgendwo drin steckt
-    if (typeof node.url === 'string') return node.url;
-    if (typeof node?.image?.url === 'string') return node.image.url;
-    if (typeof node?.previewImage?.url === 'string')
-      return node.previewImage.url;
-
-    return null;
+    // best-effort fallbacks (Shopify liefert bei Files teils andere Shapes)
+    return (
+      node.url ??
+      node.image?.url ??
+      node.previewImage?.url ??
+      node.preview?.image?.url ??
+      node.preview?.url ??
+      node.sources?.[0]?.url ??
+      null
+    );
   };
 
   const fieldRefsToUrls = (key) => {
@@ -80,19 +83,6 @@ export async function loader({params, context, request}) {
     hero_links: fieldRefsToUrls('hero_links'), // [main, hover]
     hero_rechts: fieldRefsToUrls('hero_rechts'), // [main, hover]
   };
-
-  console.log('seriesMeta.hero_links', seriesMeta.hero_links);
-  console.log('seriesMeta.hero_rechts', seriesMeta.hero_rechts);
-
-  console.log(
-    'raw hero_links nodes',
-    (getField('hero_links')?.references?.nodes ?? []).map((n) => ({
-      t: n.__typename,
-      url: n.url,
-      img: n.image?.url,
-      preview: n.previewImage?.url,
-    })),
-  );
 
   const activeIndex = 0;
 

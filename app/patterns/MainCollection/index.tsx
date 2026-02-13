@@ -98,8 +98,6 @@ function getTileImages(product: ProductLike) {
       ?.map((n) => n?.image ?? null)
       .filter(Boolean) ?? [];
 
-  console.log(product.productTile);
-
   return {
     main: refs[0] || product.featuredImage || null,
     hover: refs[1] || null,

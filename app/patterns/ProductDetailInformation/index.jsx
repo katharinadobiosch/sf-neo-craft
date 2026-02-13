@@ -47,12 +47,6 @@ export function ProductDetailInformation({
   const seriesRight = seriesMeta?.hero_rechts?.[0] ?? null;
   const seriesRightHover = seriesMeta?.hero_rechts?.[1] ?? null;
 
-  console.log('seriesLeft', seriesLeft);
-  console.log('left hover', seriesLeftHover);
-
-  console.log('seriesRight', seriesRight);
-  console.log('seriesRight hover ', seriesRightHover);
-
   const hasSeriesOverride = Boolean(seriesMeta && (seriesLeft || seriesRight));
   const seriesIntroText = richTextJsonToPlainText(seriesMeta?.intro);
 
@@ -97,13 +91,7 @@ export function ProductDetailInformation({
       {/* TOP: square-variant */}
       <div className="square-variant">
         <TeaserDuo
-          left={
-            hasSeriesOverride
-              ? seriesLeft
-              : hasSeriesHero
-                ? seriesImage
-                : topLeft
-          }
+          left={hasSeriesOverride ? seriesLeft : hasSeriesHero ? null : topLeft}
           leftHover={
             hasSeriesOverride
               ? seriesLeftHover
