@@ -38,6 +38,7 @@ export async function loader({params, context, request}) {
   }
 
   const fields = series.fields ?? [];
+
   const getField = (key) => fields.find((f) => f.key === key);
 
   const refToUrl = (node) => {
@@ -53,19 +54,19 @@ export async function loader({params, context, request}) {
     return nodes.map(refToUrl).filter(Boolean);
   };
 
+  const productsField = getField('products');
+  const products = productsField?.references?.nodes ?? [];
+
+  if (!products.length) {
+    throw new Error('No products connected to this series');
+  }
+
   const seriesMeta = {
     title: getField('title')?.value ?? null,
     intro: getField('intro')?.value ?? null,
     hero_links: fieldRefsToUrls('hero_links'),
     hero_rechts: fieldRefsToUrls('hero_rechts'),
   };
-
-  const productsField = fields.find((f) => f.key === 'products');
-  const products = productsField?.references?.nodes ?? [];
-
-  if (!products.length) {
-    throw new Error('No products connected to this series');
-  }
 
   // erstes Produkt als aktives
   const activeIndex = 0;
@@ -85,6 +86,7 @@ export default function SeriesPage() {
     activeIndex: initialIndex,
     seriesMeta,
   } = useLoaderData();
+
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const safeProducts = products ?? [];
   const activeProduct = safeProducts[activeIndex] ?? null;
@@ -167,7 +169,8 @@ const SERIES_QUERY = `#graphql
       type
       value
 
-      reference { __typename
+      reference {
+        __typename
         ... on Metaobject { id type handle fields { key type value } }
         ... on MediaImage { image { url altText width height } }
         ... on Video { sources { url mimeType } }
@@ -195,33 +198,30 @@ const SERIES_QUERY = `#graphql
     $country: CountryCode
     $language: LanguageCode
   ) @inContext(country: $country, language: $language) {
-    series: metaobject(
-      handle: {type: "series", handle: $handle}
-    ) {
+    series: metaobject(handle: {type: "series", handle: $handle}) {
       id
       handle
       fields {
         key
         value
+
         references(first: 50) {
-  nodes {
-    __typename
+          nodes {
+            __typename
 
-    ... on Product {
-      ...Product
-    }
+            ... on Product {
+              ...Product
+            }
 
-    ... on MediaImage {
-      image { url altText width height }
-    }
+            ... on MediaImage {
+              image { url altText width height }
+            }
 
-    ... on GenericFile {
-      url
-      mimeType
-    }
-  }
-}
-
+            ... on GenericFile {
+              url
+              mimeType
+            }
+          }
         }
       }
     }
