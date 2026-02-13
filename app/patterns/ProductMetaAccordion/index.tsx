@@ -222,85 +222,52 @@ export function ProductMetaAccordion({
           aria-label="Product details"
         >
           {visibleItems.map((item) => (
-            <details key={item.fqKey} className="acc-item">
-              <summary>
-                <span className="acc-title">{item.label}</span>
-                <span className="acc-plus" aria-hidden="true" />
-              </summary>
+            <div key={item.fqKey} className="acc-item">
+              <div className="acc-title">{item.label}</div>
 
               <div className="acc-panel">
                 {item.type === 'text' && (
                   <p style={{whiteSpace: 'pre-line'}}>{item.value}</p>
                 )}
 
-                {item.type === 'images' &&
-                  item.images?.length > 0 &&
-                  (() => {
-                    const isMeasurements =
+                {item.type === 'images' && item.images?.length > 0 && (
+                  <div
+                    className={`acc-images ${
                       /measure/i.test(item.label) ||
-                      item.fqKey === 'custom.measurements';
-
-                    if (isMeasurements) {
-                      return (
-                        <div
-                          className="acc-images measurements"
-                          role="group"
-                          aria-label={item.label}
+                      item.fqKey === 'custom.measurements'
+                        ? 'measurements'
+                        : ''
+                    }`}
+                    role="group"
+                    aria-label={item.label}
+                  >
+                    <div
+                      className="meta-accordion__images-grid"
+                      data-count={item.images.length}
+                    >
+                      {item.images.map((img, i) => (
+                        <figure
+                          className="meta-accordion__images-figure"
+                          key={`${item.fqKey}-${i}`}
                         >
-                          <div
-                            className="meta-accordion__images-grid"
-                            data-count={item.images.length}
-                          >
-                            {item.images.map((img, i) => (
-                              <figure
-                                className="meta-accordion__images-figure"
-                                key={`${item.fqKey}-${i}`}
-                              >
-                                <img
-                                  src={img.url}
-                                  alt={img.altText?.trim() || item.label}
-                                  loading="lazy"
-                                  decoding="async"
-                                />
-                                {img.altText && (
-                                  <figcaption className="m-cap">
-                                    {img.altText}
-                                  </figcaption>
-                                )}
-                              </figure>
-                            ))}
-                          </div>
-                        </div>
-                      );
-                    }
-
-                    return (
-                      <div
-                        className="acc-images"
-                        role="group"
-                        aria-label={item.label}
-                      >
-                        {item.images.map((img, i) => (
                           <img
-                            key={`${item.fqKey}-${i}`}
                             src={img.url}
                             alt={img.altText?.trim() || item.label}
                             loading="lazy"
                             decoding="async"
-                            style={{
-                              width: imageCount
-                                ? `calc(100% / ${imageCount})`
-                                : '100%',
-                              height: '100%',
-                              objectFit: 'contain',
-                            }}
                           />
-                        ))}
-                      </div>
-                    );
-                  })()}
+                          {img.altText && (
+                            <figcaption className="m-cap">
+                              {img.altText}
+                            </figcaption>
+                          )}
+                        </figure>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-            </details>
+            </div>
           ))}
         </div>
       ) : null}
