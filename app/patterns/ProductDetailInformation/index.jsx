@@ -12,6 +12,7 @@ export function ProductDetailInformation({
   seriesProducts,
   seriesActiveIndex,
   onChangeSeriesProduct,
+  seriesMeta,
 }) {
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
@@ -33,11 +34,15 @@ export function ProductDetailInformation({
   const hasSeriesHero = Boolean(seriesImage);
 
   // ===== HERO SPLIT (Band): aus Metafeldern (jeweils [0]=main, [1]=hover) =====
-  const heroSplitLeftImage = metafields?.hero_split_links?.list?.[0]?.url ?? null;
-  const heroSplitLeftHover = metafields?.hero_split_links?.list?.[1]?.url ?? null;
+  const heroSplitLeftImage =
+    metafields?.hero_split_links?.list?.[0]?.url ?? null;
+  const heroSplitLeftHover =
+    metafields?.hero_split_links?.list?.[1]?.url ?? null;
 
-  const heroSplitRightImage = metafields?.hero_split_rechts?.list?.[0]?.url ?? null;
-  const heroSplitRightHover = metafields?.hero_split_rechts?.list?.[1]?.url ?? null;
+  const heroSplitRightImage =
+    metafields?.hero_split_rechts?.list?.[0]?.url ?? null;
+  const heroSplitRightHover =
+    metafields?.hero_split_rechts?.list?.[1]?.url ?? null;
   const heroSplitText = metafields?.hero_split_text?.value ?? '';
 
   // ===== BOTTOM TeaserDuo (aus Metafeldern) =====
@@ -47,17 +52,53 @@ export function ProductDetailInformation({
   const bottomRight = metafields?.teaser_duo_bottom_rechts?.list?.[0]?.url;
   const bottomRightHover = metafields?.teaser_duo_bottom_rechts?.list?.[1]?.url;
 
+  // ===== Series override (für /series/*) =====
+  const seriesLeft = seriesMeta?.hero_links?.[0] ?? null;
+  const seriesLeftHover = seriesMeta?.hero_links?.[1] ?? null;
+
+  const seriesRight = seriesMeta?.hero_rechts?.[0] ?? null;
+  const seriesRightHover = seriesMeta?.hero_rechts?.[1] ?? null;
+
+  const seriesIntro = seriesMeta?.intro ?? null;
+
+  const hasSeriesHeroOverride = Boolean(seriesLeft || seriesRight);
+  const topContent = seriesIntro ? seriesIntro : product.descriptionHtml;
+
   return (
     <div className="pdp">
       {/* TOP: square-variant */}
       <div className="square-variant">
         <TeaserDuo
-          left={hasSeriesHero ? seriesImage : topLeft}
-          leftHover={hasSeriesHero ? seriesImageHover : topLeftHover}
-          right={hasSeriesHero ? null : topRight}
-          rightHover={hasSeriesHero ? null : topRightHover}
-          isSingle={hasSeriesHero}
-          content={product.descriptionHtml}
+          left={
+            hasSeriesHeroOverride
+              ? seriesLeft
+              : hasSeriesHero
+                ? seriesImage
+                : topLeft
+          }
+          leftHover={
+            hasSeriesHeroOverride
+              ? seriesLeftHover
+              : hasSeriesHero
+                ? seriesImageHover
+                : topLeftHover
+          }
+          right={
+            hasSeriesHeroOverride
+              ? seriesRight
+              : hasSeriesHero
+                ? null
+                : topRight
+          }
+          rightHover={
+            hasSeriesHeroOverride
+              ? seriesRightHover
+              : hasSeriesHero
+                ? null
+                : topRightHover
+          }
+          isSingle={hasSeriesHeroOverride ? !seriesRight : hasSeriesHero}
+          content={topContent}
         />
       </div>
 

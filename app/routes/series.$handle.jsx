@@ -38,6 +38,28 @@ export async function loader({params, context, request}) {
   }
 
   const fields = series.fields ?? [];
+  const getField = (key) => fields.find((f) => f.key === key);
+
+  const refToUrl = (node) => {
+    if (!node) return null;
+    if (node.__typename === 'MediaImage') return node.image?.url ?? null;
+    if (node.__typename === 'GenericFile') return node.url ?? null;
+    return null;
+  };
+
+  const fieldRefsToUrls = (key) => {
+    const f = getField(key);
+    const nodes = f?.references?.nodes ?? [];
+    return nodes.map(refToUrl).filter(Boolean);
+  };
+
+  const seriesMeta = {
+    title: getField('title')?.value ?? null,
+    intro: getField('intro')?.value ?? null,
+    hero_links: fieldRefsToUrls('hero_links'),
+    hero_rechts: fieldRefsToUrls('hero_rechts'),
+  };
+
   const productsField = fields.find((f) => f.key === 'products');
   const products = productsField?.references?.nodes ?? [];
 
@@ -52,11 +74,17 @@ export async function loader({params, context, request}) {
     series,
     products,
     activeIndex,
+    seriesMeta,
   };
 }
 
 export default function SeriesPage() {
-  const {series, products, activeIndex: initialIndex} = useLoaderData();
+  const {
+    series,
+    products,
+    activeIndex: initialIndex,
+    seriesMeta,
+  } = useLoaderData();
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const safeProducts = products ?? [];
   const activeProduct = safeProducts[activeIndex] ?? null;
@@ -75,6 +103,7 @@ export default function SeriesPage() {
           seriesProducts={safeProducts}
           seriesActiveIndex={activeIndex}
           onChangeSeriesProduct={setActiveIndex}
+          seriesMeta={seriesMeta}
         />
       ) : (
         <p>Keine Produkte in dieser Serie gefunden.</p>
@@ -174,13 +203,25 @@ const SERIES_QUERY = `#graphql
       fields {
         key
         value
-        references(first: 10) {
-          nodes {
-            __typename
-            ... on Product {
-              ...Product
-            }
-          }
+        references(first: 50) {
+  nodes {
+    __typename
+
+    ... on Product {
+      ...Product
+    }
+
+    ... on MediaImage {
+      image { url altText width height }
+    }
+
+    ... on GenericFile {
+      url
+      mimeType
+    }
+  }
+}
+
         }
       }
     }
