@@ -434,6 +434,7 @@
       height: 12px;
       flex: 0 0 12px;
       color: currentColor;
+      padding-right: 100px;
 
       &::before,
       &::after {
@@ -477,7 +478,7 @@
       }
 
       .pf-toggle {
-        width: 135px;
+        width: 100%;
         min-height: 0;
         padding: 1.5rem 0 0rem 0;
       }
