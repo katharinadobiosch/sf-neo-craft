@@ -64,11 +64,10 @@ export async function loader({params, context, request}) {
   const seriesMeta = {
     title: getField('title')?.value ?? null,
     intro: getField('intro')?.value ?? null,
-    hero_links: fieldRefsToUrls('hero_links'),
-    hero_rechts: fieldRefsToUrls('hero_rechts'),
+    hero_links: fieldRefsToUrls('hero_links'), // [main, hover]
+    hero_rechts: fieldRefsToUrls('hero_rechts'), // [main, hover]
   };
 
-  // erstes Produkt als aktives
   const activeIndex = 0;
 
   return {

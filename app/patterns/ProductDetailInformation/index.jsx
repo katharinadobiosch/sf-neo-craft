@@ -7,6 +7,26 @@ import {HeroSplit_GalleryBand} from '../HeroSplit';
 import {ProductMain} from './ProductMain';
 import {normalizeAllMetafields} from '~/utils/metafields';
 
+function richTextJsonToPlainText(value) {
+  if (!value) return '';
+  try {
+    const json = typeof value === 'string' ? JSON.parse(value) : value;
+
+    const walk = (node) => {
+      if (!node) return '';
+      if (Array.isArray(node)) return node.map(walk).join('');
+      if (node.type === 'text') return node.value ?? '';
+      if (node.children) return walk(node.children);
+      return '';
+    };
+
+    return walk(json).trim();
+  } catch {
+    // falls es doch schon plain text ist
+    return String(value);
+  }
+}
+
 export function ProductDetailInformation({
   product,
   seriesProducts,
@@ -20,6 +40,21 @@ export function ProductDetailInformation({
   );
 
   const metafields = normalizeAllMetafields(product.metafields ?? []);
+
+  const seriesLeft = seriesMeta?.hero_links?.[0] ?? null;
+  const seriesLeftHover = seriesMeta?.hero_links?.[1] ?? null;
+
+  const seriesRight = seriesMeta?.hero_rechts?.[0] ?? null;
+  const seriesRightHover = seriesMeta?.hero_rechts?.[1] ?? null;
+
+  console.log('seriesLeft', seriesLeft);
+  console.log('left hover', seriesLeftHover);
+
+  console.log('seriesRight', seriesRight);
+  console.log('seriesRight hover ', seriesRightHover);
+
+  const hasSeriesOverride = Boolean(seriesMeta && (seriesLeft || seriesRight));
+  const seriesIntroText = richTextJsonToPlainText(seriesMeta?.intro);
 
   // ===== TOP (Square Variant): Series-Hero ODER Standard-Duo + Description =====
   const topLeft = metafields?.produkt_duo_top_links?.list?.[0]?.url;
@@ -52,13 +87,6 @@ export function ProductDetailInformation({
   const bottomRight = metafields?.teaser_duo_bottom_rechts?.list?.[0]?.url;
   const bottomRightHover = metafields?.teaser_duo_bottom_rechts?.list?.[1]?.url;
 
-  // ===== Series override (für /series/*) =====
-  const seriesLeft = seriesMeta?.hero_links?.[0] ?? null;
-  const seriesLeftHover = seriesMeta?.hero_links?.[1] ?? null;
-
-  const seriesRight = seriesMeta?.hero_rechts?.[0] ?? null;
-  const seriesRightHover = seriesMeta?.hero_rechts?.[1] ?? null;
-
   const seriesIntro = seriesMeta?.intro ?? null;
 
   const hasSeriesHeroOverride = Boolean(seriesLeft || seriesRight);
@@ -70,35 +98,33 @@ export function ProductDetailInformation({
       <div className="square-variant">
         <TeaserDuo
           left={
-            hasSeriesHeroOverride
+            hasSeriesOverride
               ? seriesLeft
               : hasSeriesHero
                 ? seriesImage
                 : topLeft
           }
           leftHover={
-            hasSeriesHeroOverride
+            hasSeriesOverride
               ? seriesLeftHover
               : hasSeriesHero
                 ? seriesImageHover
                 : topLeftHover
           }
           right={
-            hasSeriesHeroOverride
-              ? seriesRight
-              : hasSeriesHero
-                ? null
-                : topRight
+            hasSeriesOverride ? seriesRight : hasSeriesHero ? null : topRight
           }
           rightHover={
-            hasSeriesHeroOverride
+            hasSeriesOverride
               ? seriesRightHover
               : hasSeriesHero
                 ? null
                 : topRightHover
           }
-          isSingle={hasSeriesHeroOverride ? !seriesRight : hasSeriesHero}
-          content={topContent}
+          isSingle={hasSeriesOverride ? !seriesRight : hasSeriesHero}
+          content={
+            hasSeriesOverride ? seriesIntroText : product.descriptionHtml
+          }
         />
       </div>
 
