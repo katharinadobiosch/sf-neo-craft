@@ -91,7 +91,7 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
             }
           }
 
-        }  ← nodes endet hier korrekt
+        }  
       }
     }
   }

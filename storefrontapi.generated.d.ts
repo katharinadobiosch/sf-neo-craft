@@ -455,6 +455,63 @@ export type StoreRobotsQueryVariables = StorefrontAPI.Exact<{
 
 export type StoreRobotsQuery = {shop: Pick<StorefrontAPI.Shop, 'id'>};
 
+export type CollectionByHandle__HomeQueryVariables = StorefrontAPI.Exact<{
+  handle: StorefrontAPI.Scalars['String']['input'];
+  country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
+  language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
+}>;
+
+export type CollectionByHandle__HomeQuery = {
+  collection?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.Collection, 'id' | 'title' | 'handle'> & {
+      products: {
+        nodes: Array<
+          Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
+            featuredImage?: StorefrontAPI.Maybe<
+              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
+            >;
+            metafield?: StorefrontAPI.Maybe<{
+              references?: StorefrontAPI.Maybe<{
+                nodes: Array<{
+                  image?: StorefrontAPI.Maybe<
+                    Pick<
+                      StorefrontAPI.Image,
+                      'url' | 'altText' | 'width' | 'height'
+                    >
+                  >;
+                }>;
+              }>;
+            }>;
+            metafieldSeries?: StorefrontAPI.Maybe<{
+              reference?: StorefrontAPI.Maybe<
+                | {
+                    __typename:
+                      | 'Collection'
+                      | 'GenericFile'
+                      | 'MediaImage'
+                      | 'Model3d'
+                      | 'Page'
+                      | 'Product'
+                      | 'ProductVariant'
+                      | 'Video';
+                  }
+                | ({__typename: 'Metaobject'} & Pick<
+                    StorefrontAPI.Metaobject,
+                    'handle' | 'type'
+                  > & {
+                      fields: Array<
+                        Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'>
+                      >;
+                    })
+              >;
+            }>;
+          }
+        >;
+      };
+    }
+  >;
+};
+
 export type ArticleQueryVariables = StorefrontAPI.Exact<{
   articleHandle: StorefrontAPI.Scalars['String']['input'];
   blogHandle: StorefrontAPI.Scalars['String']['input'];
@@ -1961,6 +2018,10 @@ interface GeneratedQueryTypes {
   '#graphql\n  query StoreRobots($country: CountryCode, $language: LanguageCode)\n   @inContext(country: $country, language: $language) {\n    shop {\n      id\n    }\n  }\n': {
     return: StoreRobotsQuery;
     variables: StoreRobotsQueryVariables;
+  };
+  '#graphql\n  query CollectionByHandle__Home(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      handle\n      products(first: 50) {\n        nodes {\n          id\n          title\n          handle\n          featuredImage {\n            url\n            altText\n            width\n            height\n          }\n\n          metafield: metafield(namespace: "custom", key: "product_tile") {\n            references(first: 2) {\n              nodes {\n                ... on MediaImage {\n                  image { url altText width height }\n                }\n              }\n            }\n          }\n\n          metafieldSeries: metafield(namespace: "custom", key: "product_series") {\n            reference {\n              __typename\n              ... on Metaobject {\n                handle\n                type\n                fields {\n                  key\n                  value\n                }\n              }\n            }\n          }\n\n        }  \n      }\n    }\n  }\n': {
+    return: CollectionByHandle__HomeQuery;
+    variables: CollectionByHandle__HomeQueryVariables;
   };
   '#graphql\n  query Article(\n    $articleHandle: String!\n    $blogHandle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(language: $language, country: $country) {\n    blog(handle: $blogHandle) {\n      handle\n      articleByHandle(handle: $articleHandle) {\n        handle\n        title\n        contentHtml\n        publishedAt\n        author: authorV2 {\n          name\n        }\n        image {\n          id\n          altText\n          url\n          width\n          height\n        }\n        seo {\n          description\n          title\n        }\n      }\n    }\n  }\n': {
     return: ArticleQuery;
