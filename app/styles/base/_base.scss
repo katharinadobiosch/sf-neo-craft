@@ -5,10 +5,17 @@ html {
 
 /* 2) Paragraph nutzt deine Tokens */
 p {
-  font-size: var(--nc-fliesstext-desktop-size);
-  line-height: var(--nc-fliesstext-desktop-line);
-  font-weight: var(--nc-fliesstext-desktop-weight);
+  font-size: var(--nc-fliesstext-mobil-size);
+  line-height: var(--nc-fliesstext-mobil-line);
+  font-weight: var(--nc-fliesstext-mobil-weight);
   margin: 0 0 1.6rem;
+  margin: 0 0 1.6rem;
+
+  @media (min-width: 768px) {
+    font-size: var(--nc-fliesstext-desktop-size);
+    line-height: var(--nc-fliesstext-desktop-line);
+    font-weight: var(--nc-fliesstext-desktop-weight);
+  }
 }
 
 /* 3) Headings an Tokens orientieren + konsistente line-height */

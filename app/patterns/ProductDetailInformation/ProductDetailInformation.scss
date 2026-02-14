@@ -193,6 +193,7 @@
     border: 1px solid black;
     align-items: stretch;
     height: 6.3rem;
+    /* ✅ default = mobile */
     font-size: var(--nc-fliesstext-mobil-size);
     line-height: var(--nc-fliesstext-mobil-line);
     font-weight: var(--nc-fliesstext-mobil-weight);
