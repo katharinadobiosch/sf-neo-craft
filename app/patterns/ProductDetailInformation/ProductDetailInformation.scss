@@ -193,9 +193,9 @@
     border: 1px solid black;
     align-items: stretch;
     height: 6.3rem;
-    font-size: var(--nc-fliesstext-desktop-size);
-    line-height: var(--nc-fliesstext-desktop-line);
-    font-weight: var(--nc-fliesstext-desktop-weight);
+    font-size: var(--nc-fliesstext-mobil-size);
+    line-height: var(--nc-fliesstext-mobil-line);
+    font-weight: var(--nc-fliesstext-mobil-weight);
     // --cta-border: color-mix(in oklab, var(--color-dark) 18%, transparent);
     // --cta-accent: var(--sf-purple, #8f8cf6);
 
@@ -270,6 +270,9 @@
     .pdp__cta-container {
       flex: 0 0 auto;
       margin-top: auto;
+      font-size: var(--nc-fliesstext-desktop-size);
+      line-height: var(--nc-fliesstext-desktop-line);
+      font-weight: var(--nc-fliesstext-desktop-weight);
     }
 
     /* ----------------------------

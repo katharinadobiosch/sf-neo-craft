@@ -42,8 +42,9 @@
 
   .cfg-label {
     flex: 0 0 auto;
-    font-size: 12px;
-    line-height: 1.35rem;
+    font-size: 1em; /* erbt sauber von .configurator */
+    line-height: 1.15; /* unitless skaliert automatisch */
+
     font-weight: 500;
     letter-spacing: 0.02em;
     color: var(--text-muted, #5a5a5a);
@@ -75,8 +76,9 @@
     min-height: 44px;
 
     /* mobile refined */
-    font-size: 14px;
+    font-size: 1em; /* skaliert mit Parent */
     line-height: 1.15;
+
     font-weight: 400;
 
     position: relative;
@@ -180,7 +182,7 @@
 
     .cfg-item.is-chip {
       min-height: auto;
-      font-size: 15px;
+      font-size: 1em; /* Parent regelt die Größe */
       line-height: 1.3;
     }
 
