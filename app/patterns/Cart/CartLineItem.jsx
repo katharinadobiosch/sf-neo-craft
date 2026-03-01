@@ -45,7 +45,7 @@ export function CartLineItem({layout, line}) {
             if (layout === 'aside') close();
           }}
         >
-          <strong>{product.title}</strong>
+          {product.title}
         </Link>
 
         <div className="cart-line__meta">

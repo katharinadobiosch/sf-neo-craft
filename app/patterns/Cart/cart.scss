@@ -1,3 +1,5 @@
+
+
 /* ------------------------------
    FIGMA Cart (mobile first)
 ------------------------------ */
@@ -12,6 +14,10 @@
   background: #fff;
   min-height: 100vh;
   padding: 0;
+
+  h1 {
+    font-size: 2.2rem;
+  }
 }
 
 .cart-main {
@@ -69,8 +75,7 @@
 .cart-line__unit-price {
   width: 120px;
   white-space: nowrap;
-  color: var(--cart-muted);
-  font-size: 14px;
+  font-size: 1.2rem;
   line-height: 1.2;
 }
 
@@ -82,7 +87,7 @@
   display: inline-block;
   text-decoration: none;
   color: inherit;
-  font-size: 16px;
+  font-size: 1.5rem;
   letter-spacing: 0.02em;
   line-height: 1.25;
   margin: 0 0 10px;
@@ -90,7 +95,7 @@
 
 .cart-line__meta {
   color: var(--cart-muted);
-  font-size: 13px;
+  font-size: 1.2rem;
   line-height: 1.45;
 }
 
@@ -157,7 +162,7 @@
 }
 
 .cart-summary-grid .cell.label {
-  font-weight: 600;
+  font-weight: 500;
   border-right: 1px solid var(--cart-line);
 }
 
@@ -249,9 +254,5 @@
     grid-template-columns: 160px minmax(0, 1fr);
     gap: 26px;
     padding: 34px 0;
-  }
-
-  .cart-line__unit-price {
-    width: 160px;
   }
 }

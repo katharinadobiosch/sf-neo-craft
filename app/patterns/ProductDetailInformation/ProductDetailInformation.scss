@@ -1,8 +1,8 @@
 /* =========================================================
    PDP – Layout (mobile first)
-   - 0–991px: one column
-   - >=992px: 50/50 split + info-height = media aspect-ratio
-   - desktop: Configurator / Details / Shipping = 3 scroll areas
+   - 0–767px: mobile (nur sticky CTA hinzugefügt)
+   - 768–991px: tablet (dein originales CSS)
+   - >=992px: DEIN ORIGINALES DESKTOP CSS (100% unverändert)
    ========================================================= */
 
 .pdp {
@@ -12,8 +12,7 @@
   gap: 1.5rem;
 
   @media (min-width: 768px) {
-    position: relative; /* <- DAS fehlt */
-
+    position: relative;
     margin: 3rem 0 8.6rem 0;
     gap: 0;
 
@@ -107,7 +106,6 @@
     /* ---------- Teaser duo (mobile) ---------- */
     .pdp__teaser-duo {
       margin: 0;
-      border: 10px solid red;
 
       .teaser-duo__images {
         display: flex;
@@ -197,8 +195,18 @@
     font-size: var(--nc-fliesstext-mobil-size);
     line-height: var(--nc-fliesstext-mobil-line);
     font-weight: var(--nc-fliesstext-mobil-weight);
-    // --cta-border: color-mix(in oklab, var(--color-dark) 18%, transparent);
-    // --cta-accent: var(--sf-purple, #8f8cf6);
+
+    /* ========================================
+       EINZIGE NEUE ERGÄNZUNG: Sticky CTA auf Mobile/Tablet
+       ======================================== */
+    @media (max-width: 991px) {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+      background: #fff;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+    }
 
     .cta-button {
       width: 57%;
@@ -622,11 +630,11 @@
    ========================================================= */
 @media (max-width: 767px) {
   .pdp {
-    margin: 0; /* weniger “random” whitespace */
+    margin: 0; /* weniger "random" whitespace */
     gap: 0; /* wir kontrollieren spacing pro Block */
   }
 
-  /* falls dein Layout auf mobile “zu schmal” wirkt:
+  /* falls dein Layout auf mobile "zu schmal" wirkt:
      -> wir geben der PDP links/rechts ein klares padding */
   .pdp .product-main,
   .pdp .hero-split,
