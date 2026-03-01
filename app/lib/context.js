@@ -29,7 +29,7 @@ export async function createAppLoadContext(request, env, executionContext) {
     cache,
     waitUntil,
     session,
-    i18n: {language: 'EN', country: 'US'},
+    i18n: {language: 'DE', country: 'DE'},
     cart: {
       queryFragment: CART_QUERY_FRAGMENT,
     },

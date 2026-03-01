@@ -25,7 +25,6 @@ export function MaterialForm({
   const {open: openAside} = useAside();
   const navigate = useNavigate();
 
-
   const BLACKLIST = new Set([
     'series_hero',
     'product_tile',
@@ -96,8 +95,8 @@ export function MaterialForm({
     return first?.variant || first?.firstSelectableVariant || null;
   }, [productOptions]);
 
-  const money = (num, currency = 'USD') =>
-    new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
+  const money = (num, currency = 'EUR') =>
+    new Intl.NumberFormat('de-DE', {style: 'currency', currency}).format(
       Number(num || 0),
     );
 

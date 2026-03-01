@@ -97,8 +97,8 @@ export function ProductForm({
     return first?.variant || first?.firstSelectableVariant || null;
   }, [productOptions]);
 
-  const money = (num, currency = 'USD') =>
-    new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
+  const money = (num, currency = 'EUR') =>
+    new Intl.NumberFormat('de-DE', {style: 'currency', currency}).format(
       Number(num || 0),
     );
 
