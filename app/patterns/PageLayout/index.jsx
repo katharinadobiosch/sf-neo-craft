@@ -21,6 +21,7 @@ export function PageLayout({
   header,
   isLoggedIn,
   publicStoreDomain,
+  consent,
 }) {
   const location = useLocation();
 
@@ -65,6 +66,9 @@ export function PageLayout({
         <Header
           header={header}
           cart={cart}
+          language={
+            typeof consent?.language === 'string' ? consent.language : 'DE'
+          }
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
           primaryDomainUrl={header?.shop?.primaryDomain?.url}
@@ -91,8 +95,6 @@ function CartAside({cart}) {
       type="cart"
       heading={
         <div className="cart-aside-heading">
-          <div className="cart-aside-heading__title">Dein Warenkorb</div>
-
           <Suspense fallback={null}>
             <Await resolve={cart}>
               {(c) => {
@@ -109,6 +111,8 @@ function CartAside({cart}) {
       }
     >
       <Suspense fallback={<p>Loading cart ...</p>}>
+        <div className="cart-aside-heading__title">Dein Warenkorb</div>
+
         <Await resolve={cart}>
           {(cart) => {
             return <CartMain cart={cart} layout="aside" />;

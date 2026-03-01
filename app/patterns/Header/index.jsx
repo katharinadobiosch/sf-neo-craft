@@ -1,5 +1,5 @@
 import {useState, Suspense} from 'react';
-import {Link, NavLink, Await} from 'react-router';
+import {Link, NavLink, Await, useLocation} from 'react-router';
 import {useAside} from '~/patterns/Aside';
 import {normalizeMenuUrl} from 'utils/normalizeMenuUrl';
 import './header.scss';
@@ -10,9 +10,16 @@ export function Header({
   publicStoreDomain,
   primaryDomainUrl,
   cart,
+  language = 'DE',
 }) {
   const {menu} = header;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const current = String(language).toUpperCase() === 'EN' ? 'EN' : 'DE';
+  const targetLang = current === 'EN' ? 'DE' : 'EN';
+  const redirectTo = `${location.pathname}${location.search}${location.hash || ''}`;
+  const langHref = `/locale/${targetLang}?redirectTo=${encodeURIComponent(redirectTo)}`;
 
   return (
     <Suspense fallback={null}>
@@ -49,6 +56,8 @@ export function Header({
                 <div className="header__right">
                   <NavLink to="/">C</NavLink>
 
+          
+
                   <div className="header__cart">
                     <Link to="/cart">{hasCart ? `(${count})` : null}</Link>
                   </div>
@@ -73,6 +82,11 @@ export function Header({
                       </NavLink>
                     );
                   })}
+
+                  {/* optional: also inside overlay menu */}
+                  <Link to={langHref} onClick={() => setIsMenuOpen(false)}>
+                    {targetLang}
+                  </Link>
                 </nav>
               </div>
             </header>
