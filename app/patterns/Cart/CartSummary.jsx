@@ -28,7 +28,7 @@ export function CartSummary({cart, layout}) {
         </div>
 
         <div className="cell label">Lieferung</div>
-        <div className="cell value muted">
+        <div className="cell value">
           Versandkosten &amp; Steuern werden beim Check-out berechnet
         </div>
 
