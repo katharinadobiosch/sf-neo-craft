@@ -180,6 +180,7 @@
 .cart-summary-grid .cell.label {
   font-weight: 500;
   border-right: 1px solid black;
+  padding-left: 10rem;
 }
 
 .cart-summary-grid .cell.value {
@@ -208,6 +209,7 @@
   font-size: 20px;
   font-weight: 600;
   letter-spacing: 0.02em;
+  padding-left: 10rem;
 }
 
 .cart-summary-grid .cell.checkout {
@@ -272,7 +274,7 @@
   .cart-summary-page {
     flex: 0 0 50%;
     width: 50%;
-    padding: 0 5rem 0 10rem;
+    padding: 0 5rem 0 0rem;
     box-sizing: border-box;
   }
 
