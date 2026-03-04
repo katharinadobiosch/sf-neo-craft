@@ -636,13 +636,7 @@
 
   /* falls dein Layout auf mobile "zu schmal" wirkt:
      -> wir geben der PDP links/rechts ein klares padding */
-  .pdp .product-main,
-  .pdp .hero-split,
-  .pdp .pdp__teaser-duo,
-  .pdp .product-form {
-    padding-left: 1.6rem;
-    padding-right: 1.6rem;
-  }
+
 
   /* Media soll edge-to-edge sein (optional – sieht meist besser aus) */
   .pdp .product-main__media,

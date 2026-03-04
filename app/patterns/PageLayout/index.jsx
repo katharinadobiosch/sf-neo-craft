@@ -26,12 +26,14 @@ export function PageLayout({
   const location = useLocation();
 
   function getHeaderVariant(pathname) {
-    // header orange: about
-    // sonst footer und header weiß
+    // Kunde: Cart Header schwarz, sonst weiß
+    if (pathname.startsWith('/cart')) return 'black';
 
+    // existing special case
     if (pathname.startsWith('/about')) return 'orange';
-    if (pathname === '/') return 'transparent';
-    return 'default';
+
+    // fallback
+    return 'white';
   }
   const bgHeaderColor = getHeaderVariant(location.pathname);
 
