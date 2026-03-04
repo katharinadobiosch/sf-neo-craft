@@ -62,6 +62,8 @@ async function loadCriticalData({
 
   const products = (collection?.products?.nodes ?? []) as ProductLike[];
 
+  console.log('MAIN-COLLECTION loader', products.length);
+
   const groupedProducts = groupProductsBySeries(products);
   return {collection, products: groupedProducts};
 }
