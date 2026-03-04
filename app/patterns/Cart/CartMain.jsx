@@ -24,11 +24,11 @@ export function CartMain({layout, cart: originalCart}) {
 
   return (
     <div className={className}>
-      <h1>Warenkorb</h1>
-
       <CartEmpty hidden={linesCount} layout={layout} />
       <div className="cart-details">
         <div aria-labelledby="cart-lines">
+          <h1>Warenkorb</h1>
+
           <ul>
             {(cart?.lines?.nodes ?? []).map((line) => (
               <CartLineItem key={line.id} line={line} layout={layout} />
