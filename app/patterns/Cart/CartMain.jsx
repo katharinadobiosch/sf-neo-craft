@@ -5,7 +5,6 @@ import {CartLineItem} from '~/patterns/Cart/CartLineItem';
 import {CartSummary} from '~/patterns/Cart/CartSummary';
 import './cart.scss';
 
-
 /**
  * The main cart component that displays the cart items and summary.
  * It is used by both the /cart route and the cart aside dialog.
@@ -25,6 +24,8 @@ export function CartMain({layout, cart: originalCart}) {
 
   return (
     <div className={className}>
+      <h1>Warenkorb</h1>
+
       <CartEmpty hidden={linesCount} layout={layout} />
       <div className="cart-details">
         <div aria-labelledby="cart-lines">

@@ -95,24 +95,11 @@ function CartAside({cart}) {
       type="cart"
       heading={
         <div className="cart-aside-heading">
-          <Suspense fallback={null}>
-            <Await resolve={cart}>
-              {(c) => {
-                const count = c?.totalQuantity ?? 0;
-                return (
-                  <div className="cart-aside-heading__meta">
-                    {count === 1 ? '1 Artikel' : `${count} Artikel`}
-                  </div>
-                );
-              }}
-            </Await>
-          </Suspense>
+          <Suspense fallback={null}></Suspense>
         </div>
       }
     >
       <Suspense fallback={<p>Loading cart ...</p>}>
-        <div className="cart-aside-heading__title">Dein Warenkorb</div>
-
         <Await resolve={cart}>
           {(cart) => {
             return <CartMain cart={cart} layout="aside" />;
