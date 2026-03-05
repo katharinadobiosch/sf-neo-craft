@@ -231,6 +231,9 @@
   .burger--inverted span {
     background: #fff;
   }
+  .header__overlay__menu__language {
+    font-size: 14px;
+  }
 }
 
 /* Force burger line colors per header variant (overrides burger--inverted) */
@@ -242,4 +245,38 @@
 .header--black .burger span,
 .header--black .burger--inverted span {
   background: #fff !important;
+}
+.header {
+  &__overlay {
+    &__menu {
+      position: relative; // ok so
+    }
+
+    // Bottom language bar (container!)
+    &__language {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 3.2rem;
+
+      display: flex;
+      justify-content: center;
+      gap: 2.4rem;
+
+      font-size: 1.4rem;
+      line-height: 1.6rem;
+    }
+  }
+}
+
+// links
+.lang-link {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 0.35em;
+  text-decoration-thickness: 2px;
+
+  &.is-active {
+    text-decoration: underline;
+  }
 }

@@ -16,9 +16,32 @@ export function Header({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  const current = String(language).toUpperCase() === 'EN' ? 'EN' : 'DE';
-  const targetLang = current === 'EN' ? 'DE' : 'EN';
+  // 1) Active language robust ermitteln (URL gewinnt vor Prop)
+  const current = (() => {
+    const sp = new URLSearchParams(location.search);
+
+    // Hydrogen-Style: ?_=en / ?_=de
+    const q = sp.get('_')?.toLowerCase();
+    if (q === 'en') return 'EN';
+    if (q === 'de') return 'DE';
+
+    // optional prefixes
+    if (location.pathname.startsWith('/en')) return 'EN';
+    if (location.pathname.startsWith('/de')) return 'DE';
+
+    // fallback: prop
+    const prop = String(language).toUpperCase();
+    if (prop === 'EN') return 'EN';
+    if (prop === 'DE') return 'DE';
+
+    // IMPORTANT: Kundenwunsch "EN default"
+    return 'EN';
+  })();
   const redirectTo = `${location.pathname}${location.search}${location.hash || ''}`;
+
+  const deHref = `/locale/DE?redirectTo=${encodeURIComponent(redirectTo)}`;
+  const enHref = `/locale/EN?redirectTo=${encodeURIComponent(redirectTo)}`;
+  const targetLang = current === 'EN' ? 'DE' : 'EN';
   const langHref = `/locale/${targetLang}?redirectTo=${encodeURIComponent(redirectTo)}`;
 
   return (
@@ -56,8 +79,6 @@ export function Header({
                 <div className="header__right">
                   <NavLink to="/">C</NavLink>
 
-          
-
                   <div className="header__cart">
                     <Link to="/cart">{hasCart ? `(${count})` : null}</Link>
                   </div>
@@ -84,9 +105,27 @@ export function Header({
                   })}
 
                   {/* optional: also inside overlay menu */}
-                  <Link to={langHref} onClick={() => setIsMenuOpen(false)}>
-                    {targetLang}
-                  </Link>
+                  {/* Language Switcher (Bottom) */}
+                  <div
+                    className="header__overlay__language"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Link
+                      to={deHref}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`lang-link ${current === 'DE' ? 'is-active' : ''}`}
+                    >
+                      DEUTSCH
+                    </Link>
+
+                    <Link
+                      to={enHref}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`lang-link ${current === 'EN' ? 'is-active' : ''}`}
+                    >
+                      ENGLISH
+                    </Link>
+                  </div>
                 </nav>
               </div>
             </header>
