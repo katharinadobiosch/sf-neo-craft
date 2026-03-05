@@ -11,7 +11,9 @@ type Props = {
 };
 
 function getLabel(m: any) {
-  return m?.name || m?.definition?.name || m?.key || m?.namespace || '—';
+  // ersten buchstaben in uppercase
+  const label = m?.name || m?.definition?.name || m?.key || m?.namespace || '—';
+  return label.charAt(0).toUpperCase() + label.slice(1);
 }
 
 export function ProductDetailsSection({
