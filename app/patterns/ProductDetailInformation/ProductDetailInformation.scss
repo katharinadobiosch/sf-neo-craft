@@ -4,7 +4,20 @@
    - 768–991px: tablet (dein originales CSS)
    - >=992px: DEIN ORIGINALES DESKTOP CSS (100% unverändert)
    ========================================================= */
+/* z.B. in ProductDetailInformation.scss */
+@media (min-width: 768px) {
+  .pdp {
+    /* 268 / 268 / 245 */
+    --cfg-total: 781;
+    --cfg-col1-p: calc(268 / var(--cfg-total) * 100%);
+    --cfg-col2-p: calc(268 / var(--cfg-total) * 100%);
+    --cfg-col3-p: calc(245 / var(--cfg-total) * 100%);
 
+    --cfg-col1: clamp(180px, var(--cfg-col1-p), 268px);
+    --cfg-col2: clamp(180px, var(--cfg-col2-p), 268px);
+    --cfg-col3: clamp(160px, var(--cfg-col3-p), 245px);
+  }
+}
 .pdp {
   display: flex;
   flex-direction: column;
@@ -703,14 +716,10 @@
   }
 
   .pf-kv__row {
-    --kv-key: 268px;
-
     display: grid;
-    grid-template-columns: var(--kv-key) 1fr;
-    column-gap: 0rem;
-
-    position: relative;
-    padding: 1.6rem 0;
+    grid-template-columns: var(--cfg-col2) 1fr; /* <- genau wie Configurator Label-Spalte */
+    column-gap: 0; /* wie du’s willst */
+    align-items: center;
   }
 
   /* Button belegt NUR die Key-Spalte, bleibt komplett klickbar */
@@ -723,6 +732,7 @@
     width: 100%;
     min-height: 44px;
     position: relative; /* für Key-Layout */
+    grid-column: 1;
   }
 
   .pf-kv__key {
@@ -779,6 +789,7 @@
   .pf-kv__row[data-open='true'] .pf-kv__value-wrap {
     max-height: 999px;
     opacity: 1;
+    grid-column: 2;
   }
 
   .pf-kv__value {
