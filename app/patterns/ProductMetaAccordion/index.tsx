@@ -223,8 +223,6 @@ export function ProductMetaAccordion({
         >
           {visibleItems.map((item) => (
             <div key={item.fqKey} className="acc-item">
-              <div className="acc-title">{item.label}</div>
-
               <div className="acc-panel">
                 {item.type === 'text' && (
                   <p style={{whiteSpace: 'pre-line'}}>{item.value}</p>

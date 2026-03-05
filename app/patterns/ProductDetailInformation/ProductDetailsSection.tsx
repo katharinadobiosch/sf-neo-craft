@@ -50,7 +50,7 @@ export function ProductDetailsSection({
 
           return (
             <div className="pf-kv__row" key={k} data-open={isOpen}>
-              {/* Spalte 1: Key + Toggle */}
+              {/* Toggle: klickbar über Key + Icon */}
               <button
                 type="button"
                 className="pf-kv__toggle"
@@ -58,10 +58,13 @@ export function ProductDetailsSection({
                 aria-expanded={isOpen}
               >
                 <span className="pf-kv__key">{label}</span>
-                <span className={cx('pf-kv__icon', isOpen && 'is-open')} />
+                <span
+                  className={cx('pf-kv__icon', isOpen && 'is-open')}
+                  aria-hidden="true"
+                />
               </button>
 
-              {/* Spalte 2: Value – wieder korrekt gerendert */}
+              {/* Value */}
               <div className="pf-kv__value-wrap">
                 <div className="pf-kv__value">
                   <ProductMetaAccordion metafields={[m]} product={product} />

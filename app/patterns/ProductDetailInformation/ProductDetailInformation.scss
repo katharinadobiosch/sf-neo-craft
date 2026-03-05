@@ -637,7 +637,6 @@
   /* falls dein Layout auf mobile "zu schmal" wirkt:
      -> wir geben der PDP links/rechts ein klares padding */
 
-
   /* Media soll edge-to-edge sein (optional – sieht meist besser aus) */
   .pdp .product-main__media,
   .pdp .media-gallery,
@@ -699,34 +698,32 @@
 }
 
 .pdp .product-form__sections {
-  /* =========================================================
-     Details als Key/Value Liste mit Toggle pro Zeile
-     ========================================================= */
-
   .pf-kv__list {
     border-top: 1px solid var(--divider, #000);
   }
 
   .pf-kv__row {
+    --kv-key: 268px;
+
     display: grid;
-    grid-template-columns: 268px 1fr; /* 1. Spalte fixed, 2. rest */
+    grid-template-columns: var(--kv-key) 1fr;
     column-gap: 2rem;
 
+    position: relative;
     border-bottom: 1px solid var(--divider, #000);
     padding: 1.6rem 0;
   }
 
-  /* Spalte 1: Button nimmt die ganze Key-Spalte */
+  /* Button belegt NUR die Key-Spalte, bleibt komplett klickbar */
   .pf-kv__toggle {
     all: unset;
     cursor: pointer;
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    width: 268px; /* exakt */
+    grid-column: 1;
+    display: block;
+    width: 100%;
     min-height: 44px;
+    position: relative; /* für Key-Layout */
   }
 
   .pf-kv__key {
@@ -735,38 +732,43 @@
     line-height: 1.5rem;
   }
 
-  /* Plus/Minus Icon (wie bei dir) */
+  /* ICON sitzt GENAU auf der Kante zwischen Spalte 1 und 2 */
   .pf-kv__icon {
-    position: relative;
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* center genau auf die Kante */
+
     width: 12px;
     height: 12px;
-    flex: 0 0 12px;
     color: currentColor;
-
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 14px;
-      height: 2px;
-      background: currentColor;
-      transform: translate(-50%, -50%);
-      transition: transform 0.2s ease;
-    }
-
-    &::after {
-      transform: translate(-50%, -50%) rotate(90deg);
-    }
-
-    &.is-open::after {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
+    pointer-events: none; /* klick geht auf den Button */
   }
 
-  /* Spalte 2: Content mit eigener Collapse Animation */
+  .pf-kv__icon::before,
+  .pf-kv__icon::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 2px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease;
+  }
+
+  .pf-kv__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .pf-kv__icon.is-open::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
   .pf-kv__value-wrap {
+    grid-column: 2;
+
     overflow: hidden;
     max-height: 0;
     opacity: 0;
@@ -786,20 +788,9 @@
     color: var(--text-default, #111);
   }
 
-  .pf-kv__lines {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  /* Optional: ab 768px darf die Key-Spalte proportional shrinken */
   @media (min-width: 768px) {
     .pf-kv__row {
-      grid-template-columns: clamp(180px, 34%, 268px) 1fr;
-    }
-
-    .pf-kv__toggle {
-      width: clamp(180px, 34%, 268px);
+      --kv-key: clamp(180px, 34%, 268px);
     }
   }
 }
