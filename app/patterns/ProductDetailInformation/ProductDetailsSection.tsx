@@ -1,94 +1,75 @@
-import {useEffect, useId, useMemo, useRef, useState} from 'react';
+import {useMemo, useState} from 'react';
 import {ProductMetaAccordion} from '../ProductMetaAccordion';
 
+const cx = (...classes: (string | false | null | undefined)[]) =>
+  classes.filter(Boolean).join(' ');
+
 type Props = {
-  mfMeasurements?: unknown[];
-  mfOthers?: unknown[];
-  product?: unknown;
-  title?: string;
+  mfMeasurements?: any[];
+  mfOthers?: any[];
+  product?: any;
 };
+
+function getLabel(m: any) {
+  return m?.name || m?.definition?.name || m?.key || m?.namespace || '—';
+}
 
 export function ProductDetailsSection({
   mfMeasurements = [],
   mfOthers = [],
   product,
-  title = 'Details',
 }: Props) {
-  const [open, setOpen] = useState(false);
+  const items = useMemo(() => {
+    // wie vorher: measurements + others zusammen
+    return [...(mfMeasurements || []), ...(mfOthers || [])].filter(Boolean);
+  }, [mfMeasurements, mfOthers]);
 
-  const reactId = useId();
-  const panelId = `pf-details-${reactId}`;
+  if (items.length === 0) return null;
 
-  const allMetafields = useMemo(
-    () => [...mfMeasurements, ...mfOthers].filter(Boolean),
-    [mfMeasurements, mfOthers],
-  );
+  // pro Item eigener Toggle (default: offen)
+  const [openMap, setOpenMap] = useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    for (const m of items) {
+      const k = String(m?.id || m?.key || getLabel(m));
+      initial[k] = true;
+    }
+    return initial;
+  });
 
-  if (allMetafields.length === 0) return null;
-
-  const detailsRef = useRef<HTMLDivElement | null>(null);
-  const [detailsHeight, setDetailsHeight] = useState<number>(0);
-
-  // misst Content-Höhe, damit max-height animierbar ist
-  useEffect(() => {
-    if (!open) return;
-
-    const raf = requestAnimationFrame(() => {
-      const el = detailsRef.current;
-      if (!el) return;
-      setDetailsHeight(el.scrollHeight || 0);
-    });
-
-    return () => cancelAnimationFrame(raf);
-  }, [open, allMetafields.length]);
-
-  // bei Resize neu messen (sonst bricht Desktop gerne)
-  useEffect(() => {
-    const onResize = () => {
-      if (!open) return;
-      const el = detailsRef.current;
-      if (!el) return;
-      setDetailsHeight(el.scrollHeight || 0);
-    };
-
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  }, [open]);
+  const toggle = (k: string) => {
+    setOpenMap((prev) => ({...prev, [k]: !prev[k]}));
+  };
 
   return (
-    <section className="pf-section pf-section--details" data-open={open}>
-      <div className="pf-head">
-        <button
-          type="button"
-          className="pf-toggle"
-          aria-expanded={open}
-          aria-controls={panelId}
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="pf-title">{title}</span>
-          <span
-            className={`pf-plus ${open ? 'is-open' : ''}`}
-            aria-hidden="true"
-          />
-        </button>
-      </div>
+    <section className="pf-section pf-kv">
+      <div className="pf-kv__list">
+        {items.map((m) => {
+          const k = String(m?.id || m?.key || getLabel(m));
+          const label = getLabel(m);
+          const isOpen = !!openMap[k];
 
-      <div
-        id={panelId}
-        className="pf-panel **pf-panel--scroll**"
-        style={{
-          maxHeight: open ? `${detailsHeight}px` : '0px',
-          opacity: open ? 1 : 0,
-        }}
-      >
-        <div ref={detailsRef}>
-          <div className="product__meta">
-            <ProductMetaAccordion
-              metafields={allMetafields}
-              product={product}
-            />
-          </div>
-        </div>
+          return (
+            <div className="pf-kv__row" key={k} data-open={isOpen}>
+              {/* Spalte 1: Key + Toggle */}
+              <button
+                type="button"
+                className="pf-kv__toggle"
+                onClick={() => toggle(k)}
+                aria-expanded={isOpen}
+              >
+                <span className="pf-kv__key">{label}</span>
+                <span className={cx('pf-kv__icon', isOpen && 'is-open')} />
+              </button>
+
+              {/* Spalte 2: Value – wieder korrekt gerendert */}
+              <div className="pf-kv__value-wrap">
+                <div className="pf-kv__value">
+                  <ProductMetaAccordion metafields={[m]} product={product} />
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

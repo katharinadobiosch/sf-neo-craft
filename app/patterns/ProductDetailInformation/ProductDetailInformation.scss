@@ -697,3 +697,109 @@
     margin: 0.6rem 0;
   }
 }
+
+.pdp .product-form__sections {
+  /* =========================================================
+     Details als Key/Value Liste mit Toggle pro Zeile
+     ========================================================= */
+
+  .pf-kv__list {
+    border-top: 1px solid var(--divider, #000);
+  }
+
+  .pf-kv__row {
+    display: grid;
+    grid-template-columns: 268px 1fr; /* 1. Spalte fixed, 2. rest */
+    column-gap: 2rem;
+
+    border-bottom: 1px solid var(--divider, #000);
+    padding: 1.6rem 0;
+  }
+
+  /* Spalte 1: Button nimmt die ganze Key-Spalte */
+  .pf-kv__toggle {
+    all: unset;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 268px; /* exakt */
+    min-height: 44px;
+  }
+
+  .pf-kv__key {
+    font-weight: 500;
+    color: var(--text-muted, #5a5a5a);
+    line-height: 1.5rem;
+  }
+
+  /* Plus/Minus Icon (wie bei dir) */
+  .pf-kv__icon {
+    position: relative;
+    width: 12px;
+    height: 12px;
+    flex: 0 0 12px;
+    color: currentColor;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 14px;
+      height: 2px;
+      background: currentColor;
+      transform: translate(-50%, -50%);
+      transition: transform 0.2s ease;
+    }
+
+    &::after {
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    &.is-open::after {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+  }
+
+  /* Spalte 2: Content mit eigener Collapse Animation */
+  .pf-kv__value-wrap {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition:
+      max-height 0.35s ease,
+      opacity 0.2s ease;
+  }
+
+  .pf-kv__row[data-open='true'] .pf-kv__value-wrap {
+    max-height: 999px;
+    opacity: 1;
+  }
+
+  .pf-kv__value {
+    padding-top: 0.2rem;
+    font-weight: 400;
+    color: var(--text-default, #111);
+  }
+
+  .pf-kv__lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  /* Optional: ab 768px darf die Key-Spalte proportional shrinken */
+  @media (min-width: 768px) {
+    .pf-kv__row {
+      grid-template-columns: clamp(180px, 34%, 268px) 1fr;
+    }
+
+    .pf-kv__toggle {
+      width: clamp(180px, 34%, 268px);
+    }
+  }
+}
