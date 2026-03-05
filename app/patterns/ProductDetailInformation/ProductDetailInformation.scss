@@ -138,7 +138,7 @@
 
       .teaser-duo__content {
         background: var(--sf-purple);
-        margin-top: 1rem;
+        margin-top: 0.8rem;
         padding: 2rem 1.6rem 2.6rem;
 
         font-size: var(--nc-fliesstext-mobil-size);
@@ -279,6 +279,7 @@
       flex: 2 1 0;
       min-height: 0;
       overflow: hidden; /* wichtig */
+      margin-top: 1rem;
     }
 
     .shipping-item {
@@ -514,7 +515,6 @@
      ========================================================= */
 
   .shipping-item {
-    padding-top: 1.5rem;
     border-top: 1px solid var(--divider);
 
     .ps-toggle {
@@ -711,10 +711,6 @@
 }
 
 .pdp .product-form__sections {
-  .pf-kv__list {
-    border-top: 1px solid var(--divider, #000);
-  }
-
   .pf-kv__row {
     display: grid;
     grid-template-columns: var(--cfg-col2) 1fr; /* <- genau wie Configurator Label-Spalte */
@@ -801,6 +797,7 @@
   @media (min-width: 768px) {
     .pf-kv__row {
       --kv-key: clamp(180px, 34%, 268px);
+      align-items: start; /* statt center */
     }
   }
 }
@@ -810,6 +807,7 @@
   grid-template-columns: var(--cfg-col2) 1fr;
   column-gap: 0;
   align-items: center;
+  padding-top: 0.8rem;
 }
 
 /* Toggle belegt nur Spalte 1 */
