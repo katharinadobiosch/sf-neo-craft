@@ -336,7 +336,7 @@ export default function CollectionsIndex() {
 }
 
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
-query CollectionByHandle_Materials(
+query CollectionByHandle_MainCollection(
   $handle: String!
   $country: CountryCode
   $language: LanguageCode
