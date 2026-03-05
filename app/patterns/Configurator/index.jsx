@@ -234,32 +234,31 @@ export function Configurator({
         aria-hidden={!variantsOpen}
       >
         <div className="cfg-panel-scroll">
-          <div ref={panelRef} className="cfg-panel-inner">
-            {/* 🔹 neue Modell-Zeile */}
-            {hasSeriesOptions && (
-              <div className="cfg-row cfg-row--model">
-                <div className="cfg-values">
-                  {seriesProducts.map((variants, index) => {
-                    const label = variants.title;
-                    const isActive = index === seriesActiveIndex;
+          {/* 🔹 neue Modell-Zeile */}
+          {hasSeriesOptions && (
+            <div className="cfg-row cfg-row--model">
+              <div className="cfg-values">
+                {seriesProducts.map((variants, index) => {
+                  const label = variants.title;
+                  const isActive = index === seriesActiveIndex;
 
-                    return (
-                      <button
-                        key={variants.id}
-                        type="button"
-                        title={label}
-                        aria-label={label}
-                        className={`cfg-item is-chip ${isActive ? 'is-selected' : ''}`}
-                        onClick={() => onChangeSeriesProduct(index)}
-                      >
-                        <span className="chip-text">{label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+                  return (
+                    <button
+                      key={variants.id}
+                      type="button"
+                      title={label}
+                      aria-label={label}
+                      className={`cfg-item is-chip ${isActive ? 'is-selected' : ''}`}
+                      onClick={() => onChangeSeriesProduct(index)}
+                    >
+                      <span className="chip-text">{label}</span>
+                    </button>
+                  );
+                })}
               </div>
-            )}
-
+            </div>
+          )}
+          <div ref={panelRef} className="cfg-panel-inner">
             {/* bestehende Variant-Optionen */}
             {variantOptions.map(renderOption)}
           </div>

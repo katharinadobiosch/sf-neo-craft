@@ -51,7 +51,6 @@ export default function CollectionHandle() {
     </div>
   );
 }
-
 const COLLECTION_BY_HANDLE_QUERY = `#graphql
   query CollectionByHandle__AnyCollection(
     $handle: String!
@@ -67,44 +66,44 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
           id
           title
           handle
-          featuredImage {
-            url
-            altText
-            width
-            height
-          }
+          featuredImage { url altText width height }
 
+          # Produkt-eigener Tile (Fallback)
           metafields(identifiers: [{namespace: "custom", key: "product_tile"}]) {
             namespace
             key
             type
-            value
-            reference {
-              __typename
-              ... on MediaImage {
-                image { url altText width height }
-              }
-            }
             references(first: 2) {
               nodes {
                 __typename
-                ... on MediaImage {
-                  image { url altText width height }
-                }
+                ... on MediaImage { image { url altText width height } }
+                ... on GenericFile { url mimeType }
               }
             }
           }
 
+          # SERIES Metaobject am Produkt (inkl. product_tile references!)
           metafieldSeries: metafield(namespace: "custom", key: "product_series") {
             reference {
               __typename
               ... on Metaobject {
                 handle
                 type
-                fields {
-                  key
-                  value
+
+                seriesTitle: field(key: "title") { value }
+
+                productTile: field(key: "product_tile") {
+                  references(first: 2) {
+                    nodes {
+                      __typename
+                      ... on MediaImage { image { url altText width height } }
+                      ... on GenericFile { url mimeType }
+                    }
+                  }
                 }
+
+                # optional zum Debuggen
+                fields { key value }
               }
             }
           }

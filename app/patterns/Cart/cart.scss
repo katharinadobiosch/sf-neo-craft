@@ -313,7 +313,7 @@
 
     h1 {
       font-size: 2.2rem;
-      padding: 0 5rem;
+      padding: 0 4.9rem;
     }
 
     &::after {
@@ -341,7 +341,7 @@
   .cart-details > div[aria-labelledby='cart-lines'] {
     flex: 0 0 50%;
     width: 50%;
-    padding: 0 5rem 0 10rem;
+    padding: 0 4.9rem 0 10rem;
     border-right: 1px solid black;
     box-sizing: border-box;
     min-height: calc(100vh - 120px);
@@ -351,7 +351,7 @@
   .cart-summary-page {
     flex: 0 0 50%;
     width: 50%;
-    padding: 0 5rem 0 0rem;
+    padding: 0 4.9rem 0 0rem;
     box-sizing: border-box;
   }
 

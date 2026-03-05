@@ -631,105 +631,6 @@ export type BlogsQuery = {
   };
 };
 
-export type CollectionByHandle__AnyCollectionQueryVariables =
-  StorefrontAPI.Exact<{
-    handle: StorefrontAPI.Scalars['String']['input'];
-    country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
-    language?: StorefrontAPI.InputMaybe<StorefrontAPI.LanguageCode>;
-  }>;
-
-export type CollectionByHandle__AnyCollectionQuery = {
-  collection?: StorefrontAPI.Maybe<
-    Pick<StorefrontAPI.Collection, 'id' | 'title' | 'handle'> & {
-      products: {
-        nodes: Array<
-          Pick<StorefrontAPI.Product, 'id' | 'title' | 'handle'> & {
-            featuredImage?: StorefrontAPI.Maybe<
-              Pick<StorefrontAPI.Image, 'url' | 'altText' | 'width' | 'height'>
-            >;
-            metafields: Array<
-              StorefrontAPI.Maybe<
-                Pick<
-                  StorefrontAPI.Metafield,
-                  'namespace' | 'key' | 'type' | 'value'
-                > & {
-                  reference?: StorefrontAPI.Maybe<
-                    | {
-                        __typename:
-                          | 'Collection'
-                          | 'GenericFile'
-                          | 'Metaobject'
-                          | 'Model3d'
-                          | 'Page'
-                          | 'Product'
-                          | 'ProductVariant'
-                          | 'Video';
-                      }
-                    | ({__typename: 'MediaImage'} & {
-                        image?: StorefrontAPI.Maybe<
-                          Pick<
-                            StorefrontAPI.Image,
-                            'url' | 'altText' | 'width' | 'height'
-                          >
-                        >;
-                      })
-                  >;
-                  references?: StorefrontAPI.Maybe<{
-                    nodes: Array<
-                      | {
-                          __typename:
-                            | 'Collection'
-                            | 'GenericFile'
-                            | 'Metaobject'
-                            | 'Model3d'
-                            | 'Page'
-                            | 'Product'
-                            | 'ProductVariant'
-                            | 'Video';
-                        }
-                      | ({__typename: 'MediaImage'} & {
-                          image?: StorefrontAPI.Maybe<
-                            Pick<
-                              StorefrontAPI.Image,
-                              'url' | 'altText' | 'width' | 'height'
-                            >
-                          >;
-                        })
-                    >;
-                  }>;
-                }
-              >
-            >;
-            metafieldSeries?: StorefrontAPI.Maybe<{
-              reference?: StorefrontAPI.Maybe<
-                | {
-                    __typename:
-                      | 'Collection'
-                      | 'GenericFile'
-                      | 'MediaImage'
-                      | 'Model3d'
-                      | 'Page'
-                      | 'Product'
-                      | 'ProductVariant'
-                      | 'Video';
-                  }
-                | ({__typename: 'Metaobject'} & Pick<
-                    StorefrontAPI.Metaobject,
-                    'handle' | 'type'
-                  > & {
-                      fields: Array<
-                        Pick<StorefrontAPI.MetaobjectField, 'key' | 'value'>
-                      >;
-                    })
-              >;
-            }>;
-          }
-        >;
-      };
-    }
-  >;
-};
-
 export type MoneyCollectionItemFragment = Pick<
   StorefrontAPI.MoneyV2,
   'amount' | 'currencyCode'
@@ -2143,10 +2044,6 @@ interface GeneratedQueryTypes {
   '#graphql\n  query Blogs(\n    $country: CountryCode\n    $endCursor: String\n    $first: Int\n    $language: LanguageCode\n    $last: Int\n    $startCursor: String\n  ) @inContext(country: $country, language: $language) {\n    blogs(\n      first: $first,\n      last: $last,\n      before: $startCursor,\n      after: $endCursor\n    ) {\n      pageInfo {\n        hasNextPage\n        hasPreviousPage\n        startCursor\n        endCursor\n      }\n      nodes {\n        title\n        handle\n        seo {\n          title\n          description\n        }\n      }\n    }\n  }\n': {
     return: BlogsQuery;
     variables: BlogsQueryVariables;
-  };
-  '#graphql\n  query CollectionByHandle__AnyCollection(\n    $handle: String!\n    $country: CountryCode\n    $language: LanguageCode\n  ) @inContext(country: $country, language: $language) {\n    collection(handle: $handle) {\n      id\n      title\n      handle\n      products(first: 50) {\n        nodes {\n          id\n          title\n          handle\n          featuredImage {\n            url\n            altText\n            width\n            height\n          }\n\n          metafields(identifiers: [{namespace: "custom", key: "product_tile"}]) {\n            namespace\n            key\n            type\n            value\n            reference {\n              __typename\n              ... on MediaImage {\n                image { url altText width height }\n              }\n            }\n            references(first: 2) {\n              nodes {\n                __typename\n                ... on MediaImage {\n                  image { url altText width height }\n                }\n              }\n            }\n          }\n\n          metafieldSeries: metafield(namespace: "custom", key: "product_series") {\n            reference {\n              __typename\n              ... on Metaobject {\n                handle\n                type\n                fields {\n                  key\n                  value\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n': {
-    return: CollectionByHandle__AnyCollectionQuery;
-    variables: CollectionByHandle__AnyCollectionQueryVariables;
   };
   '#graphql\n  query Catalog(\n    $country: CountryCode\n    $language: LanguageCode\n    $first: Int\n    $last: Int\n    $startCursor: String\n    $endCursor: String\n  ) @inContext(country: $country, language: $language) {\n    products(first: $first, last: $last, before: $startCursor, after: $endCursor) {\n      nodes {\n        ...CollectionItem\n      }\n      pageInfo {\n        hasPreviousPage\n        hasNextPage\n        startCursor\n        endCursor\n      }\n    }\n  }\n  #graphql\n  fragment MoneyCollectionItem on MoneyV2 {\n    amount\n    currencyCode\n  }\n  fragment CollectionItem on Product {\n    id\n    handle\n    title\n    featuredImage {\n      id\n      altText\n      url\n      width\n      height\n    }\n    priceRange {\n      minVariantPrice {\n        ...MoneyCollectionItem\n      }\n      maxVariantPrice {\n        ...MoneyCollectionItem\n      }\n    }\n  }\n\n': {
     return: CatalogQuery;

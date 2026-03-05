@@ -141,41 +141,62 @@
     line-height: var(--nc-konfigurator-desktop-line);
     font-weight: var(--nc-konfigurator-desktop-weight);
 
+    /* 268 / 268 / 245 */
+    --cfg-total: 781;
+    --cfg-col1-p: calc(268 / var(--cfg-total) * 100%);
+    --cfg-col2-p: calc(268 / var(--cfg-total) * 100%);
+    --cfg-col3-p: calc(245 / var(--cfg-total) * 100%);
+
+    --cfg-col1: clamp(180px, var(--cfg-col1-p), 268px);
+    --cfg-col2: clamp(180px, var(--cfg-col2-p), 268px);
+    --cfg-col3: clamp(160px, var(--cfg-col3-p), 245px);
+
+    /* nicht mehr per padding-left "simulieren" */
     .cfg-panel-inner {
       padding-top: 1rem;
+      padding-left: 0;
       gap: 0.4rem;
+    }
+
+    /* ROW = 3 Spalten: spacer | label | values */
+    .cfg-row {
+      display: grid;
+      grid-template-columns: var(--cfg-col1) var(--cfg-col2) var(--cfg-col3);
+      align-items: center;
+
+      padding: 0.5rem 0 2.5rem;
+      margin-bottom: 0;
+    }
+
+    /* Modell-Zeile hat kein Label – sie soll ab Spalte 2 starten */
+    .cfg-row--model {
+      grid-template-columns: var(--cfg-col1) calc(
+          var(--cfg-col2) + var(--cfg-col3)
+        );
+    }
+    .cfg-row--model .cfg-values {
+      grid-column: 2 / -1;
+      max-width: none;
+    }
+
+    .cfg-label {
+      grid-column: 2;
+      width: auto;
+      line-height: 1.5rem;
+      /* WICHTIG: keine flex-Regeln mehr hier */
+      flex: none;
+    }
+
+    .cfg-values {
+      grid-column: 3;
+      width: auto;
+      max-width: var(--cfg-col3);
+      justify-content: flex-start;
+      gap: 1.5rem;
     }
 
     .cfg-head {
       gap: 1rem;
-    }
-    .cfg-toggle {
-      flex: 0 0 200px;
-    }
-
-    .cfg-head__label {
-      flex: 0 0 100px;
-    }
-
-    .cfg-row {
-      flex-direction: row;
-      align-items: center;
-      padding: 0.5rem 0 2.5rem;
-      margin-bottom: 0;
-      gap: var(--pf-col-gap);
-
-      @media (min-width: 992px) {
-        padding: 0.5rem 0 1.5rem;
-      }
-    }
-
-    .cfg-row::before {
-      content: '';
-    }
-
-    .cfg-label {
-      flex: 0 0 var(--pf-label-col);
-      line-height: 1.5rem;
     }
 
     .cfg-item.is-chip {
@@ -194,6 +215,12 @@
       font-size: var(--nc-konfigurator-head-desktop-size);
       line-height: var(--nc-konfigurator-head-desktop-line);
       font-weight: var(--nc-konfigurator-head-desktop-weight);
+    }
+
+    @media (min-width: 992px) {
+      .cfg-row {
+        padding: 0.5rem 0 1.5rem;
+      }
     }
   }
 
