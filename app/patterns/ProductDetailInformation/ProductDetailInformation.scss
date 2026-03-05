@@ -804,3 +804,81 @@
     }
   }
 }
+/* SHIPPING: gleiche 2-Spalten-Logik wie ProductDetailsSection */
+.pdp .shipping-item.pf-kv__row {
+  display: grid;
+  grid-template-columns: var(--cfg-col2) 1fr;
+  column-gap: 0;
+  align-items: center;
+}
+
+/* Toggle belegt nur Spalte 1 */
+.pdp .shipping-item .pf-kv__toggle {
+  all: unset;
+  cursor: pointer;
+
+  grid-column: 1;
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  position: relative;
+}
+
+/* Shipping-Titel rechtsbündig an die “Kante” */
+.pdp .shipping-item .pf-kv__key--right {
+  display: block;
+  text-align: left;
+  padding-right: 1.5rem; /* Platz, damit Text nicht ins Plus läuft */
+}
+
+/* Icon genau wie bei Details (unter den anderen Plussen) */
+.pdp .shipping-item .pf-kv__icon {
+  position: absolute;
+  left: 80%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+}
+
+.pdp .shipping-item .pf-kv__icon::before,
+.pdp .shipping-item .pf-kv__icon::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease;
+}
+
+.pdp .shipping-item .pf-kv__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.pdp .shipping-item .pf-kv__icon.is-open::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* Value sitzt in Spalte 2 und klappt auf wie bei Details */
+.pdp .shipping-item .pf-kv__value-wrap {
+  grid-column: 2;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.2s ease;
+}
+
+.pdp .shipping-item[data-open='true'] .pf-kv__value-wrap {
+  max-height: 999px;
+  opacity: 1;
+}
+
+.pdp .shipping-item .pf-kv__value {
+  padding-top: 0.2rem;
+}

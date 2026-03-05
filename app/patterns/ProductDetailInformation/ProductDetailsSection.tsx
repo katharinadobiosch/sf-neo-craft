@@ -28,12 +28,12 @@ export function ProductDetailsSection({
 
   if (items.length === 0) return null;
 
-  // pro Item eigener Toggle (default: offen)
+  // pro Item eigener Toggle (default: geschlossen)
   const [openMap, setOpenMap] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
     for (const m of items) {
       const k = String(m?.id || m?.key || getLabel(m));
-      initial[k] = true;
+      initial[k] = false; // <-- war: true
     }
     return initial;
   });
