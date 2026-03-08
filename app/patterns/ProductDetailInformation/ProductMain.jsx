@@ -37,6 +37,7 @@ export function ProductMain({
           seriesProducts={seriesProducts}
           seriesActiveIndex={seriesActiveIndex}
           onChangeSeriesProduct={onChangeSeriesProduct}
+          onVariantReselect={handleVariantReselect}
         />
       </div>
 
