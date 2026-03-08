@@ -31,7 +31,6 @@ export async function loader({context}) {
   );
 
   const productsRaw = collection?.products?.nodes ?? [];
-  console.log('HOME loader', productsRaw.length);
   const products = groupProductsBySeries(productsRaw);
 
   return {products};

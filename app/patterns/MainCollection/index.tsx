@@ -171,7 +171,6 @@ function ProductItem({product}: {product: ProductLike}) {
       })
       .filter(Boolean);
 
-    console.log('SERIES produkt_tile URLs', urls);
   }
   const isMetaobject = seriesRef?.__typename === 'Metaobject';
   const seriesHandle = isMetaobject
