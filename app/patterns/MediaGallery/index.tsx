@@ -26,9 +26,15 @@ type Props = {
   product: Product;
   variant?: Variant | null;
   className?: string;
+  reselectKey?: number;
 };
 
-export function MediaGallery({product, variant, className}: Props) {
+export function MediaGallery({
+  product,
+  variant,
+  className,
+  reselectKey = 0,
+}: Props) {
   const swiperRef = useRef<SwiperType | null>(null);
 
   // NEW: Refs für eigene Nav-Buttons
@@ -84,37 +90,46 @@ export function MediaGallery({product, variant, className}: Props) {
     },
   };
 
-  // Swiper an die Custom-Buttons binden (wichtig: nach Mount/Ref-Set)
   useEffect(() => {
     if (!hasMultiple) return;
+
     const s = swiperRef.current;
     if (!s) return;
 
-    // Navigation-Params setzen (TS ist hier oft zu strikt)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const nav = (s.params.navigation ?? {}) as any;
     nav.prevEl = prevRef.current;
     nav.nextEl = nextRef.current;
     s.params.navigation = nav;
 
-    // neu initialisieren/updaten
     s.navigation?.destroy?.();
     s.navigation?.init?.();
     s.navigation?.update?.();
-  }, [hasMultiple]);
+  }, [hasMultiple, variant?.id]);
 
   // Beim Variantenwechsel aktiv auf das Variantenbild springen
   useEffect(() => {
-    if (!swiperRef.current) return;
+    const s = swiperRef.current;
+    if (!s) return;
+
     const vUrl = variant?.image?.url;
     if (!vUrl) return;
-    const idx = slides.findIndex((s) => s.url === vUrl);
+
+    const idx = slides.findIndex((slide) => slide.url === vUrl);
     if (idx < 0) return;
 
-    const s = swiperRef.current;
-    if (s.params.loop) s.slideToLoop(idx, 0, false);
-    else s.slideTo(idx, 0, false);
-  }, [variant?.id, slides]);
+    // IMPORTANT:
+    // Swiper kann denken, der Slide sei schon aktiv,
+    // obwohl er visuell nicht angezeigt wird (Loop + Navigation).
+    // Deshalb immer hart springen.
+    if (s.params.loop) {
+      s.slideToLoop(idx, 0, true);
+    } else {
+      s.slideTo(idx, 0, true);
+    }
+  }, [variant?.id, variant?.image?.url, slides, reselectKey]);
+
+
 
   return (
     <section className={`nc-media-gallery ${className ?? ''}`}>
@@ -143,10 +158,8 @@ export function MediaGallery({product, variant, className}: Props) {
 
       <Swiper
         {...galleryOptions}
-        key={variant?.id || 'default'}
         modules={[Navigation, Pagination, A11y]}
         loop={hasMultiple}
-        // IMPORTANT: navigation muss aktiv sein, aber Elemente kommen aus useEffect/onMount
         navigation={hasMultiple}
         className="nc-swiper-content"
         onSwiper={(inst) => {

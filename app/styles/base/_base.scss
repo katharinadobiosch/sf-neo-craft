@@ -1,17 +1,28 @@
-/* 1) CSS-kompatible Kommentare & bessere Defaults */
+/* app/styles/base/_base.scss */
+
+/* 1) CSS-kompatible Defaults */
 html {
   font-size: 62.5%; /* 1rem = 10px */
 }
 
-/* 2) Paragraph nutzt deine Tokens */
+/* 2) Paragraph nutzt Tokens (mobile first) */
 p {
-  font-size: var(--nc-fliesstext-desktop-size);
-  line-height: var(--nc-fliesstext-desktop-line);
-  font-weight: var(--nc-fliesstext-desktop-weight);
+  font-size: var(--nc-fliesstext-mobil-size);
+  line-height: var(--nc-fliesstext-mobil-line);
+  font-weight: var(--nc-fliesstext-mobil-weight);
   margin: 0 0 1.6rem;
 }
 
-/* 3) Headings an Tokens orientieren + konsistente line-height */
+/* Paragraph Desktop */
+@media (min-width: 768px) {
+  p {
+    font-size: var(--nc-fliesstext-desktop-size);
+    line-height: var(--nc-fliesstext-desktop-line);
+    font-weight: var(--nc-fliesstext-desktop-weight);
+  }
+}
+
+/* 3) Headings */
 h1 {
   font-size: 3.6rem;
   line-height: 1.2;
@@ -38,23 +49,26 @@ h5,
 h6 {
   line-height: 1.35;
 }
+
 h4 {
   font-size: 2rem;
   font-weight: 500;
   margin: 1.2rem 0 0.8rem;
 }
+
 h5 {
   font-size: 1.6rem;
   font-weight: 500;
   margin: 1rem 0 0.6rem;
 }
+
 h6 {
   font-size: 1.4rem;
   font-weight: 500;
   margin: 0.8rem 0 0.4rem;
 }
 
-/* 5) Responsive Breiten via clamp/minmax – Variablen bleiben, Nutzung smarter */
+/* 4) Grid */
 .grid {
   display: grid;
   grid-template-columns: repeat(
@@ -75,7 +89,6 @@ a {
   min-height: 100vh;
 }
 
-/* Wenn Intro durch ist, setzen wir eine Klasse am body ODER am wrapper */
 body.intro-done .main-page {
   opacity: 1;
 }

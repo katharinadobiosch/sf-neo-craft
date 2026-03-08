@@ -30,7 +30,6 @@ export default defineConfig([
     },
   },
 
-  // WICHTIG: spread, sonst "Unexpected key 0"
   ...tseslint.configs.recommended,
 
   {

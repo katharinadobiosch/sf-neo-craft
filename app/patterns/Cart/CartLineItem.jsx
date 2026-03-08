@@ -25,24 +25,14 @@ export function CartLineItem({layout, line}) {
             alt={title}
             aspectRatio="1/1"
             data={image}
-            height={160}
+            height={220}
             loading="lazy"
-            width={160}
+            width={220}
           />
         )}
 
-        {/* Unit price under the image (TASCHEN-style) */}
-        <div className="cart-line__price-block">
-          <div className="cart-line__unit-price">
-            <ProductPrice price={line?.cost?.amountPerQuantity} />
-          </div>
-
-          <div className="cart-line__right">
-            <CartLineQuantity line={line} />
-            <div className="cart-line__total">
-              <ProductPrice price={line?.cost?.totalAmount} />
-            </div>
-          </div>
+        <div className="cart-line__unit-price">
+          <ProductPrice price={line?.cost?.amountPerQuantity} />
         </div>
       </div>
 
@@ -55,7 +45,7 @@ export function CartLineItem({layout, line}) {
             if (layout === 'aside') close();
           }}
         >
-          <strong>{product.title}</strong>
+          {product.title}
         </Link>
 
         <div className="cart-line__meta">
@@ -67,11 +57,11 @@ export function CartLineItem({layout, line}) {
           ))}
         </div>
 
-        {/* Right side: qty + total price */}
         <div className="cart-line__controls">
-          {/* <CartLineQuantity line={line} /> */}
-
-          <div className="cart-line__total"></div>
+          <CartLineQuantity line={line} />
+          <div className="cart-line__total">
+            <ProductPrice price={line?.cost?.totalAmount} />
+          </div>
         </div>
       </div>
     </li>
@@ -121,32 +111,6 @@ function CartLineQuantity({line}) {
         </button>
       </CartLineUpdateButton>
     </div>
-  );
-}
-
-/**
- * @param {{
- *   lineIds: string[];
- *   disabled: boolean;
- * }}
- */
-function CartLineRemoveButton({lineIds, disabled}) {
-  return (
-    <CartForm
-      fetcherKey={getUpdateKey(lineIds)}
-      route="/cart"
-      action={CartForm.ACTIONS.LinesRemove}
-      inputs={{lineIds}}
-    >
-      <button
-        className="cart-line__remove"
-        disabled={disabled}
-        type="submit"
-        aria-label="Remove item"
-      >
-        Remove
-      </button>
-    </CartForm>
   );
 }
 

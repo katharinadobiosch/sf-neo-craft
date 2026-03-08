@@ -178,12 +178,18 @@ export function HeroSplit_Poster({
 
 export function HeroSplit_GalleryBand({
   leftImg,
+  leftHoverImg,
   rightImg,
+  rightHoverImg,
   bandColor = '#8F8CF6',
+  heroSplitText,
 }: {
   leftImg?: ImgLike;
+  leftHoverImg?: ImgLike;
   rightImg?: ImgLike;
+  rightHoverImg?: ImgLike;
   bandColor?: string;
+  heroSplitText: string | null;
 }) {
   return (
     <HeroSplit
@@ -192,14 +198,20 @@ export function HeroSplit_GalleryBand({
       leftBottomAspect="781/422"
       bandDecor="left"
       bandColor={bandColor}
-      leftTop={<HoverImage image={leftImg} />}
+      leftTop={<HoverImage image={leftImg} hoverImage={leftHoverImg} />}
       leftBottom={
-        <div className="hs-bandDecor" aria-hidden="true">
-          <span className="hs-bandDecor__n">N</span>
-          <span className="hs-bandDecor__c">C</span>
-        </div>
+        heroSplitText ? (
+          <blockquote className="hs-quote">
+            <div className="hs-quote__inner">{heroSplitText}</div>
+          </blockquote>
+        ) : (
+          <div className="hs-bandDecor" aria-hidden="true">
+            <span className="hs-bandDecor__n">N</span>
+            <span className="hs-bandDecor__c">C</span>
+          </div>
+        )
       }
-      right={<HoverImage image={rightImg} />}
+      right={<HoverImage image={rightImg} hoverImage={rightHoverImg} />}
     />
   );
 }

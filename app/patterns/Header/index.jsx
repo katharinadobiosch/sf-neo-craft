@@ -1,67 +1,138 @@
-import {useState} from 'react';
-import {NavLink} from 'react-router';
+import {useState, Suspense} from 'react';
+import {Link, NavLink, Await, useLocation} from 'react-router';
 import {useAside} from '~/patterns/Aside';
 import {normalizeMenuUrl} from 'utils/normalizeMenuUrl';
 import './header.scss';
-
-/**
- * @param {HeaderProps}
- */
 
 export function Header({
   header,
   variant = 'default',
   publicStoreDomain,
   primaryDomainUrl,
+  cart,
+  language = 'DE',
 }) {
   const {menu} = header;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  // 1) Active language robust ermitteln (URL gewinnt vor Prop)
+  const current = (() => {
+    const sp = new URLSearchParams(location.search);
+
+    // Hydrogen-Style: ?_=en / ?_=de
+    const q = sp.get('_')?.toLowerCase();
+    if (q === 'en') return 'EN';
+    if (q === 'de') return 'DE';
+
+    // optional prefixes
+    if (location.pathname.startsWith('/en')) return 'EN';
+    if (location.pathname.startsWith('/de')) return 'DE';
+
+    // fallback: prop
+    const prop = String(language).toUpperCase();
+    if (prop === 'EN') return 'EN';
+    if (prop === 'DE') return 'DE';
+
+    // IMPORTANT: Kundenwunsch "EN default"
+    return 'EN';
+  })();
+  const redirectTo = `${location.pathname}${location.search}${location.hash || ''}`;
+
+  const deHref = `/locale/DE?redirectTo=${encodeURIComponent(redirectTo)}`;
+  const enHref = `/locale/EN?redirectTo=${encodeURIComponent(redirectTo)}`;
+  const targetLang = current === 'EN' ? 'DE' : 'EN';
+  const langHref = `/locale/${targetLang}?redirectTo=${encodeURIComponent(redirectTo)}`;
 
   return (
-    <header className={`header ${variant ? `header--${variant}` : ''}`}>
-      <div className="header__container">
-        <div className="header__left">
-          <NavLink to="/">N</NavLink>
-        </div>
+    <Suspense fallback={null}>
+      <Await resolve={cart}>
+        {(c) => {
+          const count = c?.totalQuantity ?? 0;
+          const hasCart = count >= 1;
 
-        <div className="header__center">
-          <button
-            className={`burger ${isMenuOpen ? 'active' : ''}`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
-
-        <div className="header__right">
-          <NavLink to="/">C</NavLink>
-        </div>
-      </div>
-
-      <div className={`header__overlay ${isMenuOpen ? 'open' : ''}`}>
-        <nav className="header__overlay__menu">
-          {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
-            const url = normalizeMenuUrl(
-              item.url,
-              publicStoreDomain,
-              primaryDomainUrl,
-            );
-            return (
-              <NavLink
-                key={item.id}
-                to={url}
-                onClick={() => setIsMenuOpen(false)}
+          return (
+            <header className={`header ${variant ? `header--${variant}` : ''}`}>
+              <div
+                className={`header__container ${
+                  hasCart ? 'header__container--has-cart' : ''
+                }`}
               >
-                {item.title}
-              </NavLink>
-            );
-          })}
-        </nav>
-      </div>
-    </header>
+                <div className="header__left">
+                  <NavLink to="/">N</NavLink>
+                </div>
+
+                <div className="header__center">
+                  <button
+                    className={`burger ${isMenuOpen ? 'active' : ''} ${
+                      hasCart ? 'burger--inverted' : ''
+                    }`}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    aria-label="Toggle menu"
+                  >
+                    <span />
+                    <span />
+                    <span />
+                  </button>
+                </div>
+
+                <div className="header__right">
+                  <NavLink to="/">C</NavLink>
+
+                  <div className="header__cart">
+                    <Link to="/cart">{hasCart ? `(${count})` : null}</Link>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`header__overlay ${isMenuOpen ? 'open' : ''}`}>
+                <nav className="header__overlay__menu">
+                  {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+                    const url = normalizeMenuUrl(
+                      item.url,
+                      publicStoreDomain,
+                      primaryDomainUrl,
+                    );
+                    return (
+                      <NavLink
+                        key={item.id}
+                        to={url}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item.title}
+                      </NavLink>
+                    );
+                  })}
+
+                  {/* optional: also inside overlay menu */}
+                  {/* Language Switcher (Bottom) */}
+                  <div
+                    className="header__overlay__language"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Link
+                      to={deHref}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`lang-link ${current === 'DE' ? 'is-active' : ''}`}
+                    >
+                      DEUTSCH
+                    </Link>
+
+                    <Link
+                      to={enHref}
+                      onClick={() => setIsMenuOpen(false)}
+                      className={`lang-link ${current === 'EN' ? 'is-active' : ''}`}
+                    >
+                      ENGLISH
+                    </Link>
+                  </div>
+                </nav>
+              </div>
+            </header>
+          );
+        }}
+      </Await>
+    </Suspense>
   );
 }
 

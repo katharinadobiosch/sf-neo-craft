@@ -9,7 +9,6 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "allowJs": true,
-    // "moduleResolution": "node",
     "skipLibCheck": true,
     "paths": {
       "~/*": ["app/*"],

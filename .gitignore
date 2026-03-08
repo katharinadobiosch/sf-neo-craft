@@ -10,6 +10,7 @@ node_modules
 .react-router
 .env.local
 sf-neo-craft.git/
+storefrontapi.generated.d.ts
 
 # generated router types / artifacts
 .react-router/

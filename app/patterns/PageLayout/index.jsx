@@ -21,16 +21,19 @@ export function PageLayout({
   header,
   isLoggedIn,
   publicStoreDomain,
+  consent,
 }) {
   const location = useLocation();
 
   function getHeaderVariant(pathname) {
-    // header orange: about
-    // sonst footer und header weiß
+    // Kunde: Cart Header schwarz, sonst weiß
+    if (pathname.startsWith('/cart')) return 'black';
 
+    // existing special case
     if (pathname.startsWith('/about')) return 'orange';
-    if (pathname === '/') return 'transparent';
-    return 'default';
+
+    // fallback
+    return 'white';
   }
   const bgHeaderColor = getHeaderVariant(location.pathname);
 
@@ -65,6 +68,9 @@ export function PageLayout({
         <Header
           header={header}
           cart={cart}
+          language={
+            typeof consent?.language === 'string' ? consent.language : 'DE'
+          }
           isLoggedIn={isLoggedIn}
           publicStoreDomain={publicStoreDomain}
           primaryDomainUrl={header?.shop?.primaryDomain?.url}
@@ -91,8 +97,7 @@ function CartAside({cart}) {
       type="cart"
       heading={
         <div className="cart-aside-heading">
-          <div className="cart-aside-heading__title">Dein Warenkorb</div>
-          <Suspense></Suspense>
+          <Suspense fallback={null}></Suspense>
         </div>
       }
     >

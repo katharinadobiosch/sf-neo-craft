@@ -7,11 +7,32 @@ import {HeroSplit_GalleryBand} from '../HeroSplit';
 import {ProductMain} from './ProductMain';
 import {normalizeAllMetafields} from '~/utils/metafields';
 
+function richTextJsonToPlainText(value) {
+  if (!value) return '';
+  try {
+    const json = typeof value === 'string' ? JSON.parse(value) : value;
+
+    const walk = (node) => {
+      if (!node) return '';
+      if (Array.isArray(node)) return node.map(walk).join('');
+      if (node.type === 'text') return node.value ?? '';
+      if (node.children) return walk(node.children);
+      return '';
+    };
+
+    return walk(json).trim();
+  } catch {
+    // falls es doch schon plain text ist
+    return String(value);
+  }
+}
+
 export function ProductDetailInformation({
   product,
   seriesProducts,
   seriesActiveIndex,
   onChangeSeriesProduct,
+  seriesMeta,
 }) {
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
@@ -19,6 +40,15 @@ export function ProductDetailInformation({
   );
 
   const metafields = normalizeAllMetafields(product.metafields ?? []);
+
+  const seriesLeft = seriesMeta?.hero_links?.[0] ?? null;
+  const seriesLeftHover = seriesMeta?.hero_links?.[1] ?? null;
+
+  const seriesRight = seriesMeta?.hero_rechts?.[0] ?? null;
+  const seriesRightHover = seriesMeta?.hero_rechts?.[1] ?? null;
+
+  const hasSeriesOverride = Boolean(seriesMeta && (seriesLeft || seriesRight));
+  const seriesIntroText = richTextJsonToPlainText(seriesMeta?.intro);
 
   // ===== TOP (Square Variant): Series-Hero ODER Standard-Duo + Description =====
   const topLeft = metafields?.produkt_duo_top_links?.list?.[0]?.url;
@@ -32,15 +62,17 @@ export function ProductDetailInformation({
   const seriesImageHover = seriesHero?.list?.[1]?.url;
   const hasSeriesHero = Boolean(seriesImage);
 
-  // ===== HERO SPLIT (Band): nimmt 2 Bilder aus Produktbildern =====
-  const imageNodes = product.images?.edges?.map((edge) => edge.node) ?? [];
-  const mainImage = imageNodes?.[3]?.url ?? imageNodes?.[0]?.url ?? null;
+  // ===== HERO SPLIT (Band): aus Metafeldern (jeweils [0]=main, [1]=hover) =====
+  const heroSplitLeftImage =
+    metafields?.hero_split_links?.list?.[0]?.url ?? null;
+  const heroSplitLeftHover =
+    metafields?.hero_split_links?.list?.[1]?.url ?? null;
 
-  const thirdImage =
-    imageNodes?.[2]?.url ??
-    imageNodes?.[1]?.url ??
-    imageNodes?.[0]?.url ??
-    null;
+  const heroSplitRightImage =
+    metafields?.hero_split_rechts?.list?.[0]?.url ?? null;
+  const heroSplitRightHover =
+    metafields?.hero_split_rechts?.list?.[1]?.url ?? null;
+  const heroSplitText = metafields?.hero_split_text?.value ?? '';
 
   // ===== BOTTOM TeaserDuo (aus Metafeldern) =====
   const bottomLeft = metafields?.teaser_duo_bottom_links?.list?.[0]?.url;
@@ -49,18 +81,38 @@ export function ProductDetailInformation({
   const bottomRight = metafields?.teaser_duo_bottom_rechts?.list?.[0]?.url;
   const bottomRightHover = metafields?.teaser_duo_bottom_rechts?.list?.[1]?.url;
 
+  const seriesIntro = seriesMeta?.intro ?? null;
+
+  const hasSeriesHeroOverride = Boolean(seriesLeft || seriesRight);
+  const topContent = seriesIntro ? seriesIntro : product.descriptionHtml;
+
   return (
     <div className="pdp">
       {/* TOP: square-variant */}
       <div className="square-variant">
         <TeaserDuo
-          left={hasSeriesHero ? seriesImage : topLeft}
-          leftHover={hasSeriesHero ? seriesImageHover : topLeftHover}
-          right={hasSeriesHero ? null : topRight}
-          rightHover={hasSeriesHero ? null : topRightHover}
-          isSingle={hasSeriesHero}
-          content={product.descriptionHtml}
-          
+          left={hasSeriesOverride ? seriesLeft : hasSeriesHero ? null : topLeft}
+          leftHover={
+            hasSeriesOverride
+              ? seriesLeftHover
+              : hasSeriesHero
+                ? seriesImageHover
+                : topLeftHover
+          }
+          right={
+            hasSeriesOverride ? seriesRight : hasSeriesHero ? null : topRight
+          }
+          rightHover={
+            hasSeriesOverride
+              ? seriesRightHover
+              : hasSeriesHero
+                ? null
+                : topRightHover
+          }
+          isSingle={hasSeriesOverride ? !seriesRight : hasSeriesHero}
+          content={
+            hasSeriesOverride ? seriesIntroText : product.descriptionHtml
+          }
         />
       </div>
 
@@ -74,7 +126,13 @@ export function ProductDetailInformation({
       />
 
       {/* BELOW MAIN: Band + TeaserDuo */}
-      <HeroSplit_GalleryBand leftImg={thirdImage} rightImg={mainImage} />
+      <HeroSplit_GalleryBand
+        leftImg={heroSplitLeftImage}
+        leftHoverImg={heroSplitLeftHover}
+        rightImg={heroSplitRightImage}
+        rightHoverImg={heroSplitRightHover}
+        heroSplitText={heroSplitText}
+      />
 
       <TeaserDuo
         className="pdp__teaser-duo"

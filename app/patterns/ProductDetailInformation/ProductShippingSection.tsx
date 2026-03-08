@@ -1,5 +1,8 @@
 import {useId, useState} from 'react';
 
+const cx = (...classes: (string | false | null | undefined)[]) =>
+  classes.filter(Boolean).join(' ');
+
 export function ProductShippingSection({
   title = 'Lead time + shipping',
   lines = [],
@@ -13,36 +16,38 @@ export function ProductShippingSection({
   const safeLines = Array.isArray(lines) ? lines.filter(Boolean) : [];
 
   return (
-    <div className="shipping-item" data-open={open}>
+    <div className="shipping-item pf-kv__row" data-open={open}>
       <button
         type="button"
-        className="ps-toggle"
+        className="pf-kv__toggle"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="ps-title">{title}</span>
+        <span className="pf-kv__key pf-kv__key--right">{title}</span>
         <span
-          className={`ps-plus ${open ? 'is-open' : ''}`}
+          className={cx('pf-kv__icon', open && 'is-open')}
           aria-hidden="true"
         />
       </button>
 
       <div
-        className="ps-panel **ps-panel--scroll**"
+        className="pf-kv__value-wrap"
         id={panelId}
         role="region"
         aria-label={title}
       >
-        {safeLines.length ? (
-          <ul className="ps-lines">
-            {safeLines.map((line, i) => (
-              <li key={i} className="ps-line">
-                {line}
-              </li>
-            ))}
-          </ul>
-        ) : null}
+        <div className="pf-kv__value">
+          {safeLines.length ? (
+            <ul className="ps-lines">
+              {safeLines.map((line, i) => (
+                <li key={i} className="ps-line">
+                  {line}
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
       </div>
     </div>
   );

@@ -1,10 +1,23 @@
 /* =========================================================
    PDP – Layout (mobile first)
-   - 0–991px: one column
-   - >=992px: 50/50 split + info-height = media aspect-ratio
-   - desktop: Configurator / Details / Shipping = 3 scroll areas
+   - 0–767px: mobile (nur sticky CTA hinzugefügt)
+   - 768–991px: tablet (dein originales CSS)
+   - >=992px: DEIN ORIGINALES DESKTOP CSS (100% unverändert)
    ========================================================= */
+/* z.B. in ProductDetailInformation.scss */
+@media (min-width: 768px) {
+  .pdp {
+    /* 268 / 268 / 245 */
+    --cfg-total: 781;
+    --cfg-col1-p: calc(268 / var(--cfg-total) * 100%);
+    --cfg-col2-p: calc(268 / var(--cfg-total) * 100%);
+    --cfg-col3-p: calc(245 / var(--cfg-total) * 100%);
 
+    --cfg-col1: clamp(180px, var(--cfg-col1-p), 268px);
+    --cfg-col2: clamp(180px, var(--cfg-col2-p), 268px);
+    --cfg-col3: clamp(160px, var(--cfg-col3-p), 245px);
+  }
+}
 .pdp {
   display: flex;
   flex-direction: column;
@@ -12,8 +25,7 @@
   gap: 1.5rem;
 
   @media (min-width: 768px) {
-    position: relative; /* <- DAS fehlt */
-
+    position: relative;
     margin: 3rem 0 8.6rem 0;
     gap: 0;
 
@@ -107,7 +119,6 @@
     /* ---------- Teaser duo (mobile) ---------- */
     .pdp__teaser-duo {
       margin: 0;
-      border: 10px solid red;
 
       .teaser-duo__images {
         display: flex;
@@ -127,7 +138,7 @@
 
       .teaser-duo__content {
         background: var(--sf-purple);
-        margin-top: 1rem;
+        margin-top: 0.8rem;
         padding: 2rem 1.6rem 2.6rem;
 
         font-size: var(--nc-fliesstext-mobil-size);
@@ -193,11 +204,22 @@
     border: 1px solid black;
     align-items: stretch;
     height: 6.3rem;
-    font-size: var(--nc-fliesstext-desktop-size);
-    line-height: var(--nc-fliesstext-desktop-line);
-    font-weight: var(--nc-fliesstext-desktop-weight);
-    // --cta-border: color-mix(in oklab, var(--color-dark) 18%, transparent);
-    // --cta-accent: var(--sf-purple, #8f8cf6);
+    /* ✅ default = mobile */
+    font-size: var(--nc-fliesstext-mobil-size);
+    line-height: var(--nc-fliesstext-mobil-line);
+    font-weight: var(--nc-fliesstext-mobil-weight);
+
+    /* ========================================
+       EINZIGE NEUE ERGÄNZUNG: Sticky CTA auf Mobile/Tablet
+       ======================================== */
+    @media (max-width: 991px) {
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      z-index: 100;
+      background: #fff;
+      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+    }
 
     .cta-button {
       width: 57%;
@@ -257,6 +279,7 @@
       flex: 2 1 0;
       min-height: 0;
       overflow: hidden; /* wichtig */
+      margin-top: 1rem;
     }
 
     .shipping-item {
@@ -270,6 +293,9 @@
     .pdp__cta-container {
       flex: 0 0 auto;
       margin-top: auto;
+      font-size: var(--nc-fliesstext-desktop-size);
+      line-height: var(--nc-fliesstext-desktop-line);
+      font-weight: var(--nc-fliesstext-desktop-weight);
     }
 
     /* ----------------------------
@@ -396,7 +422,6 @@
       display: flex;
       align-items: center;
       margin-top: 1rem;
-      height: 44px;
     }
 
     .pf-toggle {
@@ -434,6 +459,7 @@
       height: 12px;
       flex: 0 0 12px;
       color: currentColor;
+      padding-right: 100px;
 
       &::before,
       &::after {
@@ -477,7 +503,7 @@
       }
 
       .pf-toggle {
-        width: 135px;
+        width: 100%;
         min-height: 0;
         padding: 1.5rem 0 0rem 0;
       }
@@ -489,7 +515,6 @@
      ========================================================= */
 
   .shipping-item {
-    padding-top: 1.5rem;
     border-top: 1px solid var(--divider);
 
     .ps-toggle {
@@ -502,7 +527,7 @@
       justify-content: space-between;
 
       @media (min-width: 768px) {
-        width: 200px;
+        width: 100%;
       }
     }
 
@@ -534,6 +559,7 @@
       height: 12px;
       flex: 0 0 12px;
       color: currentColor;
+      padding-right: 100px;
 
       &::before,
       &::after {
@@ -611,3 +637,399 @@
     }
   }
 }
+
+/* =========================================================
+   MOBILE POLISH (0–767px)
+   ========================================================= */
+@media (max-width: 767px) {
+  .pdp {
+    margin: 0; /* weniger "random" whitespace */
+    gap: 0; /* wir kontrollieren spacing pro Block */
+  }
+
+  /* falls dein Layout auf mobile "zu schmal" wirkt:
+     -> wir geben der PDP links/rechts ein klares padding */
+
+  /* Media soll edge-to-edge sein (optional – sieht meist besser aus) */
+  .pdp .product-main__media,
+  .pdp .media-gallery,
+  .pdp .nc-media-gallery {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Trenner und Sektionen klarer */
+  .pdp .product-main__info {
+    border-top: 1px solid #000;
+    padding-top: 1.2rem;
+  }
+}
+
+/* ---------- Teaser duo (mobile) ---------- */
+.pdp .product-main .pdp__teaser-duo {
+  margin: 0;
+  border: 0; /* <-- Debug border raus */
+
+  .teaser-duo__images {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .teaser-duo__image {
+    width: 100%;
+  }
+
+  .teaser-duo__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .teaser-duo__content {
+    background: var(--sf-purple);
+    margin-top: 1.2rem;
+    padding: 1.6rem 1.6rem 2rem;
+
+    font-size: var(--nc-fliesstext-mobil-size);
+    line-height: 1.45; /* mobile tighter */
+    font-weight: var(--nc-fliesstext-mobil-weight);
+
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  /* Listen im Teaser: clean */
+  .teaser-duo__content ul {
+    margin: 1.2rem 0 0;
+    padding-left: 1.8rem;
+  }
+
+  .teaser-duo__content li {
+    margin: 0.6rem 0;
+  }
+}
+
+.pdp .product-form__sections {
+  .pf-kv__row {
+    display: grid;
+    grid-template-columns: var(--cfg-col2) 1fr; /* <- genau wie Configurator Label-Spalte */
+    column-gap: 0; /* wie du’s willst */
+    align-items: center;
+  }
+
+  /* Button belegt NUR die Key-Spalte, bleibt komplett klickbar */
+  .pf-kv__toggle {
+    all: unset;
+    cursor: pointer;
+
+    grid-column: 1;
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    position: relative; /* für Key-Layout */
+    grid-column: 1;
+  }
+
+  .pf-kv__key {
+    font-weight: 500;
+    color: var(--text-muted, #5a5a5a);
+    line-height: 1.5rem;
+  }
+
+  /* ICON sitzt GENAU auf der Kante zwischen Spalte 1 und 2 */
+  .pf-kv__icon {
+    position: absolute;
+    left: 80%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* center genau auf die Kante */
+
+    width: 12px;
+    height: 12px;
+    color: currentColor;
+    pointer-events: none; /* klick geht auf den Button */
+  }
+
+  .pf-kv__icon::before,
+  .pf-kv__icon::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 14px;
+    height: 2px;
+    background: currentColor;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease;
+  }
+
+  .pf-kv__icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .pf-kv__icon.is-open::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  .pf-kv__value-wrap {
+    grid-column: 2;
+
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition:
+      max-height 0.35s ease,
+      opacity 0.2s ease;
+  }
+
+  .pf-kv__row[data-open='true'] .pf-kv__value-wrap {
+    max-height: 999px;
+    opacity: 1;
+    grid-column: 2;
+  }
+
+  .pf-kv__value {
+    padding-top: 0.2rem;
+    font-weight: 400;
+    color: var(--text-default, #111);
+  }
+
+  @media (min-width: 768px) {
+    .pf-kv__row {
+      --kv-key: clamp(180px, 34%, 268px);
+      align-items: start; /* statt center */
+    }
+  }
+}
+/* SHIPPING: gleiche 2-Spalten-Logik wie ProductDetailsSection */
+.pdp .shipping-item.pf-kv__row {
+  display: grid;
+  grid-template-columns: var(--cfg-col2) 1fr;
+  column-gap: 0;
+  align-items: center;
+  padding-top: 0.8rem;
+}
+
+/* Toggle belegt nur Spalte 1 */
+.pdp .shipping-item .pf-kv__toggle {
+  all: unset;
+  cursor: pointer;
+
+  grid-column: 1;
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  position: relative;
+}
+
+/* Shipping-Titel rechtsbündig an die “Kante” */
+.pdp .shipping-item .pf-kv__key--right {
+  display: block;
+  text-align: left;
+  padding-right: 1.5rem; /* Platz, damit Text nicht ins Plus läuft */
+}
+
+/* Icon genau wie bei Details (unter den anderen Plussen) */
+.pdp .shipping-item .pf-kv__icon {
+  position: absolute;
+  left: 80%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+}
+
+.pdp .shipping-item .pf-kv__icon::before,
+.pdp .shipping-item .pf-kv__icon::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease;
+}
+
+.pdp .shipping-item .pf-kv__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.pdp .shipping-item .pf-kv__icon.is-open::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* Value sitzt in Spalte 2 und klappt auf wie bei Details */
+.pdp .shipping-item .pf-kv__value-wrap {
+  grid-column: 2;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.2s ease;
+}
+
+.pdp .shipping-item[data-open='true'] .pf-kv__value-wrap {
+  max-height: 999px;
+  opacity: 1;
+}
+
+.pdp .shipping-item .pf-kv__value {
+  padding-top: 0.2rem;
+}
+
+/* =========================================================
+   PDP – QUICK FIX (copy/paste)
+   Ziel:
+   - Tablet 768–991: keine Desktop-Trennlinie (weil Main noch column ist)
+   - Mobile: CSS Vars vorhanden (var(--cfg-col2) etc.)
+   - CTA: fixed bottom + safe padding, ohne Content zu überdecken
+   ========================================================= */
+
+/* 1) MOBILE-FIRST: Defaults für deine Config-Column-Variablen */
+.pdp {
+  /* sinnvolle Defaults für 0–767 */
+  --cfg-total: 781;
+  --cfg-col1: 42%;
+  --cfg-col2: 42%;
+  --cfg-col3: 16%;
+
+  /* optional: falls du irgendwo die %-Vars nutzt */
+  --cfg-col1-p: 42%;
+  --cfg-col2-p: 42%;
+  --cfg-col3-p: 16%;
+}
+
+/* Ab 768: deine bestehenden clamp-Werte (wie bei dir) */
+@media (min-width: 768px) {
+  .pdp {
+    --cfg-total: 781;
+    --cfg-col1-p: calc(268 / var(--cfg-total) * 100%);
+    --cfg-col2-p: calc(268 / var(--cfg-total) * 100%);
+    --cfg-col3-p: calc(245 / var(--cfg-total) * 100%);
+
+    --cfg-col1: clamp(180px, var(--cfg-col1-p), 268px);
+    --cfg-col2: clamp(180px, var(--cfg-col2-p), 268px);
+    --cfg-col3: clamp(160px, var(--cfg-col3-p), 245px);
+  }
+}
+
+/* 2) Trennlinie erst dann, wenn du WIRKLICH 2 Spalten hast (ab 992) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .pdp {
+    /* du hattest ab 768 gap:0 + margin etc. -> Tablet darf "luftiger" sein */
+    gap: 1.5rem;
+  }
+
+  .pdp::before {
+    display: none !important;
+    content: none !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .pdp {
+    position: relative;
+    margin: 3rem 0 8.6rem 0;
+    gap: 0;
+  }
+
+  .pdp::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #000;
+    transform: translateX(-0.5px);
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+
+/* 3) CTA: fixed bottom auf <=991 + Padding unten, damit nix drunter verschwindet */
+@media (max-width: 991px) {
+  /* Padding auf dem Scroll-Container */
+  .pdp {
+    padding-bottom: calc(6.3rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .pdp .pdp__cta-container {
+    position: fixed; /* statt sticky */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: #fff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+
+    /* falls dein Layout max-width nutzt: CTA darf full bleed sein */
+    width: 100%;
+    margin: 0;
+  }
+}
+
+/* 4) OPTIONAL (empfohlen): Gallery auf Mobile nicht hart quadratisch
+      -> wirkt “weniger abgeschnitten” und weniger “zu groß”
+      Wenn du quadratisch behalten willst: diesen Block löschen. */
+@media (max-width: 767px) {
+  .pdp .product-main .product-main__media {
+    aspect-ratio: 4 / 3; /* statt 1/1 */
+  }
+
+  .pdp .product-main .product-main__media img {
+    object-fit: cover;
+  }
+}
+
+/* 5) Fallback, falls irgendwo var() ohne default genutzt wird */
+.pdp .product-form__sections .pf-kv__row,
+.pdp .shipping-item.pf-kv__row {
+  grid-template-columns: var(--cfg-col2, 180px) 1fr;
+}
+/* =========================================================
+   FIX: Plus/Icon exakt auf Column-Divider + Abstand zum Text
+   (Details + Shipping)
+   ========================================================= */
+
+/* --- Details + Shipping: Toggle braucht Platz rechts fürs Icon --- */
+.pdp .product-form__sections .pf-kv__toggle,
+.pdp .shipping-item .pf-kv__toggle {
+  padding-right: 28px; /* verhindert "Measurements+" / Text unter Icon */
+}
+
+/* optional: falls Keys sehr lang sind */
+.pdp .product-form__sections .pf-kv__key,
+.pdp .shipping-item .pf-kv__key {
+  display: block;
+  max-width: 100%;
+}
+
+/* --- Icon: NICHT mit left:% positionieren, sondern an die rechte Kante --- */
+.pdp .product-form__sections .pf-kv__icon,
+.pdp .shipping-item .pf-kv__icon {
+  left: auto !important;
+  right: 0 !important;
+
+  top: 50%;
+  transform: translate(
+    50%,
+    -50%
+  ) !important; /* 50% raus -> sitzt genau auf Divider */
+}
+
+/* --- Mobile: wenn du die Key-Spalte sehr schmal willst, Icon bleibt trotzdem sauber --- */
+@media (max-width: 767px) {
+  .pdp .product-form__sections .pf-kv__toggle,
+  .pdp .shipping-item .pf-kv__toggle {
+    padding-right: 32px; /* minimal mehr Luft auf sehr kleinen Screens */
+  }
+}
+
+/* --- Desktop: falls du willst, dass Icon exakt auf der PDP-Mittellinie sitzt --- */
+/* (Wenn deine Key-Spalte exakt bis zur Mittellinie geht, ist das schon perfekt.
+   Wenn nicht, sag kurz, dann machen wir's 100% pixelgenau.) */

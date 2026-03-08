@@ -1,3 +1,4 @@
+import {useState, useCallback} from 'react';
 import {ProductForm} from './ProductForm';
 import {MediaGallery} from '~/patterns/MediaGallery';
 
@@ -20,6 +21,12 @@ export function ProductMain({
     selectedOrFirstAvailableVariant: selectedVariant,
   });
 
+  const [reselectKey, setReselectKey] = useState(0);
+
+  const handleVariantReselect = useCallback(() => {
+    setReselectKey((k) => k + 1);
+  }, []);
+
   return (
     <div className="product-main">
       <div className="product-main__info">
@@ -30,11 +37,16 @@ export function ProductMain({
           seriesProducts={seriesProducts}
           seriesActiveIndex={seriesActiveIndex}
           onChangeSeriesProduct={onChangeSeriesProduct}
+          onVariantReselect={handleVariantReselect}
         />
       </div>
 
       <div className="product-main__media">
-        <MediaGallery product={product} variant={selectedVariant} />
+        <MediaGallery
+          product={product}
+          variant={selectedVariant}
+          reselectKey={reselectKey}
+        />
       </div>
     </div>
   );

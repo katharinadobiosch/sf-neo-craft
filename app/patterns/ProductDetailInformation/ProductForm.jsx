@@ -22,6 +22,7 @@ export function ProductForm({
   seriesProducts,
   seriesActiveIndex,
   onChangeSeriesProduct,
+  onVariantReselect,
 }) {
   const {open: openAside} = useAside();
   const navigate = useNavigate();
@@ -96,8 +97,8 @@ export function ProductForm({
     return first?.variant || first?.firstSelectableVariant || null;
   }, [productOptions]);
 
-  const money = (num, currency = 'USD') =>
-    new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
+  const money = (num, currency = 'EUR') =>
+    new Intl.NumberFormat('de-DE', {style: 'currency', currency}).format(
       Number(num || 0),
     );
 
@@ -139,6 +140,7 @@ export function ProductForm({
           seriesActiveIndex={seriesActiveIndex}
           onChangeSeriesProduct={onChangeSeriesProduct}
           product={activeProduct}
+          onVariantReselect={onVariantReselect}
         />
       </div>
 

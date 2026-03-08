@@ -38,25 +38,70 @@ export async function loader({params, context, request}) {
   }
 
   const fields = series.fields ?? [];
-  const productsField = fields.find((f) => f.key === 'products');
+
+  const norm = (s) =>
+    String(s ?? '')
+      .trim()
+      .toLowerCase();
+  const getField = (key) => fields.find((f) => norm(f.key) === norm(key));
+
+  const refToUrl = (node) => {
+    if (!node) return null;
+
+    // explizite Typen aus deiner Query
+    if (node.__typename === 'MediaImage') return node.image?.url ?? null;
+    if (node.__typename === 'GenericFile') return node.url ?? null;
+
+    // best-effort fallbacks (Shopify liefert bei Files teils andere Shapes)
+    return (
+      node.url ??
+      node.image?.url ??
+      node.previewImage?.url ??
+      node.preview?.image?.url ??
+      node.preview?.url ??
+      node.sources?.[0]?.url ??
+      null
+    );
+  };
+
+  const fieldRefsToUrls = (key) => {
+    const f = getField(key);
+    const nodes = f?.references?.nodes ?? [];
+    return nodes.map(refToUrl).filter(Boolean);
+  };
+
+  const productsField = getField('products');
   const products = productsField?.references?.nodes ?? [];
 
   if (!products.length) {
     throw new Error('No products connected to this series');
   }
 
-  // erstes Produkt als aktives
+  const seriesMeta = {
+    title: getField('title')?.value ?? null,
+    intro: getField('intro')?.value ?? null,
+    hero_links: fieldRefsToUrls('hero_links'), // [main, hover]
+    hero_rechts: fieldRefsToUrls('hero_rechts'), // [main, hover]
+  };
+
   const activeIndex = 0;
 
   return {
     series,
     products,
     activeIndex,
+    seriesMeta,
   };
 }
 
 export default function SeriesPage() {
-  const {series, products, activeIndex: initialIndex} = useLoaderData();
+  const {
+    series,
+    products,
+    activeIndex: initialIndex,
+    seriesMeta,
+  } = useLoaderData();
+
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const safeProducts = products ?? [];
   const activeProduct = safeProducts[activeIndex] ?? null;
@@ -75,6 +120,7 @@ export default function SeriesPage() {
           seriesProducts={safeProducts}
           seriesActiveIndex={activeIndex}
           onChangeSeriesProduct={setActiveIndex}
+          seriesMeta={seriesMeta}
         />
       ) : (
         <p>Keine Produkte in dieser Serie gefunden.</p>
@@ -138,7 +184,8 @@ const SERIES_QUERY = `#graphql
       type
       value
 
-      reference { __typename
+      reference {
+        __typename
         ... on Metaobject { id type handle fields { key type value } }
         ... on MediaImage { image { url altText width height } }
         ... on Video { sources { url mimeType } }
@@ -166,19 +213,28 @@ const SERIES_QUERY = `#graphql
     $country: CountryCode
     $language: LanguageCode
   ) @inContext(country: $country, language: $language) {
-    series: metaobject(
-      handle: {type: "series", handle: $handle}
-    ) {
+    series: metaobject(handle: {type: "series", handle: $handle}) {
       id
       handle
       fields {
         key
         value
-        references(first: 10) {
+
+        references(first: 50) {
           nodes {
             __typename
+
             ... on Product {
               ...Product
+            }
+
+            ... on MediaImage {
+              image { url altText width height }
+            }
+
+            ... on GenericFile {
+              url
+              mimeType
             }
           }
         }
