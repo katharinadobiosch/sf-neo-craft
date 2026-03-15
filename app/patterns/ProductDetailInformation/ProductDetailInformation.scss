@@ -278,7 +278,8 @@
       flex-direction: column;
       flex: 2 1 0;
       min-height: 0;
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
       padding: 1.2rem 0;
     }
 
@@ -320,24 +321,6 @@
       overflow: visible !important;
     }
 
-    .product-form__sections .pf-section {
-      height: 100%;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-form__sections .pf-head {
-      flex: 0 0 auto;
-      margin-top: 0;
-    }
-
-    .product-form__sections .pf-panel {
-      flex: 1 1 auto;
-      min-height: 0;
-      overflow: auto;
-    }
-
     .shipping-item {
       display: flex;
       flex-direction: column;
@@ -352,35 +335,35 @@
         overflow: auto;
       }
     }
-
-    .product-form__configurator .cfg-panel,
-    .product-form__sections .pf-panel,
+    .product-form__configurator .cfg-panel-scroll,
+    .product-form__sections,
     .shipping-item .ps-panel {
       scrollbar-width: thin;
       scrollbar-color: #111 transparent;
     }
 
-    .product-form__configurator .cfg-panel::-webkit-scrollbar,
-    .product-form__sections .pf-panel::-webkit-scrollbar,
+    .product-form__configurator .cfg-panel-scroll::-webkit-scrollbar,
+    .product-form__sections::-webkit-scrollbar,
     .shipping-item .ps-panel::-webkit-scrollbar {
       width: 8px;
     }
 
-    .product-form__configurator .cfg-panel::-webkit-scrollbar-track,
-    .product-form__sections .pf-panel::-webkit-scrollbar-track,
+    .product-form__configurator .cfg-panel-scroll::-webkit-scrollbar-track,
+    .product-form__sections::-webkit-scrollbar-track,
     .shipping-item .ps-panel::-webkit-scrollbar-track {
       background: transparent;
     }
 
-    .product-form__configurator .cfg-panel::-webkit-scrollbar-thumb,
-    .product-form__sections .pf-panel::-webkit-scrollbar-thumb,
+    .product-form__configurator .cfg-panel-scroll::-webkit-scrollbar-thumb,
+    .product-form__sections::-webkit-scrollbar-thumb,
     .shipping-item .ps-panel::-webkit-scrollbar-thumb {
       background: #111;
       border-radius: 999px;
     }
 
-    .product-form__configurator .cfg-panel::-webkit-scrollbar-thumb:hover,
-    .product-form__sections .pf-panel::-webkit-scrollbar-thumb:hover,
+    .product-form__configurator
+      .cfg-panel-scroll::-webkit-scrollbar-thumb:hover,
+    .product-form__sections::-webkit-scrollbar-thumb:hover,
     .shipping-item .ps-panel::-webkit-scrollbar-thumb:hover {
       background: #000;
     }
@@ -455,6 +438,7 @@
 
   .shipping-item {
     border-top: 1px solid var(--divider);
+    padding: 12px 0;
 
     .ps-toggle {
       all: unset;
@@ -498,22 +482,6 @@
 
     @media (min-width: 768px) {
       font-size: 1.5rem;
-    }
-  }
-
-  @media (min-width: 992px) {
-    .product-form__sections .pf-panel {
-      overflow: auto !important;
-      max-height: none !important;
-      opacity: 1;
-    }
-
-    .product-form__sections .pf-head {
-      flex: 0 0 auto;
-    }
-
-    .product-form__sections .pf-section {
-      min-height: 0;
     }
   }
 
@@ -718,7 +686,6 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  min-height: 46px;
 }
 
 .pdp .shipping-item .pf-kv__key,
@@ -730,6 +697,7 @@
   color: var(--text-muted, #5a5a5a);
   line-height: 1.5rem;
 }
+
 .pf-kv__icon {
   padding-right: 24px;
   font-size: var(--nc-konfigurator-head-desktop-size);
