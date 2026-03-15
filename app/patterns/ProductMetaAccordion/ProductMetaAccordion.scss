@@ -45,7 +45,6 @@
 
     .acc-panel {
       min-height: unset;
-      padding-bottom: 1.2rem;
       @media (min-width: 768px) {
         display: flex;
         align-items: flex-start;
@@ -71,25 +70,18 @@
 
       .meta-accordion__images-grid {
         display: grid; // statt flex
-        grid-template-columns: 1fr; // mobile: 1 pro Reihe
         gap: 2rem;
-        padding: 2rem 0;
-        padding-inline: 2rem;
-      }
 
-      @media (min-width: 768px) {
-        .meta-accordion__images-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr)); // max 2
-          display: flex;
-          justify-content: center;
-          align-items: flex-end;
+        @media (min-width: 768px) {
+          padding: 2rem 0;
+          padding-inline: 2rem;
         }
       }
 
-      @media (min-width: 992px) {
-        .meta-accordion__images-grid {
-          grid-template-columns: repeat(3, minmax(0, 1fr)); // max 3
-        }
+      .meta-accordion__images-grid {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
       }
 
       .meta-accordion__images-figure {

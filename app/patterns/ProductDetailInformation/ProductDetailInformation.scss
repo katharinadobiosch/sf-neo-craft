@@ -557,11 +557,6 @@
 
 /* Tablet: keine Desktop-Mittellinie */
 @media (min-width: 768px) and (max-width: 991px) {
-  .pdp {
-    gap: 1.5rem;
-    padding-bottom: calc(6.3rem + env(safe-area-inset-bottom, 0px));
-  }
-
   .pdp::before {
     display: none !important;
     content: none !important;
@@ -618,6 +613,7 @@
 .pdp .product-form__sections {
   .pf-kv__row {
     border-bottom: 1px solid var(--divider);
+    padding: 15px 0;
 
     @media (min-width: 768px) {
       display: grid;
@@ -625,6 +621,7 @@
       column-gap: 0;
       align-items: center;
       border-bottom: unset;
+      padding: 0;
     }
   }
 
@@ -632,12 +629,13 @@
     all: unset;
     cursor: pointer;
     width: 100%;
-    min-height: 60px;
+    // min-height: 60px;
     position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
+    // padding: 1.5rem 0;
 
     @media (min-width: 768px) {
       all: unset;
@@ -725,21 +723,24 @@
   width: 100%;
 }
 
-.pdp .shipping-item .pf-kv__key,
-.pdp .shipping-item .pf-kv__key--right {
-  display: block;
-  max-width: 100%;
-  text-align: left;
-  font-weight: 500;
-  color: var(--text-muted, #5a5a5a);
-  line-height: 1.5rem;
-}
+// .pdp .shipping-item .pf-kv__key,
+// .pdp .shipping-item .pf-kv__key--right {
+//   display: block;
+//   max-width: 100%;
+//   text-align: left;
+//   font-weight: 500;
+//   color: var(--text-muted, #5a5a5a);
+//   line-height: 1.5rem;
+// }
 
 .pf-kv__icon {
-  padding-right: 24px;
+  padding-right: 0px;
   font-size: var(--nc-konfigurator-head-desktop-size);
   line-height: var(--nc-konfigurator-head-desktop-line);
   font-weight: var(--nc-konfigurator-head-desktop-weight);
+  @media (min-width: 768px) {
+    padding-right: 24px;
+  }
 }
 .pdp .shipping-item .pf-kv__icon {
   display: inline-flex;
