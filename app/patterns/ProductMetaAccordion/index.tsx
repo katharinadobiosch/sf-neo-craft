@@ -3,7 +3,6 @@ import {useMemo} from 'react';
 import {normalizeMetafields} from '~/utils/metafields';
 import metaDefsJson from '~/graphql/product/product-metafield-defs.json';
 
-// ---- Typen ----
 type MetaDef = {
   namespace: string;
   key: string;
@@ -16,12 +15,11 @@ type MetaDef = {
 type NormalizedNode = {
   key?: string;
   fqKey?: string;
-  kind?: string; // <- absichtlich weit, damit normalizeMetafields kompatibel ist
+  kind?: string;
   display?: string | string[];
-  list?: unknown[]; // <- kein any
+  list?: unknown[];
 };
 
-// ---- Metafield-Definitionen vorbereiten ----
 const RAW_DEFS: MetaDef[] = Array.isArray(metaDefsJson)
   ? (metaDefsJson as MetaDef[])
   : ((metaDefsJson as unknown as {productMetafieldDefsAll?: MetaDef[]})
@@ -56,6 +54,7 @@ function metaobjectListToText(n: NormalizedNode) {
     const obj = m as any;
     const pick = (k: string) =>
       obj?.fields?.find((x: any) => x.key === k)?.value;
+
     return (
       pick('label') ||
       pick('name') ||
@@ -79,14 +78,10 @@ function fileRefListToImgs(
     .map((m: unknown) => {
       const obj = m as any;
 
-      // ✅ 1) Normalized shape aus app/utils/metafields.ts:
-      // { __typename:'MediaImage', url, altText, width, height }
       if (typeof obj?.url === 'string' && obj.url) {
         return {url: obj.url, altText: obj.altText};
       }
 
-      // ✅ 2) Shopify GraphQL shape (falls irgendwo unge-normalized durchrutscht):
-      // { image: { url, altText } }
       if (typeof obj?.image?.url === 'string' && obj.image.url) {
         return {url: obj.image.url, altText: obj.image.altText};
       }
@@ -94,6 +89,28 @@ function fileRefListToImgs(
       return null;
     })
     .filter(Boolean) as Array<{url: string; altText?: string}>;
+}
+
+function fileRefListToFiles(
+  n: NormalizedNode,
+): Array<{url: string; label: string}> {
+  const list = n.list;
+  if (!Array.isArray(list)) return [];
+
+  return list
+    .map((m: unknown, index: number) => {
+      const obj = m as any;
+
+      const url = obj?.url || obj?.image?.url || obj?.sources?.[0]?.url || null;
+
+      if (!url) return null;
+
+      const label =
+        obj?.filename || obj?.name || obj?.altText || `Download ${index + 1}`;
+
+      return {url, label};
+    })
+    .filter(Boolean) as Array<{url: string; label: string}>;
 }
 
 function coerceKind(
@@ -104,11 +121,18 @@ function coerceKind(
     n.kind === 'metaobject_reference' ||
     n.kind === 'file_reference' ||
     n.kind === 'text'
-  )
+  ) {
     return n.kind;
-  if (defTypeName.includes('metaobject_reference'))
+  }
+
+  if (defTypeName.includes('metaobject_reference')) {
     return 'metaobject_reference';
-  if (defTypeName.includes('file_reference')) return 'file_reference';
+  }
+
+  if (defTypeName.includes('file_reference')) {
+    return 'file_reference';
+  }
+
   return 'text';
 }
 
@@ -119,10 +143,17 @@ type BuiltItem =
       fqKey: string;
       type: 'images';
       images: Array<{url: string; altText?: string}>;
+    }
+  | {
+      label: string;
+      fqKey: string;
+      type: 'files';
+      files: Array<{url: string; label: string}>;
     };
 
 function buildItems(normalizedArray: NormalizedNode[]) {
   const byKey = new Map<string, NormalizedNode>();
+
   for (const n of normalizedArray) {
     const k = n.key ?? n.fqKey;
     if (!k) continue;
@@ -134,7 +165,6 @@ function buildItems(normalizedArray: NormalizedNode[]) {
   for (const def of FIELD_CONFIG) {
     if (EXCLUDE_FQ_KEYS.has(def.fqKey)) continue;
 
-    // ✅ NEU: wenn label leer ist -> Item niemals rendern
     const label = String(def.label ?? '').trim();
     if (!label) continue;
 
@@ -156,8 +186,22 @@ function buildItems(normalizedArray: NormalizedNode[]) {
     }
 
     if (kind === 'file_reference') {
+      if (def.key === 'download') {
+        const files = fileRefListToFiles(n);
+        if (!files.length) continue;
+
+        items.push({
+          label,
+          fqKey: def.fqKey,
+          type: 'files',
+          files,
+        });
+        continue;
+      }
+
       const imgs = fileRefListToImgs(n);
       if (!imgs.length) continue;
+
       items.push({
         label,
         fqKey: def.fqKey,
@@ -170,6 +214,7 @@ function buildItems(normalizedArray: NormalizedNode[]) {
     const raw = Array.isArray(n.display)
       ? n.display.filter(Boolean).join(', ')
       : (n.display ?? '');
+
     const val = String(raw ?? '').trim();
     if (!val) continue;
 
@@ -198,20 +243,17 @@ export function ProductMetaAccordion({
     return items.filter((item) => {
       if (!String(item.label ?? '').trim()) return false;
       if (item.type === 'text') return Boolean(item.value?.trim());
-      if (item.type === 'images')
+      if (item.type === 'images') {
         return Array.isArray(item.images) && item.images.length > 0;
+      }
+      if (item.type === 'files') {
+        return Array.isArray(item.files) && item.files.length > 0;
+      }
       return false;
     });
   }, [items]);
 
   if (!visibleItems.length) return null;
-
-  const imageCount =
-    (
-      visibleItems.find((it) => it.label === 'Measurements') as
-        | Extract<BuiltItem, {type: 'images'}>
-        | undefined
-    )?.images?.length ?? 0;
 
   return (
     <>
@@ -263,6 +305,18 @@ export function ProductMetaAccordion({
                       ))}
                     </div>
                   </div>
+                )}
+
+                {item.type === 'files' && item.files?.length > 0 && (
+                  <ul className="meta-accordion__file-list">
+                    {item.files.map((file, i) => (
+                      <li key={`${item.fqKey}-${i}`}>
+                        <a href={file.url} target="_blank" rel="noreferrer">
+                          {file.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </div>
             </div>

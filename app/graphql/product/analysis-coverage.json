@@ -1,0 +1,83 @@
+{
+  "totalProducts": 55,
+  "withSeries": 5,
+  "withoutSeries": 50,
+  "coverage": [
+    {
+      "key": "custom.product_series",
+      "productsWithValue": 5
+    },
+    {
+      "key": "custom.measurements",
+      "productsWithValue": 9
+    },
+    {
+      "key": "custom.material",
+      "productsWithValue": 2
+    },
+    {
+      "key": "custom.technical_specs",
+      "productsWithValue": 0
+    },
+    {
+      "key": "custom.photometric_specs",
+      "productsWithValue": 0
+    },
+    {
+      "key": "custom.electric_specs",
+      "productsWithValue": 0
+    },
+    {
+      "key": "custom.certification",
+      "productsWithValue": 0
+    },
+    {
+      "key": "custom.lead_time",
+      "productsWithValue": 0
+    },
+    {
+      "key": "custom.shipping",
+      "productsWithValue": 0
+    },
+    {
+      "key": "custom.configurator_addons",
+      "productsWithValue": 0
+    },
+    {
+      "key": "custom.series_hero",
+      "productsWithValue": 1
+    },
+    {
+      "key": "custom.product_tile",
+      "productsWithValue": 10
+    },
+    {
+      "key": "custom.produkt_duo_top_links",
+      "productsWithValue": 6
+    },
+    {
+      "key": "custom.produkt_duo_top_rechts",
+      "productsWithValue": 6
+    },
+    {
+      "key": "custom.hero_split_links",
+      "productsWithValue": 5
+    },
+    {
+      "key": "custom.hero_split_rechts",
+      "productsWithValue": 5
+    },
+    {
+      "key": "custom.hero_split_text",
+      "productsWithValue": 4
+    },
+    {
+      "key": "custom.teaser_duo_bottom_links",
+      "productsWithValue": 5
+    },
+    {
+      "key": "custom.teaser_duo_bottom_rechts",
+      "productsWithValue": 5
+    }
+  ]
+}

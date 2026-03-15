@@ -16,6 +16,19 @@ function getMfByKey(metafields, key) {
   );
 }
 
+const ACCORDION_KEYS = new Set([
+  'measurements',
+  'material',
+  'technical_specs',
+  'photometric_specs',
+  'electric_specs',
+  'certification',
+  'lead_time_shipping',
+  'download',
+  'mirror_glass_type',
+  'dichroic_glass',
+]);
+
 export function ProductForm({
   productOptions,
   product,
@@ -27,27 +40,19 @@ export function ProductForm({
   const {open: openAside} = useAside();
   const navigate = useNavigate();
 
-  const BLACKLIST = new Set([
-    'series_hero',
-    'product_tile',
-    'produkt_duo_top_links',
-    'produkt_duo_top_rechts',
-    'hero_split_links',
-    'hero_split_rechts',
-    'teaser_duo_bottom_links',
-    'teaser_duo_bottom_rechts',
-    'hero_split_text',
-    'product_series',
-    'content',
-    'shipping', // ensure shipping metafield does not land in "mfOthers"
-  ]);
-
   const hasContent = (m) => {
     if (!m) return false;
-    const v = m.value;
+
+    const v = m?.value;
     if (typeof v === 'string') return v.trim().length > 0;
     if (typeof v === 'number') return !Number.isNaN(v);
     if (typeof v === 'boolean') return true;
+
+    if (m?.reference) return true;
+    if (Array.isArray(m?.references?.nodes) && m.references.nodes.length > 0) {
+      return true;
+    }
+
     return false;
   };
 
@@ -56,34 +61,27 @@ export function ProductForm({
       ? seriesProducts[seriesActiveIndex] || seriesProducts[0]
       : product;
 
-  const norm = (s = '') =>
-    s
-      .normalize('NFKD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase()
-      .trim();
-
-  const isMeasurementsMeta = (m) => {
-    const n = norm(m?.key || m?.definition?.name || m?.name || '');
-    return n === 'measurements' || n === 'measurement' || n.includes('measure');
-  };
-
   const allMetafieldsRaw = Array.isArray(activeProduct?.metafields)
     ? activeProduct.metafields
     : [];
+
   const allMetafields = allMetafieldsRaw.filter(Boolean);
 
   const mfShipping = getMfByKey(allMetafields, 'shipping');
 
-  const mfMeasurements = allMetafields.filter(
-    (m) => m && isMeasurementsMeta(m) && hasContent(m),
-  );
+  const mfMeasurements = allMetafields.filter((m) => {
+    const key = String(m?.key || '')
+      .toLowerCase()
+      .trim();
+    return key === 'measurements' && hasContent(m);
+  });
 
   const mfOthers = allMetafields.filter((m) => {
-    if (!m) return false;
-    const key = (m.key || '').toLowerCase().trim();
-    if (isMeasurementsMeta(m)) return false;
-    if (BLACKLIST.has(key)) return false;
+    const key = String(m?.key || '')
+      .toLowerCase()
+      .trim();
+    if (key === 'measurements') return false;
+    if (!ACCORDION_KEYS.has(key)) return false;
     if (!hasContent(m)) return false;
     return true;
   });
@@ -116,10 +114,12 @@ export function ProductForm({
 
   const shippingTitle =
     mfShipping?.name || mfShipping?.key || 'Lead time + shipping';
+
   const shippingRaw =
     typeof mfShipping?.value === 'string' && mfShipping.value.trim().length > 0
       ? mfShipping.value
       : null;
+
   const shippingLines = shippingRaw?.split(/\r?\n/).filter(Boolean) || [
     '2–4 weeks (depending on stock)',
     'parcel-delivery (door to door)',
@@ -127,11 +127,8 @@ export function ProductForm({
     'higher quantities via pallet-delivery (curbside)',
   ];
 
-  // --------- DETAILS: measure height like Configurator ----------
-
   return (
     <div className="product-form pf--segmented">
-      {/* 1) Configurator – fixed */}
       <div className="product-form__configurator">
         <Configurator
           productOptions={productOptions}
@@ -144,7 +141,6 @@ export function ProductForm({
         />
       </div>
 
-      {/* 2) Middle section: Details fill the remaining space */}
       <div className="product-form__sections">
         <ProductDetailsSection
           mfMeasurements={mfMeasurements}
@@ -153,12 +149,10 @@ export function ProductForm({
         />
       </div>
 
-      {/* 3) Shipping (keep your classes, just animate panel like cfg-panel) */}
       <div className="product-form__shipping">
         <ProductShippingSection title={shippingTitle} lines={shippingLines} />
       </div>
 
-      {/* 4) CTA */}
       <div className="pdp__cta-container">
         <div className="cta-button">
           <span className="cta-arrow">→</span>
@@ -175,6 +169,7 @@ export function ProductForm({
             {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
           </AddToCartButton>
         </div>
+
         <div
           className="cta-question"
           onClick={() => (window.location = 'mailto:test@example.com')}

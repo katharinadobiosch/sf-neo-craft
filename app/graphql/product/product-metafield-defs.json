@@ -122,7 +122,7 @@
   {
     "namespace": "custom",
     "key": "product_tile",
-    "name": "Collection Tile + Hover",
+    "name": "Product Tile + Hover",
     "type": {
       "name": "list.file_reference"
     },
@@ -386,7 +386,7 @@
   {
     "namespace": "custom",
     "key": "product_series",
-    "name": "Product Serie",
+    "name": "Product Series",
     "type": {
       "name": "metaobject_reference"
     },
@@ -413,6 +413,78 @@
     "name": "Shipping",
     "type": {
       "name": "rich_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "technical_specs",
+    "name": "Technical Specs ",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "photometric_specs",
+    "name": "Photometric Specs",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "electric_specs",
+    "name": "Electric Specs",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "certification",
+    "name": "Certification",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "lead_time_shipping",
+    "name": "Lead Time / Shipping",
+    "type": {
+      "name": "multi_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "download",
+    "name": "Download",
+    "type": {
+      "name": "list.file_reference"
     },
     "access": {
       "storefront": "PUBLIC_READ"

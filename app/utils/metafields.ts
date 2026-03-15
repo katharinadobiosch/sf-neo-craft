@@ -41,8 +41,69 @@ type MediaImageRef = {
   } | null;
 };
 
+type GenericFileRef = {
+  __typename: 'GenericFile';
+  url?: string;
+  alt?: string | null;
+  altText?: string | null;
+  originalFileName?: string | null;
+  filename?: string | null;
+};
+
+type FileRefLike = MediaImageRef | GenericFileRef;
+
 function isMediaImageRef(v: unknown): v is MediaImageRef {
   return isRecord(v) && v.__typename === 'MediaImage';
+}
+
+function isGenericFileRef(v: unknown): v is GenericFileRef {
+  return isRecord(v) && v.__typename === 'GenericFile';
+}
+
+type NormalizedFile =
+  | {
+      __typename: 'MediaImage';
+      url: string;
+      altText?: string | null;
+      width?: number;
+      height?: number;
+    }
+  | {
+      __typename: 'GenericFile';
+      url: string;
+      altText?: string | null;
+      filename?: string | null;
+      name?: string | null;
+    }
+  | null;
+
+function fileFromRef(ref: unknown): NormalizedFile {
+  if (isMediaImageRef(ref)) {
+    const img = ref.image;
+    if (!img?.url) return null;
+
+    return {
+      __typename: 'MediaImage',
+      url: img.url,
+      altText: img.altText ?? null,
+      width: img.width,
+      height: img.height,
+    };
+  }
+
+  if (isGenericFileRef(ref)) {
+    if (!ref.url) return null;
+
+    return {
+      __typename: 'GenericFile',
+      url: ref.url,
+      altText: ref.altText ?? ref.alt ?? null,
+      filename: ref.originalFileName ?? ref.filename ?? null,
+      name: ref.originalFileName ?? ref.filename ?? null,
+    };
+  }
+
+  return null;
 }
 
 type NormalizedMedia = {
@@ -198,15 +259,15 @@ export function normalizeMetafield(mf: unknown): NormalizedMetafield | null {
 
     case 'file_reference': {
       if (isList) {
-        const imgs = refs
-          .map(mediaFromRef)
-          .filter((x): x is Exclude<NormalizedMedia, null> => Boolean(x));
-        out.list = imgs;
-        out.display = imgs.map((i) => i.url);
+        const files = refs
+          .map(fileFromRef)
+          .filter((x): x is Exclude<NormalizedFile, null> => Boolean(x));
+        out.list = files;
+        out.display = files.map((f) => f.url);
       } else {
-        const img = mediaFromRef(refs[0]);
-        out.value = img;
-        out.display = img?.url ?? '';
+        const file = fileFromRef(refs[0]);
+        out.value = file;
+        out.display = file?.url ?? '';
       }
       break;
     }

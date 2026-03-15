@@ -1,0 +1,937 @@
+[
+  {
+    "title": "ISOM SQUARE",
+    "handle": "isom-square",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "Size",
+      "Glass"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "ISOM TALL",
+    "handle": "isom-tall",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "Size",
+      "Glass"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "ISOM OBLONG",
+    "handle": "isom-oblong",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "Size",
+      "Glass"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "Loop Chair",
+    "handle": "loop-chair",
+    "productType": "Chair",
+    "hasSeries": false,
+    "options": [
+      "Size",
+      "Frame"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "Loop Stool",
+    "handle": "loop-stool",
+    "productType": "Chair",
+    "hasSeries": false,
+    "options": [
+      "Frame"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "Loop Table / oak black stained",
+    "handle": "loop-table-ash-black",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "Size",
+      "Frame",
+      "Table Top Solid Wood"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "Loop Table / Oak",
+    "handle": "loop-table-oak",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "Size",
+      "Frame",
+      "Table Top Solid Wood"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "Loop Table / American walnut",
+    "handle": "loop-table-walnut",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "Size",
+      "Frame",
+      "Table Top Solid Wood"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "IRIS GLOBE",
+    "handle": "iris",
+    "productType": "Lamp",
+    "hasSeries": false,
+    "options": [
+      "Size",
+      "Glass coating",
+      "Metal surfaces & cable colour"
+    ],
+    "keys": [
+      "custom.metal_colour",
+      "custom.product_tile",
+      "custom_slider.content"
+    ],
+    "important": {
+      "custom.product_tile": "[\"gid://shopify/MediaImage/62327066329352\",\"gid://shopify/MediaImage/62326947578120\"]"
+    }
+  },
+  {
+    "title": "Loop Bench Oak",
+    "handle": "loop-bench-oak",
+    "productType": "bench",
+    "hasSeries": false,
+    "options": [
+      "Length",
+      "Wood",
+      "Colour frame"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "Loop Bench Oak black stained",
+    "handle": "loop-bench-oak-black-stained",
+    "productType": "bench",
+    "hasSeries": false,
+    "options": [
+      "Length",
+      "Wood",
+      "Colour frame"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "Loop Bench American walnut",
+    "handle": "loop-bench-american-walnut",
+    "productType": "bench",
+    "hasSeries": false,
+    "options": [
+      "length",
+      "colour frame",
+      "wood"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "RHO",
+    "handle": "rho",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "size",
+      "glass"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "PRISMA CIRCLE glass",
+    "handle": "delta-circle-1",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "MATERIAL"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "PRISMA TALL glass",
+    "handle": "delta-tall",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "MATERIAL"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "CAMO marble",
+    "handle": "camo-marble-with-brass-legs",
+    "productType": "cofee table",
+    "hasSeries": false,
+    "options": [
+      "Type",
+      "Material",
+      "Height"
+    ],
+    "keys": [
+      "custom_slider.content"
+    ],
+    "important": {}
+  },
+  {
+    "title": "CAMO wood",
+    "handle": "camo-wood-with-brass-legs",
+    "productType": "cofee table",
+    "hasSeries": false,
+    "options": [
+      "Type",
+      "Material",
+      "Height"
+    ],
+    "keys": [
+      "custom_slider.content",
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "CAMO brass",
+    "handle": "camo-brass",
+    "productType": "cofee table",
+    "hasSeries": false,
+    "options": [
+      "Type",
+      "Material",
+      "Height"
+    ],
+    "keys": [
+      "custom_slider.content"
+    ],
+    "important": {}
+  },
+  {
+    "title": "CAMO glass",
+    "handle": "camo-glass-with-brass-legs",
+    "productType": "cofee table",
+    "hasSeries": false,
+    "options": [
+      "TYP",
+      "DICHROIC GLASS",
+      "HEIGHT"
+    ],
+    "keys": [
+      "custom_slider.content",
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "FIFTY glass",
+    "handle": "fifty-glass",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "type",
+      "glass"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "FIFTY marble",
+    "handle": "fifty-marble",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "TYPE",
+      "Marble"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "FIFTY wood",
+    "handle": "fifty-wood",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "Type",
+      "WOOD"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "FIFTY steel",
+    "handle": "fifty-steel",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "Type",
+      "Powder coated steel"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "CAMO mirror steel",
+    "handle": "camo-mirror-steel",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "Type",
+      "Material",
+      "Height"
+    ],
+    "keys": [
+      "custom_slider.content"
+    ],
+    "important": {}
+  },
+  {
+    "title": "OSOM TALL",
+    "handle": "osom-tall",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "Size",
+      "Glass"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "OSOM CIRCLE",
+    "handle": "osom-circle",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "Size",
+      "Glass"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "OSOM OBLONG",
+    "handle": "osom-oblong",
+    "productType": "Table",
+    "hasSeries": false,
+    "options": [
+      "Size",
+      "Glass"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "DIA with brass rod",
+    "handle": "dia-brass",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "glass",
+      "diameter",
+      "height"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "DIA with mirror steel rod",
+    "handle": "dia-mirror-steel",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "diameter",
+      "height",
+      "glass"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "DIAMOND",
+    "handle": "diamond",
+    "productType": "Lamp",
+    "hasSeries": false,
+    "options": [
+      "diameter",
+      "lampshade + ceiling cap"
+    ],
+    "keys": [
+      "custom.measurements",
+      "custom_slider.content",
+      "mc-facebook.google_product_category"
+    ],
+    "important": {
+      "custom.measurements": "[\"gid://shopify/MediaImage/59279948054792\",\"gid://shopify/MediaImage/59279948120328\",\"gid://shopify/MediaImage/592799481…"
+    }
+  },
+  {
+    "title": "IRIS TUBE",
+    "handle": "iris-tube",
+    "productType": "Lamp",
+    "hasSeries": false,
+    "options": [
+      "dichroic coating"
+    ],
+    "keys": [
+      "custom.measurements"
+    ],
+    "important": {
+      "custom.measurements": "[\"gid://shopify/MediaImage/59250050400520\"]"
+    }
+  },
+  {
+    "title": "MOON",
+    "handle": "moon",
+    "productType": "Accessoiries",
+    "hasSeries": false,
+    "options": [
+      "diameter",
+      "marble fixture",
+      "mirror glass"
+    ],
+    "keys": [
+      "custom.measurements"
+    ],
+    "important": {
+      "custom.measurements": "[\"gid://shopify/MediaImage/59248949854472\",\"gid://shopify/MediaImage/59248949821704\",\"gid://shopify/MediaImage/592489498…"
+    }
+  },
+  {
+    "title": "STRIPE",
+    "handle": "stripe-oblong",
+    "productType": "Wohnaccessoires",
+    "hasSeries": false,
+    "options": [
+      "Type",
+      "mirror colour"
+    ],
+    "keys": [
+      "custom.measurements"
+    ],
+    "important": {
+      "custom.measurements": "[\"gid://shopify/MediaImage/59248885825800\",\"gid://shopify/MediaImage/59248885629192\",\"gid://shopify/MediaImage/592488857…"
+    }
+  },
+  {
+    "title": "PRISMA CIRCLE steel",
+    "handle": "prisma-circle-steel",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "size",
+      "steel colour"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "PRISMA TALL steel",
+    "handle": "prisma-tall-steel",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "size",
+      "steel colour"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "GOBA",
+    "handle": "goba",
+    "productType": "Lamp",
+    "hasSeries": false,
+    "options": [
+      "size",
+      "colour base",
+      "glass colour"
+    ],
+    "keys": [
+      "custom.diameter",
+      "custom.interchangeable_plugs",
+      "custom.oled_options",
+      "custom_slider.content"
+    ],
+    "important": {}
+  },
+  {
+    "title": "FIFTY TALL",
+    "handle": "fifty-tall",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "wood",
+      "glass"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "NC-IN-117-24",
+    "handle": "nc-in-117-24",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "Title"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "DIA",
+    "handle": "dia",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "Type",
+      "Height",
+      "Colour Table Top"
+    ],
+    "keys": [],
+    "important": {}
+  },
+  {
+    "title": "Dichro Glas TEST",
+    "handle": "dichro-glas",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "Title"
+    ],
+    "keys": [
+      "custom.materialBoolean"
+    ],
+    "important": {}
+  },
+  {
+    "title": "Marmor TEST",
+    "handle": "marmor",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "Title"
+    ],
+    "keys": [
+      "custom.materialBoolean"
+    ],
+    "important": {}
+  },
+  {
+    "title": "Holz TEST",
+    "handle": "holz",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "Title"
+    ],
+    "keys": [
+      "custom.materialBoolean"
+    ],
+    "important": {}
+  },
+  {
+    "title": "Metall TEST",
+    "handle": "metall",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "Title"
+    ],
+    "keys": [
+      "custom.materialBoolean"
+    ],
+    "important": {}
+  },
+  {
+    "title": "! Glas TEST",
+    "handle": "glas",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "Title"
+    ],
+    "keys": [
+      "custom.materialBoolean",
+      "custom.product_tile"
+    ],
+    "important": {
+      "custom.product_tile": "[\"gid://shopify/MediaImage/60328438169864\",\"gid://shopify/MediaImage/60328442265864\"]"
+    }
+  },
+  {
+    "title": "Muster Material TEST",
+    "handle": "muster-material",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "Title"
+    ],
+    "keys": [
+      "custom.materialBoolean",
+      "custom.material_tile_color",
+      "custom.product_tile",
+      "custom.produkt_duo_top_links",
+      "custom.produkt_duo_top_rechts"
+    ],
+    "important": {
+      "custom.product_tile": "[\"gid://shopify/MediaImage/59677946577160\",\"gid://shopify/MediaImage/15007470125242\"]",
+      "custom.produkt_duo_top_links": "[\"gid://shopify/MediaImage/59677945987336\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.produkt_duo_top_rechts": "[\"gid://shopify/MediaImage/20779910693050\",\"gid://shopify/MediaImage/60328442265864\"]"
+    }
+  },
+  {
+    "title": "MOON TEST",
+    "handle": "moon-kopie",
+    "productType": "Accessoiries",
+    "hasSeries": false,
+    "options": [
+      "diameter",
+      "marble fixture",
+      "mirror glass"
+    ],
+    "keys": [
+      "custom.measurements",
+      "custom.product_tile"
+    ],
+    "important": {
+      "custom.measurements": "[\"gid://shopify/MediaImage/59248949854472\",\"gid://shopify/MediaImage/59248949821704\",\"gid://shopify/MediaImage/592489498…",
+      "custom.product_tile": "[\"gid://shopify/MediaImage/21784684691642\",\"gid://shopify/MediaImage/21784683118778\"]"
+    }
+  },
+  {
+    "title": "TEST",
+    "handle": "test",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "Title"
+    ],
+    "keys": [
+      "custom.hero_split_links",
+      "custom.hero_split_rechts",
+      "custom.hero_split_text",
+      "custom.product_tile",
+      "custom.produkt_duo_top_links",
+      "custom.produkt_duo_top_rechts",
+      "custom.teaser_duo_bottom_links",
+      "custom.teaser_duo_bottom_rechts"
+    ],
+    "important": {
+      "custom.product_tile": "[\"gid://shopify/MediaImage/60969244950792\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.produkt_duo_top_links": "[\"gid://shopify/MediaImage/60969244918024\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.produkt_duo_top_rechts": "[\"gid://shopify/MediaImage/60969244852488\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_links": "[\"gid://shopify/MediaImage/59863547937032\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_rechts": "[\"gid://shopify/MediaImage/60969244852488\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_text": "GOBA balances sculptural clarity with subtle technology— bringing soft, responsive light into any space.",
+      "custom.teaser_duo_bottom_links": "[\"gid://shopify/MediaImage/58751559270664\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.teaser_duo_bottom_rechts": "[\"gid://shopify/MediaImage/42112233177352\",\"gid://shopify/MediaImage/60328442265864\"]"
+    }
+  },
+  {
+    "title": "GOBA TEST",
+    "handle": "goba-kopie-1",
+    "productType": "Lamp",
+    "hasSeries": false,
+    "options": [
+      "size",
+      "colour base",
+      "glass colour"
+    ],
+    "keys": [
+      "custom.cable_color",
+      "custom.ceiling_cap",
+      "custom.diameter",
+      "custom.dichroic_glass",
+      "custom.frame_color",
+      "custom.glass_color",
+      "custom.height",
+      "custom.hero_split_links",
+      "custom.hero_split_rechts",
+      "custom.hero_split_text",
+      "custom.interchangeable_plugs",
+      "custom.length",
+      "custom.marble_fixture",
+      "custom.marble_type",
+      "custom.material",
+      "custom.material_tile_color",
+      "custom.measurements",
+      "custom.metal_color",
+      "custom.metal_finish",
+      "custom.mirror_glass_type",
+      "custom.oled_options",
+      "custom.option",
+      "custom.plug_type",
+      "custom.product_color",
+      "custom.product_tile",
+      "custom.produkt_duo_top_links",
+      "custom.produkt_duo_top_rechts",
+      "custom.size",
+      "custom.table_top",
+      "custom.teaser_duo_bottom_links",
+      "custom.teaser_duo_bottom_rechts",
+      "custom.width",
+      "custom.wood_type"
+    ],
+    "important": {
+      "custom.measurements": "[\"gid://shopify/MediaImage/59237752013064\",\"gid://shopify/MediaImage/59237751783688\",\"gid://shopify/MediaImage/592377518…",
+      "custom.material": "[\"Einzeiliger Text (Liste)\"]",
+      "custom.product_tile": "[\"gid://shopify/MediaImage/63878693323016\"]",
+      "custom.produkt_duo_top_links": "[\"gid://shopify/MediaImage/60969244950792\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.produkt_duo_top_rechts": "[\"gid://shopify/MediaImage/60969244918024\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_links": "[\"gid://shopify/MediaImage/60969244950792\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_rechts": "[\"gid://shopify/MediaImage/60969244918024\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_text": "hero split text",
+      "custom.teaser_duo_bottom_links": "[\"gid://shopify/MediaImage/60969244950792\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.teaser_duo_bottom_rechts": "[\"gid://shopify/MediaImage/60969244950792\",\"gid://shopify/MediaImage/60328442265864\"]"
+    }
+  },
+  {
+    "title": "DIA with mirror steel rod TEST",
+    "handle": "dia-with-mirror-steel-rod-kopie",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "glass",
+      "diameter",
+      "height"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "DIA with brass rod TEST",
+    "handle": "dia-with-brass-rod-kopie",
+    "productType": "",
+    "hasSeries": false,
+    "options": [
+      "glass",
+      "diameter",
+      "height"
+    ],
+    "keys": [
+      "mc-facebook.google_product_category"
+    ],
+    "important": {}
+  },
+  {
+    "title": "OSOM OBLONG TEST",
+    "handle": "osom-oblong-kopie",
+    "productType": "Table",
+    "hasSeries": true,
+    "options": [
+      "Size",
+      "Glass"
+    ],
+    "keys": [
+      "custom.cable_color",
+      "custom.ceiling_cap",
+      "custom.diameter",
+      "custom.dichroic_glass",
+      "custom.frame_color",
+      "custom.glass_color",
+      "custom.height",
+      "custom.hero_split_links",
+      "custom.hero_split_rechts",
+      "custom.hero_split_text",
+      "custom.length",
+      "custom.marble_fixture",
+      "custom.marble_type",
+      "custom.material",
+      "custom.measurements",
+      "custom.metal_color",
+      "custom.metal_finish",
+      "custom.mirror_glass_type",
+      "custom.option",
+      "custom.product_color",
+      "custom.product_series",
+      "custom.product_tile",
+      "custom.produkt_duo_top_links",
+      "custom.produkt_duo_top_rechts",
+      "custom.size",
+      "custom.table_top",
+      "custom.teaser_duo_bottom_links",
+      "custom.teaser_duo_bottom_rechts",
+      "custom.width",
+      "custom.wood_type"
+    ],
+    "important": {
+      "custom.product_series": "gid://shopify/Metaobject/289653653768",
+      "custom.measurements": "[\"gid://shopify/MediaImage/59248885596424\",\"gid://shopify/MediaImage/59248885760264\",\"gid://shopify/MediaImage/592488857…",
+      "custom.material": "[\"Material\"]",
+      "custom.product_tile": "[\"gid://shopify/MediaImage/20692544618682\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.produkt_duo_top_links": "[\"gid://shopify/MediaImage/20692544389306\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.produkt_duo_top_rechts": "[\"gid://shopify/MediaImage/20692544323770\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_links": "[\"gid://shopify/MediaImage/20692543537338\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_rechts": "[\"gid://shopify/MediaImage/20692544585914\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_text": "OSOM OBLONG TEST",
+      "custom.teaser_duo_bottom_links": "[\"gid://shopify/MediaImage/20692543602874\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.teaser_duo_bottom_rechts": "[\"gid://shopify/MediaImage/20692543340730\",\"gid://shopify/MediaImage/60328442265864\"]"
+    }
+  },
+  {
+    "title": "OSOM CIRCLE TEST",
+    "handle": "osom-circle-kopie",
+    "productType": "Table",
+    "hasSeries": true,
+    "options": [
+      "Size",
+      "Glass"
+    ],
+    "keys": [
+      "custom.hero_split_links",
+      "custom.hero_split_rechts",
+      "custom.measurements",
+      "custom.product_series",
+      "custom.product_tile",
+      "custom.produkt_duo_top_links",
+      "custom.produkt_duo_top_rechts",
+      "custom.teaser_duo_bottom_links",
+      "custom.teaser_duo_bottom_rechts"
+    ],
+    "important": {
+      "custom.product_series": "gid://shopify/Metaobject/289653653768",
+      "custom.measurements": "[\"gid://shopify/MediaImage/59248885629192\",\"gid://shopify/MediaImage/59248885727496\",\"gid://shopify/MediaImage/592488858…",
+      "custom.product_tile": "[\"gid://shopify/MediaImage/20692504740026\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.produkt_duo_top_links": "[\"gid://shopify/MediaImage/20692504510650\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.produkt_duo_top_rechts": "[\"gid://shopify/MediaImage/20692504477882\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_links": "[\"gid://shopify/MediaImage/20692503560378\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_rechts": "[\"gid://shopify/MediaImage/20692503560378\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.teaser_duo_bottom_links": "[\"gid://shopify/MediaImage/20692503625914\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.teaser_duo_bottom_rechts": "[\"gid://shopify/MediaImage/20692504477882\",\"gid://shopify/MediaImage/60328442265864\"]"
+    }
+  },
+  {
+    "title": "OSOM TALL TEST",
+    "handle": "osom-tall-kopie",
+    "productType": "Table",
+    "hasSeries": true,
+    "options": [
+      "Size",
+      "Glass"
+    ],
+    "keys": [
+      "custom.hero_split_links",
+      "custom.hero_split_rechts",
+      "custom.hero_split_text",
+      "custom.product_series",
+      "custom.product_tile",
+      "custom.produkt_duo_top_links",
+      "custom.produkt_duo_top_rechts",
+      "custom.series_hero",
+      "custom.teaser_duo_bottom_links",
+      "custom.teaser_duo_bottom_rechts"
+    ],
+    "important": {
+      "custom.product_series": "gid://shopify/Metaobject/289653653768",
+      "custom.series_hero": "[\"gid://shopify/MediaImage/59642363347208\"]",
+      "custom.product_tile": "[\"gid://shopify/MediaImage/20692422295738\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.produkt_duo_top_links": "[\"gid://shopify/MediaImage/20692422262970\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.produkt_duo_top_rechts": "[\"gid://shopify/MediaImage/20692447297722\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_links": "[\"gid://shopify/MediaImage/20692422557882\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_rechts": "[\"gid://shopify/MediaImage/20692447494330\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.hero_split_text": "osom tall text",
+      "custom.teaser_duo_bottom_links": "[\"gid://shopify/MediaImage/20692447297722\",\"gid://shopify/MediaImage/60328442265864\"]",
+      "custom.teaser_duo_bottom_rechts": "[\"gid://shopify/MediaImage/20692447330490\",\"gid://shopify/MediaImage/60328442265864\"]"
+    }
+  },
+  {
+    "title": "Kind IRIS TUBE",
+    "handle": "kind-iris-tube",
+    "productType": "Lamp",
+    "hasSeries": true,
+    "options": [
+      "dichroic coating"
+    ],
+    "keys": [
+      "custom.measurements",
+      "custom.product_series"
+    ],
+    "important": {
+      "custom.product_series": "gid://shopify/Metaobject/335432089864",
+      "custom.measurements": "[\"gid://shopify/MediaImage/59250050400520\"]"
+    }
+  },
+  {
+    "title": "Kind Iris Globe",
+    "handle": "kind-iris-globe",
+    "productType": "Lamp",
+    "hasSeries": true,
+    "options": [
+      "Size",
+      "Glass coating",
+      "Metal surfaces & cable colour"
+    ],
+    "keys": [
+      "custom.dichroic_glass",
+      "custom.metal_colour",
+      "custom.mirror_glass_type",
+      "custom.product_series",
+      "custom.product_tile",
+      "custom_slider.content"
+    ],
+    "important": {
+      "custom.product_series": "gid://shopify/Metaobject/335432089864",
+      "custom.product_tile": "[\"gid://shopify/MediaImage/62327066329352\",\"gid://shopify/MediaImage/62326947578120\"]"
+    }
+  }
+]
