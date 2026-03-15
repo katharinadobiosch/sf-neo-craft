@@ -44,9 +44,14 @@
     }
 
     .acc-panel {
-      display: flex;
-      align-items: flex-start;
-      min-height: 44px;
+      min-height: unset;
+      padding-bottom: 1.2rem;
+      @media (min-width: 768px) {
+        display: flex;
+        align-items: flex-start;
+        min-height: 44px;
+        padding: 0rem;
+      }
     }
 
     .acc-panel p {

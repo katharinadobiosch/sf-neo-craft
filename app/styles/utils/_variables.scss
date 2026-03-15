@@ -46,8 +46,12 @@
   --nc-konfigurator-desktop-weight: 400; // normal
 
   --nc-navigation-name-mobile-size: 1.2rem;
-  --nc-navigation-name-mobile-line: 1.8rem;
+  --nc-navigation-name-mobile-line: 2.2rem;
   --nc-navigation-name-mobile-weight: 400;
+
+  --nc-konfigurator-mobil-size: 1.2rem;
+  --nc-konfigurator-mobil-line: 1.8rem;
+  --nc-konfigurator-mobil-weight: 400;
 
   --nc-navigation-name-desktop-size: 1.5rem;
   --nc-navigation-name-desktop-line: 3.4rem;
@@ -68,8 +72,9 @@
   ----nc-fliesstext-mobil-size: clamp(1.6rem, 1.4rem + 0.6vw, 1.8rem);
   --nc-fliesstext-mobil-line: 2.5rem;
   --nc-fliesstext-mobil-weight: 300;
+  --nc-fliesstext-mobil-size: 1.6rem;
 
-  --nc-head-mobil-size: clamp(1.1rem, 1rem + 0.4vw, 1.2rem);
+  --nc-head-mobil-size: 1.2rem;
   --nc-head-mobil-line: 2.2rem;
   --nc-head-mobil-weight: 500;
 
