@@ -425,36 +425,6 @@
       opacity: 1;
     }
 
-    .pf-plus {
-      position: relative;
-      width: 12px;
-      height: 12px;
-      flex: 0 0 12px;
-      color: currentColor;
-      padding-right: 100px;
-
-      &::before,
-      &::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 14px;
-        height: 2px;
-        background: currentColor;
-        transform: translate(-50%, -50%);
-        transition: transform 0.2s ease;
-      }
-
-      &::after {
-        transform: translate(-50%, -50%) rotate(90deg);
-      }
-
-      &.is-open::after {
-        transform: translate(-50%, -50%) rotate(0deg);
-      }
-    }
-
     @media (min-width: 768px) {
       .pf-title {
         font-size: 1.5rem;
@@ -518,36 +488,6 @@
     &[data-open='true'] .ps-panel {
       max-height: 999px;
       opacity: 1;
-    }
-
-    .ps-plus {
-      position: relative;
-      width: 12px;
-      height: 12px;
-      flex: 0 0 12px;
-      color: currentColor;
-      padding-right: 100px;
-
-      &::before,
-      &::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 14px;
-        height: 2px;
-        background: currentColor;
-        transform: translate(-50%, -50%);
-        transition: transform 0.2s ease;
-      }
-
-      &::after {
-        transform: translate(-50%, -50%) rotate(90deg);
-      }
-
-      &.is-open::after {
-        transform: translate(-50%, -50%) rotate(0deg);
-      }
     }
   }
 
@@ -701,11 +641,14 @@
   .pf-kv__toggle {
     all: unset;
     cursor: pointer;
-    grid-column: 1;
     display: block;
     width: 100%;
-    min-height: 44px;
+    min-height: 46px;
     position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
   }
 
   .pf-kv__key {
@@ -714,27 +657,6 @@
     font-weight: 500;
     color: var(--text-muted, #5a5a5a);
     line-height: 1.5rem;
-  }
-
-  .pf-kv__icon::before,
-  .pf-kv__icon::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 14px;
-    height: 2px;
-    background: currentColor;
-    transform: translate(-50%, -50%);
-    transition: transform 0.2s ease;
-  }
-
-  .pf-kv__icon::after {
-    transform: translate(-50%, -50%) rotate(90deg);
-  }
-
-  .pf-kv__icon.is-open::after {
-    transform: translate(-50%, -50%) rotate(0deg);
   }
 
   .pf-kv__value-wrap {
@@ -808,7 +730,9 @@
   max-width: 100%;
   text-align: left;
 }
-
+.pf-kv__icon {
+  padding-right: 24px;
+}
 .pdp .shipping-item .pf-kv__icon {
   position: absolute;
   right: 0;

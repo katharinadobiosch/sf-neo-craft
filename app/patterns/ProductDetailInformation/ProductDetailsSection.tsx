@@ -85,10 +85,9 @@ export function ProductDetailsSection({
                 aria-expanded={isOpen}
               >
                 <span className="pf-kv__key">{label}</span>
-                <span
-                  className={cx('pf-kv__icon', isOpen && 'is-open')}
-                  aria-hidden="true"
-                />
+                <span className="pf-kv__icon" aria-hidden="true">
+                  {isOpen ? '−' : '+'}
+                </span>
               </button>
 
               <div className="pf-kv__value-wrap">
