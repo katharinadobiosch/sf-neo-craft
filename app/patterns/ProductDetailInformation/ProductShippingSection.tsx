@@ -1,8 +1,5 @@
 import {useId, useState} from 'react';
 
-const cx = (...classes: (string | false | null | undefined)[]) =>
-  classes.filter(Boolean).join(' ');
-
 export function ProductShippingSection({
   title = 'Lead time + shipping',
   lines = [],
@@ -25,10 +22,9 @@ export function ProductShippingSection({
         onClick={() => setOpen((v) => !v)}
       >
         <span className="pf-kv__key pf-kv__key--right">{title}</span>
-        <span
-          className={cx('pf-kv__icon', open && 'is-open')}
-          aria-hidden="true"
-        />
+        <span className="pf-kv__icon" aria-hidden="true">
+          {open ? '−' : '+'}
+        </span>
       </button>
 
       <div

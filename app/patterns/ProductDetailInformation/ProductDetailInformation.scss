@@ -655,8 +655,10 @@
     display: block;
     max-width: 100%;
     font-weight: 500;
-    color: var(--text-muted, #5a5a5a);
     line-height: 1.5rem;
+    font-size: var(--nc-konfigurator-head-desktop-size);
+    line-height: var(--nc-konfigurator-head-desktop-line);
+    font-weight: var(--nc-konfigurator-head-desktop-weight);
   }
 
   .pf-kv__value-wrap {
@@ -717,11 +719,11 @@
 .pdp .shipping-item .pf-kv__toggle {
   all: unset;
   cursor: pointer;
-  grid-column: 1;
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  min-height: 44px;
-  position: relative;
+  min-height: 46px;
 }
 
 .pdp .shipping-item .pf-kv__key,
@@ -729,39 +731,25 @@
   display: block;
   max-width: 100%;
   text-align: left;
+  font-weight: 500;
+  color: var(--text-muted, #5a5a5a);
+  line-height: 1.5rem;
 }
 .pf-kv__icon {
   padding-right: 24px;
+  font-size: var(--nc-konfigurator-head-desktop-size);
+  line-height: var(--nc-konfigurator-head-desktop-line);
+  font-weight: var(--nc-konfigurator-head-desktop-weight);
 }
 .pdp .shipping-item .pf-kv__icon {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translate(50%, -50%);
-  width: 12px;
-  height: 12px;
-  pointer-events: none;
-}
-
-.pdp .shipping-item .pf-kv__icon::before,
-.pdp .shipping-item .pf-kv__icon::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 14px;
-  height: 2px;
-  background: currentColor;
-  transform: translate(-50%, -50%);
-  transition: transform 0.2s ease;
-}
-
-.pdp .shipping-item .pf-kv__icon::after {
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.pdp .shipping-item .pf-kv__icon.is-open::after {
-  transform: translate(-50%, -50%) rotate(0deg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-weight: 400;
+  font-size: var(--nc-konfigurator-head-desktop-size);
+  line-height: var(--nc-konfigurator-head-desktop-line);
+  font-weight: var(--nc-konfigurator-head-desktop-weight);
 }
 
 .pdp .shipping-item .pf-kv__value-wrap {
@@ -781,6 +769,18 @@
 
 .pdp .shipping-item .pf-kv__value {
   padding-top: 0.2rem;
+  font-weight: 400;
+  color: var(--text-default, #111);
+}
+
+.pdp .shipping-item .ps-lines {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pdp .shipping-item .ps-line + .ps-line {
+  margin-top: 6px;
 }
 
 /* Download-Liste ohne Punkte */
