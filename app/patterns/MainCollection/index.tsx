@@ -28,6 +28,7 @@ type MetaobjectRef = {
   fields?: SeriesField[] | null;
   seriesTitle?: {value?: string | null} | null;
   productTile?: {
+    value?: string | null;
     references?: {
       nodes?: Array<
         | {__typename?: 'MediaImage'; image?: any | null}
@@ -114,40 +115,6 @@ function groupProductsBySeries(products: ProductLike[]) {
   return result;
 }
 
-function norm(value: unknown) {
-  return String(value ?? '')
-    .trim()
-    .toLowerCase();
-}
-
-function refToUrl(node: any): string | null {
-  if (!node) return null;
-
-  if (node.__typename === 'MediaImage') return node.image?.url ?? null;
-  if (node.__typename === 'GenericFile') return node.url ?? null;
-
-  return (
-    node.url ??
-    node.image?.url ??
-    node.previewImage?.url ??
-    node.preview?.image?.url ??
-    node.preview?.url ??
-    node.sources?.[0]?.url ??
-    null
-  );
-}
-
-function getMetaobjectField(meta: MetaobjectRef, key: string) {
-  return (meta.fields ?? []).find((f) => norm(f.key) === norm(key)) ?? null;
-}
-
-function getMetaobjectFieldUrls(meta: MetaobjectRef, key: string) {
-  const field = getMetaobjectField(meta, key);
-  const nodes = field?.references?.nodes ?? [];
-
-  return nodes.map(refToUrl).filter((url): url is string => Boolean(url));
-}
-
 function refToImageLike(node: any) {
   if (!node) return null;
 
@@ -163,7 +130,7 @@ function refToImageLike(node: any) {
 function getTileImages(product: ProductLike) {
   const seriesRef = product.metafieldSeries?.reference;
 
-  // 1) Prefer: Series Metaobject tile
+  // 1) Prefer: Series Metaobject field "produkt_tile"
   if (seriesRef?.__typename === 'Metaobject') {
     const meta = seriesRef as MetaobjectRef;
     const nodes = meta.productTile?.references?.nodes ?? [];
@@ -212,11 +179,11 @@ function ProductItem({product}: {product: ProductLike}) {
       if (titleField?.value) title = titleField.value;
     }
   }
-  
+
   console.log(
-    'IN MAIN COLLECTION: productTile nodes',
+    'productTile explicit',
     seriesRef?.__typename === 'Metaobject'
-      ? (seriesRef as MetaobjectRef).productTile?.references?.nodes
+      ? (seriesRef as MetaobjectRef).productTile
       : null,
   );
 
@@ -343,14 +310,26 @@ query CollectionByHandle_MainCollection(
     id
     title
     handle
-    image { id url altText width height }
+    image {
+      id
+      url
+      altText
+      width
+      height
+    }
 
     products(first: 50) {
       nodes {
         id
         title
         handle
-        featuredImage { url altText width height }
+
+        featuredImage {
+          url
+          altText
+          width
+          height
+        }
 
         metafields(identifiers: [{namespace: "custom", key: "produkt_tile"}]) {
           namespace
@@ -359,9 +338,16 @@ query CollectionByHandle_MainCollection(
           references(first: 2) {
             nodes {
               __typename
+
               ... on MediaImage {
-                image { url altText width height }
+                image {
+                  url
+                  altText
+                  width
+                  height
+                }
               }
+
               ... on GenericFile {
                 url
                 mimeType
@@ -373,26 +359,41 @@ query CollectionByHandle_MainCollection(
         metafieldSeries: metafield(namespace: "custom", key: "product_series") {
           reference {
             __typename
+
             ... on Metaobject {
               handle
               type
-              seriesTitle: field(key: "title") { value }
 
-              fields {
-                key
+              seriesTitle: field(key: "title") {
+                value
+              }
+
+              productTile: field(key: "produkt_tile") {
                 value
                 references(first: 2) {
                   nodes {
                     __typename
+
                     ... on MediaImage {
-                      image { url altText width height }
+                      image {
+                        url
+                        altText
+                        width
+                        height
+                      }
                     }
+
                     ... on GenericFile {
                       url
                       mimeType
                     }
                   }
                 }
+              }
+
+              fields {
+                key
+                value
               }
             }
           }

@@ -127,6 +127,7 @@ export function ProductDetailInformation({
         seriesProducts={seriesProducts}
         seriesActiveIndex={seriesActiveIndex}
         onChangeSeriesProduct={onChangeSeriesProduct}
+        seriesMeta={seriesMeta}
       />
 
       {/* BELOW MAIN: Band + TeaserDuo */}
