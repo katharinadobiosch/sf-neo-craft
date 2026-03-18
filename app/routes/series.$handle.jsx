@@ -82,6 +82,7 @@ export async function loader({params, context, request}) {
     intro: getField('intro')?.value ?? null,
     hero_links: fieldRefsToUrls('hero_links'), // [main, hover]
     hero_rechts: fieldRefsToUrls('hero_rechts'), // [main, hover]
+    produkt_tile: fieldRefsToUrls('produkt_tile'), // [main, hover]
   };
 
   const activeIndex = 0;

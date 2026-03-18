@@ -5,7 +5,21 @@ import {Image} from '@shopify/hydrogen';
 import type {LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {normalizeAllMetafields} from '~/utils/metafields';
 
-type SeriesField = {key: string; value?: string | null};
+type SeriesField = {
+  key: string;
+  value?: string | null;
+  references?: {
+    nodes?: Array<
+      | {__typename?: 'MediaImage'; image?: any | null}
+      | {
+          __typename?: 'GenericFile';
+          url?: string | null;
+          mimeType?: string | null;
+        }
+      | null
+    > | null;
+  } | null;
+};
 
 type MetaobjectRef = {
   __typename: 'Metaobject';
@@ -61,6 +75,19 @@ type ProductLike = {
   metafieldSeries?: {
     reference?: MetaobjectRef | {__typename?: string} | null;
   } | null;
+
+  metafields?: Array<{
+    namespace?: string | null;
+    key?: string | null;
+    type?: string | null;
+    references?: {
+      nodes?: Array<
+        | {__typename?: 'MediaImage'; image?: unknown | null}
+        | {__typename?: 'GenericFile'; url?: string | null}
+        | null
+      > | null;
+    } | null;
+  }> | null;
 };
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -112,16 +139,31 @@ function groupProductsBySeries(products: ProductLike[]) {
   return result;
 }
 
-function pickImageLike(node: any): any | null {
+function refToImageLike(node: any) {
   if (!node) return null;
 
   if (node.__typename === 'MediaImage' && node.image) return node.image;
 
-  // falls Shopify dir das als File liefert (z.B. avif als GenericFile)
-  if (node.__typename === 'GenericFile' && node.url)
+  if (node.__typename === 'GenericFile' && node.url) {
     return {__genericUrl: node.url};
+  }
 
   return null;
+}
+
+function getMetaobjectField(meta: MetaobjectRef, key: string) {
+  const norm = (s: unknown) =>
+    String(s ?? '')
+      .trim()
+      .toLowerCase();
+  return (meta.fields ?? []).find((f) => norm(f.key) === norm(key)) ?? null;
+}
+
+function getMetaobjectFieldImages(meta: MetaobjectRef, key: string) {
+  const field = getMetaobjectField(meta, key);
+  const nodes = field?.references?.nodes ?? [];
+
+  return nodes.map(refToImageLike).filter(Boolean);
 }
 
 function getTileImages(product: ProductLike) {
@@ -129,23 +171,16 @@ function getTileImages(product: ProductLike) {
 
   // 1) Prefer: Series Metaobject tile
   if (seriesRef?.__typename === 'Metaobject') {
-    const meta = seriesRef as any;
+    const meta = seriesRef as MetaobjectRef;
+    const imgs = getMetaobjectFieldImages(meta, 'produkt_tile');
 
-    const nodes = meta.productTile?.references?.nodes ?? [];
-    const imgs = nodes
-      .map((n: any) => {
-        if (n?.__typename === 'MediaImage') return n.image ?? null;
-        if (n?.__typename === 'GenericFile' && n.url)
-          return {__genericUrl: n.url};
-        return null;
-      })
-      .filter(Boolean);
-
-    if (imgs[0]) return {main: imgs[0], hover: imgs[1] ?? null};
+    if (imgs[0]) {
+      return {main: imgs[0], hover: imgs[1] ?? null};
+    }
   }
 
-  // 2) Fallback: Produkt-metafield custom.product_tile (dein normalizeAllMetafields Weg)
-  const mf = normalizeAllMetafields(product.metafields ?? []).product_tile;
+  // 2) Fallback: Produkt-metafield custom.produkt_tile
+  const mf = normalizeAllMetafields(product.metafields ?? []).produkt_tile;
   const main = mf?.list?.[0] ?? product.featuredImage ?? null;
   const hover = mf?.list?.[1] ?? null;
 
@@ -158,20 +193,6 @@ function ProductItem({product}: {product: ProductLike}) {
   const showHover = Boolean(hover && isHover);
 
   const seriesRef = product.metafieldSeries?.reference;
-
-  if (seriesRef?.__typename === 'Metaobject') {
-    const meta = seriesRef as MetaobjectRef;
-
-    const nodes = meta.productTile?.references?.nodes ?? [];
-    const urls = nodes
-      .map((n: any) => {
-        if (n?.__typename === 'MediaImage') return n.image?.url;
-        if (n?.__typename === 'GenericFile') return n.url;
-        return null;
-      })
-      .filter(Boolean);
-
-  }
   const isMetaobject = seriesRef?.__typename === 'Metaobject';
   const seriesHandle = isMetaobject
     ? (seriesRef as MetaobjectRef).handle
@@ -186,22 +207,20 @@ function ProductItem({product}: {product: ProductLike}) {
   if (isMetaobject) {
     const meta = seriesRef as MetaobjectRef;
 
-    // prefer seriesTitle aus query
     if (meta.seriesTitle?.value) title = meta.seriesTitle.value;
 
-    // fallback: falls seriesTitle mal fehlt
     if (!meta.seriesTitle?.value && Array.isArray(meta.fields)) {
       const titleField = meta.fields.find((f) => f.key === 'title');
       if (titleField?.value) title = titleField.value;
     }
   }
 
-  // if (isMetaobject && Array.isArray((seriesRef as MetaobjectRef).fields)) {
-  //   const titleField = (seriesRef as MetaobjectRef).fields!.find(
-  //     (f) => f.key === 'title',
-  //   );
-  //   if (titleField?.value) title = titleField.value;
-  // }
+  console.log(
+    'IN MAIN COLLECTION: series produkt_tile field',
+    seriesRef?.__typename === 'Metaobject'
+      ? getMetaobjectField(seriesRef as MetaobjectRef, 'produkt_tile')
+      : null,
+  );
 
   return (
     <Link to={targetUrl} className="product-item" prefetch="intent">
@@ -247,28 +266,10 @@ function ProductItem({product}: {product: ProductLike}) {
           />
         )}
 
-        {main && (main as any).__genericUrl && (
-          <img
-            src={(main as any).__genericUrl}
-            alt={product.title}
-            className="material-card__image"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              opacity: showHover ? 0 : 1,
-              transition: 'opacity .25s ease',
-            }}
-            loading="lazy"
-          />
-        )}
         {hover && !(hover as any).__genericUrl && (
           <Image
             data={hover as any}
-            alt={(hover as any)?.altText || product.title}
-            className="material-card__image"
+            alt={(hover as any)?.altText || title}
             sizes="(min-width: 60rem) 40rem, 100vw"
             style={{
               position: 'absolute',
@@ -286,8 +287,7 @@ function ProductItem({product}: {product: ProductLike}) {
         {hover && (hover as any).__genericUrl && (
           <img
             src={(hover as any).__genericUrl}
-            alt={product.title}
-            className="material-card__image"
+            alt={title}
             style={{
               position: 'absolute',
               inset: 0,
@@ -301,6 +301,7 @@ function ProductItem({product}: {product: ProductLike}) {
           />
         )}
       </div>
+
       <div className="product-caption">
         <h4 className="product-title">{title}</h4>
       </div>
@@ -354,7 +355,7 @@ query CollectionByHandle_MainCollection(
         featuredImage { url altText width height }
 
         # Produkt-eigener Tile (Fallback)
-        metafields(identifiers: [{namespace: "custom", key: "product_tile"}]) {
+        metafields(identifiers: [{namespace: "custom", key: "produkt_tile"}]) {
           namespace
           key
           type
@@ -382,24 +383,23 @@ query CollectionByHandle_MainCollection(
 
               seriesTitle: field(key: "title") { value }
 
-              # WICHTIG: key ist bei dir product_tile (siehe Console)
-              productTile: field(key: "product_tile") {
-                references(first: 2) {
-                  nodes {
-                    __typename
-                    ... on MediaImage {
-                      image { url altText width height }
-                    }
-                    ... on GenericFile {
-                      url
-                      mimeType
-                    }
-                  }
-                }
-              }
-
-              # optional zum Debuggen
-              fields { key value }
+              # WICHTIG: key ist bei dir produkt_tile (siehe Console)
+            fields {
+  key
+  value
+  references(first: 2) {
+    nodes {
+      __typename
+      ... on MediaImage {
+        image { url altText width height }
+      }
+      ... on GenericFile {
+        url
+        mimeType
+      }
+    }
+  }
+}
             }
           }
         }
