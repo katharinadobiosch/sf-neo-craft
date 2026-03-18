@@ -65,6 +65,14 @@ type ProductLike = {
       > | null;
     } | null;
   }> | null;
+
+  seriesMeta?: {
+    title: string | null;
+    intro: string | null;
+    hero_links: string[];
+    hero_rechts: string[];
+    produkt_tile: string[];
+  } | null;
 };
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -73,17 +81,105 @@ export async function loader(args: LoaderFunctionArgs) {
   return {...deferredData, ...criticalData};
 }
 
+function norm(value: unknown) {
+  return String(value ?? '')
+    .trim()
+    .toLowerCase();
+}
+
+function refToUrl(node: any): string | null {
+  if (!node) return null;
+
+  if (node.__typename === 'MediaImage') return node.image?.url ?? null;
+  if (node.__typename === 'GenericFile') return node.url ?? null;
+
+  return (
+    node.url ??
+    node.image?.url ??
+    node.previewImage?.url ??
+    node.preview?.image?.url ??
+    node.preview?.url ??
+    node.sources?.[0]?.url ??
+    null
+  );
+}
+
+function buildSeriesMetaFromFields(fields: any[] = []) {
+  const getField = (key: string) =>
+    fields.find((f) => norm(f?.key) === norm(key));
+
+  const fieldRefsToUrls = (key: string) => {
+    const f = getField(key);
+    const nodes = f?.references?.nodes ?? [];
+    return nodes.map(refToUrl).filter(Boolean) as string[];
+  };
+
+  return {
+    title: getField('title')?.value ?? null,
+    intro: getField('intro')?.value ?? null,
+    hero_links: fieldRefsToUrls('hero_links'),
+    hero_rechts: fieldRefsToUrls('hero_rechts'),
+    produkt_tile: fieldRefsToUrls('produkt_tile'),
+  };
+}
+
 async function loadCriticalData({
   context,
 }: Pick<LoaderFunctionArgs, 'context'>) {
-  const {collection} = await context.storefront.query(
-    COLLECTION_BY_HANDLE_QUERY,
-    {
-      variables: {handle: 'main-collection'},
-    },
+  const {storefront} = context;
+
+  const {collection} = await storefront.query(COLLECTION_BY_HANDLE_QUERY, {
+    variables: {handle: 'main-collection'},
+  });
+
+  const rawProducts = (collection?.products?.nodes ?? []) as ProductLike[];
+
+  const seriesHandles = Array.from(
+    new Set(
+      rawProducts
+        .map((product) => {
+          const ref = product.metafieldSeries?.reference;
+          return ref?.__typename === 'Metaobject'
+            ? (ref as MetaobjectRef).handle
+            : null;
+        })
+        .filter(Boolean),
+    ),
+  ) as string[];
+
+  const seriesMetaEntries = await Promise.all(
+    seriesHandles.map(async (handle) => {
+      const data = await storefront.query(SERIES_META_BY_HANDLE_QUERY, {
+        variables: {handle},
+      });
+
+      const series = data?.series;
+      const fields = series?.fields ?? [];
+
+      return {
+        handle,
+        seriesMeta: buildSeriesMetaFromFields(fields),
+      };
+    }),
   );
 
-  const products = (collection?.products?.nodes ?? []) as ProductLike[];
+  const seriesMetaByHandle = Object.fromEntries(
+    seriesMetaEntries.map((entry) => [entry.handle, entry.seriesMeta]),
+  );
+
+  const products = rawProducts.map((product) => {
+    const ref = product.metafieldSeries?.reference;
+    const seriesHandle =
+      ref?.__typename === 'Metaobject' ? (ref as MetaobjectRef).handle : null;
+
+    return {
+      ...product,
+      seriesMeta: seriesHandle
+        ? (seriesMetaByHandle[seriesHandle] ?? null)
+        : null,
+    };
+  });
+
   const groupedProducts = groupProductsBySeries(products);
 
   return {collection, products: groupedProducts};
@@ -128,23 +224,19 @@ function refToImageLike(node: any) {
 }
 
 function getTileImages(product: ProductLike) {
-  const seriesRef = product.metafieldSeries?.reference;
+  const tileImage = product.seriesMeta?.produkt_tile?.[0] ?? null;
+  const tileImageHover = product.seriesMeta?.produkt_tile?.[1] ?? null;
 
-  // 1) Prefer: Series Metaobject field "produkt_tile"
-  if (seriesRef?.__typename === 'Metaobject') {
-    const meta = seriesRef as MetaobjectRef;
-    const nodes = meta.productTile?.references?.nodes ?? [];
-    const imgs = nodes.map(refToImageLike).filter(Boolean);
+  console.log('tileImage on grid', tileImage);
+  console.log('tileImageHover on grid', tileImageHover);
 
-    if (imgs[0]) {
-      return {
-        main: imgs[0],
-        hover: imgs[1] ?? null,
-      };
-    }
+  if (tileImage) {
+    return {
+      main: {__genericUrl: tileImage},
+      hover: tileImageHover ? {__genericUrl: tileImageHover} : null,
+    };
   }
 
-  // 2) Fallback: Produkt-metafield custom.produkt_tile
   const mf = normalizeAllMetafields(product.metafields ?? []).produkt_tile;
   const main = mf?.list?.[0] ?? product.featuredImage ?? null;
   const hover = mf?.list?.[1] ?? null;
@@ -167,25 +259,7 @@ function ProductItem({product}: {product: ProductLike}) {
     ? `/series/${seriesHandle}`
     : `/products/${product.handle}`;
 
-  let title = product.title;
-
-  if (isMetaobject) {
-    const meta = seriesRef as MetaobjectRef;
-
-    if (meta.seriesTitle?.value) {
-      title = meta.seriesTitle.value;
-    } else if (Array.isArray(meta.fields)) {
-      const titleField = meta.fields.find((f) => f.key === 'title');
-      if (titleField?.value) title = titleField.value;
-    }
-  }
-
-  console.log(
-    'productTile explicit',
-    seriesRef?.__typename === 'Metaobject'
-      ? (seriesRef as MetaobjectRef).productTile
-      : null,
-  );
+  const title = product.seriesMeta?.title || product.title;
 
   return (
     <Link to={targetUrl} className="product-item" prefetch="intent">
@@ -338,7 +412,6 @@ query CollectionByHandle_MainCollection(
           references(first: 2) {
             nodes {
               __typename
-
               ... on MediaImage {
                 image {
                   url
@@ -347,7 +420,6 @@ query CollectionByHandle_MainCollection(
                   height
                 }
               }
-
               ... on GenericFile {
                 url
                 mimeType
@@ -359,43 +431,44 @@ query CollectionByHandle_MainCollection(
         metafieldSeries: metafield(namespace: "custom", key: "product_series") {
           reference {
             __typename
-
             ... on Metaobject {
               handle
               type
-
-              seriesTitle: field(key: "title") {
-                value
-              }
-
-              productTile: field(key: "produkt_tile") {
-                value
-                references(first: 2) {
-                  nodes {
-                    __typename
-
-                    ... on MediaImage {
-                      image {
-                        url
-                        altText
-                        width
-                        height
-                      }
-                    }
-
-                    ... on GenericFile {
-                      url
-                      mimeType
-                    }
-                  }
-                }
-              }
-
-              fields {
-                key
-                value
-              }
             }
+          }
+        }
+      }
+    }
+  }
+}
+`;
+
+const SERIES_META_BY_HANDLE_QUERY = `#graphql
+query SeriesMetaByHandle(
+  $handle: String!
+  $country: CountryCode
+  $language: LanguageCode
+) @inContext(country: $country, language: $language) {
+  series: metaobject(handle: {type: "series", handle: $handle}) {
+    id
+    handle
+    fields {
+      key
+      value
+      references(first: 50) {
+        nodes {
+          __typename
+          ... on MediaImage {
+            image {
+              url
+              altText
+              width
+              height
+            }
+          }
+          ... on GenericFile {
+            url
+            mimeType
           }
         }
       }
