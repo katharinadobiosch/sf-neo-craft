@@ -23,7 +23,6 @@ const ACCORDION_KEYS = new Set([
   'photometric_specs',
   'electric_specs',
   'certification',
-  'lead_time_shipping',
   'download',
   'mirror_glass_type',
   'dichroic_glass',
@@ -67,7 +66,9 @@ export function ProductForm({
 
   const allMetafields = allMetafieldsRaw.filter(Boolean);
 
-  const mfShipping = getMfByKey(allMetafields, 'shipping');
+  const mfShipping =
+    getMfByKey(allMetafields, 'lead_time_shipping') ||
+    getMfByKey(allMetafields, 'shipping');
 
   const mfMeasurements = allMetafields.filter((m) => {
     const key = String(m?.key || '')
@@ -112,20 +113,16 @@ export function ProductForm({
   const price = Number(currentVariant?.price?.amount || 0);
   const currency = currentVariant?.price?.currencyCode || 'USD';
 
-  const shippingTitle =
-    mfShipping?.name || mfShipping?.key || 'Lead time + shipping';
+  const shippingTitle = mfShipping?.name || 'Lead Time / Shipping';
 
   const shippingRaw =
     typeof mfShipping?.value === 'string' && mfShipping.value.trim().length > 0
       ? mfShipping.value
       : null;
 
-  const shippingLines = shippingRaw?.split(/\r?\n/).filter(Boolean) || [
-    '2–4 weeks (depending on stock)',
-    'parcel-delivery (door to door)',
-    'depending on shipping rates:',
-    'higher quantities via pallet-delivery (curbside)',
-  ];
+  const shippingLines = shippingRaw
+    ? shippingRaw.split(/\r?\n/).filter(Boolean)
+    : [];
 
   return (
     <div className="product-form pf--segmented">
@@ -149,9 +146,11 @@ export function ProductForm({
         />
       </div>
 
-      <div className="product-form__shipping">
-        <ProductShippingSection title={shippingTitle} lines={shippingLines} />
-      </div>
+      {shippingRaw ? (
+        <div className="product-form__shipping">
+          <ProductShippingSection title={shippingTitle} lines={shippingLines} />
+        </div>
+      ) : null}
 
       <div className="pdp__cta-container">
         <div className="cta-button">
