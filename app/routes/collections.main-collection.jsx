@@ -1,1 +1,1 @@
-export {loader, default} from './_index';
+export {loader, default} from '~/patterns/MainCollection';
