@@ -25,11 +25,8 @@ type MetaobjectRef = {
   __typename: 'Metaobject';
   handle?: string | null;
   type?: string | null;
-
   fields?: SeriesField[] | null;
-
   seriesTitle?: {value?: string | null} | null;
-
   productTile?: {
     references?: {
       nodes?: Array<
@@ -50,27 +47,6 @@ type ProductLike = {
   title: string;
   handle: string;
   featuredImage?: unknown | null;
-  metafield?: {
-    references?: {nodes?: Array<{image?: unknown | null} | null> | null} | null;
-  } | null;
-
-  productTile?: {
-    references?: {
-      nodes?: Array<
-        | {__typename?: 'MediaImage'; image?: unknown | null}
-        | {__typename?: 'GenericFile'; url?: string | null}
-        | null
-      > | null;
-    } | null;
-  } | null;
-
-  variants?: {
-    nodes?: Array<{
-      neoColorVariants?: {
-        references?: {nodes?: unknown[] | null} | null;
-      } | null;
-    } | null> | null;
-  } | null;
 
   metafieldSeries?: {
     reference?: MetaobjectRef | {__typename?: string} | null;
@@ -107,8 +83,8 @@ async function loadCriticalData({
   );
 
   const products = (collection?.products?.nodes ?? []) as ProductLike[];
-
   const groupedProducts = groupProductsBySeries(products);
+
   return {collection, products: groupedProducts};
 }
 
@@ -122,7 +98,6 @@ function groupProductsBySeries(products: ProductLike[]) {
 
   for (const product of products) {
     const seriesRef = product.metafieldSeries?.reference;
-
     const isMetaobject = seriesRef?.__typename === 'Metaobject';
     const seriesHandle = isMetaobject
       ? (seriesRef as MetaobjectRef).handle
@@ -139,6 +114,40 @@ function groupProductsBySeries(products: ProductLike[]) {
   return result;
 }
 
+function norm(value: unknown) {
+  return String(value ?? '')
+    .trim()
+    .toLowerCase();
+}
+
+function refToUrl(node: any): string | null {
+  if (!node) return null;
+
+  if (node.__typename === 'MediaImage') return node.image?.url ?? null;
+  if (node.__typename === 'GenericFile') return node.url ?? null;
+
+  return (
+    node.url ??
+    node.image?.url ??
+    node.previewImage?.url ??
+    node.preview?.image?.url ??
+    node.preview?.url ??
+    node.sources?.[0]?.url ??
+    null
+  );
+}
+
+function getMetaobjectField(meta: MetaobjectRef, key: string) {
+  return (meta.fields ?? []).find((f) => norm(f.key) === norm(key)) ?? null;
+}
+
+function getMetaobjectFieldUrls(meta: MetaobjectRef, key: string) {
+  const field = getMetaobjectField(meta, key);
+  const nodes = field?.references?.nodes ?? [];
+
+  return nodes.map(refToUrl).filter((url): url is string => Boolean(url));
+}
+
 function refToImageLike(node: any) {
   if (!node) return null;
 
@@ -151,31 +160,20 @@ function refToImageLike(node: any) {
   return null;
 }
 
-function getMetaobjectField(meta: MetaobjectRef, key: string) {
-  const norm = (s: unknown) =>
-    String(s ?? '')
-      .trim()
-      .toLowerCase();
-  return (meta.fields ?? []).find((f) => norm(f.key) === norm(key)) ?? null;
-}
-
-function getMetaobjectFieldImages(meta: MetaobjectRef, key: string) {
-  const field = getMetaobjectField(meta, key);
-  const nodes = field?.references?.nodes ?? [];
-
-  return nodes.map(refToImageLike).filter(Boolean);
-}
-
 function getTileImages(product: ProductLike) {
   const seriesRef = product.metafieldSeries?.reference;
 
   // 1) Prefer: Series Metaobject tile
   if (seriesRef?.__typename === 'Metaobject') {
     const meta = seriesRef as MetaobjectRef;
-    const imgs = getMetaobjectFieldImages(meta, 'produkt_tile');
+    const nodes = meta.productTile?.references?.nodes ?? [];
+    const imgs = nodes.map(refToImageLike).filter(Boolean);
 
     if (imgs[0]) {
-      return {main: imgs[0], hover: imgs[1] ?? null};
+      return {
+        main: imgs[0],
+        hover: imgs[1] ?? null,
+      };
     }
   }
 
@@ -207,18 +205,18 @@ function ProductItem({product}: {product: ProductLike}) {
   if (isMetaobject) {
     const meta = seriesRef as MetaobjectRef;
 
-    if (meta.seriesTitle?.value) title = meta.seriesTitle.value;
-
-    if (!meta.seriesTitle?.value && Array.isArray(meta.fields)) {
+    if (meta.seriesTitle?.value) {
+      title = meta.seriesTitle.value;
+    } else if (Array.isArray(meta.fields)) {
       const titleField = meta.fields.find((f) => f.key === 'title');
       if (titleField?.value) title = titleField.value;
     }
   }
-
+  
   console.log(
-    'IN MAIN COLLECTION: series produkt_tile field',
+    'IN MAIN COLLECTION: productTile nodes',
     seriesRef?.__typename === 'Metaobject'
-      ? getMetaobjectField(seriesRef as MetaobjectRef, 'produkt_tile')
+      ? (seriesRef as MetaobjectRef).productTile?.references?.nodes
       : null,
   );
 
@@ -354,7 +352,6 @@ query CollectionByHandle_MainCollection(
         handle
         featuredImage { url altText width height }
 
-        # Produkt-eigener Tile (Fallback)
         metafields(identifiers: [{namespace: "custom", key: "produkt_tile"}]) {
           namespace
           key
@@ -373,33 +370,30 @@ query CollectionByHandle_MainCollection(
           }
         }
 
-        # SERIES Metaobject am Produkt
         metafieldSeries: metafield(namespace: "custom", key: "product_series") {
           reference {
             __typename
             ... on Metaobject {
               handle
               type
-
               seriesTitle: field(key: "title") { value }
 
-              # WICHTIG: key ist bei dir produkt_tile (siehe Console)
-            fields {
-  key
-  value
-  references(first: 2) {
-    nodes {
-      __typename
-      ... on MediaImage {
-        image { url altText width height }
-      }
-      ... on GenericFile {
-        url
-        mimeType
-      }
-    }
-  }
-}
+              fields {
+                key
+                value
+                references(first: 2) {
+                  nodes {
+                    __typename
+                    ... on MediaImage {
+                      image { url altText width height }
+                    }
+                    ... on GenericFile {
+                      url
+                      mimeType
+                    }
+                  }
+                }
+              }
             }
           }
         }
