@@ -1,8 +1,7 @@
 .teaser-duo {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
+  // margin-bottom: 1.5rem;
 
   .teaser-duo__images {
     width: 100%;
@@ -36,6 +35,8 @@
     font-weight: var(--nc-fliesstext-mobil-weight);
     overflow-wrap: break-word;
     word-break: break-word;
+    background: var(--sf-purple);
+    padding: 1.5rem 1.6rem;
 
     @media (min-width: 768px) {
       padding: 2rem 1.6rem 2.6rem;
@@ -118,7 +119,6 @@
   }
 
   .teaser-duo .teaser-duo__content {
-    background: var(--sf-purple);
     padding: 9.1rem 13.6rem;
     font-size: var(--nc-fliesstext-desktop-size);
     line-height: var(--nc-fliesstext-desktop-line);

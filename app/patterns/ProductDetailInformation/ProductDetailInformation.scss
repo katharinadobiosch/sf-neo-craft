@@ -34,13 +34,27 @@
   display: flex;
   flex-direction: column;
   margin: 1.5rem 0 3rem;
-  gap: 1.5rem;
 
-  @media (min-width: 768px) {
-    position: relative;
-    margin: 3rem 0 8.6rem 0;
-    gap: 0;
+  // @media (min-width: 768px) {
+  //   position: relative;
+  //   margin: 3rem 0 8.6rem 0;
+  //   gap: 0;
 
+  //   &::before {
+  //     content: '';
+  //     position: absolute;
+  //     left: 50%;
+  //     top: 0;
+  //     bottom: 0;
+  //     width: 1px;
+  //     background: #000;
+  //     transform: translateX(-0.5px);
+  //     z-index: 2;
+  //     pointer-events: none;
+  //   }
+  // }
+
+  @media (min-width: 1200px) {
     &::before {
       content: '';
       position: absolute;
@@ -547,20 +561,8 @@
     padding-right: 0;
   }
 
-  .pdp .product-main__info {
-    // padding-top: 1.2rem;
-  }
-
   .pdp .product-main .product-main__media img {
     object-fit: cover;
-  }
-}
-
-/* Tablet: keine Desktop-Mittellinie */
-@media (min-width: 768px) and (max-width: 991px) {
-  .pdp::before {
-    display: none !important;
-    content: none !important;
   }
 }
 
