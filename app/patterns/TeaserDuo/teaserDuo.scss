@@ -35,9 +35,10 @@
     word-break: break-word;
     background: var(--sf-purple);
     padding: 1.5rem 1.6rem;
-
+    border-top: 1px solid black;
     @media (min-width: 768px) {
       padding: 2rem 1.6rem 2.6rem;
+      border-top: 0;
     }
   }
 
