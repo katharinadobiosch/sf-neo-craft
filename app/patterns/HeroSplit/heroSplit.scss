@@ -47,6 +47,8 @@
   /* Responsive – unter 900px einspaltig */
   @media (max-width: 767px) {
     .hs-grid {
+      border-top: 0;
+
       grid-template-columns: 1fr;
       grid-template-areas:
         'right'
