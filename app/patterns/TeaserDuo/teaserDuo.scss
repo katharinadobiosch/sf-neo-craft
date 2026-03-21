@@ -7,8 +7,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
 
     > div:nth-child(2) {
       // border-left: 1px solid black;
@@ -87,6 +85,8 @@
   .teaser-duo .teaser-duo__images {
     flex-direction: row;
     align-items: stretch;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
   }
 
   .teaser-duo .teaser-duo__image {
