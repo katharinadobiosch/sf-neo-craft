@@ -301,6 +301,7 @@ export type ProjectsQuery = {
             reference?: StorefrontAPI.Maybe<
               | {
                   __typename:
+                    | 'Article'
                     | 'Collection'
                     | 'GenericFile'
                     | 'Metaobject'
@@ -323,6 +324,7 @@ export type ProjectsQuery = {
               nodes: Array<
                 | {
                     __typename:
+                      | 'Article'
                       | 'Collection'
                       | 'GenericFile'
                       | 'Metaobject'
@@ -377,6 +379,7 @@ export type CollectionByHandle__CollectionsRouteQuery = {
                   reference?: StorefrontAPI.Maybe<
                     | {
                         __typename:
+                          | 'Article'
                           | 'Collection'
                           | 'Metaobject'
                           | 'Model3d'
@@ -402,6 +405,7 @@ export type CollectionByHandle__CollectionsRouteQuery = {
                     nodes: Array<
                       | {
                           __typename:
+                            | 'Article'
                             | 'Collection'
                             | 'Metaobject'
                             | 'Model3d'
@@ -431,6 +435,7 @@ export type CollectionByHandle__CollectionsRouteQuery = {
               reference?: StorefrontAPI.Maybe<
                 | {
                     __typename:
+                      | 'Article'
                       | 'Collection'
                       | 'GenericFile'
                       | 'MediaImage'
@@ -594,6 +599,7 @@ export type CollectionByHandle__HomeQuery = {
               reference?: StorefrontAPI.Maybe<
                 | {
                     __typename:
+                      | 'Article'
                       | 'Collection'
                       | 'GenericFile'
                       | 'MediaImage'
@@ -1092,7 +1098,14 @@ export type ProductFragmentFragment = Pick<
     StorefrontAPI.Maybe<
       Pick<StorefrontAPI.Metafield, 'namespace' | 'key' | 'type' | 'value'> & {
         reference?: StorefrontAPI.Maybe<
-          | {__typename: 'Collection' | 'Page' | 'Product' | 'ProductVariant'}
+          | {
+              __typename:
+                | 'Article'
+                | 'Collection'
+                | 'Page'
+                | 'Product'
+                | 'ProductVariant';
+            }
           | ({__typename: 'GenericFile'} & Pick<
               StorefrontAPI.GenericFile,
               'url' | 'mimeType'
@@ -1126,7 +1139,14 @@ export type ProductFragmentFragment = Pick<
         >;
         references?: StorefrontAPI.Maybe<{
           nodes: Array<
-            | {__typename: 'Collection' | 'Page' | 'Product' | 'ProductVariant'}
+            | {
+                __typename:
+                  | 'Article'
+                  | 'Collection'
+                  | 'Page'
+                  | 'Product'
+                  | 'ProductVariant';
+              }
             | ({__typename: 'GenericFile'} & Pick<
                 StorefrontAPI.GenericFile,
                 'url' | 'mimeType'
@@ -1300,6 +1320,7 @@ export type ProductQuery = {
             reference?: StorefrontAPI.Maybe<
               | {
                   __typename:
+                    | 'Article'
                     | 'Collection'
                     | 'Page'
                     | 'Product'
@@ -1343,6 +1364,7 @@ export type ProductQuery = {
               nodes: Array<
                 | {
                     __typename:
+                      | 'Article'
                       | 'Collection'
                       | 'Page'
                       | 'Product'
@@ -1742,7 +1764,14 @@ export type ProductFragment = Pick<
     StorefrontAPI.Maybe<
       Pick<StorefrontAPI.Metafield, 'namespace' | 'key' | 'type' | 'value'> & {
         reference?: StorefrontAPI.Maybe<
-          | {__typename: 'Collection' | 'Page' | 'Product' | 'ProductVariant'}
+          | {
+              __typename:
+                | 'Article'
+                | 'Collection'
+                | 'Page'
+                | 'Product'
+                | 'ProductVariant';
+            }
           | ({__typename: 'GenericFile'} & Pick<
               StorefrontAPI.GenericFile,
               'url' | 'mimeType'
@@ -1776,7 +1805,14 @@ export type ProductFragment = Pick<
         >;
         references?: StorefrontAPI.Maybe<{
           nodes: Array<
-            | {__typename: 'Collection' | 'Page' | 'Product' | 'ProductVariant'}
+            | {
+                __typename:
+                  | 'Article'
+                  | 'Collection'
+                  | 'Page'
+                  | 'Product'
+                  | 'ProductVariant';
+              }
             | ({__typename: 'GenericFile'} & Pick<
                 StorefrontAPI.GenericFile,
                 'url' | 'mimeType'
@@ -1838,6 +1874,7 @@ export type SeriesPageQuery = {
             nodes: Array<
               | {
                   __typename:
+                    | 'Article'
                     | 'Collection'
                     | 'GenericFile'
                     | 'MediaImage'
@@ -1999,6 +2036,7 @@ export type SeriesPageQuery = {
                           reference?: StorefrontAPI.Maybe<
                             | {
                                 __typename:
+                                  | 'Article'
                                   | 'Collection'
                                   | 'Page'
                                   | 'Product'
@@ -2048,6 +2086,7 @@ export type SeriesPageQuery = {
                             nodes: Array<
                               | {
                                   __typename:
+                                    | 'Article'
                                     | 'Collection'
                                     | 'Page'
                                     | 'Product'

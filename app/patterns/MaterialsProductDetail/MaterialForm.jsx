@@ -25,8 +25,6 @@ export function MaterialForm({
   const {open: openAside} = useAside();
   const navigate = useNavigate();
 
-  console.log('MaterialForm render', product.description);
-
   const BLACKLIST = new Set([
     'series_hero',
     'product_tile',
@@ -39,7 +37,8 @@ export function MaterialForm({
     'hero_split_text',
     'product_series',
     'content',
-    'shipping', // ensure shipping metafield does not land in "mfOthers"
+    'custom.lead_time_shipping',
+    // ensure shipping metafield does not land in "mfOthers"
   ]);
 
   const hasContent = (m) => {
@@ -97,8 +96,8 @@ export function MaterialForm({
     return first?.variant || first?.firstSelectableVariant || null;
   }, [productOptions]);
 
-  const money = (num, currency = 'USD') =>
-    new Intl.NumberFormat(undefined, {style: 'currency', currency}).format(
+  const money = (num, currency = 'EUR') =>
+    new Intl.NumberFormat('de-DE', {style: 'currency', currency}).format(
       Number(num || 0),
     );
 
@@ -158,7 +157,7 @@ export function MaterialForm({
         </div>
         <div
           className="cta-question"
-          onClick={() => (window.location = 'mailto:test@example.com')}
+          onClick={() => (window.location = 'mailto:info@neocraft.com')}
         >
           Further Questions?
         </div>
