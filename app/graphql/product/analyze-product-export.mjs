@@ -14,7 +14,7 @@ const IMPORTANT_KEYS = [
   'custom.photometric_specs',
   'custom.electric_specs',
   'custom.certification',
-  'custom.lead_time',
+  'custom.lead_time_shipping',
   'custom.shipping',
   'custom.configurator_addons',
   'custom.series_hero',
