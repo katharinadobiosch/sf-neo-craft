@@ -175,7 +175,7 @@ export function ProductForm({
         </div>
         <div
           className="cta-question"
-          onClick={() => (window.location = 'mailto:test@example.com')}
+          onClick={() => (window.location = 'mailto:info@neocraft.com')}
         >
           Further Questions?
         </div>
