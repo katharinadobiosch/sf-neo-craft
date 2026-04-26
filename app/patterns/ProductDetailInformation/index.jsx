@@ -43,6 +43,10 @@ export function ProductDetailInformation({
 
   const seriesLeft = seriesMeta?.hero_links?.[0] ?? null;
   const seriesLeftHover = seriesMeta?.hero_links?.[1] ?? null;
+  const tileImage = seriesMeta?.produkt_tile?.[0] ?? null;
+  const tileImageHover = seriesMeta?.produkt_tile?.[1] ?? null;
+  console.log('tileImage on PDP', tileImage);
+  console.log('tileImageHover on PDP', tileImageHover);
 
   const seriesRight = seriesMeta?.hero_rechts?.[0] ?? null;
   const seriesRightHover = seriesMeta?.hero_rechts?.[1] ?? null;
@@ -123,6 +127,7 @@ export function ProductDetailInformation({
         seriesProducts={seriesProducts}
         seriesActiveIndex={seriesActiveIndex}
         onChangeSeriesProduct={onChangeSeriesProduct}
+        seriesMeta={seriesMeta}
       />
 
       {/* BELOW MAIN: Band + TeaserDuo */}

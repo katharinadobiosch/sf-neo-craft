@@ -1,14 +1,12 @@
 .teaser-duo {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  // margin-bottom: 1.5rem;
 
   .teaser-duo__images {
     width: 100%;
     display: flex;
     flex-direction: column;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
 
     > div:nth-child(2) {
       // border-left: 1px solid black;
@@ -35,9 +33,12 @@
     font-weight: var(--nc-fliesstext-mobil-weight);
     overflow-wrap: break-word;
     word-break: break-word;
-
+    background: var(--sf-purple);
+    padding: 1.5rem 1.6rem;
+    border-top: 1px solid black;
     @media (min-width: 768px) {
       padding: 2rem 1.6rem 2.6rem;
+      border-top: 0;
     }
   }
 
@@ -52,6 +53,7 @@
     display: block;
     width: 100%;
     height: auto;
+    aspect-ratio: 1/1;
   }
 
   .hover-img {
@@ -78,11 +80,14 @@
 @media (min-width: 768px) {
   .teaser-duo {
     gap: 0;
+    margin-bottom: 0rem;
   }
 
   .teaser-duo .teaser-duo__images {
     flex-direction: row;
     align-items: stretch;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
   }
 
   .teaser-duo .teaser-duo__image {
@@ -115,7 +120,6 @@
   }
 
   .teaser-duo .teaser-duo__content {
-    background: var(--sf-purple);
     padding: 9.1rem 13.6rem;
     font-size: var(--nc-fliesstext-desktop-size);
     line-height: var(--nc-fliesstext-desktop-line);

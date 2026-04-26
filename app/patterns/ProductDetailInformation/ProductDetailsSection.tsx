@@ -1,5 +1,6 @@
 import {useMemo, useState} from 'react';
 import {ProductMetaAccordion} from '../ProductMetaAccordion';
+import metaDefsJson from '~/graphql/product/product-metafield-defs.json';
 
 const cx = (...classes: (string | false | null | undefined)[]) =>
   classes.filter(Boolean).join(' ');
@@ -10,10 +11,37 @@ type Props = {
   product?: any;
 };
 
+type MetaDef = {
+  namespace: string;
+  key: string;
+  name: string;
+  type?: {name?: string};
+  access?: {storefront?: 'PUBLIC_READ' | 'NONE' | string};
+  ownerType?: 'PRODUCT' | string;
+};
+
+const RAW_DEFS: MetaDef[] = Array.isArray(metaDefsJson)
+  ? (metaDefsJson as MetaDef[])
+  : ((metaDefsJson as unknown as {productMetafieldDefsAll?: MetaDef[]})
+      .productMetafieldDefsAll ?? []);
+
+const LABEL_BY_KEY = Object.fromEntries(
+  RAW_DEFS.filter(
+    (d) => d.ownerType === 'PRODUCT' && d.access?.storefront === 'PUBLIC_READ',
+  ).map((d) => [d.key, String(d.name || d.key).trim()]),
+);
+
+function prettifyKey(key: string) {
+  return String(key || '')
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase())
+    .trim();
+}
+
 function getLabel(m: any) {
-  // ersten buchstaben in uppercase
-  const label = m?.name || m?.definition?.name || m?.key || m?.namespace || '—';
-  return label.charAt(0).toUpperCase() + label.slice(1);
+  const key = String(m?.key || '').trim();
+  if (!key) return '—';
+  return LABEL_BY_KEY[key] || prettifyKey(key);
 }
 
 export function ProductDetailsSection({
@@ -22,18 +50,16 @@ export function ProductDetailsSection({
   product,
 }: Props) {
   const items = useMemo(() => {
-    // wie vorher: measurements + others zusammen
     return [...(mfMeasurements || []), ...(mfOthers || [])].filter(Boolean);
   }, [mfMeasurements, mfOthers]);
 
   if (items.length === 0) return null;
 
-  // pro Item eigener Toggle (default: geschlossen)
   const [openMap, setOpenMap] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
     for (const m of items) {
       const k = String(m?.id || m?.key || getLabel(m));
-      initial[k] = false; // <-- war: true
+      initial[k] = false;
     }
     return initial;
   });
@@ -52,7 +78,6 @@ export function ProductDetailsSection({
 
           return (
             <div className="pf-kv__row" key={k} data-open={isOpen}>
-              {/* Toggle: klickbar über Key + Icon */}
               <button
                 type="button"
                 className="pf-kv__toggle"
@@ -60,13 +85,11 @@ export function ProductDetailsSection({
                 aria-expanded={isOpen}
               >
                 <span className="pf-kv__key">{label}</span>
-                <span
-                  className={cx('pf-kv__icon', isOpen && 'is-open')}
-                  aria-hidden="true"
-                />
+                <span className="pf-kv__icon" aria-hidden="true">
+                  {isOpen ? '−' : '+'}
+                </span>
               </button>
 
-              {/* Value */}
               <div className="pf-kv__value-wrap">
                 <div className="pf-kv__value">
                   <ProductMetaAccordion metafields={[m]} product={product} />

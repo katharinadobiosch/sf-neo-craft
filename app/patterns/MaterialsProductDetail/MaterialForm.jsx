@@ -37,7 +37,8 @@ export function MaterialForm({
     'hero_split_text',
     'product_series',
     'content',
-    'shipping', // ensure shipping metafield does not land in "mfOthers"
+    'custom.lead_time_shipping',
+    // ensure shipping metafield does not land in "mfOthers"
   ]);
 
   const hasContent = (m) => {

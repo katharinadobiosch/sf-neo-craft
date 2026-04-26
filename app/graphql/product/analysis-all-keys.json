@@ -1,0 +1,367 @@
+[
+  {
+    "key": "mc-facebook.google_product_category",
+    "count": 19,
+    "type": "single_line_text_field",
+    "examples": [
+      "3006",
+      "436",
+      "436"
+    ]
+  },
+  {
+    "key": "custom.product_tile",
+    "count": 10,
+    "type": "list.file_reference",
+    "examples": [
+      "[\"gid://shopify/MediaImage/62327066329352\",\"gid://shopify/MediaImage/62326947578…",
+      "[\"gid://shopify/MediaImage/60328438169864\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/59677946577160\",\"gid://shopify/MediaImage/15007470125…"
+    ]
+  },
+  {
+    "key": "custom_slider.content",
+    "count": 9,
+    "type": "list.file_reference",
+    "examples": [
+      "[\"gid://shopify/MediaImage/40718265155848\",\"gid://shopify/MediaImage/40719112175…",
+      "[\"gid://shopify/MediaImage/42111500812552\",\"gid://shopify/MediaImage/42111496618…",
+      "[\"gid://shopify/MediaImage/42111500812552\",\"gid://shopify/MediaImage/42111496618…"
+    ]
+  },
+  {
+    "key": "custom.measurements",
+    "count": 9,
+    "type": "list.file_reference",
+    "examples": [
+      "[\"gid://shopify/MediaImage/59279948054792\",\"gid://shopify/MediaImage/59279948120…",
+      "[\"gid://shopify/MediaImage/59250050400520\"]",
+      "[\"gid://shopify/MediaImage/59248949854472\",\"gid://shopify/MediaImage/59248949821…"
+    ]
+  },
+  {
+    "key": "custom.materialBoolean",
+    "count": 6,
+    "type": "boolean",
+    "examples": [
+      "true",
+      "true",
+      "true"
+    ]
+  },
+  {
+    "key": "custom.produkt_duo_top_links",
+    "count": 6,
+    "type": "list.file_reference",
+    "examples": [
+      "[\"gid://shopify/MediaImage/59677945987336\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/60969244918024\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/60969244950792\",\"gid://shopify/MediaImage/60328442265…"
+    ]
+  },
+  {
+    "key": "custom.produkt_duo_top_rechts",
+    "count": 6,
+    "type": "list.file_reference",
+    "examples": [
+      "[\"gid://shopify/MediaImage/20779910693050\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/60969244852488\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/60969244918024\",\"gid://shopify/MediaImage/60328442265…"
+    ]
+  },
+  {
+    "key": "custom.hero_split_links",
+    "count": 5,
+    "type": "list.file_reference",
+    "examples": [
+      "[\"gid://shopify/MediaImage/59863547937032\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/60969244950792\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/20692543537338\",\"gid://shopify/MediaImage/60328442265…"
+    ]
+  },
+  {
+    "key": "custom.hero_split_rechts",
+    "count": 5,
+    "type": "list.file_reference",
+    "examples": [
+      "[\"gid://shopify/MediaImage/60969244852488\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/60969244918024\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/20692544585914\",\"gid://shopify/MediaImage/60328442265…"
+    ]
+  },
+  {
+    "key": "custom.teaser_duo_bottom_links",
+    "count": 5,
+    "type": "list.file_reference",
+    "examples": [
+      "[\"gid://shopify/MediaImage/58751559270664\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/60969244950792\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/20692543602874\",\"gid://shopify/MediaImage/60328442265…"
+    ]
+  },
+  {
+    "key": "custom.teaser_duo_bottom_rechts",
+    "count": 5,
+    "type": "list.file_reference",
+    "examples": [
+      "[\"gid://shopify/MediaImage/42112233177352\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/60969244950792\",\"gid://shopify/MediaImage/60328442265…",
+      "[\"gid://shopify/MediaImage/20692543340730\",\"gid://shopify/MediaImage/60328442265…"
+    ]
+  },
+  {
+    "key": "custom.product_series",
+    "count": 5,
+    "type": "metaobject_reference",
+    "examples": [
+      "gid://shopify/Metaobject/289653653768",
+      "gid://shopify/Metaobject/289653653768",
+      "gid://shopify/Metaobject/289653653768"
+    ]
+  },
+  {
+    "key": "custom.hero_split_text",
+    "count": 4,
+    "type": "multi_line_text_field",
+    "examples": [
+      "GOBA balances sculptural clarity with subtle technology— bringing soft, responsi…",
+      "hero split text",
+      "OSOM OBLONG TEST"
+    ]
+  },
+  {
+    "key": "custom.diameter",
+    "count": 3,
+    "type": "list.number_decimal",
+    "examples": [
+      "[\"50.0\"]",
+      "[\"50.0\"]",
+      "[\"50.0\",\"70.0\"]"
+    ]
+  },
+  {
+    "key": "custom.dichroic_glass",
+    "count": 3,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263838302472\"]",
+      "[\"gid://shopify/Metaobject/263838400776\",\"gid://shopify/Metaobject/263838302472\"…",
+      "[\"gid://shopify/Metaobject/263838236936\",\"gid://shopify/Metaobject/263838400776\"…"
+    ]
+  },
+  {
+    "key": "custom.mirror_glass_type",
+    "count": 3,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263837974792\"]",
+      "[\"gid://shopify/Metaobject/263838204168\",\"gid://shopify/Metaobject/263838368008\"…",
+      "[\"gid://shopify/Metaobject/263838171400\",\"gid://shopify/Metaobject/263838335240\"…"
+    ]
+  },
+  {
+    "key": "custom.metal_colour",
+    "count": 2,
+    "type": "list.single_line_text_field",
+    "examples": [
+      "[\"test2\"]",
+      "[\"test2\"]"
+    ]
+  },
+  {
+    "key": "custom.interchangeable_plugs",
+    "count": 2,
+    "type": "list.single_line_text_field",
+    "examples": [
+      "[\"EU\",\"US\",\"UK\",\"AUS\",\"CN\",\"KOR\",\"JPN\"]",
+      "[\"EU\",\"US\",\"UK\",\"AUS\",\"CN\",\"KOR\",\"JPN\"]"
+    ]
+  },
+  {
+    "key": "custom.oled_options",
+    "count": 2,
+    "type": "list.single_line_text_field",
+    "examples": [
+      "[\"00\"]",
+      "[\"00\"]"
+    ]
+  },
+  {
+    "key": "custom.material_tile_color",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263838138632\",\"gid://shopify/Metaobject/263838368008\"…",
+      "[\"gid://shopify/Metaobject/263838433544\"]"
+    ]
+  },
+  {
+    "key": "custom.product_color",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263838138632\"]",
+      "[\"gid://shopify/Metaobject/263838400776\",\"gid://shopify/Metaobject/263838302472\"…"
+    ]
+  },
+  {
+    "key": "custom.metal_finish",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263838236936\"]",
+      "[\"gid://shopify/Metaobject/263838269704\",\"gid://shopify/Metaobject/263838236936\"…"
+    ]
+  },
+  {
+    "key": "custom.marble_type",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263838138632\"]",
+      "[\"gid://shopify/Metaobject/263838368008\",\"gid://shopify/Metaobject/263838269704\"…"
+    ]
+  },
+  {
+    "key": "custom.wood_type",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263838433544\"]",
+      "[\"gid://shopify/Metaobject/263838400776\",\"gid://shopify/Metaobject/263838302472\"…"
+    ]
+  },
+  {
+    "key": "custom.marble_fixture",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263837745416\"]",
+      "[\"gid://shopify/Metaobject/263838368008\",\"gid://shopify/Metaobject/263838269704\"…"
+    ]
+  },
+  {
+    "key": "custom.table_top",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263837647112\"]",
+      "[\"gid://shopify/Metaobject/263838335240\"]"
+    ]
+  },
+  {
+    "key": "custom.ceiling_cap",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263836533000\"]",
+      "[\"gid://shopify/Metaobject/263838204168\"]"
+    ]
+  },
+  {
+    "key": "custom.glass_color",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263836860680\"]",
+      "[\"gid://shopify/Metaobject/263838138632\",\"gid://shopify/Metaobject/263838400776\"…"
+    ]
+  },
+  {
+    "key": "custom.frame_color",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263836893448\"]",
+      "[\"gid://shopify/Metaobject/263837745416\",\"gid://shopify/Metaobject/263837581576\"…"
+    ]
+  },
+  {
+    "key": "custom.cable_color",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263836958984\"]",
+      "[\"gid://shopify/Metaobject/263837745416\",\"gid://shopify/Metaobject/263837712648\"…"
+    ]
+  },
+  {
+    "key": "custom.metal_color",
+    "count": 2,
+    "type": "list.metaobject_reference",
+    "examples": [
+      "[\"gid://shopify/Metaobject/263837417736\"]",
+      "[\"gid://shopify/Metaobject/263837843720\"]"
+    ]
+  },
+  {
+    "key": "custom.height",
+    "count": 2,
+    "type": "list.number_decimal",
+    "examples": [
+      "[\"60.0\"]",
+      "[\"700.0\"]"
+    ]
+  },
+  {
+    "key": "custom.width",
+    "count": 2,
+    "type": "list.number_decimal",
+    "examples": [
+      "[\"50.0\"]",
+      "[\"67.0\"]"
+    ]
+  },
+  {
+    "key": "custom.length",
+    "count": 2,
+    "type": "list.number_decimal",
+    "examples": [
+      "[\"100.0\"]",
+      "[\"56.0\"]"
+    ]
+  },
+  {
+    "key": "custom.size",
+    "count": 2,
+    "type": "list.single_line_text_field",
+    "examples": [
+      "[\"Einzeiliger Text (Liste)\"]",
+      "[\"75\"]"
+    ]
+  },
+  {
+    "key": "custom.material",
+    "count": 2,
+    "type": "list.single_line_text_field",
+    "examples": [
+      "[\"Einzeiliger Text (Liste)\"]",
+      "[\"Material\"]"
+    ]
+  },
+  {
+    "key": "custom.option",
+    "count": 2,
+    "type": "list.single_line_text_field",
+    "examples": [
+      "[\"test\"]",
+      "[\"OPTION 1\",\"OPTION 2\"]"
+    ]
+  },
+  {
+    "key": "custom.plug_type",
+    "count": 1,
+    "type": "file_reference",
+    "examples": [
+      "gid://shopify/MediaImage/60328442265864"
+    ]
+  },
+  {
+    "key": "custom.series_hero",
+    "count": 1,
+    "type": "list.file_reference",
+    "examples": [
+      "[\"gid://shopify/MediaImage/59642363347208\"]"
+    ]
+  }
+]

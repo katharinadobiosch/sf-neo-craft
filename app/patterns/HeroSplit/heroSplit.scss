@@ -7,7 +7,9 @@
       'leftBottom right';
     position: relative;
     border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    @media (min-width: 768px) {
+      border-bottom: 1px solid black;
+    }
   }
 
   /* Mittel-Divider */
@@ -23,6 +25,9 @@
     aspect-ratio: var(--hs-leftTop-aspect);
     width: 100%;
     height: auto;
+    @media (min-width: 1200px) {
+      border-bottom: 1px solid black;
+    }
   }
   .hs-leftBottom {
     display: none;
@@ -47,6 +52,8 @@
   /* Responsive – unter 900px einspaltig */
   @media (max-width: 767px) {
     .hs-grid {
+      border-top: 0;
+
       grid-template-columns: 1fr;
       grid-template-areas:
         'right'

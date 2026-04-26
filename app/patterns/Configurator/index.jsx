@@ -233,8 +233,7 @@ export function Configurator({
         }
         aria-hidden={!variantsOpen}
       >
-        <div className="cfg-panel-scroll">
-          {/* 🔹 neue Modell-Zeile */}
+        <div ref={panelRef} className="cfg-panel-scroll">
           {hasSeriesOptions && (
             <div className="cfg-row cfg-row--model">
               <div className="cfg-values">
@@ -258,8 +257,8 @@ export function Configurator({
               </div>
             </div>
           )}
-          <div ref={panelRef} className="cfg-panel-inner">
-            {/* bestehende Variant-Optionen */}
+
+          <div className="cfg-panel-inner">
             {variantOptions.map(renderOption)}
           </div>
         </div>

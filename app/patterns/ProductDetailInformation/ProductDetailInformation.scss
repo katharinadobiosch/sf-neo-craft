@@ -1,13 +1,24 @@
 /* =========================================================
    PDP – Layout (mobile first)
-   - 0–767px: mobile (nur sticky CTA hinzugefügt)
-   - 768–991px: tablet (dein originales CSS)
-   - >=992px: DEIN ORIGINALES DESKTOP CSS (100% unverändert)
+   - 0–767px: mobile
+   - 768–991px: tablet
+   - >=992px: desktop
    ========================================================= */
-/* z.B. in ProductDetailInformation.scss */
+
+/* Mobile-first defaults für Config-Columns */
+.pdp {
+  --cfg-total: 781;
+  --cfg-col1: 42%;
+  --cfg-col2: 42%;
+  --cfg-col3: 16%;
+
+  --cfg-col1-p: 42%;
+  --cfg-col2-p: 42%;
+  --cfg-col3-p: 16%;
+}
+
 @media (min-width: 768px) {
   .pdp {
-    /* 268 / 268 / 245 */
     --cfg-total: 781;
     --cfg-col1-p: calc(268 / var(--cfg-total) * 100%);
     --cfg-col2-p: calc(268 / var(--cfg-total) * 100%);
@@ -18,17 +29,41 @@
     --cfg-col3: clamp(160px, var(--cfg-col3-p), 245px);
   }
 }
+
 .pdp {
   display: flex;
   flex-direction: column;
   margin: 1.5rem 0 3rem;
-  gap: 1.5rem;
+
+  // @media (min-width: 768px) {
+  //   position: relative;
+  //   margin: 3rem 0 8.6rem 0;
+  //   gap: 0;
+
+  //   &::before {
+  //     content: '';
+  //     position: absolute;
+  //     left: 50%;
+  //     top: 0;
+  //     bottom: 0;
+  //     width: 1px;
+  //     background: #000;
+  //     transform: translateX(-0.5px);
+  //     z-index: 2;
+  //     pointer-events: none;
+  //   }
+  // }
+  @media (min-width: 768px) {
+    margin-bottom: 8.6rem;
+  }
 
   @media (min-width: 768px) {
     position: relative;
     margin: 3rem 0 8.6rem 0;
     gap: 0;
+  }
 
+  @media (min-width: 1200px) {
     &::before {
       content: '';
       position: absolute;
@@ -47,7 +82,6 @@
     margin-top: 0;
   }
 
-  /* Options */
   .product-options-grid {
     display: flex;
     flex-wrap: wrap;
@@ -59,23 +93,22 @@
     background-color: transparent;
   }
 
-  /* ---------- Main (mobile: column) ---------- */
   .product-main {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: stretch;
     width: 100%;
     min-width: 0;
+    // border: 5px solid red;
 
-    /* ---------- Desktop: GRID (locks info height to media height) ---------- */
-    @media (min-width: 992px) {
+    @media (min-width: 1200px) {
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: stretch;
     }
 
     .product-main__media {
-      aspect-ratio: 1 / 1; // DAS ist die Referenz
+      aspect-ratio: 1 / 1;
       width: 100%;
       height: auto;
       min-height: 0;
@@ -88,20 +121,19 @@
         aspect-ratio: 1 / 1;
       }
 
-      @media (min-width: 992px) {
+      @media (min-width: 1200px) {
         order: 2;
         min-height: 0;
-        aspect-ratio: 780 / 780; /* defines row height */
-        align-items: start; // statt stretch
+        aspect-ratio: 780 / 780;
+        align-items: start;
       }
     }
 
     .product-main__info {
-      height: 100%; // jetzt wirksam
+      height: 100%;
       min-height: 0;
       display: flex;
       flex-direction: column;
-      border-top: 1px solid black;
     }
 
     .media-gallery,
@@ -111,12 +143,11 @@
       min-height: 320px;
       height: auto;
 
-      @media (min-width: 992px) {
+      @media (min-width: 1200px) {
         min-height: 0;
       }
     }
 
-    /* ---------- Teaser duo (mobile) ---------- */
     .pdp__teaser-duo {
       margin: 0;
 
@@ -150,18 +181,15 @@
       }
     }
 
-    /* verhindert Overflow im quadratischen oberen Teaser */
     .square-variant .teaser-duo__content {
       width: 100%;
     }
 
-    /* ---------- Price ---------- */
     .product-price-on-sale {
       display: flex;
       opacity: 0.5;
     }
 
-    /* ---------- Product form ---------- */
     .product-form {
       display: flex;
       flex-direction: column;
@@ -169,17 +197,16 @@
       min-height: 0;
       height: auto;
 
-      @media (min-width: 992px) {
+      @media (min-width: 1200px) {
         display: flex;
         flex-direction: column;
         height: 100%;
         min-height: 0;
-        justify-content: flex-start; // statt space-between o.ä.
+        justify-content: flex-start;
         align-content: flex-start;
       }
     }
 
-    /* (optional legacy) */
     .product-form__scroller {
       flex: 1 1 auto;
       min-height: 0;
@@ -197,28 +224,26 @@
     }
   }
 
-  /* ---------- CTA ---------- */
   .pdp__cta-container {
     width: 100%;
     display: flex;
     border: 1px solid black;
     align-items: stretch;
     height: 6.3rem;
-    /* ✅ default = mobile */
     font-size: var(--nc-fliesstext-mobil-size);
     line-height: var(--nc-fliesstext-mobil-line);
     font-weight: var(--nc-fliesstext-mobil-weight);
 
-    /* ========================================
-       EINZIGE NEUE ERGÄNZUNG: Sticky CTA auf Mobile/Tablet
-       ======================================== */
     @media (max-width: 991px) {
-      position: sticky;
-      bottom: 0;
-      left: 0;
-      z-index: 100;
-      background: #fff;
-      box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+      // position: fixed;
+      // left: 0;
+      // right: 0;
+      // bottom: 0;
+      // z-index: 1000;
+      // background: #fff;
+      // box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+      // width: 100%;
+      // margin: 0;
     }
 
     .cta-button {
@@ -227,6 +252,7 @@
       display: flex;
       align-items: center;
       justify-content: space-around;
+
       &:hover {
         background: black;
         color: white;
@@ -241,10 +267,10 @@
     .cta-question {
       width: 43%;
       height: 100%;
-      // border-left: 1px solid black;
       display: flex;
       align-items: center;
       justify-content: center;
+
       &:hover {
         background: black;
         color: white;
@@ -253,10 +279,26 @@
     }
   }
 
-  /* =========================================================
-   DESKTOP: Header bleibt sichtbar, nur Panel-Inhalt scrollt
-   ========================================================= */
-  @media (min-width: 992px) {
+  .product-form__sections {
+    display: flex;
+    flex-direction: column;
+    // flex: 2 1 0;
+    // min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+
+    @media (min-width: 768px) {
+      padding: 1.2rem 0;
+    }
+  }
+
+  .product-form__configurator {
+    // border: 5px solid green;
+    margin-top: 20px;
+  }
+
+  @media (min-width: 1200px) {
     .product-form.pf--segmented {
       height: 100%;
       min-height: 0;
@@ -265,12 +307,13 @@
       gap: 0;
     }
 
-    /* 3 Segmente teilen die Höhe, aber NICHT scrollen */
     .product-form__configurator {
       flex: 1 1 0;
       min-height: 0;
-      overflow: hidden; /* wichtig */
+      overflow: hidden;
       border-bottom: 1px solid var(--divider);
+      padding: 12px 0;
+      margin-top: 0;
     }
 
     .product-form__sections {
@@ -278,18 +321,18 @@
       flex-direction: column;
       flex: 2 1 0;
       min-height: 0;
-      overflow: hidden; /* wichtig */
-      margin-top: 1rem;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 1.2rem 0;
     }
 
     .shipping-item {
       flex: 1 1 0;
       min-height: 0;
-      overflow: hidden; /* wichtig */
+      overflow: hidden;
       padding-top: 0;
     }
 
-    /* CTA bleibt unten */
     .pdp__cta-container {
       flex: 0 0 auto;
       margin-top: auto;
@@ -298,10 +341,6 @@
       font-weight: var(--nc-fliesstext-desktop-weight);
     }
 
-    /* ----------------------------
-     Configurator: Header fixed
-     Panel scrollt
-     ---------------------------- */
     .product-form__configurator .configurator {
       height: 100%;
       min-height: 0;
@@ -312,7 +351,7 @@
     .product-form__configurator .cfg-panel-scroll {
       flex: 1 1 auto;
       min-height: 0;
-      overflow: auto; /* nur hier scrollen */
+      overflow: auto;
       overflow-x: hidden;
     }
 
@@ -320,43 +359,11 @@
       flex: 0 0 auto;
     }
 
-    /* überschreibt dein "overflow: hidden" aus configurator.scss */
     .product-form__configurator .cfg-panel {
-      // flex: 1 1 auto;
-      // min-height: 0;
-      // overflow: auto; /* nur hier scrollen */
-      /* Accordion-Hülle darf im Desktop nicht limitieren */
       max-height: none !important;
       overflow: visible !important;
     }
 
-    /* ----------------------------
-     Details: Header fixed
-     Panel scrollt
-     ---------------------------- */
-    .product-form__sections .pf-section {
-      height: 100%;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .product-form__sections .pf-head {
-      flex: 0 0 auto;
-      margin-top: 0; /* du setzt es ohnehin im Desktop */
-    }
-
-    .product-form__sections .pf-panel {
-      flex: 1 1 auto;
-      min-height: 0;
-      overflow: auto; /* nur hier scrollen */
-      // padding-top: 1rem;
-    }
-
-    /* ----------------------------
-     Shipping: Header fixed
-     Panel scrollt
-     ---------------------------- */
     .shipping-item {
       display: flex;
       flex-direction: column;
@@ -368,67 +375,59 @@
       .shipping-item .ps-panel {
         flex: 1 1 auto;
         min-height: 0;
-        overflow: auto; /* nur hier scrollen */
+        overflow: auto;
       }
     }
-
-    /* ----------------------------
-     Scrollbar: schwarz (nur Panels)
-     ---------------------------- */
-    .product-form__configurator .cfg-panel,
-    .product-form__sections .pf-panel,
+    .product-form__configurator .cfg-panel-scroll,
+    .product-form__sections,
     .shipping-item .ps-panel {
       scrollbar-width: thin;
       scrollbar-color: #111 transparent;
     }
 
-    .product-form__configurator .cfg-panel::-webkit-scrollbar,
-    .product-form__sections .pf-panel::-webkit-scrollbar,
+    .product-form__configurator .cfg-panel-scroll::-webkit-scrollbar,
+    .product-form__sections::-webkit-scrollbar,
     .shipping-item .ps-panel::-webkit-scrollbar {
       width: 8px;
     }
 
-    .product-form__configurator .cfg-panel::-webkit-scrollbar-track,
-    .product-form__sections .pf-panel::-webkit-scrollbar-track,
+    .product-form__configurator .cfg-panel-scroll::-webkit-scrollbar-track,
+    .product-form__sections::-webkit-scrollbar-track,
     .shipping-item .ps-panel::-webkit-scrollbar-track {
       background: transparent;
     }
 
-    .product-form__configurator .cfg-panel::-webkit-scrollbar-thumb,
-    .product-form__sections .pf-panel::-webkit-scrollbar-thumb,
+    .product-form__configurator .cfg-panel-scroll::-webkit-scrollbar-thumb,
+    .product-form__sections::-webkit-scrollbar-thumb,
     .shipping-item .ps-panel::-webkit-scrollbar-thumb {
       background: #111;
       border-radius: 999px;
     }
 
-    .product-form__configurator .cfg-panel::-webkit-scrollbar-thumb:hover,
-    .product-form__sections .pf-panel::-webkit-scrollbar-thumb:hover,
+    .product-form__configurator
+      .cfg-panel-scroll::-webkit-scrollbar-thumb:hover,
+    .product-form__sections::-webkit-scrollbar-thumb:hover,
     .shipping-item .ps-panel::-webkit-scrollbar-thumb:hover {
       background: #000;
     }
   }
-
-  /* =========================================================
-     Details section (keep your existing styles)
-     ========================================================= */
 
   .product-form__sections {
     font-size: var(--nc-konfigurator-mobil-size, 14px);
     line-height: var(--nc-konfigurator-mobil-line, 1.4);
     font-weight: var(--nc-konfigurator-mobil-weight, 400);
     color: var(--text-default);
+    // padding: 1.2rem 0;
 
     .pf-head {
       display: flex;
       align-items: center;
-      margin-top: 1rem;
     }
 
     .pf-toggle {
       all: unset;
       width: 100%;
       cursor: pointer;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -453,36 +452,6 @@
       opacity: 1;
     }
 
-    .pf-plus {
-      position: relative;
-      width: 12px;
-      height: 12px;
-      flex: 0 0 12px;
-      color: currentColor;
-      padding-right: 100px;
-
-      &::before,
-      &::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 14px;
-        height: 2px;
-        background: currentColor;
-        transform: translate(-50%, -50%);
-        transition: transform 0.2s ease;
-      }
-
-      &::after {
-        transform: translate(-50%, -50%) rotate(90deg);
-      }
-
-      &.is-open::after {
-        transform: translate(-50%, -50%) rotate(0deg);
-      }
-    }
-
     @media (min-width: 768px) {
       .pf-title {
         font-size: 1.5rem;
@@ -495,7 +464,7 @@
       }
     }
 
-    @media (min-width: 992px) {
+    @media (min-width: 1200px) {
       height: 100%;
 
       .pf-head {
@@ -510,18 +479,18 @@
     }
   }
 
-  /* =========================================================
-     Shipping section (keep your existing styles)
-     ========================================================= */
-
   .shipping-item {
-    border-top: 1px solid var(--divider);
+    padding: 0;
+    min-height: 60px;
+    @media (min-width: 768px) {
+      border-top: 1px solid var(--divider);
+      padding: 12px 0;
+    }
 
     .ps-toggle {
       all: unset;
       width: 100%;
       cursor: pointer;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -542,7 +511,6 @@
       display: flex;
       align-items: center;
       padding-left: 2rem;
-      padding-top: 1rem;
       font-size: 12px;
       font-weight: 400;
       color: var(--text-muted, #5a5a5a);
@@ -551,36 +519,6 @@
     &[data-open='true'] .ps-panel {
       max-height: 999px;
       opacity: 1;
-    }
-
-    .ps-plus {
-      position: relative;
-      width: 12px;
-      height: 12px;
-      flex: 0 0 12px;
-      color: currentColor;
-      padding-right: 100px;
-
-      &::before,
-      &::after {
-        content: '';
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 14px;
-        height: 2px;
-        background: currentColor;
-        transform: translate(-50%, -50%);
-        transition: transform 0.2s ease;
-      }
-
-      &::after {
-        transform: translate(-50%, -50%) rotate(90deg);
-      }
-
-      &.is-open::after {
-        transform: translate(-50%, -50%) rotate(0deg);
-      }
     }
   }
 
@@ -594,32 +532,8 @@
     }
   }
 
-  /* =========================================================
-   FIX: Details Panel muss im Desktop scrollen
-   (überschreibt das mobile "overflow:hidden" + max-height:0)
-   ========================================================= */
-  @media (min-width: 992px) {
-    .product-form__sections .pf-panel {
-      overflow: auto !important;
-      max-height: none !important; /* wichtig: sonst bleibt es 0 */
-      opacity: 1; /* optional, falls du Flicker hast */
-    }
-
-    /* wenn du die Header-Zeile NICHT mitscrollen willst */
-    .product-form__sections .pf-head {
-      flex: 0 0 auto;
-    }
-
-    /* damit Flex-Child wirklich scrollen darf */
-    .product-form__sections .pf-section {
-      min-height: 0;
-    }
-  }
-
   .hero-split {
-    @media (min-width: 768px) {
-      padding: 8.6rem 0 0 0;
-    }
+    padding: 8.6rem 0 0 0;
   }
 
   @media (min-width: 768px) {
@@ -643,32 +557,25 @@
    ========================================================= */
 @media (max-width: 767px) {
   .pdp {
-    margin: 0; /* weniger "random" whitespace */
-    gap: 0; /* wir kontrollieren spacing pro Block */
+    margin: 0;
+    gap: 0;
+    padding-bottom: calc(6.3rem + env(safe-area-inset-bottom, 0px));
   }
 
-  /* falls dein Layout auf mobile "zu schmal" wirkt:
-     -> wir geben der PDP links/rechts ein klares padding */
-
-  /* Media soll edge-to-edge sein (optional – sieht meist besser aus) */
-  .pdp .product-main__media,
-  .pdp .media-gallery,
   .pdp .nc-media-gallery {
     padding-left: 0;
     padding-right: 0;
   }
 
-  /* Trenner und Sektionen klarer */
-  .pdp .product-main__info {
-    border-top: 1px solid #000;
-    padding-top: 1.2rem;
+  .pdp .product-main .product-main__media img {
+    object-fit: cover;
   }
 }
 
 /* ---------- Teaser duo (mobile) ---------- */
 .pdp .product-main .pdp__teaser-duo {
   margin: 0;
-  border: 0; /* <-- Debug border raus */
+  border: 0;
 
   .teaser-duo__images {
     display: flex;
@@ -692,14 +599,13 @@
     padding: 1.6rem 1.6rem 2rem;
 
     font-size: var(--nc-fliesstext-mobil-size);
-    line-height: 1.45; /* mobile tighter */
+    line-height: 1.45;
     font-weight: var(--nc-fliesstext-mobil-weight);
 
     overflow-wrap: break-word;
     word-break: break-word;
   }
 
-  /* Listen im Teaser: clean */
   .teaser-duo__content ul {
     margin: 1.2rem 0 0;
     padding-left: 1.8rem;
@@ -710,70 +616,66 @@
   }
 }
 
+/* =========================================================
+   Details rows
+   ========================================================= */
 .pdp .product-form__sections {
   .pf-kv__row {
-    display: grid;
-    grid-template-columns: var(--cfg-col2) 1fr; /* <- genau wie Configurator Label-Spalte */
-    column-gap: 0; /* wie du’s willst */
-    align-items: center;
+    border-bottom: 1px solid var(--divider);
+    padding: 15px 0;
+
+    @media (min-width: 768px) {
+      display: grid;
+      grid-template-columns: var(--cfg-col2, 180px) 1fr;
+      column-gap: 0;
+      align-items: center;
+      border-bottom: unset;
+      padding: 0;
+    }
   }
 
-  /* Button belegt NUR die Key-Spalte, bleibt komplett klickbar */
   .pf-kv__toggle {
     all: unset;
     cursor: pointer;
-
-    grid-column: 1;
-    display: block;
     width: 100%;
-    min-height: 44px;
-    position: relative; /* für Key-Layout */
-    grid-column: 1;
+    // min-height: 60px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding-bottom: 6px;
+    // padding: 1.5rem 0;
+
+    @media (min-width: 768px) {
+      all: unset;
+      cursor: pointer;
+      width: 100%;
+      min-height: 46px;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-direction: row;
+    }
   }
 
   .pf-kv__key {
-    font-weight: 500;
-    color: var(--text-muted, #5a5a5a);
-    line-height: 1.5rem;
-  }
+    display: block;
+    max-width: 100%;
+    font-size: var(--nc-konfigurator-mobil-size);
+    line-height: var(--nc-konfigurator-mobil-line);
+    font-weight: var(--nc-konfigurator-mobil-weight);
 
-  /* ICON sitzt GENAU auf der Kante zwischen Spalte 1 und 2 */
-  .pf-kv__icon {
-    position: absolute;
-    left: 80%;
-    top: 50%;
-    transform: translate(-50%, -50%); /* center genau auf die Kante */
-
-    width: 12px;
-    height: 12px;
-    color: currentColor;
-    pointer-events: none; /* klick geht auf den Button */
-  }
-
-  .pf-kv__icon::before,
-  .pf-kv__icon::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 14px;
-    height: 2px;
-    background: currentColor;
-    transform: translate(-50%, -50%);
-    transition: transform 0.2s ease;
-  }
-
-  .pf-kv__icon::after {
-    transform: translate(-50%, -50%) rotate(90deg);
-  }
-
-  .pf-kv__icon.is-open::after {
-    transform: translate(-50%, -50%) rotate(0deg);
+    @media (min-width: 768px) {
+      font-size: var(--nc-konfigurator-head-desktop-size);
+      line-height: var(--nc-konfigurator-head-desktop-line);
+      font-weight: var(--nc-konfigurator-head-desktop-weight);
+    }
   }
 
   .pf-kv__value-wrap {
     grid-column: 2;
-
     overflow: hidden;
     max-height: 0;
     opacity: 0;
@@ -794,82 +696,112 @@
     color: var(--text-default, #111);
   }
 
+  .pf-kv__value p {
+    margin: 0;
+  }
+
+  .pf-kv__value ul,
+  .pf-kv__value ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
   @media (min-width: 768px) {
     .pf-kv__row {
-      --kv-key: clamp(180px, 34%, 268px);
-      align-items: start; /* statt center */
+      align-items: start;
     }
   }
 }
-/* SHIPPING: gleiche 2-Spalten-Logik wie ProductDetailsSection */
+
+/* =========================================================
+   Shipping rows
+   ========================================================= */
 .pdp .shipping-item.pf-kv__row {
-  display: grid;
-  grid-template-columns: var(--cfg-col2) 1fr;
-  column-gap: 0;
-  align-items: center;
-  padding-top: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  // border-bottom: 1px solid var(--divider);
+  padding: 15px 0;
+
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: var(--cfg-col2, 180px) 1fr;
+    column-gap: 0;
+    align-items: start;
+    border-bottom: unset;
+    padding: 0;
+    padding: 1.2rem 0;
+  }
 }
 
-/* Toggle belegt nur Spalte 1 */
 .pdp .shipping-item .pf-kv__toggle {
   all: unset;
   cursor: pointer;
-
-  grid-column: 1;
-  display: block;
   width: 100%;
-  min-height: 44px;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    grid-column: 1;
+    min-height: 46px;
+    padding: 0;
+    align-items: flex-start;
+  }
 }
 
-/* Shipping-Titel rechtsbündig an die “Kante” */
-.pdp .shipping-item .pf-kv__key--right {
+.pdp .shipping-item .pf-kv__key {
   display: block;
-  text-align: left;
-  padding-right: 1.5rem; /* Platz, damit Text nicht ins Plus läuft */
+  max-width: 100%;
+  font-size: var(--nc-konfigurator-mobil-size);
+  line-height: var(--nc-konfigurator-mobil-line);
+  font-weight: var(--nc-konfigurator-mobil-weight);
+
+  @media (min-width: 768px) {
+    font-size: var(--nc-konfigurator-head-desktop-size);
+    line-height: var(--nc-konfigurator-head-desktop-line);
+    font-weight: var(--nc-konfigurator-head-desktop-weight);
+  }
 }
 
-/* Icon genau wie bei Details (unter den anderen Plussen) */
 .pdp .shipping-item .pf-kv__icon {
-  position: absolute;
-  left: 80%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 12px;
-  height: 12px;
-  pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding-right: 5px;
+  // border: 2px solid red;
+
+  @media (min-width: 768px) {
+    padding-right: 0;
+    margin-right: 15px;
+  }
 }
 
-.pdp .shipping-item .pf-kv__icon::before,
-.pdp .shipping-item .pf-kv__icon::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 14px;
-  height: 2px;
-  background: currentColor;
-  transform: translate(-50%, -50%);
-  transition: transform 0.2s ease;
+.pf-kv__icon {
+  padding-right: 5px;
+  font-size: 1.4rem;
+  // border: 2px solid red;
+
+  @media (min-width: 768px) {
+    padding-right: 0;
+    margin-right: 15px;
+  }
 }
 
-.pdp .shipping-item .pf-kv__icon::after {
-  transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.pdp .shipping-item .pf-kv__icon.is-open::after {
-  transform: translate(-50%, -50%) rotate(0deg);
-}
-
-/* Value sitzt in Spalte 2 und klappt auf wie bei Details */
 .pdp .shipping-item .pf-kv__value-wrap {
-  grid-column: 2;
+  width: 100%;
   overflow: hidden;
   max-height: 0;
   opacity: 0;
   transition:
     max-height 0.35s ease,
     opacity 0.2s ease;
+
+  @media (min-width: 768px) {
+    grid-column: 2;
+  }
 }
 
 .pdp .shipping-item[data-open='true'] .pf-kv__value-wrap {
@@ -878,158 +810,20 @@
 }
 
 .pdp .shipping-item .pf-kv__value {
-  padding-top: 0.2rem;
-}
+  padding-top: 1rem;
+  font-weight: 400;
+  color: var(--text-default, #111);
 
-/* =========================================================
-   PDP – QUICK FIX (copy/paste)
-   Ziel:
-   - Tablet 768–991: keine Desktop-Trennlinie (weil Main noch column ist)
-   - Mobile: CSS Vars vorhanden (var(--cfg-col2) etc.)
-   - CTA: fixed bottom + safe padding, ohne Content zu überdecken
-   ========================================================= */
-
-/* 1) MOBILE-FIRST: Defaults für deine Config-Column-Variablen */
-.pdp {
-  /* sinnvolle Defaults für 0–767 */
-  --cfg-total: 781;
-  --cfg-col1: 42%;
-  --cfg-col2: 42%;
-  --cfg-col3: 16%;
-
-  /* optional: falls du irgendwo die %-Vars nutzt */
-  --cfg-col1-p: 42%;
-  --cfg-col2-p: 42%;
-  --cfg-col3-p: 16%;
-}
-
-/* Ab 768: deine bestehenden clamp-Werte (wie bei dir) */
-@media (min-width: 768px) {
-  .pdp {
-    --cfg-total: 781;
-    --cfg-col1-p: calc(268 / var(--cfg-total) * 100%);
-    --cfg-col2-p: calc(268 / var(--cfg-total) * 100%);
-    --cfg-col3-p: calc(245 / var(--cfg-total) * 100%);
-
-    --cfg-col1: clamp(180px, var(--cfg-col1-p), 268px);
-    --cfg-col2: clamp(180px, var(--cfg-col2-p), 268px);
-    --cfg-col3: clamp(160px, var(--cfg-col3-p), 245px);
+  @media (min-width: 768px) {
+    padding-top: 0.2rem;
   }
 }
 
-/* 2) Trennlinie erst dann, wenn du WIRKLICH 2 Spalten hast (ab 992) */
-@media (min-width: 768px) and (max-width: 991px) {
-  .pdp {
-    /* du hattest ab 768 gap:0 + margin etc. -> Tablet darf "luftiger" sein */
-    gap: 1.5rem;
-  }
-
-  .pdp::before {
-    display: none !important;
-    content: none !important;
-  }
+.pdp .shipping-item .ps-lines {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--nc-konfigurator-mobil-size);
+  line-height: var(--nc-konfigurator-mobil-line);
+  font-weight: var(--nc-konfigurator-mobil-weight);
 }
-
-@media (min-width: 992px) {
-  .pdp {
-    position: relative;
-    margin: 3rem 0 8.6rem 0;
-    gap: 0;
-  }
-
-  .pdp::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: #000;
-    transform: translateX(-0.5px);
-    z-index: 2;
-    pointer-events: none;
-  }
-}
-
-/* 3) CTA: fixed bottom auf <=991 + Padding unten, damit nix drunter verschwindet */
-@media (max-width: 991px) {
-  /* Padding auf dem Scroll-Container */
-  .pdp {
-    padding-bottom: calc(6.3rem + env(safe-area-inset-bottom, 0px));
-  }
-
-  .pdp .pdp__cta-container {
-    position: fixed; /* statt sticky */
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1000;
-    background: #fff;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
-
-    /* falls dein Layout max-width nutzt: CTA darf full bleed sein */
-    width: 100%;
-    margin: 0;
-  }
-}
-
-/* 4) OPTIONAL (empfohlen): Gallery auf Mobile nicht hart quadratisch
-      -> wirkt “weniger abgeschnitten” und weniger “zu groß”
-      Wenn du quadratisch behalten willst: diesen Block löschen. */
-@media (max-width: 767px) {
-  .pdp .product-main .product-main__media {
-    aspect-ratio: 4 / 3; /* statt 1/1 */
-  }
-
-  .pdp .product-main .product-main__media img {
-    object-fit: cover;
-  }
-}
-
-/* 5) Fallback, falls irgendwo var() ohne default genutzt wird */
-.pdp .product-form__sections .pf-kv__row,
-.pdp .shipping-item.pf-kv__row {
-  grid-template-columns: var(--cfg-col2, 180px) 1fr;
-}
-/* =========================================================
-   FIX: Plus/Icon exakt auf Column-Divider + Abstand zum Text
-   (Details + Shipping)
-   ========================================================= */
-
-/* --- Details + Shipping: Toggle braucht Platz rechts fürs Icon --- */
-.pdp .product-form__sections .pf-kv__toggle,
-.pdp .shipping-item .pf-kv__toggle {
-  padding-right: 28px; /* verhindert "Measurements+" / Text unter Icon */
-}
-
-/* optional: falls Keys sehr lang sind */
-.pdp .product-form__sections .pf-kv__key,
-.pdp .shipping-item .pf-kv__key {
-  display: block;
-  max-width: 100%;
-}
-
-/* --- Icon: NICHT mit left:% positionieren, sondern an die rechte Kante --- */
-.pdp .product-form__sections .pf-kv__icon,
-.pdp .shipping-item .pf-kv__icon {
-  left: auto !important;
-  right: 0 !important;
-
-  top: 50%;
-  transform: translate(
-    50%,
-    -50%
-  ) !important; /* 50% raus -> sitzt genau auf Divider */
-}
-
-/* --- Mobile: wenn du die Key-Spalte sehr schmal willst, Icon bleibt trotzdem sauber --- */
-@media (max-width: 767px) {
-  .pdp .product-form__sections .pf-kv__toggle,
-  .pdp .shipping-item .pf-kv__toggle {
-    padding-right: 32px; /* minimal mehr Luft auf sehr kleinen Screens */
-  }
-}
-
-/* --- Desktop: falls du willst, dass Icon exakt auf der PDP-Mittellinie sitzt --- */
-/* (Wenn deine Key-Spalte exakt bis zur Mittellinie geht, ist das schon perfekt.
-   Wenn nicht, sag kurz, dann machen wir's 100% pixelgenau.) */
