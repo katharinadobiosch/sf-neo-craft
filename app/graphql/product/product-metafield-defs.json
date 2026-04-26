@@ -422,7 +422,7 @@
   {
     "namespace": "custom",
     "key": "technical_specs",
-    "name": "Technical Specs ",
+    "name": "Technical Specs",
     "type": {
       "name": "list.single_line_text_field"
     },

@@ -8,7 +8,7 @@
   font-weight: var(--nc-konfigurator-mobil-weight, 400);
   color: var(--text-default);
   border-bottom: 1px solid black;
-  
+
   @media (min-width: 1200px) {
     border-bottom: 0;
   }
@@ -248,7 +248,7 @@
     .cfg-panel-scroll {
       flex: 1 1 auto;
       min-height: 0;
-      overflow: auto;
+      overflow: visible;
       overflow-x: hidden;
     }
   }

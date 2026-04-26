@@ -714,21 +714,6 @@
   }
 }
 
-/* Download-Liste ohne Punkte */
-.meta-accordion__file-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.meta-accordion__file-list li {
-  margin: 0;
-  padding: 0;
-}
-
 /* =========================================================
    Shipping rows
    ========================================================= */

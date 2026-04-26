@@ -311,7 +311,11 @@ export function ProductMetaAccordion({
                   <ul className="meta-accordion__file-list">
                     {item.files.map((file, i) => (
                       <li key={`${item.fqKey}-${i}`}>
-                        <a href={file.url} target="_blank" rel="noreferrer">
+                        <a
+                          href={file.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           {file.label}
                         </a>
                       </li>
