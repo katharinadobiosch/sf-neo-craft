@@ -177,30 +177,33 @@
 
 .cart-summary-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: 1fr;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 }
 
 .cart-summary-grid .cell {
-  padding: 14px 0;
-  border-bottom: 1px solid black;
+  min-width: 0;
+  padding: 12px 0;
+  border-bottom: 0;
 }
 
 .cart-summary-grid .cell.label {
   font-weight: 500;
-  border-right: 0;
-  padding-right: 12px;
+  padding-right: 0;
 }
 
 .cart-summary-grid .cell.value {
   min-width: 0;
-  text-align: right;
-  word-break: break-word;
+  text-align: left;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 
 .cart-summary-grid .cell.value.price {
   font-weight: 600;
+  text-align: right;
+  border-bottom: 1px solid black;
 }
 
 .cart-summary-grid .cart-note {
@@ -213,6 +216,20 @@
   outline: none;
   color: inherit;
   background: transparent;
+  display: block;
+}
+
+.cart-summary-grid .cell.label:first-child {
+  padding-bottom: 4px;
+}
+
+.cart-summary-grid .cell.value:has(.cart-note) {
+  border-bottom: 1px solid black;
+  padding-top: 0;
+}
+
+.cart-summary-grid .cell.value:not(.price) {
+  border-bottom: 1px solid black;
 }
 
 .cart-summary-grid .cell.total {
@@ -237,12 +254,12 @@
   font-size: 15px;
   letter-spacing: 0.02em;
   width: 100%;
+  min-height: 48px;
 }
 
 .cart-summary-grid .cell.checkout.is-disabled {
   opacity: 0.5;
 }
-
 /* ------------------------------
    Tablet (>=768px)
 ------------------------------ */
@@ -286,6 +303,11 @@
 
   .cart-summary-grid .cell {
     padding: 16px 0;
+    border-bottom: 1px solid black;
+  }
+
+  .cart-summary-grid .cell.label {
+    padding-right: 12px;
   }
 
   .cart-summary-grid .cell.label,
@@ -295,6 +317,24 @@
 
   .cart-summary-grid .cell.value {
     text-align: right;
+  }
+
+  .cart-summary-grid .cell.value.price {
+    border-bottom: 1px solid black;
+  }
+
+  .cart-summary-grid .cell.value:has(.cart-note) {
+    padding-top: 16px;
+    border-bottom: 1px solid black;
+  }
+
+  .cart-summary-grid .cell.total {
+    grid-column: 1 / -1;
+    text-align: right;
+  }
+
+  .cart-summary-grid .cell.checkout {
+    grid-column: 1 / -1;
   }
 }
 
