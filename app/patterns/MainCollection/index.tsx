@@ -227,9 +227,6 @@ function getTileImages(product: ProductLike) {
   const tileImage = product.seriesMeta?.produkt_tile?.[0] ?? null;
   const tileImageHover = product.seriesMeta?.produkt_tile?.[1] ?? null;
 
-  console.log('tileImage on grid', tileImage);
-  console.log('tileImageHover on grid', tileImageHover);
-
   if (tileImage) {
     return {
       main: {__genericUrl: tileImage},
@@ -237,7 +234,7 @@ function getTileImages(product: ProductLike) {
     };
   }
 
-  const mf = normalizeAllMetafields(product.metafields ?? []).produkt_tile;
+  const mf = normalizeAllMetafields(product.metafields ?? []).product_tile;
   const main = mf?.list?.[0] ?? product.featuredImage ?? null;
   const hover = mf?.list?.[1] ?? null;
 
@@ -259,8 +256,11 @@ function ProductItem({product}: {product: ProductLike}) {
     ? `/series/${seriesHandle}`
     : `/products/${product.handle}`;
 
-  const title = product.seriesMeta?.title || product.title;
-
+  const title =
+    isMetaobject && (seriesRef as MetaobjectRef).seriesTitle?.value
+      ? (seriesRef as MetaobjectRef).seriesTitle?.value
+      : product.seriesMeta?.title || product.title;
+      
   return (
     <Link to={targetUrl} className="product-item" prefetch="intent">
       <div

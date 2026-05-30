@@ -39,6 +39,19 @@ export async function loader({params, context, request}) {
 
   const fields = series.fields ?? [];
 
+  console.log(
+    'SERIES FIELDS DEBUG',
+    fields.map((field) => ({
+      key: field.key,
+      value: field.value,
+      referencesCount: field.references?.nodes?.length ?? 0,
+      referenceTypes:
+        field.references?.nodes?.map((node) => node.__typename) ?? [],
+    })),
+  );
+
+  console.log('hello world');
+
   const norm = (s) =>
     String(s ?? '')
       .trim()
@@ -70,8 +83,37 @@ export async function loader({params, context, request}) {
     return nodes.map(refToUrl).filter(Boolean);
   };
 
-  const productsField = getField('products');
-  const products = productsField?.references?.nodes ?? [];
+  const productReferenceFields = fields
+    .map((field) => {
+      const nodes = field.references?.nodes ?? [];
+      const products = nodes.filter((node) => node?.__typename === 'Product');
+
+      return {
+        key: field.key,
+        products,
+      };
+    })
+    .filter((field) => field.products.length > 0);
+
+  console.log(
+    'SERIES PRODUCT FIELDS',
+    JSON.stringify(
+      productReferenceFields.map((field) => ({
+        key: field.key,
+        count: field.products.length,
+        titles: field.products.map((product) => product.title),
+      })),
+      null,
+      2,
+    ),
+  );
+
+  const products =
+    getField('products')?.references?.nodes?.filter(
+      (node) => node?.__typename === 'Product',
+    ) ??
+    productReferenceFields[0]?.products ??
+    [];
 
   if (!products.length) {
     throw new Error('No products connected to this series');
