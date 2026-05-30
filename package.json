@@ -18,7 +18,7 @@
     "@fortawesome/fontawesome-free": "7.1.0",
     "@remix-run/react": "2.16.6",
     "@remix-run/server-runtime": "2.16.6",
-    "@shopify/hydrogen": "2025.7.1",
+    "@shopify/hydrogen": "2026.4.1",
     "@shopify/remix-oxygen": "^3.0.1",
     "cookie": "1.1.1",
     "cookie-es": "2.0.0",
