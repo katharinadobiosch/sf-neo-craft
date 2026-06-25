@@ -224,15 +224,21 @@ function refToImageLike(node: any) {
 }
 
 function getTileImages(product: ProductLike) {
-  const tileImage = product.seriesMeta?.produkt_tile?.[0] ?? null;
-  const tileImageHover = product.seriesMeta?.produkt_tile?.[1] ?? null;
+  const seriesProductTileImage = product.seriesMeta?.produkt_tile?.[0] ?? null;
 
-  if (tileImage) {
+  const seriesProductTileImageHover =
+    product.seriesMeta?.produkt_tile?.[1] ?? null;
+
+  if (seriesProductTileImage) {
     return {
-      main: {__genericUrl: tileImage},
-      hover: tileImageHover ? {__genericUrl: tileImageHover} : null,
+      main: {__genericUrl: seriesProductTileImage},
+      hover: seriesProductTileImageHover
+        ? {__genericUrl: seriesProductTileImageHover}
+        : null,
     };
   }
+
+  const metafields = normalizeAllMetafields(product.metafields ?? []);
 
   const mf = normalizeAllMetafields(product.metafields ?? []).product_tile;
   const main = mf?.list?.[0] ?? product.featuredImage ?? null;
@@ -260,7 +266,7 @@ function ProductItem({product}: {product: ProductLike}) {
     isMetaobject && (seriesRef as MetaobjectRef).seriesTitle?.value
       ? (seriesRef as MetaobjectRef).seriesTitle?.value
       : product.seriesMeta?.title || product.title;
-      
+
   return (
     <Link to={targetUrl} className="product-item" prefetch="intent">
       <div
@@ -269,7 +275,13 @@ function ProductItem({product}: {product: ProductLike}) {
         onMouseLeave={() => setIsHover(false)}
         onFocus={() => setIsHover(true)}
         onBlur={() => setIsHover(false)}
-        style={{position: 'relative', aspectRatio: '778/519'}}
+        style={{
+          position: 'relative',
+          aspectRatio: '778/519',
+          borderColor: 'red',
+          borderWidth: '10px',
+          borderStyle: 'solid',
+        }}
       >
         {main && !(main as any).__genericUrl && (
           <Image
@@ -405,7 +417,7 @@ query CollectionByHandle_MainCollection(
           height
         }
 
-        metafields(identifiers: [{namespace: "custom", key: "produkt_tile"}]) {
+        metafields(identifiers: [{namespace: "custom", key: "product_tile"}]) {
           namespace
           key
           type

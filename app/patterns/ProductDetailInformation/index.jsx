@@ -40,12 +40,10 @@ export function ProductDetailInformation({
   );
 
   const metafields = normalizeAllMetafields(product.metafields ?? []);
-
   const seriesLeft = seriesMeta?.hero_links?.[0] ?? null;
   const seriesLeftHover = seriesMeta?.hero_links?.[1] ?? null;
   const tileImage = seriesMeta?.produkt_tile?.[0] ?? null;
   const tileImageHover = seriesMeta?.produkt_tile?.[1] ?? null;
-
 
   const seriesRight = seriesMeta?.hero_rechts?.[0] ?? null;
   const seriesRightHover = seriesMeta?.hero_rechts?.[1] ?? null;
