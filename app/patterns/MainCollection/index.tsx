@@ -68,10 +68,10 @@ type ProductLike = {
 
   seriesMeta?: {
     title: string | null;
-    intro: string | null;
-    hero_links: string[];
-    hero_rechts: string[];
-    produkt_tile: string[];
+    description: string | null;
+    hero_left_images: string[];
+    hero_right_images: string[];
+    tile_images: string[];
   } | null;
 };
 
@@ -116,10 +116,10 @@ function buildSeriesMetaFromFields(fields: any[] = []) {
 
   return {
     title: getField('title')?.value ?? null,
-    intro: getField('intro')?.value ?? null,
-    hero_links: fieldRefsToUrls('hero_links'),
-    hero_rechts: fieldRefsToUrls('hero_rechts'),
-    produkt_tile: fieldRefsToUrls('produkt_tile'),
+    description: getField('description')?.value ?? null,
+    hero_left_images: fieldRefsToUrls('hero_left_images'),
+    hero_right_images: fieldRefsToUrls('hero_right_images'),
+    tile_images: fieldRefsToUrls('tile_images'),
   };
 }
 
@@ -224,10 +224,10 @@ function refToImageLike(node: any) {
 }
 
 function getTileImages(product: ProductLike) {
-  const seriesProductTileImage = product.seriesMeta?.produkt_tile?.[0] ?? null;
+  const seriesProductTileImage = product.seriesMeta?.tile_images?.[0] ?? null;
 
   const seriesProductTileImageHover =
-    product.seriesMeta?.produkt_tile?.[1] ?? null;
+    product.seriesMeta?.tile_images?.[1] ?? null;
 
   if (seriesProductTileImage) {
     return {
@@ -240,7 +240,7 @@ function getTileImages(product: ProductLike) {
 
   const metafields = normalizeAllMetafields(product.metafields ?? []);
 
-  const mf = normalizeAllMetafields(product.metafields ?? []).product_tile;
+  const mf = normalizeAllMetafields(product.metafields ?? []).tile_images;
   const main = mf?.list?.[0] ?? product.featuredImage ?? null;
   const hover = mf?.list?.[1] ?? null;
 
@@ -417,7 +417,7 @@ query CollectionByHandle_MainCollection(
           height
         }
 
-        metafields(identifiers: [{namespace: "custom", key: "product_tile"}]) {
+        metafields(identifiers: [{namespace: "custom", key: "tile_images"}]) {
           namespace
           key
           type

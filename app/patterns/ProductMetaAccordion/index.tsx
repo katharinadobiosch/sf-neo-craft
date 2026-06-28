@@ -35,15 +35,15 @@ const FIELD_CONFIG = RAW_DEFS.filter(
 }));
 
 const EXCLUDE_FQ_KEYS = new Set<string>([
-  'custom.product_tile',
-  'custom.produkt_duo_top_links',
-  'custom.produkt_duo_top_rechts',
-  'custom.hero_split_links',
-  'custom.hero_split_rechts',
-  'custom.teaser_duo_bottom_links',
-  'custom.teaser_duo_bottom_rechts',
+  'custom.tile_images',
+  'custom.duo_top_left_images',
+  'custom.duo_top_right_images',
+  'custom.hero_left_images',
+  'custom.hero_right_images',
+  'custom.teaser_bottom_left_images',
+  'custom.teaser_bottom_right_images',
   'custom.material_tile_color',
-  'custom.series_hero',
+  'custom.series_hero_images',
 ]);
 
 function metaobjectListToText(n: NormalizedNode) {
