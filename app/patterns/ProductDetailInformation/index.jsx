@@ -52,11 +52,15 @@ export function ProductDetailInformation({
   const seriesDescriptionText = richTextJsonToPlainText(seriesMeta?.description);
 
   // ===== TOP (Square Variant): Series-Hero ODER Standard-Duo + Description =====
-  const topLeft = metafields?.duo_top_left_images?.list?.[0]?.url;
-  const topLeftHover = metafields?.duo_top_left_images?.list?.[1]?.url;
+  // TODO: Remove fallback keys after Shopify exposes renamed metafields in Storefront API.
+  const duoTopLeft = metafields?.duo_top_left_images ?? metafields?.produkt_duo_top_links;
+  const duoTopRight = metafields?.duo_top_right_images ?? metafields?.produkt_duo_top_rechts;
 
-  const topRight = metafields?.duo_top_right_images?.list?.[0]?.url;
-  const topRightHover = metafields?.duo_top_right_images?.list?.[1]?.url;
+  const topLeft = duoTopLeft?.list?.[0]?.url;
+  const topLeftHover = duoTopLeft?.list?.[1]?.url;
+
+  const topRight = duoTopRight?.list?.[0]?.url;
+  const topRightHover = duoTopRight?.list?.[1]?.url;
 
   const seriesHero = metafields?.series_hero_images;
   const seriesImage = seriesHero?.list?.[0]?.url;
@@ -64,16 +68,16 @@ export function ProductDetailInformation({
   const hasSeriesHero = Boolean(seriesImage);
 
   // ===== HERO SPLIT (Band): aus Metafeldern (jeweils [0]=main, [1]=hover) =====
-  const heroSplitLeftImage =
-    metafields?.hero_left_images?.list?.[0]?.url ?? null;
-  const heroSplitLeftHover =
-    metafields?.hero_left_images?.list?.[1]?.url ?? null;
+  const heroLeft = metafields?.hero_left_images ?? metafields?.hero_split_links;
+  const heroRight = metafields?.hero_right_images ?? metafields?.hero_split_rechts;
 
-  const heroSplitRightImage =
-    metafields?.hero_right_images?.list?.[0]?.url ?? null;
-  const heroSplitRightHover =
-    metafields?.hero_right_images?.list?.[1]?.url ?? null;
-  const heroSplitText = metafields?.hero_text?.value ?? '';
+  const heroSplitLeftImage = heroLeft?.list?.[0]?.url ?? null;
+  const heroSplitLeftHover = heroLeft?.list?.[1]?.url ?? null;
+
+  const heroSplitRightImage = heroRight?.list?.[0]?.url ?? null;
+  const heroSplitRightHover = heroRight?.list?.[1]?.url ?? null;
+  const heroSplitText =
+    metafields?.hero_text?.value ?? metafields?.hero_split_text?.value ?? '';
 
   // ===== BOTTOM TeaserDuo (aus Metafeldern) =====
   const bottomLeft = metafields?.teaser_bottom_left_images?.list?.[0]?.url;

@@ -109,7 +109,7 @@
   },
   {
     "namespace": "custom",
-    "key": "hero_split_text",
+    "key": "hero_text",
     "name": "Hero Split Text",
     "type": {
       "name": "multi_line_text_field"
@@ -121,7 +121,7 @@
   },
   {
     "namespace": "custom",
-    "key": "product_tile",
+    "key": "tile_images",
     "name": "Product Tile + Hover",
     "type": {
       "name": "list.file_reference"
@@ -313,7 +313,7 @@
   },
   {
     "namespace": "custom",
-    "key": "produkt_duo_top_rechts",
+    "key": "duo_top_right_images",
     "name": "Produkt Duo Top rechts + Hover",
     "type": {
       "name": "list.file_reference"
@@ -325,7 +325,7 @@
   },
   {
     "namespace": "custom",
-    "key": "produkt_duo_top_links",
+    "key": "duo_top_left_images",
     "name": "Produkt Duo Top links + Hover",
     "type": {
       "name": "list.file_reference"
@@ -337,7 +337,7 @@
   },
   {
     "namespace": "custom",
-    "key": "hero_split_links",
+    "key": "hero_left_images",
     "name": "Hero Split links + Hover",
     "type": {
       "name": "list.file_reference"
@@ -349,7 +349,7 @@
   },
   {
     "namespace": "custom",
-    "key": "hero_split_rechts",
+    "key": "hero_right_images",
     "name": "Hero Split rechts + Hover",
     "type": {
       "name": "list.file_reference"
@@ -361,7 +361,7 @@
   },
   {
     "namespace": "custom",
-    "key": "teaser_duo_bottom_links",
+    "key": "teaser_bottom_left_images",
     "name": "Teaser Duo Bottom links + Hover",
     "type": {
       "name": "list.file_reference"
@@ -373,7 +373,7 @@
   },
   {
     "namespace": "custom",
-    "key": "teaser_duo_bottom_rechts",
+    "key": "teaser_bottom_right_images",
     "name": "Teaser Duo Bottom rechts+ Hover",
     "type": {
       "name": "list.file_reference"
@@ -397,7 +397,7 @@
   },
   {
     "namespace": "custom",
-    "key": "series_hero",
+    "key": "series_hero_images",
     "name": "Series Hero",
     "type": {
       "name": "list.file_reference"
@@ -485,6 +485,66 @@
     "name": "Download",
     "type": {
       "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "produkt_duo_top_links",
+    "name": "Material",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "produkt_duo_top_rechts",
+    "name": "Material",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "hero_split_links",
+    "name": "Material",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "hero_split_rechts",
+    "name": "Material",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "hero_split_text",
+    "name": "Material",
+    "type": {
+      "name": "list.single_line_text_field"
     },
     "access": {
       "storefront": "PUBLIC_READ"

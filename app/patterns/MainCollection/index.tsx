@@ -224,27 +224,29 @@ function refToImageLike(node: any) {
 }
 
 function getTileImages(product: ProductLike) {
-  const seriesProductTileImage = product.seriesMeta?.tile_images?.[0] ?? null;
+  const hasSeries =
+    product.metafieldSeries?.reference?.__typename === 'Metaobject';
 
-  const seriesProductTileImageHover =
-    product.seriesMeta?.tile_images?.[1] ?? null;
+  if (hasSeries) {
+    const main = product.seriesMeta?.tile_images?.[0];
+    const hover = product.seriesMeta?.tile_images?.[1];
 
-  if (seriesProductTileImage) {
-    return {
-      main: {__genericUrl: seriesProductTileImage},
-      hover: seriesProductTileImageHover
-        ? {__genericUrl: seriesProductTileImageHover}
-        : null,
-    };
+    if (main) {
+      return {
+        main: {__genericUrl: main},
+        hover: hover ? {__genericUrl: hover} : null,
+      };
+    }
   }
 
   const metafields = normalizeAllMetafields(product.metafields ?? []);
 
-  const mf = normalizeAllMetafields(product.metafields ?? []).tile_images;
-  const main = mf?.list?.[0] ?? product.featuredImage ?? null;
-  const hover = mf?.list?.[1] ?? null;
+  const mf = metafields.product_tile;
 
-  return {main, hover};
+  return {
+    main: mf?.list?.[0] ?? product.featuredImage ?? null,
+    hover: mf?.list?.[1] ?? null,
+  };
 }
 
 function ProductItem({product}: {product: ProductLike}) {
@@ -417,10 +419,11 @@ query CollectionByHandle_MainCollection(
           height
         }
 
-        metafields(identifiers: [{namespace: "custom", key: "tile_images"}]) {
+        metafields(identifiers: [{namespace: "custom", key: "product_tile"}]) {
           namespace
           key
           type
+          value
           references(first: 2) {
             nodes {
               __typename
