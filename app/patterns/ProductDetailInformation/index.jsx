@@ -40,21 +40,26 @@ export function ProductDetailInformation({
   );
 
   const metafields = normalizeAllMetafields(product.metafields ?? []);
-  const seriesLeft = seriesMeta?.hero_left_images?.[0] ?? null;
-  const seriesLeftHover = seriesMeta?.hero_left_images?.[1] ?? null;
-  const tileImage = seriesMeta?.tile_images?.[0] ?? null;
-  const tileImageHover = seriesMeta?.tile_images?.[1] ?? null;
+  const seriesTopLeft = seriesMeta?.duo_top_left_images?.[0] ?? null;
+  const seriesTopLeftHover = seriesMeta?.duo_top_left_images?.[1] ?? null;
 
-  const seriesRight = seriesMeta?.hero_right_images?.[0] ?? null;
-  const seriesRightHover = seriesMeta?.hero_right_images?.[1] ?? null;
+  const seriesTopRight = seriesMeta?.duo_top_right_images?.[0] ?? null;
+  const seriesTopRightHover = seriesMeta?.duo_top_right_images?.[1] ?? null;
 
-  const hasSeriesOverride = Boolean(seriesMeta && (seriesLeft || seriesRight));
-  const seriesDescriptionText = richTextJsonToPlainText(seriesMeta?.description);
+  const hasSeriesTopOverride = Boolean(
+    seriesMeta && (seriesTopLeft || seriesTopRight),
+  );
+
+  const seriesDescriptionText = richTextJsonToPlainText(
+    seriesMeta?.description,
+  );
 
   // ===== TOP (Square Variant): Series-Hero ODER Standard-Duo + Description =====
   // TODO: Remove fallback keys after Shopify exposes renamed metafields in Storefront API.
-  const duoTopLeft = metafields?.duo_top_left_images ?? metafields?.produkt_duo_top_links;
-  const duoTopRight = metafields?.duo_top_right_images ?? metafields?.produkt_duo_top_rechts;
+  const duoTopLeft =
+    metafields?.duo_top_left_images ?? metafields?.produkt_duo_top_links;
+  const duoTopRight =
+    metafields?.duo_top_right_images ?? metafields?.produkt_duo_top_rechts;
 
   const topLeft = duoTopLeft?.list?.[0]?.url;
   const topLeftHover = duoTopLeft?.list?.[1]?.url;
@@ -62,61 +67,72 @@ export function ProductDetailInformation({
   const topRight = duoTopRight?.list?.[0]?.url;
   const topRightHover = duoTopRight?.list?.[1]?.url;
 
-  const seriesHero = metafields?.series_hero_images;
-  const seriesImage = seriesHero?.list?.[0]?.url;
-  const seriesImageHover = seriesHero?.list?.[1]?.url;
-  const hasSeriesHero = Boolean(seriesImage);
-
   // ===== HERO SPLIT (Band): aus Metafeldern (jeweils [0]=main, [1]=hover) =====
   const heroLeft = metafields?.hero_left_images ?? metafields?.hero_split_links;
-  const heroRight = metafields?.hero_right_images ?? metafields?.hero_split_rechts;
+  const heroRight =
+    metafields?.hero_right_images ?? metafields?.hero_split_rechts;
 
-  const heroSplitLeftImage = heroLeft?.list?.[0]?.url ?? null;
-  const heroSplitLeftHover = heroLeft?.list?.[1]?.url ?? null;
+  const heroSplitLeftImage =
+    seriesMeta?.hero_left_images?.[0] ?? heroLeft?.list?.[0]?.url ?? null;
+  const heroSplitLeftHover =
+    seriesMeta?.hero_left_images?.[1] ?? heroLeft?.list?.[1]?.url ?? null;
 
-  const heroSplitRightImage = heroRight?.list?.[0]?.url ?? null;
-  const heroSplitRightHover = heroRight?.list?.[1]?.url ?? null;
+  const heroSplitRightImage =
+    seriesMeta?.hero_right_images?.[0] ?? heroRight?.list?.[0]?.url ?? null;
+  const heroSplitRightHover =
+    seriesMeta?.hero_right_images?.[1] ?? heroRight?.list?.[1]?.url ?? null;
+
   const heroSplitText =
-    metafields?.hero_text?.value ?? metafields?.hero_split_text?.value ?? '';
+    seriesMeta?.hero_text ??
+    metafields?.hero_split_text?.value ??
+    metafields?.hero_text?.value ??
+    '';
 
-  // ===== BOTTOM TeaserDuo (aus Metafeldern) =====
-  const bottomLeft = metafields?.teaser_bottom_left_images?.list?.[0]?.url;
-  const bottomLeftHover = metafields?.teaser_bottom_left_images?.list?.[1]?.url;
+  // ===== BOTTOM TeaserDuo =====
+  const singleBottomLeft =
+    metafields?.teaser_duo_bottom_links ??
+    metafields?.teaser_bottom_left_images;
 
-  const bottomRight = metafields?.teaser_bottom_right_images?.list?.[0]?.url;
-  const bottomRightHover = metafields?.teaser_bottom_right_images?.list?.[1]?.url;
+  const singleBottomRight =
+    metafields?.teaser_duo_bottom_rechts ??
+    metafields?.teaser_bottom_right_images;
 
-  const seriesDescription = seriesMeta?.description ?? null;
+  const bottomLeft =
+    seriesMeta?.teaser_bottom_left_images?.[0] ??
+    singleBottomLeft?.list?.[0]?.url ??
+    null;
 
-  const hasSeriesHeroOverride = Boolean(seriesLeft || seriesRight);
-  const topContent = seriesDescription ? seriesDescription : product.descriptionHtml;
+  const bottomLeftHover =
+    seriesMeta?.teaser_bottom_left_images?.[1] ??
+    singleBottomLeft?.list?.[1]?.url ??
+    null;
+
+  const bottomRight =
+    seriesMeta?.teaser_bottom_right_images?.[0] ??
+    singleBottomRight?.list?.[0]?.url ??
+    null;
+
+  const bottomRightHover =
+    seriesMeta?.teaser_bottom_right_images?.[1] ??
+    singleBottomRight?.list?.[1]?.url ??
+    null;
 
   return (
     <div className="pdp">
       {/* TOP: square-variant */}
       <div className="square-variant">
         <TeaserDuo
-          left={hasSeriesOverride ? seriesLeft : hasSeriesHero ? null : topLeft}
-          leftHover={
-            hasSeriesOverride
-              ? seriesLeftHover
-              : hasSeriesHero
-                ? seriesImageHover
-                : topLeftHover
-          }
-          right={
-            hasSeriesOverride ? seriesRight : hasSeriesHero ? null : topRight
-          }
+          left={hasSeriesTopOverride ? seriesTopLeft : topLeft}
+          leftHover={hasSeriesTopOverride ? seriesTopLeftHover : topLeftHover}
+          right={hasSeriesTopOverride ? seriesTopRight : topRight}
           rightHover={
-            hasSeriesOverride
-              ? seriesRightHover
-              : hasSeriesHero
-                ? null
-                : topRightHover
+            hasSeriesTopOverride ? seriesTopRightHover : topRightHover
           }
-          isSingle={hasSeriesOverride ? !seriesRight : hasSeriesHero}
+          isSingle={false}
           content={
-            hasSeriesOverride ? seriesDescriptionText : product.descriptionHtml
+            hasSeriesTopOverride
+              ? seriesDescriptionText
+              : product.descriptionHtml
           }
         />
       </div>

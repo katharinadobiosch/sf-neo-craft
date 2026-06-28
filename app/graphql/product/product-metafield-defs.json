@@ -397,18 +397,6 @@
   },
   {
     "namespace": "custom",
-    "key": "series_hero_images",
-    "name": "Series Hero",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
     "key": "shipping",
     "name": "Shipping",
     "type": {
@@ -545,6 +533,30 @@
     "name": "Material",
     "type": {
       "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "teaser_duo_bottom_links",
+    "name": "Single Bottom Teaser Left Images",
+    "type": {
+      "name": "list.file_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "teaser_duo_bottom_rechts",
+    "name": "Single Bottom Teaser Right Images",
+    "type": {
+      "name": "list.file_reference"
     },
     "access": {
       "storefront": "PUBLIC_READ"
