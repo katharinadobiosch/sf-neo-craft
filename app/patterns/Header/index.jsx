@@ -35,7 +35,7 @@ export function Header({
     if (prop === 'DE') return 'DE';
 
     // IMPORTANT: Kundenwunsch "EN default"
-    return 'EN';
+    return 'DE';
   })();
   const redirectTo = `${location.pathname}${location.search}${location.hash || ''}`;
 

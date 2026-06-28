@@ -3,12 +3,18 @@ export function normalizeMenuUrl(url, publicDomain, primaryDomain) {
 
   try {
     const isAbsolute = url.startsWith('http://') || url.startsWith('https://');
+
     const domainMatch =
       url.includes('myshopify.com') ||
       (publicDomain && url.includes(publicDomain)) ||
       (primaryDomain && url.includes(primaryDomain));
 
-    const path = isAbsolute && domainMatch ? new URL(url).pathname : url;
+    let path = isAbsolute && domainMatch ? new URL(url).pathname : url;
+
+    // Shopify localized URLs:
+    // /de/pages/about -> /pages/about
+    // /en/pages/about -> /pages/about
+    path = path.replace(/^\/(de|en)(?=\/)/, '');
 
     const redirects = {
       '/pages/about': '/about',
@@ -16,7 +22,11 @@ export function normalizeMenuUrl(url, publicDomain, primaryDomain) {
       '/pages/impressum': '/impressum',
       '/pages/bespoke': '/bespoke',
       '/pages/materials': '/materials',
-      '/pages/main-collection': '/main-collection',
+      '/pages/main-collection': '/collections/main-collection',
+
+      '/collections/main-collection': '/collections/main-collection',
+      '/collections/materials': '/collections/materials',
+
       '/blogs/projects': '/projects',
     };
 
