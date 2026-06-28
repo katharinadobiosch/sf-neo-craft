@@ -68,10 +68,10 @@ type ProductLike = {
 
   seriesMeta?: {
     title: string | null;
-    intro: string | null;
-    hero_links: string[];
-    hero_rechts: string[];
-    produkt_tile: string[];
+    description: string | null;
+    hero_left_images: string[];
+    hero_right_images: string[];
+    tile_images: string[];
   } | null;
 };
 
@@ -116,10 +116,10 @@ function buildSeriesMetaFromFields(fields: any[] = []) {
 
   return {
     title: getField('title')?.value ?? null,
-    intro: getField('intro')?.value ?? null,
-    hero_links: fieldRefsToUrls('hero_links'),
-    hero_rechts: fieldRefsToUrls('hero_rechts'),
-    produkt_tile: fieldRefsToUrls('produkt_tile'),
+    description: getField('description')?.value ?? null,
+    hero_left_images: fieldRefsToUrls('hero_left_images'),
+    hero_right_images: fieldRefsToUrls('hero_right_images'),
+    tile_images: fieldRefsToUrls('tile_images'),
   };
 }
 
@@ -224,27 +224,29 @@ function refToImageLike(node: any) {
 }
 
 function getTileImages(product: ProductLike) {
-  const seriesProductTileImage = product.seriesMeta?.produkt_tile?.[0] ?? null;
+  const hasSeries =
+    product.metafieldSeries?.reference?.__typename === 'Metaobject';
 
-  const seriesProductTileImageHover =
-    product.seriesMeta?.produkt_tile?.[1] ?? null;
+  if (hasSeries) {
+    const main = product.seriesMeta?.tile_images?.[0];
+    const hover = product.seriesMeta?.tile_images?.[1];
 
-  if (seriesProductTileImage) {
-    return {
-      main: {__genericUrl: seriesProductTileImage},
-      hover: seriesProductTileImageHover
-        ? {__genericUrl: seriesProductTileImageHover}
-        : null,
-    };
+    if (main) {
+      return {
+        main: {__genericUrl: main},
+        hover: hover ? {__genericUrl: hover} : null,
+      };
+    }
   }
 
   const metafields = normalizeAllMetafields(product.metafields ?? []);
 
-  const mf = normalizeAllMetafields(product.metafields ?? []).product_tile;
-  const main = mf?.list?.[0] ?? product.featuredImage ?? null;
-  const hover = mf?.list?.[1] ?? null;
+  const mf = metafields.product_tile;
 
-  return {main, hover};
+  return {
+    main: mf?.list?.[0] ?? product.featuredImage ?? null,
+    hover: mf?.list?.[1] ?? null,
+  };
 }
 
 function ProductItem({product}: {product: ProductLike}) {
@@ -421,6 +423,7 @@ query CollectionByHandle_MainCollection(
           namespace
           key
           type
+          value
           references(first: 2) {
             nodes {
               __typename

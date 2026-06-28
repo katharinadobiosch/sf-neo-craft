@@ -121,10 +121,10 @@ export async function loader({params, context, request}) {
 
   const seriesMeta = {
     title: getField('title')?.value ?? null,
-    intro: getField('intro')?.value ?? null,
-    hero_links: fieldRefsToUrls('hero_links'), // [main, hover]
-    hero_rechts: fieldRefsToUrls('hero_rechts'), // [main, hover]
-    produkt_tile: fieldRefsToUrls('produkt_tile'), // [main, hover]
+    description: getField('description')?.value ?? null,
+    hero_left_images: fieldRefsToUrls('hero_left_images'), // [main, hover]
+    hero_right_images: fieldRefsToUrls('hero_right_images'), // [main, hover]
+    tile_images: fieldRefsToUrls('tile_images'), // [main, hover]
   };
 
   const activeIndex = 0;

@@ -119,10 +119,10 @@ export function HeroSplit_ClassicFromMetafields() {
     asRecord(data?.product?.metafields) ?? asRecord(data?.metafields) ?? {};
 
   const text =
-    (mf.hero_split_text as MetafieldText | undefined)?.value?.toString() ?? '';
+    (mf.hero_text as MetafieldText | undefined)?.value?.toString() ?? '';
 
-  const leftList = asList(mf.hero_split_links);
-  const rightList = asList(mf.hero_split_rechts);
+  const leftList = asList(mf.hero_left_images);
+  const rightList = asList(mf.hero_right_images);
 
   const [left, leftHover] = leftList as ImgLike[];
   const [rightImg, rightHover] = rightList as ImgLike[];

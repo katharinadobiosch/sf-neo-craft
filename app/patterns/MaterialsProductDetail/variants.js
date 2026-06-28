@@ -1,6 +1,6 @@
 export const metaObject = {
-  hero_split_text: {
-    key: 'hero_split_text',
+  hero_text: {
+    key: 'hero_text',
     namespace: 'custom',
     rawType: 'multi_line_text_field',
     kind: 'multi_line_text_field',
@@ -10,15 +10,15 @@ export const metaObject = {
     display: 'test text',
     mf: {
       namespace: 'custom',
-      key: 'hero_split_text',
+      key: 'hero_text',
       type: 'multi_line_text_field',
       value: 'test text',
       reference: null,
       references: null,
     },
   },
-  product_tile: {
-    key: 'product_tile',
+  tile_images: {
+    key: 'tile_images',
     namespace: 'custom',
     rawType: 'list.file_reference',
     kind: 'file_reference',
@@ -55,7 +55,7 @@ export const metaObject = {
     ],
     mf: {
       namespace: 'custom',
-      key: 'product_tile',
+      key: 'tile_images',
       type: 'list.file_reference',
       value:
         '["gid://shopify/MediaImage/60969244950792","gid://shopify/MediaImage/60328442265864"]',
@@ -80,8 +80,8 @@ export const metaObject = {
       },
     },
   },
-  produkt_duo_top_rechts: {
-    key: 'produkt_duo_top_rechts',
+  duo_top_right_images: {
+    key: 'duo_top_right_images',
     namespace: 'custom',
     rawType: 'list.file_reference',
     kind: 'file_reference',
@@ -118,7 +118,7 @@ export const metaObject = {
     ],
     mf: {
       namespace: 'custom',
-      key: 'produkt_duo_top_rechts',
+      key: 'duo_top_right_images',
       type: 'list.file_reference',
       value:
         '["gid://shopify/MediaImage/60969244852488","gid://shopify/MediaImage/60328442265864"]',
@@ -143,8 +143,8 @@ export const metaObject = {
       },
     },
   },
-  produkt_duo_top_links: {
-    key: 'produkt_duo_top_links',
+  duo_top_left_images: {
+    key: 'duo_top_left_images',
     namespace: 'custom',
     rawType: 'list.file_reference',
     kind: 'file_reference',
@@ -181,7 +181,7 @@ export const metaObject = {
     ],
     mf: {
       namespace: 'custom',
-      key: 'produkt_duo_top_links',
+      key: 'duo_top_left_images',
       type: 'list.file_reference',
       value:
         '["gid://shopify/MediaImage/60969244918024","gid://shopify/MediaImage/60328442265864"]',
@@ -206,8 +206,8 @@ export const metaObject = {
       },
     },
   },
-  hero_split_links: {
-    key: 'hero_split_links',
+  hero_left_images: {
+    key: 'hero_left_images',
     namespace: 'custom',
     rawType: 'list.file_reference',
     kind: 'file_reference',
@@ -244,7 +244,7 @@ export const metaObject = {
     ],
     mf: {
       namespace: 'custom',
-      key: 'hero_split_links',
+      key: 'hero_left_images',
       type: 'list.file_reference',
       value:
         '["gid://shopify/MediaImage/59863547937032","gid://shopify/MediaImage/60328442265864"]',
@@ -269,8 +269,8 @@ export const metaObject = {
       },
     },
   },
-  hero_split_rechts: {
-    key: 'hero_split_rechts',
+  hero_right_images: {
+    key: 'hero_right_images',
     namespace: 'custom',
     rawType: 'list.file_reference',
     kind: 'file_reference',
@@ -307,7 +307,7 @@ export const metaObject = {
     ],
     mf: {
       namespace: 'custom',
-      key: 'hero_split_rechts',
+      key: 'hero_right_images',
       type: 'list.file_reference',
       value:
         '["gid://shopify/MediaImage/60969244852488","gid://shopify/MediaImage/60328442265864"]',
@@ -332,8 +332,8 @@ export const metaObject = {
       },
     },
   },
-  teaser_duo_bottom_links: {
-    key: 'teaser_duo_bottom_links',
+  teaser_bottom_left_images: {
+    key: 'teaser_bottom_left_images',
     namespace: 'custom',
     rawType: 'list.file_reference',
     kind: 'file_reference',
@@ -370,7 +370,7 @@ export const metaObject = {
     ],
     mf: {
       namespace: 'custom',
-      key: 'teaser_duo_bottom_links',
+      key: 'teaser_bottom_left_images',
       type: 'list.file_reference',
       value:
         '["gid://shopify/MediaImage/58751559270664","gid://shopify/MediaImage/60328442265864"]',
@@ -395,8 +395,8 @@ export const metaObject = {
       },
     },
   },
-  teaser_duo_bottom_rechts: {
-    key: 'teaser_duo_bottom_rechts',
+  teaser_bottom_right_images: {
+    key: 'teaser_bottom_right_images',
     namespace: 'custom',
     rawType: 'list.file_reference',
     kind: 'file_reference',
@@ -433,7 +433,7 @@ export const metaObject = {
     ],
     mf: {
       namespace: 'custom',
-      key: 'teaser_duo_bottom_rechts',
+      key: 'teaser_bottom_right_images',
       type: 'list.file_reference',
       value:
         '["gid://shopify/MediaImage/42112233177352","gid://shopify/MediaImage/60328442265864"]',

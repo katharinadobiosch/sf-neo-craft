@@ -81,7 +81,7 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
           featuredImage { url altText width height }
 
           # Produkt-eigener Tile (Fallback)
-          metafields(identifiers: [{namespace: "custom", key: "product_tile"}]) {
+          metafields(identifiers: [{namespace: "custom", key: "tile_images"}]) {
             namespace
             key
             type
@@ -94,7 +94,7 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
             }
           }
 
-          # SERIES Metaobject am Produkt (inkl. product_tile references!)
+          # SERIES Metaobject am Produkt (inkl. tile_images references!)
           metafieldSeries: metafield(namespace: "custom", key: "product_series") {
             reference {
               __typename
@@ -104,7 +104,7 @@ const COLLECTION_BY_HANDLE_QUERY = `#graphql
 
                 seriesTitle: field(key: "title") { value }
 
-                productTile: field(key: "produkt_tile") {
+                productTile: field(key: "tile_images") {
                   references(first: 2) {
                     nodes {
                       __typename

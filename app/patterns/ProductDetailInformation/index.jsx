@@ -40,52 +40,56 @@ export function ProductDetailInformation({
   );
 
   const metafields = normalizeAllMetafields(product.metafields ?? []);
-  const seriesLeft = seriesMeta?.hero_links?.[0] ?? null;
-  const seriesLeftHover = seriesMeta?.hero_links?.[1] ?? null;
-  const tileImage = seriesMeta?.produkt_tile?.[0] ?? null;
-  const tileImageHover = seriesMeta?.produkt_tile?.[1] ?? null;
+  const seriesLeft = seriesMeta?.hero_left_images?.[0] ?? null;
+  const seriesLeftHover = seriesMeta?.hero_left_images?.[1] ?? null;
+  const tileImage = seriesMeta?.tile_images?.[0] ?? null;
+  const tileImageHover = seriesMeta?.tile_images?.[1] ?? null;
 
-  const seriesRight = seriesMeta?.hero_rechts?.[0] ?? null;
-  const seriesRightHover = seriesMeta?.hero_rechts?.[1] ?? null;
+  const seriesRight = seriesMeta?.hero_right_images?.[0] ?? null;
+  const seriesRightHover = seriesMeta?.hero_right_images?.[1] ?? null;
 
   const hasSeriesOverride = Boolean(seriesMeta && (seriesLeft || seriesRight));
-  const seriesIntroText = richTextJsonToPlainText(seriesMeta?.intro);
+  const seriesDescriptionText = richTextJsonToPlainText(seriesMeta?.description);
 
   // ===== TOP (Square Variant): Series-Hero ODER Standard-Duo + Description =====
-  const topLeft = metafields?.produkt_duo_top_links?.list?.[0]?.url;
-  const topLeftHover = metafields?.produkt_duo_top_links?.list?.[1]?.url;
+  // TODO: Remove fallback keys after Shopify exposes renamed metafields in Storefront API.
+  const duoTopLeft = metafields?.duo_top_left_images ?? metafields?.produkt_duo_top_links;
+  const duoTopRight = metafields?.duo_top_right_images ?? metafields?.produkt_duo_top_rechts;
 
-  const topRight = metafields?.produkt_duo_top_rechts?.list?.[0]?.url;
-  const topRightHover = metafields?.produkt_duo_top_rechts?.list?.[1]?.url;
+  const topLeft = duoTopLeft?.list?.[0]?.url;
+  const topLeftHover = duoTopLeft?.list?.[1]?.url;
 
-  const seriesHero = metafields?.series_hero;
+  const topRight = duoTopRight?.list?.[0]?.url;
+  const topRightHover = duoTopRight?.list?.[1]?.url;
+
+  const seriesHero = metafields?.series_hero_images;
   const seriesImage = seriesHero?.list?.[0]?.url;
   const seriesImageHover = seriesHero?.list?.[1]?.url;
   const hasSeriesHero = Boolean(seriesImage);
 
   // ===== HERO SPLIT (Band): aus Metafeldern (jeweils [0]=main, [1]=hover) =====
-  const heroSplitLeftImage =
-    metafields?.hero_split_links?.list?.[0]?.url ?? null;
-  const heroSplitLeftHover =
-    metafields?.hero_split_links?.list?.[1]?.url ?? null;
+  const heroLeft = metafields?.hero_left_images ?? metafields?.hero_split_links;
+  const heroRight = metafields?.hero_right_images ?? metafields?.hero_split_rechts;
 
-  const heroSplitRightImage =
-    metafields?.hero_split_rechts?.list?.[0]?.url ?? null;
-  const heroSplitRightHover =
-    metafields?.hero_split_rechts?.list?.[1]?.url ?? null;
-  const heroSplitText = metafields?.hero_split_text?.value ?? '';
+  const heroSplitLeftImage = heroLeft?.list?.[0]?.url ?? null;
+  const heroSplitLeftHover = heroLeft?.list?.[1]?.url ?? null;
+
+  const heroSplitRightImage = heroRight?.list?.[0]?.url ?? null;
+  const heroSplitRightHover = heroRight?.list?.[1]?.url ?? null;
+  const heroSplitText =
+    metafields?.hero_text?.value ?? metafields?.hero_split_text?.value ?? '';
 
   // ===== BOTTOM TeaserDuo (aus Metafeldern) =====
-  const bottomLeft = metafields?.teaser_duo_bottom_links?.list?.[0]?.url;
-  const bottomLeftHover = metafields?.teaser_duo_bottom_links?.list?.[1]?.url;
+  const bottomLeft = metafields?.teaser_bottom_left_images?.list?.[0]?.url;
+  const bottomLeftHover = metafields?.teaser_bottom_left_images?.list?.[1]?.url;
 
-  const bottomRight = metafields?.teaser_duo_bottom_rechts?.list?.[0]?.url;
-  const bottomRightHover = metafields?.teaser_duo_bottom_rechts?.list?.[1]?.url;
+  const bottomRight = metafields?.teaser_bottom_right_images?.list?.[0]?.url;
+  const bottomRightHover = metafields?.teaser_bottom_right_images?.list?.[1]?.url;
 
-  const seriesIntro = seriesMeta?.intro ?? null;
+  const seriesDescription = seriesMeta?.description ?? null;
 
   const hasSeriesHeroOverride = Boolean(seriesLeft || seriesRight);
-  const topContent = seriesIntro ? seriesIntro : product.descriptionHtml;
+  const topContent = seriesDescription ? seriesDescription : product.descriptionHtml;
 
   return (
     <div className="pdp">
@@ -112,7 +116,7 @@ export function ProductDetailInformation({
           }
           isSingle={hasSeriesOverride ? !seriesRight : hasSeriesHero}
           content={
-            hasSeriesOverride ? seriesIntroText : product.descriptionHtml
+            hasSeriesOverride ? seriesDescriptionText : product.descriptionHtml
           }
         />
       </div>
