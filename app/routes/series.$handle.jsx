@@ -132,6 +132,8 @@ export async function loader({params, context, request}) {
     teaser_bottom_right_images: fieldRefsToUrls('teaser_bottom_right_images'), // [main, hover]
   };
 
+  console.log('SERIES META', JSON.stringify(seriesMeta, null, 2));
+
   const activeIndex = 0;
 
   return {
