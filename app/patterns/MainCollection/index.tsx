@@ -280,9 +280,6 @@ function ProductItem({product}: {product: ProductLike}) {
         style={{
           position: 'relative',
           aspectRatio: '778/519',
-          borderColor: 'red',
-          borderWidth: '10px',
-          borderStyle: 'solid',
         }}
       >
         {main && !(main as any).__genericUrl && (
