@@ -71,20 +71,36 @@ export function ProductDetailInformation({
   const heroLeft = metafields?.hero_left_images ?? metafields?.hero_split_links;
   const heroRight = metafields?.hero_right_images ?? metafields?.hero_split_rechts;
 
-  const heroSplitLeftImage = heroLeft?.list?.[0]?.url ?? null;
-  const heroSplitLeftHover = heroLeft?.list?.[1]?.url ?? null;
+  const heroSplitLeftImage =
+    seriesMeta?.hero_left_images?.[0] ?? heroLeft?.list?.[0]?.url ?? null;
+  const heroSplitLeftHover =
+    seriesMeta?.hero_left_images?.[1] ?? heroLeft?.list?.[1]?.url ?? null;
 
-  const heroSplitRightImage = heroRight?.list?.[0]?.url ?? null;
-  const heroSplitRightHover = heroRight?.list?.[1]?.url ?? null;
+  const heroSplitRightImage =
+    seriesMeta?.hero_right_images?.[0] ?? heroRight?.list?.[0]?.url ?? null;
+  const heroSplitRightHover =
+    seriesMeta?.hero_right_images?.[1] ?? heroRight?.list?.[1]?.url ?? null;
+
   const heroSplitText =
-    metafields?.hero_text?.value ?? metafields?.hero_split_text?.value ?? '';
+    seriesMeta?.hero_text ??
+    metafields?.hero_split_text?.value ??
+    metafields?.hero_text?.value ??
+    '';
 
-  // ===== BOTTOM TeaserDuo (aus Metafeldern) =====
-  const bottomLeft = metafields?.teaser_bottom_left_images?.list?.[0]?.url;
-  const bottomLeftHover = metafields?.teaser_bottom_left_images?.list?.[1]?.url;
+  // ===== BOTTOM TeaserDuo =====
+  const bottomLeft =
+    seriesMeta?.teaser_bottom_left_images?.[0] ?? seriesMeta?.serie_teaser_duo_bottom_links_hover?.[0] ??
+    metafields?.teaser_bottom_left_images?.list?.[0]?.url;
+  const bottomLeftHover =
+    seriesMeta?.teaser_bottom_left_images?.[1] ?? seriesMeta?.serie_teaser_duo_bottom_links_hover?.[1] ??
+    metafields?.teaser_bottom_left_images?.list?.[1]?.url;
 
-  const bottomRight = metafields?.teaser_bottom_right_images?.list?.[0]?.url;
-  const bottomRightHover = metafields?.teaser_bottom_right_images?.list?.[1]?.url;
+  const bottomRight =
+    seriesMeta?.teaser_bottom_right_images?.[0] ?? seriesMeta?.serie_teaser_duo_bottom_rechts_hover?.[0] ??
+    metafields?.teaser_bottom_right_images?.list?.[0]?.url;
+  const bottomRightHover =
+    seriesMeta?.teaser_bottom_right_images?.[1] ?? seriesMeta?.serie_teaser_duo_bottom_rechts_hover?.[1] ??
+    metafields?.teaser_bottom_right_images?.list?.[1]?.url;
 
   const seriesDescription = seriesMeta?.description ?? null;
 
