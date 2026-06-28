@@ -43,7 +43,6 @@ const EXCLUDE_FQ_KEYS = new Set<string>([
   'custom.teaser_bottom_left_images',
   'custom.teaser_bottom_right_images',
   'custom.material_tile_color',
-  'custom.series_hero_images',
 ]);
 
 function metaobjectListToText(n: NormalizedNode) {

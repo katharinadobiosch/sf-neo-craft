@@ -62,11 +62,6 @@ export function ProductDetailInformation({
   const topRight = duoTopRight?.list?.[0]?.url;
   const topRightHover = duoTopRight?.list?.[1]?.url;
 
-  const seriesHero = metafields?.series_hero_images;
-  const seriesImage = seriesHero?.list?.[0]?.url;
-  const seriesImageHover = seriesHero?.list?.[1]?.url;
-  const hasSeriesHero = Boolean(seriesImage);
-
   // ===== HERO SPLIT (Band): aus Metafeldern (jeweils [0]=main, [1]=hover) =====
   const heroLeft = metafields?.hero_left_images ?? metafields?.hero_split_links;
   const heroRight = metafields?.hero_right_images ?? metafields?.hero_split_rechts;
@@ -112,25 +107,21 @@ export function ProductDetailInformation({
       {/* TOP: square-variant */}
       <div className="square-variant">
         <TeaserDuo
-          left={hasSeriesOverride ? seriesLeft : hasSeriesHero ? null : topLeft}
+          left={hasSeriesOverride ? seriesLeft : topLeft}
           leftHover={
             hasSeriesOverride
               ? seriesLeftHover
-              : hasSeriesHero
-                ? seriesImageHover
-                : topLeftHover
+              : topLeftHover
           }
           right={
-            hasSeriesOverride ? seriesRight : hasSeriesHero ? null : topRight
+            hasSeriesOverride ? seriesRight : topRight
           }
           rightHover={
             hasSeriesOverride
               ? seriesRightHover
-              : hasSeriesHero
-                ? null
-                : topRightHover
+              : topRightHover
           }
-          isSingle={hasSeriesOverride ? !seriesRight : hasSeriesHero}
+          isSingle={hasSeriesOverride ? !seriesRight : false}
           content={
             hasSeriesOverride ? seriesDescriptionText : product.descriptionHtml
           }

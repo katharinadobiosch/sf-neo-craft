@@ -17,7 +17,6 @@ const IMPORTANT_KEYS = [
   'custom.lead_time_shipping',
   'custom.shipping',
   'custom.configurator_addons',
-  'custom.series_hero_images',
   'custom.tile_images',
   'custom.duo_top_left_images',
   'custom.duo_top_right_images',

@@ -397,18 +397,6 @@
   },
   {
     "namespace": "custom",
-    "key": "series_hero_images",
-    "name": "Series Hero",
-    "type": {
-      "name": "list.file_reference"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
     "key": "shipping",
     "name": "Shipping",
     "type": {

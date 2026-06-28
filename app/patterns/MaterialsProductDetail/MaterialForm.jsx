@@ -26,7 +26,6 @@ export function MaterialForm({
   const navigate = useNavigate();
 
   const BLACKLIST = new Set([
-    'series_hero_images',
     'tile_images',
     'duo_top_left_images',
     'duo_top_right_images',

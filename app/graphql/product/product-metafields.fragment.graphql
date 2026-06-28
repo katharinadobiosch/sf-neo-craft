@@ -40,7 +40,6 @@ fragment ProductCustomMetafields on Product {
         {namespace: "custom", key: "teaser_bottom_left_images"}  # list.file_reference
         {namespace: "custom", key: "teaser_bottom_right_images"}  # list.file_reference
         {namespace: "custom", key: "product_series"}  # metaobject_reference
-        {namespace: "custom", key: "series_hero_images"}  # list.file_reference
         {namespace: "custom", key: "shipping"}  # rich_text_field
         {namespace: "custom", key: "technical_specs"}  # list.single_line_text_field
         {namespace: "custom", key: "photometric_specs"}  # list.single_line_text_field
