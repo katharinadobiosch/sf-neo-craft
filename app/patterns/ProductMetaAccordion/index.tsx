@@ -292,8 +292,6 @@ export function ProductMetaAccordion({
                           <img
                             src={img.url}
                             alt={img.altText?.trim() || item.label}
-                            loading="lazy"
-                            decoding="async"
                           />
                           {img.altText && (
                             <figcaption className="m-cap">

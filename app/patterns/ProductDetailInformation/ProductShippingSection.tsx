@@ -22,9 +22,6 @@ export function ProductShippingSection({
         onClick={() => setOpen((v) => !v)}
       >
         <span className="pf-kv__key pf-kv__key--right">{title}</span>
-        <span className="pf-kv__icon" aria-hidden="true">
-          {open ? '−' : '+'}
-        </span>
       </button>
 
       <div

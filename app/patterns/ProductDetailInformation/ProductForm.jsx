@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useMemo, useState} from 'react';
 import {useAside} from '~/patterns/Aside';
 import {useNavigate} from 'react-router';
 import {Configurator} from '../Configurator';
@@ -39,6 +39,7 @@ export function ProductForm({
 }) {
   const {open: openAside} = useAside();
   const navigate = useNavigate();
+  const [openSection, setOpenSection] = useState(null);
 
   const hasContent = (metafield) => {
     if (!metafield) return false;
@@ -132,25 +133,27 @@ export function ProductForm({
 
   return (
     <div className="product-form pf--segmented">
-      <div className="product-form__details-scroller">
-        <div className="product-form__configurator">
-          <Configurator
-            productTitle={activeProduct?.title}
-            productOptions={productOptions}
-            navigate={navigate}
-            seriesProducts={seriesProducts}
-            seriesActiveIndex={seriesActiveIndex}
-            onChangeSeriesProduct={onChangeSeriesProduct}
-            product={activeProduct}
-            onVariantReselect={onVariantReselect}
-          />
-        </div>
+      <div className="product-form__configurator">
+        <Configurator
+          productTitle={activeProduct?.title}
+          productOptions={productOptions}
+          navigate={navigate}
+          seriesProducts={seriesProducts}
+          seriesActiveIndex={seriesActiveIndex}
+          onChangeSeriesProduct={onChangeSeriesProduct}
+          product={activeProduct}
+          onVariantReselect={onVariantReselect}
+        />
+      </div>
 
+      <div className="product-form__details-scroller">
         <div className="product-form__sections">
           <ProductDetailsSection
             mfMeasurements={mfMeasurements}
             mfOthers={mfOthers}
             product={activeProduct}
+            openKey={openSection}
+            onToggle={setOpenSection}
           />
         </div>
 
@@ -159,6 +162,12 @@ export function ProductForm({
             <ProductShippingSection
               title={shippingTitle}
               lines={shippingLines}
+              open={openSection === 'shipping'}
+              onToggle={() =>
+                setOpenSection((current) =>
+                  current === 'shipping' ? null : 'shipping',
+                )
+              }
             />
           </div>
         ) : null}

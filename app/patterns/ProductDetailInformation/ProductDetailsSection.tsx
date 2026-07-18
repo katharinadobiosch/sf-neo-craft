@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import {useMemo} from 'react';
 import {ProductMetaAccordion} from '../ProductMetaAccordion';
 import metaDefsJson from '~/graphql/product/product-metafield-defs.json';
 
@@ -6,6 +6,8 @@ type Props = {
   mfMeasurements?: any[];
   mfOthers?: any[];
   product?: any;
+  openKey: string | null;
+  onToggle: (key: string | null) => void;
 };
 
 type MetaDef = {
@@ -63,18 +65,18 @@ export function ProductDetailsSection({
   mfMeasurements = [],
   mfOthers = [],
   product,
+  openKey,
+  onToggle,
 }: Props) {
   const items = useMemo(
     () => [...mfMeasurements, ...mfOthers].filter(Boolean),
     [mfMeasurements, mfOthers],
   );
 
-  const [openKey, setOpenKey] = useState<string | null>(null);
-
   if (items.length === 0) return null;
 
   const toggle = (key: string) => {
-    setOpenKey((currentKey) => (currentKey === key ? null : key));
+    onToggle(openKey === key ? null : key);
   };
 
   return (
