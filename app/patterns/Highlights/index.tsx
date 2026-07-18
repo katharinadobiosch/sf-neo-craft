@@ -141,17 +141,33 @@ type LoaderData = {
 export default function ProjectsPage() {
   const {items = []} = useLoaderData() as LoaderData;
 
+  const columnHeights = [0, 0];
+
+  const positionedItems = items.map((item) => {
+    const column = columnHeights[0] <= columnHeights[1] ? 1 : 2;
+    const occupiedRows = item.portrait ? 2 : 1;
+
+    columnHeights[column - 1] += occupiedRows;
+
+    return {
+      ...item,
+      column,
+    };
+  });
+
   return (
     <div className="collections highlights">
       <div className="collections-grid">
-        {items.map((item) => (
+        {positionedItems.map((item) => (
           <div
             key={item.id}
-            className={`product-item ${
+            className={[
+              'product-item',
               item.portrait
                 ? 'product-item--portrait'
-                : 'product-item--landscape'
-            }`}
+                : 'product-item--landscape',
+              item.column === 2 ? 'product-item--right' : 'product-item--left',
+            ].join(' ')}
           >
             <FigureCard images={item.images} title={item.title} />
           </div>

@@ -21,11 +21,11 @@ export function normalizeMenuUrl(url, publicDomain, primaryDomain) {
       '/pages/contact': '/contact',
       '/pages/impressum': '/impressum',
       '/pages/bespoke': '/bespoke',
-      '/pages/materials': '/materials',
+      // '/pages/materials': '/materials',
       '/pages/main-collection': '/collections/main-collection',
 
       '/collections/main-collection': '/collections/main-collection',
-      '/collections/materials': '/collections/materials',
+      // '/collections/materials': '/collections/materials',
 
       '/blogs/projects': '/projects',
     };

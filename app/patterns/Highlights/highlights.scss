@@ -118,6 +118,26 @@
   }
 
   @media (min-width: 768px) {
+    .collections-grid .product-item--left {
+      grid-column: 1;
+    }
+
+    .collections-grid .product-item--right {
+      grid-column: 2;
+    }
+
+    /*
+   * Überschreibt ausdrücklich die nth-of-type-Regeln
+   * aus mainCollection.scss.
+   */
+    .collections-grid .product-item.product-item--left .product-title {
+      margin-left: 0;
+    }
+
+    .collections-grid .product-item.product-item--right .product-title {
+      margin-left: 2rem;
+    }
+
     .product-title::after {
       content: '';
       position: absolute;
@@ -134,10 +154,6 @@
     .product-item:hover .product-title::after,
     .product-item:focus-within .product-title::after {
       transform: scaleX(1);
-    }
-
-    .product-item:nth-of-type(even) .product-title {
-      margin-left: 2rem;
     }
   }
 }
