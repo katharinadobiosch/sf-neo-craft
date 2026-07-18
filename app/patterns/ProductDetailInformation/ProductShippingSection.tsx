@@ -1,12 +1,12 @@
-import {useId, useState} from 'react';
+import {useId} from 'react';
 
 export function ProductShippingSection({
   title = 'Lead time + shipping',
   lines = [],
   idPrefix = 'ps-shipping',
+  open = false,
+  onToggle = () => {},
 }) {
-  const [open, setOpen] = useState(false);
-
   const reactId = useId();
   const panelId = `${idPrefix}-${reactId}`;
 
@@ -19,9 +19,9 @@ export function ProductShippingSection({
         className="pf-kv__toggle"
         aria-expanded={open}
         aria-controls={panelId}
-        onClick={() => setOpen((v) => !v)}
+        onClick={onToggle}
       >
-        <span className="pf-kv__key pf-kv__key--right">{title}</span>
+        <span className="pf-kv__key">{title}</span>
       </button>
 
       <div
@@ -29,12 +29,13 @@ export function ProductShippingSection({
         id={panelId}
         role="region"
         aria-label={title}
+        hidden={!open}
       >
         <div className="pf-kv__value">
           {safeLines.length ? (
             <ul className="ps-lines">
-              {safeLines.map((line, i) => (
-                <li key={i} className="ps-line">
+              {safeLines.map((line, index) => (
+                <li key={index} className="ps-line">
                   {line}
                 </li>
               ))}
