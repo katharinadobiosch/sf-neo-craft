@@ -289,10 +289,15 @@ export function ProductMetaAccordion({
                           className="meta-accordion__images-figure"
                           key={`${item.fqKey}-${i}`}
                         >
-                          <img
-                            src={img.url}
-                            alt={img.altText?.trim() || item.label}
-                          />
+                          <div className="meta-accordion__images-media">
+                            <img
+                              src={img.url}
+                              alt={img.altText?.trim() || item.label}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </div>
+
                           {img.altText && (
                             <figcaption className="m-cap">
                               {img.altText}
