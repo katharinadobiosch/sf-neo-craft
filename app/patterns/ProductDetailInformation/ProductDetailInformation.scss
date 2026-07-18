@@ -1,3 +1,4 @@
+// app/patterns/ProductDetailInformation/ProductDetailInformation.scss
 /* =========================================================
    PDP – Layout (mobile first)
    - 0–767px: mobile
@@ -130,7 +131,6 @@
     }
 
     .product-main__info {
-      height: 100%;
       min-height: 0;
       display: flex;
       flex-direction: column;
@@ -321,9 +321,7 @@
       flex-direction: column;
       flex: 2 1 0;
       min-height: 0;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 1.2rem 0;
+      overflow: visible;
     }
 
     .shipping-item {
@@ -838,91 +836,94 @@
    ========================================================= */
 
 /* =========================================================
-   Desktop:
-   - rechtes Produktbild bleibt quadratisch
-   - das Bild bestimmt die Höhe der gesamten Zeile
-   - linke Seite darf diese Höhe nicht vergrößern
-   - Configurator + Details scrollen
+   Desktop PDP:
+   - Media ist immer quadratisch
+   - Media bestimmt die Höhe von product-main
+   - Info ist exakt genauso hoch
+   - Inhalt links scrollt
    - CTA bleibt unten sichtbar
    ========================================================= */
 
 @media (min-width: 1200px) {
   .pdp {
     .product-main {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      align-items: stretch;
-    }
-
-    /*
-     * Das rechte Bild bestimmt durch sein Seitenverhältnis
-     * die Höhe der gesamten Grid-Zeile.
-     */
-    .product-main__media {
-      grid-column: 2;
-      grid-row: 1;
-
+      position: relative;
+      display: block;
       width: 100%;
+      min-width: 0;
       height: auto;
-      min-height: 0;
-      aspect-ratio: 1 / 1;
       overflow: hidden;
+
+      > .product-main__media {
+        position: relative;
+        display: flex;
+
+        width: 50%;
+        height: auto;
+        min-height: 0;
+        margin-left: 50%;
+
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+      }
+
+      > .product-main__info {
+        position: absolute;
+        inset: 0 auto 0 0;
+
+        width: 50%;
+        height: auto;
+        min-width: 0;
+        min-height: 0;
+
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
     }
 
     .product-main__media .media-gallery,
     .product-main__media .nc-media-gallery {
+      flex: 1 1 auto;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .product-main__media .swiper,
+    .product-main__media .swiper-wrapper,
+    .product-main__media .swiper-slide {
       width: 100%;
       height: 100%;
       min-height: 0;
     }
 
     .product-main__media img {
+      display: block;
       width: 100%;
       height: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
+      max-width: 100%;
+      max-height: 100%;
+      aspect-ratio: auto;
+      object-fit: contain;
+      object-position: center;
     }
 
-    /*
-     * Der linke Bereich darf keine eigene intrinsische Höhe
-     * zur Grid-Zeile beitragen.
-     */
-    .product-main__info {
-      grid-column: 1;
-      grid-row: 1;
-
-      position: relative;
-      min-width: 0;
-      min-height: 0;
-      overflow: hidden;
-    }
-
-    /*
-     * Die Form wird exakt in die vom Bild bestimmte Höhe gelegt.
-     */
     .product-form.pf--segmented {
-      position: absolute;
-      inset: 0;
-
+      position: static;
       display: flex;
       flex-direction: column;
-
       width: 100%;
       height: 100%;
       min-height: 0;
       overflow: hidden;
     }
 
-    /*
-     * Configurator und Accordions bilden EINEN Scrollbereich.
-     */
     .product-form__details-scroller {
       flex: 1 1 auto;
       min-height: 0;
-
       overflow-y: auto;
       overflow-x: hidden;
-
       scrollbar-width: thin;
       scrollbar-color: #111 transparent;
     }
@@ -940,9 +941,23 @@
       border-radius: 999px;
     }
 
-    /*
-     * CTA ist kein Bestandteil des Scrollbereichs.
-     */
+    .product-form__configurator,
+    .product-form__sections,
+    .product-form__shipping,
+    .product-form__configurator .configurator,
+    .product-form__configurator .cfg-panel,
+    .product-form__configurator .cfg-panel-scroll {
+      flex: none;
+      height: auto;
+      min-height: auto;
+      overflow: visible;
+    }
+
+    .product-form__configurator .cfg-panel {
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
     .pdp__cta-container {
       flex: 0 0 auto;
       margin-top: 0;
