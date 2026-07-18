@@ -269,6 +269,8 @@ function ProductItem({product}: {product: ProductLike}) {
       ? (seriesRef as MetaobjectRef).seriesTitle?.value
       : product.seriesMeta?.title || product.title;
 
+  console.log('ProductItem', product);
+
   return (
     <Link to={targetUrl} className="product-item" prefetch="intent">
       <div
