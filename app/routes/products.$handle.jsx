@@ -10,7 +10,7 @@ import {
 } from '@shopify/hydrogen';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
-import {MaterialsProductDetail} from '../patterns/MaterialsProductDetail';
+// import {MaterialsProductDetail} from '../patterns/MaterialsProductDetail';
 
 import {normalizeAllMetafields} from '~/utils/metafields';
 
@@ -94,7 +94,7 @@ function loadDeferredData() {
 
 export default function Product() {
   /** @type {LoaderReturnData} */
-  const {product, isMaterialsPdp} = useLoaderData();
+  const {product} = useLoaderData();
 
   const selectedVariant = useOptimisticVariant(
     product.selectedOrFirstAvailableVariant,
