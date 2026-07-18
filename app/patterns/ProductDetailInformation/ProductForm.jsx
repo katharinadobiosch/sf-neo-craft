@@ -132,20 +132,20 @@ export function ProductForm({
 
   return (
     <div className="product-form pf--segmented">
-      <div className="product-form__configurator">
-        <Configurator
-          productTitle={activeProduct?.title}
-          productOptions={productOptions}
-          navigate={navigate}
-          seriesProducts={seriesProducts}
-          seriesActiveIndex={seriesActiveIndex}
-          onChangeSeriesProduct={onChangeSeriesProduct}
-          product={activeProduct}
-          onVariantReselect={onVariantReselect}
-        />
-      </div>
-
       <div className="product-form__details-scroller">
+        <div className="product-form__configurator">
+          <Configurator
+            productTitle={activeProduct?.title}
+            productOptions={productOptions}
+            navigate={navigate}
+            seriesProducts={seriesProducts}
+            seriesActiveIndex={seriesActiveIndex}
+            onChangeSeriesProduct={onChangeSeriesProduct}
+            product={activeProduct}
+            onVariantReselect={onVariantReselect}
+          />
+        </div>
+
         <div className="product-form__sections">
           <ProductDetailsSection
             mfMeasurements={mfMeasurements}
