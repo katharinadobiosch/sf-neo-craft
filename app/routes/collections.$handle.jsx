@@ -37,18 +37,6 @@ export async function loader({context, params}) {
 
   const productsRaw = collection?.products?.nodes ?? [];
 
-  console.log(
-    'RAW PRODUCTS FROM COLLECTION',
-    productsRaw.map((product) => ({
-      title: product.title,
-      handle: product.handle,
-      seriesHandle: product.metafieldSeries?.reference?.handle ?? null,
-      productTileRefs:
-        product.metafieldSeries?.reference?.productTile?.references?.nodes
-          ?.length ?? 0,
-    })),
-  );
-
   // ✅ exakt wie Home: nach Series dedupen
   const products = groupProductsBySeries(productsRaw);
 

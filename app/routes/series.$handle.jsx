@@ -39,19 +39,6 @@ export async function loader({params, context, request}) {
 
   const fields = series.fields ?? [];
 
-  console.log(
-    'SERIES FIELDS DEBUG',
-    fields.map((field) => ({
-      key: field.key,
-      value: field.value,
-      referencesCount: field.references?.nodes?.length ?? 0,
-      referenceTypes:
-        field.references?.nodes?.map((node) => node.__typename) ?? [],
-    })),
-  );
-
-  console.log('hello world');
-
   const norm = (s) =>
     String(s ?? '')
       .trim()
@@ -95,19 +82,6 @@ export async function loader({params, context, request}) {
     })
     .filter((field) => field.products.length > 0);
 
-  console.log(
-    'SERIES PRODUCT FIELDS',
-    JSON.stringify(
-      productReferenceFields.map((field) => ({
-        key: field.key,
-        count: field.products.length,
-        titles: field.products.map((product) => product.title),
-      })),
-      null,
-      2,
-    ),
-  );
-
   const products =
     getField('products')?.references?.nodes?.filter(
       (node) => node?.__typename === 'Product',
@@ -131,8 +105,6 @@ export async function loader({params, context, request}) {
     teaser_bottom_left_images: fieldRefsToUrls('teaser_bottom_left_images'), // [main, hover]
     teaser_bottom_right_images: fieldRefsToUrls('teaser_bottom_right_images'), // [main, hover]
   };
-
-  console.log('SERIES META', JSON.stringify(seriesMeta, null, 2));
 
   const activeIndex = 0;
 
