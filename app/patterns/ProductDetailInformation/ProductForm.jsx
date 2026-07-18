@@ -7,12 +7,13 @@ import {ProductDetailsSection} from './ProductDetailsSection';
 import {ProductShippingSection} from './ProductShippingSection';
 
 function getMfByKey(metafields, key) {
-  const k = String(key).toLowerCase().trim();
+  const normalizedKey = String(key).toLowerCase().trim();
+
   return (metafields || []).find(
-    (m) =>
-      String(m?.key || '')
+    (metafield) =>
+      String(metafield?.key || '')
         .toLowerCase()
-        .trim() === k,
+        .trim() === normalizedKey,
   );
 }
 
@@ -39,16 +40,21 @@ export function ProductForm({
   const {open: openAside} = useAside();
   const navigate = useNavigate();
 
-  const hasContent = (m) => {
-    if (!m) return false;
+  const hasContent = (metafield) => {
+    if (!metafield) return false;
 
-    const v = m?.value;
-    if (typeof v === 'string') return v.trim().length > 0;
-    if (typeof v === 'number') return !Number.isNaN(v);
-    if (typeof v === 'boolean') return true;
+    const value = metafield.value;
 
-    if (m?.reference) return true;
-    if (Array.isArray(m?.references?.nodes) && m.references.nodes.length > 0) {
+    if (typeof value === 'string') return value.trim().length > 0;
+    if (typeof value === 'number') return !Number.isNaN(value);
+    if (typeof value === 'boolean') return true;
+
+    if (metafield.reference) return true;
+
+    if (
+      Array.isArray(metafield.references?.nodes) &&
+      metafield.references.nodes.length > 0
+    ) {
       return true;
     }
 
@@ -70,48 +76,48 @@ export function ProductForm({
     getMfByKey(allMetafields, 'lead_time_shipping') ||
     getMfByKey(allMetafields, 'shipping');
 
-  const mfMeasurements = allMetafields.filter((m) => {
-    const key = String(m?.key || '')
+  const mfMeasurements = allMetafields.filter((metafield) => {
+    const key = String(metafield?.key || '')
       .toLowerCase()
       .trim();
-    return key === 'measurements' && hasContent(m);
+
+    return key === 'measurements' && hasContent(metafield);
   });
 
-  const mfOthers = allMetafields.filter((m) => {
-    const key = String(m?.key || '')
+  const mfOthers = allMetafields.filter((metafield) => {
+    const key = String(metafield?.key || '')
       .toLowerCase()
       .trim();
+
     if (key === 'measurements') return false;
     if (!ACCORDION_KEYS.has(key)) return false;
-    if (!hasContent(m)) return false;
+    if (!hasContent(metafield)) return false;
+
     return true;
   });
 
   const currentVariant = useMemo(() => {
-    for (const opt of productOptions || []) {
-      const sel = opt.optionValues?.find((v) => v.selected);
-      if (sel?.variant) return sel.variant;
+    for (const option of productOptions || []) {
+      const selectedValue = option.optionValues?.find(
+        (value) => value.selected,
+      );
+
+      if (selectedValue?.variant) return selectedValue.variant;
     }
-    const first = productOptions?.[0]?.optionValues?.[0];
-    return first?.variant || first?.firstSelectableVariant || null;
+
+    const firstValue = productOptions?.[0]?.optionValues?.[0];
+
+    return firstValue?.variant || firstValue?.firstSelectableVariant || null;
   }, [productOptions]);
 
-  const money = (num, currency = 'EUR') =>
-    new Intl.NumberFormat('de-DE', {style: 'currency', currency}).format(
-      Number(num || 0),
-    );
+  const money = (amount, currency = 'EUR') =>
+    new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency,
+    }).format(Number(amount || 0));
 
-  const hasOptionsArray = Array.isArray(productOptions);
-  const allSelected =
-    hasOptionsArray &&
-    (productOptions.length === 0 ||
-      productOptions.every((opt) =>
-        opt?.optionValues?.some((v) => v.selected),
-      ));
-
-  const isReady = !!currentVariant?.availableForSale && allSelected;
   const price = Number(currentVariant?.price?.amount || 0);
-  const currency = currentVariant?.price?.currencyCode || 'USD';
+  const currency = currentVariant?.price?.currencyCode || 'EUR';
 
   const shippingTitle = mfShipping?.name || 'Lead Time / Shipping';
 
@@ -128,6 +134,7 @@ export function ProductForm({
     <div className="product-form pf--segmented">
       <div className="product-form__configurator">
         <Configurator
+          productTitle={activeProduct?.title}
           productOptions={productOptions}
           navigate={navigate}
           seriesProducts={seriesProducts}
@@ -138,30 +145,42 @@ export function ProductForm({
         />
       </div>
 
-      <div className="product-form__sections">
-        <ProductDetailsSection
-          mfMeasurements={mfMeasurements}
-          mfOthers={mfOthers}
-          product={activeProduct}
-        />
-      </div>
-
-      {shippingRaw ? (
-        <div className="product-form__shipping">
-          <ProductShippingSection title={shippingTitle} lines={shippingLines} />
+      <div className="product-form__details-scroller">
+        <div className="product-form__sections">
+          <ProductDetailsSection
+            mfMeasurements={mfMeasurements}
+            mfOthers={mfOthers}
+            product={activeProduct}
+          />
         </div>
-      ) : null}
+
+        {shippingRaw ? (
+          <div className="product-form__shipping">
+            <ProductShippingSection
+              title={shippingTitle}
+              lines={shippingLines}
+            />
+          </div>
+        ) : null}
+      </div>
 
       <div className="pdp__cta-container">
         <div className="cta-button">
           <span className="cta-arrow">→</span>
+
           <span className="cta-price">{money(price, currency)}</span>
+
           <AddToCartButton
             disabled={!currentVariant || !currentVariant.availableForSale}
             onClick={() => openAside('cart')}
             lines={
               currentVariant
-                ? [{merchandiseId: currentVariant.id, quantity: 1}]
+                ? [
+                    {
+                      merchandiseId: currentVariant.id,
+                      quantity: 1,
+                    },
+                  ]
                 : []
             }
           >
@@ -169,12 +188,15 @@ export function ProductForm({
           </AddToCartButton>
         </div>
 
-        <div
+        <button
+          type="button"
           className="cta-question"
-          onClick={() => (window.location = 'mailto:test@example.com')}
+          onClick={() => {
+            window.location.href = 'mailto:test@example.com';
+          }}
         >
-          Further Questions?
-        </div>
+          Contact our Team
+        </button>
       </div>
     </div>
   );

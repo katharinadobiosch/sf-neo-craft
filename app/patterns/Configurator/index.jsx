@@ -89,9 +89,9 @@ const getHex = (name) => {
 };
 
 export function Configurator({
+  productTitle,
   productOptions,
   navigate,
-  // 👇 neu – alle optional
   seriesProducts = [],
   seriesActiveIndex = 0,
   onChangeSeriesProduct,
@@ -217,7 +217,7 @@ export function Configurator({
     <div className="configurator" data-variants-open={variantsOpen}>
       {/* Kopf: toggelt NUR Varianten */}
       <div className="cfg-head">
-        <span className="cfg-title">Configurator</span>
+        <h1 className="cfg-title">{productTitle || 'Configurator'}</h1>{' '}
       </div>
 
       {/* Container 1: Varianten */}

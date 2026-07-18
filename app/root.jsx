@@ -35,11 +35,11 @@ import mediaGalleryCss from '~/patterns/MediaGallery/mediaGallery.scss?url';
 import ProductMetaAccordionCss from '~/patterns/ProductMetaAccordion/ProductMetaAccordion.scss?url';
 import bespokeStyles from '~/patterns/Bespoke/bespoke.scss?url';
 import highlightsStyles from '~/patterns/Highlights/highlights.scss?url';
-import materialStyles from '~/patterns/Materials/materials.scss?url';
+// import materialStyles from '~/patterns/Materials/materials.scss?url';
 import dealersStyles from '~/patterns/Dealers/dealers.scss?url';
 import mainCollectionStyles from '~/patterns/MainCollection/mainCollection.scss?url';
 import aboutStyles from '~/patterns/About/about.scss?url';
-import MaterialPDP from '~/patterns/MaterialsProductDetail/MaterialDetailInformation.scss?url';
+// import MaterialPDP from '~/patterns/MaterialsProductDetail/MaterialDetailInformation.scss?url';
 
 import appStyles from '~/styles/main.scss?url';
 

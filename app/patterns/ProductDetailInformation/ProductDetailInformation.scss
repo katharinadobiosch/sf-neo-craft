@@ -827,3 +827,206 @@
   line-height: var(--nc-konfigurator-mobil-line);
   font-weight: var(--nc-konfigurator-mobil-weight);
 }
+
+/* =========================================================
+   Calculator layout – desktop
+   Calculator + CTA bleiben sichtbar.
+   Nur Details/Accordions scrollen.
+   ========================================================= */
+
+@media (min-width: 1200px) {
+  .pdp {
+    .product-main__info {
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .product-form.pf--segmented {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /*
+     * Calculator bekommt seine natürliche Höhe
+     * und wird niemals zum Scrollbereich.
+     */
+    .product-form__configurator {
+      flex: 0 0 auto;
+      min-height: auto;
+      overflow: visible;
+      margin: 0;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--divider, #000);
+    }
+
+    .product-form__configurator .configurator {
+      display: block;
+      height: auto;
+      min-height: auto;
+      overflow: visible;
+    }
+
+    .product-form__configurator .cfg-panel {
+      max-height: none !important;
+      height: auto;
+      overflow: visible !important;
+    }
+
+    .product-form__configurator .cfg-panel-scroll {
+      height: auto;
+      max-height: none;
+      overflow: visible;
+    }
+
+    /*
+     * Nur dieser Bereich verwendet den verbleibenden Platz
+     * und scrollt bei Bedarf.
+     */
+    .product-form__details-scroller {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: #111 transparent;
+    }
+
+    .product-form__details-scroller::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .product-form__details-scroller::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .product-form__details-scroller::-webkit-scrollbar-thumb {
+      background: #111;
+      border-radius: 999px;
+    }
+
+    .product-form__details-scroller::-webkit-scrollbar-thumb:hover {
+      background: #000;
+    }
+
+    /*
+     * Die alten einzelnen Scrollbereiche deaktivieren.
+     */
+    .product-form__sections {
+      display: block;
+      flex: none;
+      min-height: auto;
+      overflow: visible;
+      padding: 0;
+    }
+
+    .product-form__shipping {
+      overflow: visible;
+    }
+
+    .shipping-item {
+      display: block;
+      flex: none;
+      min-height: auto;
+      overflow: visible;
+    }
+
+    .shipping-item .ps-panel {
+      overflow: visible;
+      max-height: none;
+    }
+
+    /*
+     * CTA bleibt immer unten sichtbar.
+     */
+    .pdp__cta-container {
+      flex: 0 0 auto;
+      margin-top: 0;
+    }
+  }
+}
+
+/* =========================================================
+   Accordion ohne Plus/Minus
+   Hover und geöffnet = Unterstreichung
+   ========================================================= */
+
+.pdp {
+  .pf-kv__row {
+    width: 100%;
+  }
+
+  .pf-kv__toggle {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .pf-kv__key {
+    position: relative;
+    display: inline-block;
+    padding: 1.2rem 0;
+  }
+
+  .pf-kv__key::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.9rem;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 180ms ease;
+  }
+
+  .pf-kv__toggle:hover .pf-kv__key::after,
+  .pf-kv__toggle:focus-visible .pf-kv__key::after,
+  .pf-kv__row[data-open='true'] .pf-kv__key::after {
+    transform: scaleX(1);
+  }
+
+  .pf-kv__toggle:focus-visible {
+    outline: none;
+  }
+
+  /*
+   * Absicherung, falls das alte Icon noch irgendwo
+   * im kompilierten Markup vorkommt.
+   */
+  .pf-kv__icon {
+    display: none;
+  }
+
+  .pf-kv__value-wrap[hidden] {
+    display: none;
+  }
+
+  .pf-kv__value {
+    padding: 0 0 1.5rem;
+  }
+}
+
+/* =========================================================
+   Calculator title
+   ========================================================= */
+
+.pdp {
+  .cfg-title {
+    display: block;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+  }
+}

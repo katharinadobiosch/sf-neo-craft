@@ -141,7 +141,7 @@ const FALLBACK_HEADER_MENU = {
     {id: '1', title: 'COLLECTION', url: '/collections'},
     {id: '2', title: 'PROJECTS', url: '/projects'},
     {id: '3', title: 'BESPOKE', url: '/bespoke'},
-    {id: '4', title: 'MATERIALS', url: '/materials'},
+    // {id: '4', title: 'MATERIALS', url: '/materials'},
     {id: '5', title: 'ABOUT', url: '/about'},
   ],
 };

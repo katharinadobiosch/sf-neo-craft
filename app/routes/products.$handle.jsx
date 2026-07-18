@@ -75,13 +75,13 @@ async function loadCriticalData({context, params, request}) {
   const metafields = normalizeAllMetafields(product.metafields ?? []);
 
   // statt materialBoolean:
-  const isMaterialsPdp =
-    product?.collections?.nodes?.some((c) => c.handle === 'materials') ?? false;
+  // const isMaterialsPdp =
+  //   product?.collections?.nodes?.some((c) => c.handle === 'materials') ?? false;
 
   return {
     product,
     metafields,
-    isMaterialsPdp,
+    // isMaterialsPdp,
   };
 }
 

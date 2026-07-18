@@ -43,8 +43,8 @@ export function PageLayout({
     // sonst footer und header weiß
     if (
       pathname.startsWith('/projects') ||
-      pathname.startsWith('/products') ||
-      pathname.startsWith('/materials')
+      pathname.startsWith('/products') 
+      // pathname.startsWith('/materials')
     )
       return 'purple';
     if (
