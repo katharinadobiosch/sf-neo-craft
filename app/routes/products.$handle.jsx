@@ -104,11 +104,11 @@ export default function Product() {
 
   return (
     <div className="product">
-      {isMaterialsPdp ? (
+      {/* {isMaterialsPdp ? (
         <MaterialsProductDetail product={product} />
-      ) : (
-        <ProductDetailInformation product={product} />
-      )}
+      ) : ( */}
+      <ProductDetailInformation product={product} />
+      {/* )} */}
       <Analytics.ProductView
         data={{
           products: [

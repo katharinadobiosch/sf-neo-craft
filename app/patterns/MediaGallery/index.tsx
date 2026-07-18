@@ -129,8 +129,6 @@ export function MediaGallery({
     }
   }, [variant?.id, variant?.image?.url, slides, reselectKey]);
 
-
-
   return (
     <section className={`nc-media-gallery ${className ?? ''}`}>
       {/* NEW: Eigene Buttons (Swiper erkennt sie über prevEl/nextEl) */}

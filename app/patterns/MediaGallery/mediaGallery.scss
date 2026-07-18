@@ -30,10 +30,13 @@
 }
 
 .nc-media-gallery .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
   max-width: 100%;
   max-height: 100%;
-  object-fit: cover;
-  display: block;
+  object-fit: contain;
+  object-position: center;
 }
 
 /* NEW: Custom Navigation Buttons */
@@ -125,4 +128,38 @@
 
 .nc-media-gallery .swiper-pagination-bullet-active {
   opacity: 1;
+}
+@media (min-width: 1200px) {
+  .pdp {
+    .product-main {
+      height: calc(100vh - 68px);
+      min-height: 0;
+      overflow: hidden;
+      align-items: stretch;
+    }
+
+    .product-main__info,
+    .product-main__media {
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .product-main__media {
+      position: relative;
+    }
+
+    .nc-media-gallery {
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+    }
+
+    .nc-media-gallery .swiper,
+    .nc-media-gallery .swiper-wrapper,
+    .nc-media-gallery .swiper-slide {
+      height: 100%;
+      min-height: 0;
+    }
+  }
 }
