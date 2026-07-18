@@ -21,6 +21,8 @@
     "app/patterns/HeroSplit/index.jsx",
     "app/patterns/Project/index.tsx",
     "app/patterns/Highlights/index.tsx",
-    "app/routes/collections.materials.jsx"
-, "app/patterns/ProductMetaAccordion/index.tsx", "app/patterns/MediaGallery/index.tsx"  ]
+    "app/routes/collections.materials.jsx",
+    "app/patterns/ProductMetaAccordion/index.tsx",
+    "app/patterns/MediaGallery/index.tsx"
+  ]
 }

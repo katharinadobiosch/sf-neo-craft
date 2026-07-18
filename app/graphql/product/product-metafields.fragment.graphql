@@ -8,7 +8,7 @@ fragment ProductCustomMetafields on Product {
   # Liefert eine Liste von Metafeldern (Einträge können null sein,
   # wenn am Produkt kein Wert gesetzt ist)
   metafields(identifiers: [
-        {namespace: "custom", key: "material"}  # list.single_line_text_field
+        # {namespace: "custom", key: "material"}  # list.single_line_text_field
         {namespace: "custom", key: "size"}  # list.single_line_text_field
         {namespace: "custom", key: "length"}  # list.number_decimal
         {namespace: "custom", key: "width"}  # list.number_decimal
@@ -32,7 +32,7 @@ fragment ProductCustomMetafields on Product {
         {namespace: "custom", key: "mirror_glass_type"}  # list.metaobject_reference
         {namespace: "custom", key: "dichroic_glass"}  # list.metaobject_reference
         {namespace: "custom", key: "product_color"}  # list.metaobject_reference
-        {namespace: "custom", key: "material_tile_color"}  # list.metaobject_reference
+        # {namespace: "custom", key: "material_tile_color"}  # list.metaobject_reference
         {namespace: "custom", key: "duo_top_right_images"}  # list.file_reference
         {namespace: "custom", key: "duo_top_left_images"}  # list.file_reference
         {namespace: "custom", key: "hero_left_images"}  # list.file_reference

@@ -103,11 +103,11 @@ export function links() {
     {rel: 'stylesheet', href: bespokeStyles},
     {rel: 'stylesheet', href: ProductMetaAccordionCss},
     {rel: 'stylesheet', href: highlightsStyles},
-    {rel: 'stylesheet', href: materialStyles},
+    // {rel: 'stylesheet', href: materialStyles},
     {rel: 'stylesheet', href: dealersStyles},
     {rel: 'stylesheet', href: mainCollectionStyles},
     {rel: 'stylesheet', href: aboutStyles},
-    {rel: 'stylesheet', href: MaterialPDP},
+    // {rel: 'stylesheet', href: MaterialPDP},
     {rel: 'stylesheet', href: introAnimationCss},
     {rel: 'stylesheet', href: fontAwesomeCss},
 
