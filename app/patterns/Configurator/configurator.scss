@@ -145,54 +145,42 @@
     line-height: var(--nc-konfigurator-desktop-line);
     font-weight: var(--nc-konfigurator-desktop-weight);
 
-    /* 268 / 268 / 245 */
-    --cfg-total: 781;
-    --cfg-col1-p: calc(268 / var(--cfg-total) * 100%);
-    --cfg-col2-p: calc(268 / var(--cfg-total) * 100%);
-    --cfg-col3-p: calc(245 / var(--cfg-total) * 100%);
+    --cfg-label-col: clamp(160px, 28%, 220px);
+    --cfg-values-col: minmax(0, 1fr);
 
-    --cfg-col1: clamp(180px, var(--cfg-col1-p), 268px);
-    --cfg-col2: clamp(180px, var(--cfg-col2-p), 268px);
-    --cfg-col3: clamp(160px, var(--cfg-col3-p), 245px);
-
-    /* nicht mehr per padding-left "simulieren" */
     .cfg-panel-inner {
       padding-top: 1rem;
       padding-left: 0;
       gap: 0.4rem;
     }
 
-    /* ROW = 3 Spalten: spacer | label | values */
     .cfg-row {
       display: grid;
-      grid-template-columns: var(--cfg-col1) var(--cfg-col2) var(--cfg-col3);
+      grid-template-columns: var(--cfg-label-col) var(--cfg-values-col);
       align-items: center;
 
       padding: 0.5rem 0 2.5rem;
       margin-bottom: 0;
     }
 
-    /* Modell-Zeile hat kein Label – sie soll ab Spalte 2 starten */
     .cfg-row--model {
-      grid-template-columns: var(--cfg-col1) calc(
-          var(--cfg-col2) + var(--cfg-col3)
-        );
+      grid-template-columns: var(--cfg-label-col) var(--cfg-values-col);
     }
+
     .cfg-row--model .cfg-values {
-      grid-column: 2 / -1;
+      grid-column: 2;
       max-width: none;
     }
 
     .cfg-label {
-      grid-column: 2;
+      grid-column: 1;
       width: auto;
       line-height: 1.5rem;
-      /* WICHTIG: keine flex-Regeln mehr hier */
       flex: none;
     }
 
     .cfg-values {
-      grid-column: 3;
+      grid-column: 2;
       width: auto;
       justify-content: flex-start;
       gap: 1.5rem;
