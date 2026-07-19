@@ -13,6 +13,18 @@
   },
   {
     "namespace": "custom",
+    "key": "driver_options",
+    "name": "Driver Options",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
     "key": "material",
     "name": "Material",
     "type": {

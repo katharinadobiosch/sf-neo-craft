@@ -96,6 +96,9 @@ export function Configurator({
   seriesActiveIndex = 0,
   onChangeSeriesProduct,
   onVariantReselect,
+  driverOptions = [],
+  selectedDriver,
+  onDriverSelect,
 }) {
   // Nur die Varianten-Sektion toggeln
   const [variantsOpen, setVariantsOpen] = useState(true);
@@ -163,11 +166,13 @@ export function Configurator({
           data-count={!colorish ? option.optionValues.length : undefined}
         >
           {option.optionValues.map((value) => {
-            const selected = !!value.selected;
+            const selected = Boolean(value.selected);
             const disabled = !value.exists;
+
             return (
               <button
                 key={value.name}
+                type="button"
                 className={cx(
                   'cfg-item',
                   colorish ? 'is-color' : 'is-chip',
@@ -260,6 +265,39 @@ export function Configurator({
 
           <div className="cfg-panel-inner">
             {variantOptions.map(renderOption)}
+
+            {driverOptions.length > 0 && (
+              <div className="cfg-row cfg-row--chip">
+                <div className="cfg-label">Driver Option</div>
+
+                <div
+                  className="cfg-values cfg-values--chip"
+                  data-option="driver-option"
+                  data-count={driverOptions.length}
+                >
+                  {driverOptions.map((driver) => {
+                    const selected = selectedDriver === driver;
+
+                    return (
+                      <button
+                        key={driver}
+                        type="button"
+                        className={cx(
+                          'cfg-item',
+                          'is-chip',
+                          selected && 'is-selected',
+                        )}
+                        aria-label={driver}
+                        aria-pressed={selected}
+                        onClick={() => onDriverSelect?.(driver)}
+                      >
+                        <span className="chip-text">{driver}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>

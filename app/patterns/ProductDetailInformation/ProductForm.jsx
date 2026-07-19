@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {useAside} from '~/patterns/Aside';
 import {useNavigate} from 'react-router';
 import {Configurator} from '../Configurator';
@@ -40,6 +40,7 @@ export function ProductForm({
   const {open: openAside} = useAside();
   const navigate = useNavigate();
   const [openSection, setOpenSection] = useState(null);
+  const [selectedDriver, setSelectedDriver] = useState(null);
 
   const hasContent = (metafield) => {
     if (!metafield) return false;
@@ -66,6 +67,10 @@ export function ProductForm({
     Array.isArray(seriesProducts) && seriesProducts.length > 0
       ? seriesProducts[seriesActiveIndex] || seriesProducts[0]
       : product;
+
+  useEffect(() => {
+    setSelectedDriver(null);
+  }, [activeProduct?.id]);
 
   const allMetafieldsRaw = Array.isArray(activeProduct?.metafields)
     ? activeProduct.metafields
@@ -131,6 +136,27 @@ export function ProductForm({
     ? shippingRaw.split(/\r?\n/).filter(Boolean)
     : [];
 
+  const mfDriverOptions = getMfByKey(allMetafields, 'driver_options');
+
+  const driverOptions = useMemo(() => {
+    if (!mfDriverOptions?.value) return [];
+
+    try {
+      const parsedValue = JSON.parse(mfDriverOptions.value);
+
+      return Array.isArray(parsedValue) ? parsedValue : [];
+    } catch {
+      return [];
+    }
+  }, [mfDriverOptions?.value]);
+
+  const requiresDriverSelection = driverOptions.length > 0;
+
+  const addToCartDisabled =
+    !currentVariant ||
+    !currentVariant.availableForSale ||
+    (requiresDriverSelection && !selectedDriver);
+
   return (
     <div className="product-form pf--segmented">
       <div className="product-form__configurator">
@@ -143,6 +169,9 @@ export function ProductForm({
           onChangeSeriesProduct={onChangeSeriesProduct}
           product={activeProduct}
           onVariantReselect={onVariantReselect}
+          driverOptions={driverOptions}
+          selectedDriver={selectedDriver}
+          onDriverSelect={setSelectedDriver}
         />
       </div>
 
@@ -180,7 +209,7 @@ export function ProductForm({
           <span className="cta-price">{money(price, currency)}</span>
 
           <AddToCartButton
-            disabled={!currentVariant || !currentVariant.availableForSale}
+            disabled={addToCartDisabled}
             onClick={() => openAside('cart')}
             lines={
               currentVariant
@@ -188,6 +217,14 @@ export function ProductForm({
                     {
                       merchandiseId: currentVariant.id,
                       quantity: 1,
+                      attributes: selectedDriver
+                        ? [
+                            {
+                              key: 'Driver Option',
+                              value: selectedDriver,
+                            },
+                          ]
+                        : [],
                     },
                   ]
                 : []
