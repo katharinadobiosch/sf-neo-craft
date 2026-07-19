@@ -2,7 +2,6 @@
   position: fixed;
   z-index: 10;
   width: 100%;
-  // box-shadow: inset 0 -1px 0 var(--color-dark); /* Linie */
   border-bottom: 1px solid var(--color-dark);
 
   &__container {
@@ -29,9 +28,11 @@
   &__left {
     justify-self: start;
   }
+
   &__center {
     justify-self: center;
   }
+
   &__right {
     display: flex;
     justify-self: end;
@@ -44,9 +45,11 @@
       background: var(--sf-white);
       color: #000;
     }
+
     .header__container a {
       color: #000;
     }
+
     .burger span {
       background: #000;
     }
@@ -57,22 +60,11 @@
       background: #000;
       color: #fff;
     }
-    .header__container a {
-      color: #fff;
-    }
-    .burger span {
-      background: #fff;
-    }
-  }
 
-  &--black {
-    .header__container {
-      background: #000;
-      color: #fff;
-    }
     a {
       color: inherit;
     }
+
     .burger span {
       background: #fff;
     }
@@ -97,7 +89,6 @@
     }
   }
 
-  // === Burger ===
   .burger {
     position: relative;
     width: 3rem;
@@ -107,6 +98,7 @@
     background: none;
     border: none;
     padding: 0;
+
     span {
       position: absolute;
       height: 0.2rem;
@@ -115,12 +107,15 @@
       left: 0;
       transition: all 0.4s ease;
     }
+
     span:nth-child(1) {
       top: 0;
     }
+
     span:nth-child(2) {
       top: 0.9rem;
     }
+
     span:nth-child(3) {
       top: 1.8rem;
     }
@@ -129,16 +124,17 @@
       transform: rotate(45deg);
       top: 0.9rem;
     }
+
     &.active span:nth-child(2) {
       opacity: 0;
     }
+
     &.active span:nth-child(3) {
       transform: rotate(-45deg);
       top: 0.9rem;
     }
   }
 
-  // === Overlay ===
   &__overlay {
     position: fixed;
     inset: 0;
@@ -154,6 +150,7 @@
     }
 
     &__menu {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -163,34 +160,9 @@
       line-height: 5rem;
       gap: 1.5rem;
 
-      a {
-        position: relative;
-        color: inherit;
-        text-decoration: none;
-        z-index: 1;
-      }
-
       @media (min-width: 768px) {
         font-size: 4.8rem;
         line-height: 7rem;
-
-        a::after {
-          content: '';
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          width: 100%;
-          height: 2px;
-          background-color: currentColor;
-          transform: scaleX(0);
-          transform-origin: left;
-          transition: transform 180ms ease;
-        }
-
-        a:hover::after,
-        a:focus-visible::after {
-          transform: scaleX(1);
-        }
       }
     }
 
@@ -207,7 +179,47 @@
       font-size: 1.4rem;
       line-height: 1.6rem;
     }
+
+    &__menu a,
+    &__language a {
+      position: relative;
+      display: inline-block;
+      color: inherit;
+      text-decoration: none;
+      z-index: 1;
+    }
+
+    &__menu a::after,
+    &__language a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -3px;
+      height: 1px;
+      background: currentColor;
+
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 180ms ease;
+
+      pointer-events: none;
+    }
+
+    &__menu a:hover::after,
+    &__menu a:focus-visible::after,
+    &__language a:hover::after,
+    &__language a:focus-visible::after,
+    &__language a.is-active::after {
+      transform: scaleX(1);
+    }
+
+    &__menu a:focus-visible,
+    &__language a:focus-visible {
+      outline: none;
+    }
   }
+
   &__cart {
     font-size: 1.2rem;
     padding: 0 0 8px 8px;
@@ -221,15 +233,17 @@
   &__container--has-cart a {
     color: #fff;
   }
+
   .burger--inverted span {
     background: #fff;
   }
+
   .header__overlay__menu__language {
     font-size: 14px;
   }
 }
 
-/* Force burger line colors per header variant (overrides burger--inverted) */
+/* Force burger line colors per header variant */
 .header--white .burger span,
 .header--white .burger--inverted span {
   background: #000 !important;
@@ -238,38 +252,4 @@
 .header--black .burger span,
 .header--black .burger--inverted span {
   background: #fff !important;
-}
-.header {
-  &__overlay {
-    &__menu {
-      position: relative; // ok so
-    }
-
-    // Bottom language bar (container!)
-    &__language {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 3.2rem;
-
-      display: flex;
-      justify-content: center;
-      gap: 2.4rem;
-
-      font-size: 1.4rem;
-      line-height: 1.6rem;
-    }
-  }
-}
-
-// links
-.lang-link {
-  color: inherit;
-  text-decoration: none;
-  text-underline-offset: 0.35em;
-  text-decoration-thickness: 2px;
-
-  &.is-active {
-    text-decoration: underline;
-  }
 }

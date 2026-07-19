@@ -989,32 +989,76 @@
     cursor: pointer;
   }
 
-  .pf-kv__key {
+  /*
+   * Gemeinsame Basis für alle klickbaren Textoptionen.
+   */
+  .pf-kv__key,
+  .cfg-item.is-chip {
     position: relative;
+  }
+
+  .pf-kv__key {
     display: inline-block;
     padding: 1.2rem 0;
   }
 
-  .pf-kv__key::after {
+  .cfg-item.is-chip {
+    display: inline-flex;
+  }
+
+  /*
+   * Einheitliche Unterstreichung.
+   */
+  .pf-kv__key::after,
+  .cfg-item.is-chip::after {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0.9rem;
+
     height: 1px;
     background: currentColor;
+
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 180ms ease;
+
+    pointer-events: none;
   }
 
+  /*
+   * Das Accordion-Label besitzt vertikales Padding.
+   */
+  .pf-kv__key::after {
+    bottom: 0.9rem;
+  }
+
+  /*
+   * Varianten-Chips besitzen kein vergleichbares Padding.
+   */
+  .cfg-item.is-chip::after {
+    bottom: -3px;
+  }
+
+  /*
+  * Accordion: Hover, Tastaturfokus und geöffnet.
+  * Configurator: Hover, Tastaturfokus und ausgewählt.
+  */
   .pf-kv__toggle:hover .pf-kv__key::after,
   .pf-kv__toggle:focus-visible .pf-kv__key::after,
-  .pf-kv__row[data-open='true'] .pf-kv__key::after {
+  .pf-kv__row[data-open='true'] .pf-kv__key::after,
+  .cfg-item.is-chip:hover::after,
+  .cfg-item.is-chip:focus-visible::after,
+  .cfg-item.is-chip.is-selected::after {
     transform: scaleX(1);
   }
 
-  .pf-kv__toggle:focus-visible {
+  .cfg-item.is-chip:disabled::after {
+    transform: scaleX(0);
+  }
+
+  .pf-kv__toggle:focus-visible,
+  .cfg-item.is-chip:focus-visible {
     outline: none;
   }
 
