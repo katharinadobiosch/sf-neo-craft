@@ -25,6 +25,7 @@ const ACCORDION_KEYS = new Set([
   'electric_specs',
   'certification',
   'download',
+  'download_links',
   'mirror_glass_type',
   'dichroic_glass',
 ]);
@@ -78,6 +79,10 @@ export function ProductForm({
     : [];
 
   const allMetafields = allMetafieldsRaw.filter(Boolean);
+  console.log(
+    'download_links',
+    allMetafields.find((metafield) => metafield?.key === 'download_links'),
+  );
 
   const mfShipping =
     getMfByKey(allMetafields, 'lead_time_shipping') ||

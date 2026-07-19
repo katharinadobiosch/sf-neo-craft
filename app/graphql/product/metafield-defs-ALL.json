@@ -518,7 +518,7 @@
   {
     "namespace": "custom",
     "key": "download_links",
-    "name": "Download Links",
+    "name": "Downloads",
     "type": {
       "name": "list.single_line_text_field"
     },

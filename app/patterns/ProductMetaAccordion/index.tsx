@@ -135,6 +135,11 @@ function coerceKind(
   return 'text';
 }
 
+type LinkItem = {
+  url: string;
+  label: string;
+};
+
 type BuiltItem =
   | {label: string; fqKey: string; type: 'text'; value: string}
   | {
@@ -147,8 +152,38 @@ type BuiltItem =
       label: string;
       fqKey: string;
       type: 'files';
-      files: Array<{url: string; label: string}>;
+      files: LinkItem[];
+    }
+  | {
+      label: string;
+      fqKey: string;
+      type: 'links';
+      links: LinkItem[];
     };
+
+function parseDownloadLinks(n: NormalizedNode): LinkItem[] {
+  const values = Array.isArray(n.display)
+    ? n.display
+    : Array.isArray(n.list)
+      ? n.list.map(String)
+      : [];
+
+  return values
+    .map((entry) => {
+      const raw = String(entry ?? '').trim();
+      const separatorIndex = raw.indexOf('::');
+
+      if (separatorIndex === -1) return null;
+
+      const label = raw.slice(0, separatorIndex).trim();
+      const url = raw.slice(separatorIndex + 2).trim();
+
+      if (!label || !/^https?:\/\//i.test(url)) return null;
+
+      return {label, url};
+    })
+    .filter((item): item is LinkItem => Boolean(item));
+}
 
 function buildItems(normalizedArray: NormalizedNode[]) {
   const byKey = new Map<string, NormalizedNode>();
@@ -171,6 +206,21 @@ function buildItems(normalizedArray: NormalizedNode[]) {
     if (!n) continue;
 
     const kind = coerceKind(n, def.typeName);
+
+    if (def.key === 'download_links') {
+      const links = parseDownloadLinks(n);
+
+      if (!links.length) continue;
+
+      items.push({
+        label,
+        fqKey: def.fqKey,
+        type: 'links',
+        links,
+      });
+
+      continue;
+    }
 
     if (kind === 'metaobject_reference') {
       const txt = metaobjectListToText(n);
@@ -248,6 +298,9 @@ export function ProductMetaAccordion({
       if (item.type === 'files') {
         return Array.isArray(item.files) && item.files.length > 0;
       }
+      if (item.type === 'links') {
+        return Array.isArray(item.links) && item.links.length > 0;
+      }
       return false;
     });
   }, [items]);
@@ -319,6 +372,21 @@ export function ProductMetaAccordion({
                           rel="noopener noreferrer"
                         >
                           {file.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {item.type === 'links' && item.links.length > 0 && (
+                  <ul className="meta-accordion__file-list">
+                    {item.links.map((link, index) => (
+                      <li key={`${item.fqKey}-${index}`}>
+                        <a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {link.label}
                         </a>
                       </li>
                     ))}
