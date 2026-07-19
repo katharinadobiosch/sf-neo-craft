@@ -1,54 +1,159 @@
-.bespoke {
-  margin: 2rem 0 2rem 0;
+.collections.bespoke {
+  container-type: inline-size;
 
-  @media (min-width: 768px) {
-    margin: 3rem 0 8.7rem 0;
-    position: relative; /* <- wichtig */
+  --caption-height: 8.7rem;
+  --landscape-media-height: calc(50cqw * 519 / 778);
+  --card-row-height: calc(
+    var(--landscape-media-height) + var(--caption-height)
+  );
 
-    &::before {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      bottom: 0; /* geht durch alles innerhalb .bespoke */
-      width: 1px;
-      background: #000;
-      transform: translateX(-0.5px);
-      z-index: 5;
-      pointer-events: none;
+  .collections-grid {
+    position: relative;
+    display: block;
+    width: 100%;
+    background: #fff;
+
+    @media (min-width: 768px) {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: var(--card-row-height);
+      grid-auto-flow: dense;
+      align-items: stretch;
     }
   }
-  .teaser-duo .teaser-duo__content {
-    background: white;
+
+  .collections-grid .product-item {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+
+    @media (min-width: 768px) {
+      width: auto;
+      height: 100%;
+    }
   }
-  .teaser-duo__images {
+
+  .collections-grid .product-item--portrait {
+    @media (min-width: 768px) {
+      grid-row: span 2;
+    }
+  }
+
+  .card {
     display: flex;
-    align-items: stretch; // wichtig
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
   }
-  .teaser-duo__image {
-    flex: 1;
+
+  .card__media {
     position: relative;
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 778 / 519;
+    overflow: hidden;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
   }
-  .teaser-duo__image img {
+
+  .product-item--portrait .card__media {
+    @media (min-width: 768px) {
+      flex: 1 1 auto;
+      min-height: 0;
+      aspect-ratio: auto;
+    }
+  }
+
+  .card__img {
+    position: absolute;
+    inset: 0;
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
+    transition: opacity 250ms ease;
   }
 
-  .hs-leftTop {
-    @media (max-width: 767px) {
-      display: none;
-    }
+  .card__img--primary {
+    opacity: 1;
+  }
 
-    @media (min-width: 768px) {
-      border-bottom: 1px solid black;
-    }
+  .card__img--secondary {
+    opacity: 0;
+  }
+
+  .product-item:hover .card__img--primary,
+  .product-item:focus-within .card__img--primary {
+    opacity: 0;
+  }
+
+  .product-item:hover .card__img--secondary,
+  .product-item:focus-within .card__img--secondary {
+    opacity: 1;
+  }
+
+  .product-item:not(:has(.card__img--secondary)):hover .card__img--primary,
+  .product-item:not(:has(.card__img--secondary)):focus-within
+    .card__img--primary {
+    opacity: 1;
+  }
+
+  .product-caption {
+    flex: 0 0 var(--caption-height);
+    height: var(--caption-height);
+  }
+
+  .product-title {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding-top: 1.5rem;
+
+    font-size: var(--nc-navigation-name-desktop-size);
+    line-height: var(--nc-navigation-name-desktop-line);
+    font-weight: var(--nc-navigation-name-desktop-weight);
   }
 
   @media (min-width: 768px) {
-    .hs-grid {
-      margin-bottom: 8.6rem;
+    .collections-grid .product-item--left {
+      grid-column: 1;
+    }
+
+    .collections-grid .product-item--right {
+      grid-column: 2;
+    }
+
+    /*
+   * Überschreibt ausdrücklich die nth-of-type-Regeln
+   * aus mainCollection.scss.
+   */
+    .collections-grid .product-item.product-item--left .product-title {
+      margin-left: 0;
+    }
+
+    .collections-grid .product-item.product-item--right .product-title {
+      margin-left: 2rem;
+    }
+
+    .product-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 180ms ease;
+    }
+
+    .product-item:hover .product-title::after,
+    .product-item:focus-within .product-title::after {
+      transform: scaleX(1);
     }
   }
 }

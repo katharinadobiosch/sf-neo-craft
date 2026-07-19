@@ -1,6 +1,8 @@
-import Bespoke from '../patterns/Bespoke';
+import Bespoke, {loader as bespokeLoader} from '../patterns/Bespoke';
 
-export default function AboutPageWithProps() {
+export const loader = bespokeLoader;
+
+export default function BespokePageWithProps() {
   return (
     <>
       <Bespoke />
