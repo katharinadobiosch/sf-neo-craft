@@ -215,30 +215,41 @@ export function ProductForm({
 
           <span className="cta-price">{money(price, currency)}</span>
 
-          <AddToCartButton
-            disabled={addToCartDisabled}
-            onClick={() => openAside('cart')}
-            lines={
-              currentVariant
-                ? [
-                    {
-                      merchandiseId: currentVariant.id,
-                      quantity: 1,
-                      attributes: selectedDriver
-                        ? [
-                            {
-                              key: 'Driver Option',
-                              value: selectedDriver,
-                            },
-                          ]
-                        : [],
-                    },
-                  ]
-                : []
-            }
+          <div
+            className="cta-add-to-cart-wrapper"
+            data-driver-required={requiresDriverSelection && !selectedDriver}
           >
-            {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
-          </AddToCartButton>
+            <AddToCartButton
+              disabled={addToCartDisabled}
+              onClick={() => openAside('cart')}
+              lines={
+                currentVariant
+                  ? [
+                      {
+                        merchandiseId: currentVariant.id,
+                        quantity: 1,
+                        attributes: selectedDriver
+                          ? [
+                              {
+                                key: 'Driver Option',
+                                value: selectedDriver,
+                              },
+                            ]
+                          : [],
+                      },
+                    ]
+                  : []
+              }
+            >
+              {currentVariant?.availableForSale ? 'Add to Cart' : 'Sold out'}
+            </AddToCartButton>
+
+            {requiresDriverSelection && !selectedDriver && (
+              <span className="cta-add-to-cart-tooltip" role="tooltip">
+                Please select a driver option first.
+              </span>
+            )}
+          </div>
         </div>
 
         <button

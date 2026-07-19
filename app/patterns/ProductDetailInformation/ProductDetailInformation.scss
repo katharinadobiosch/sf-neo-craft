@@ -1092,3 +1092,86 @@
     color: inherit;
   }
 }
+
+.cta-add-to-cart-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  height: 100%;
+  min-width: 0;
+
+  > button,
+  > form {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  > form > button {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.cta-add-to-cart-tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  z-index: 10;
+
+  width: max-content;
+  max-width: 240px;
+  padding: 8px 12px;
+
+  color: #111;
+  background: #fff;
+  border: 1px solid #111;
+  border-radius: 4px;
+
+  font-size: 12px;
+  line-height: 1.3;
+  text-align: center;
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate(-50%, 4px);
+
+  transition:
+    opacity 160ms ease,
+    visibility 160ms ease,
+    transform 160ms ease;
+}
+
+.cta-add-to-cart-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+
+  width: 8px;
+  height: 8px;
+
+  background: #fff;
+  border-right: 1px solid #111;
+  border-bottom: 1px solid #111;
+
+  transform: translate(-50%, -4px) rotate(45deg);
+}
+
+.cta-add-to-cart-wrapper[data-driver-required='true']:hover
+  .cta-add-to-cart-tooltip,
+.cta-add-to-cart-wrapper[data-driver-required='true']:focus-within
+  .cta-add-to-cart-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
