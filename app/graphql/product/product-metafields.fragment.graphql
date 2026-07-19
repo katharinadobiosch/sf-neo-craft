@@ -8,7 +8,7 @@ fragment ProductCustomMetafields on Product {
   # Liefert eine Liste von Metafeldern (Einträge können null sein,
   # wenn am Produkt kein Wert gesetzt ist)
   metafields(identifiers: [
-        # {namespace: "custom", key: "material"}  # list.single_line_text_field
+        {namespace: "custom", key: "material"}  # list.single_line_text_field
         {namespace: "custom", key: "size"}  # list.single_line_text_field
         {namespace: "custom", key: "length"}  # list.number_decimal
         {namespace: "custom", key: "width"}  # list.number_decimal
@@ -16,8 +16,8 @@ fragment ProductCustomMetafields on Product {
         {namespace: "custom", key: "option"}  # list.single_line_text_field
         {namespace: "custom", key: "diameter"}  # list.number_decimal
         {namespace: "custom", key: "measurements"}  # list.file_reference
-        {namespace: "custom", key: "hero_text"}  # multi_line_text_field
-        {namespace: "custom", key: "tile_images"}  # list.file_reference
+        {namespace: "custom", key: "hero_split_text"}  # multi_line_text_field
+        {namespace: "custom", key: "product_tile"}  # list.file_reference
         {namespace: "custom", key: "metal_color"}  # list.metaobject_reference
         {namespace: "custom", key: "cable_color"}  # list.metaobject_reference
         {namespace: "custom", key: "frame_color"}  # list.metaobject_reference
@@ -32,24 +32,26 @@ fragment ProductCustomMetafields on Product {
         {namespace: "custom", key: "mirror_glass_type"}  # list.metaobject_reference
         {namespace: "custom", key: "dichroic_glass"}  # list.metaobject_reference
         {namespace: "custom", key: "product_color"}  # list.metaobject_reference
-        # {namespace: "custom", key: "material_tile_color"}  # list.metaobject_reference
-        {namespace: "custom", key: "duo_top_right_images"}  # list.file_reference
-        {namespace: "custom", key: "duo_top_left_images"}  # list.file_reference
-        {namespace: "custom", key: "hero_left_images"}  # list.file_reference
-        {namespace: "custom", key: "hero_right_images"}  # list.file_reference
-        {namespace: "custom", key: "teaser_bottom_left_images"}  # list.file_reference
-        {namespace: "custom", key: "teaser_bottom_right_images"}  # list.file_reference
+        {namespace: "custom", key: "material_tile_color"}  # list.metaobject_reference
+        {namespace: "custom", key: "produkt_duo_top_rechts"}  # list.file_reference
+        {namespace: "custom", key: "produkt_duo_top_links"}  # list.file_reference
+        {namespace: "custom", key: "hero_split_links"}  # list.file_reference
+        {namespace: "custom", key: "hero_split_rechts"}  # list.file_reference
         {namespace: "custom", key: "teaser_duo_bottom_links"}  # list.file_reference
         {namespace: "custom", key: "teaser_duo_bottom_rechts"}  # list.file_reference
         {namespace: "custom", key: "product_series"}  # metaobject_reference
-        {namespace: "custom", key: "shipping"}  # rich_text_field
         {namespace: "custom", key: "technical_specs"}  # list.single_line_text_field
         {namespace: "custom", key: "photometric_specs"}  # list.single_line_text_field
         {namespace: "custom", key: "electric_specs"}  # list.single_line_text_field
         {namespace: "custom", key: "certification"}  # list.single_line_text_field
         {namespace: "custom", key: "lead_time_shipping"}  # multi_line_text_field
-        {namespace: "custom", key: "download"}  # list.file_reference
+        {namespace: "custom", key: "driver_options"}  # list.single_line_text_field
+        {namespace: "custom", key: "series_configurator_type"}  # single_line_text_field
+        {namespace: "custom", key: "series_configurator_material"}  # single_line_text_field
+        {namespace: "custom", key: "download_links"}  # list.single_line_text_field
         {namespace: "custom_slider", key: "content"}  # list.file_reference
+        {namespace: "shopify", key: "color-pattern"}  # list.metaobject_reference
+        {namespace: "shopify", key: "disclosure"}  # list.disclosure_reference
   ]) {
     namespace
     key

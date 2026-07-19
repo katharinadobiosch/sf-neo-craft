@@ -21873,10 +21873,6 @@
         "type": "list.file_reference",
         "value": "[\"gid://shopify/MediaImage/59250050400520\"]"
       },
-      "custom.download": {
-        "type": "list.file_reference",
-        "value": "[\"gid://shopify/GenericFile/44303359377672\",\"gid://shopify/GenericFile/44192868729096\"]"
-      },
       "custom.product_tile": {
         "type": "list.file_reference",
         "value": "[\"gid://shopify/MediaImage/68617659678984\",\"gid://shopify/MediaImage/68617659646216\"]"
@@ -23290,10 +23286,6 @@
         "type": "list.file_reference",
         "value": "[\"gid://shopify/MediaImage/40718265155848\",\"gid://shopify/MediaImage/40719112175880\",\"gid://shopify/MediaImage/41960740454664\",\"gid://shopify/MediaImage/40758030369032\",\"gid://shopify/MediaImage/40718242185480\",\"gid://shopify/MediaImage/41960777187592\",\"gid://shopify/MediaImage/41960748187912\",\"gid://shopify/MediaImage/41960750153992\",\"gid://shopify/MediaImage/41960751104264\",\"gid://shopify/MediaImage/41960751497480\",\"gid://shopify/MediaImage/41960783413512\"]"
       },
-      "custom.download": {
-        "type": "list.file_reference",
-        "value": "[\"gid://shopify/GenericFile/44303359377672\",\"gid://shopify/GenericFile/44192868729096\",\"gid://shopify/GenericFile/44192719438088\"]"
-      },
       "custom.lead_time_shipping": {
         "type": "multi_line_text_field",
         "value": "6–10 weeks / production on demand\n"
@@ -23353,6 +23345,10 @@
       "custom.driver_options": {
         "type": "list.single_line_text_field",
         "value": "[\"Phasecut 240 V\",\"DALI 110-240 V\",\"PUSH 110-240 V\"]"
+      },
+      "custom.download_links": {
+        "type": "list.single_line_text_field",
+        "value": "[\"IRIS GLOBE FINAL::\"]"
       }
     }
   },

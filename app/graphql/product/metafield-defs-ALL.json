@@ -109,8 +109,8 @@
   },
   {
     "namespace": "custom",
-    "key": "hero_text",
-    "name": "Hero Split Text",
+    "key": "hero_split_text",
+    "name": "Single Hero Split Text",
     "type": {
       "name": "multi_line_text_field"
     },
@@ -121,8 +121,8 @@
   },
   {
     "namespace": "custom",
-    "key": "tile_images",
-    "name": "Product Tile + Hover",
+    "key": "product_tile",
+    "name": "Single Tile Images",
     "type": {
       "name": "list.file_reference"
     },
@@ -313,8 +313,8 @@
   },
   {
     "namespace": "custom",
-    "key": "duo_top_right_images",
-    "name": "Produkt Duo Top rechts + Hover",
+    "key": "produkt_duo_top_rechts",
+    "name": "Single Duo Top Right Images",
     "type": {
       "name": "list.file_reference"
     },
@@ -325,8 +325,8 @@
   },
   {
     "namespace": "custom",
-    "key": "duo_top_left_images",
-    "name": "Produkt Duo Top links + Hover",
+    "key": "produkt_duo_top_links",
+    "name": "Single Duo Top Left Images",
     "type": {
       "name": "list.file_reference"
     },
@@ -337,8 +337,8 @@
   },
   {
     "namespace": "custom",
-    "key": "hero_left_images",
-    "name": "Hero Split links + Hover",
+    "key": "hero_split_links",
+    "name": "Single Hero Split Left Images",
     "type": {
       "name": "list.file_reference"
     },
@@ -349,8 +349,8 @@
   },
   {
     "namespace": "custom",
-    "key": "hero_right_images",
-    "name": "Hero Split rechts + Hover",
+    "key": "hero_split_rechts",
+    "name": "Single Hero Split Right Images",
     "type": {
       "name": "list.file_reference"
     },
@@ -361,8 +361,8 @@
   },
   {
     "namespace": "custom",
-    "key": "teaser_bottom_left_images",
-    "name": "Teaser Duo Bottom links + Hover",
+    "key": "teaser_duo_bottom_links",
+    "name": "Single Bottom Teaser Left Images",
     "type": {
       "name": "list.file_reference"
     },
@@ -373,8 +373,8 @@
   },
   {
     "namespace": "custom",
-    "key": "teaser_bottom_right_images",
-    "name": "Teaser Duo Bottom rechts+ Hover",
+    "key": "teaser_duo_bottom_rechts",
+    "name": "Single Bottom Teaser Right Images",
     "type": {
       "name": "list.file_reference"
     },
@@ -397,20 +397,8 @@
   },
   {
     "namespace": "custom",
-    "key": "shipping",
-    "name": "Shipping",
-    "type": {
-      "name": "rich_text_field"
-    },
-    "access": {
-      "storefront": "PUBLIC_READ"
-    },
-    "ownerType": "PRODUCT"
-  },
-  {
-    "namespace": "custom",
     "key": "technical_specs",
-    "name": "Technical Specs",
+    "name": "Technical Specs ",
     "type": {
       "name": "list.single_line_text_field"
     },
@@ -468,11 +456,71 @@
     "ownerType": "PRODUCT"
   },
   {
-    "namespace": "custom",
-    "key": "download",
-    "name": "Download",
+    "namespace": "shopify",
+    "key": "color-pattern",
+    "name": "Color",
     "type": {
-      "name": "list.file_reference"
+      "name": "list.metaobject_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "shopify",
+    "key": "disclosure",
+    "name": "Disclosures",
+    "type": {
+      "name": "list.disclosure_reference"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "driver_options",
+    "name": "Driver Options",
+    "type": {
+      "name": "list.single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "series_configurator_type",
+    "name": "Series Configurator Type",
+    "type": {
+      "name": "single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "series_configurator_material",
+    "name": "Series Configurator Material",
+    "type": {
+      "name": "single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "download_links",
+    "name": "Download Links",
+    "type": {
+      "name": "list.single_line_text_field"
     },
     "access": {
       "storefront": "PUBLIC_READ"
