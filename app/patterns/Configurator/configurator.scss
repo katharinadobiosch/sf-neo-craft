@@ -237,133 +237,165 @@
       max-height 0.35s ease,
       opacity 0.2s ease;
   }
-  .cfg-item.is-color::after {
-    bottom: auto;
-    top: calc(100% + 10px);
-  }
+  /* =========================================================
+   Color swatches
+   ========================================================= */
 
-  &[data-variants-open='true'] .cfg-panel {
-    opacity: 1;
-  }
-
-  /* Wichtig: Tooltip darf nicht abgeschnitten werden */
   .cfg-values--color {
     overflow: visible;
+    align-items: flex-start;
+    gap: 2.4rem;
   }
 
   .cfg-item.is-color {
-    position: relative;
-    outline: none;
-  }
+    all: unset;
+    box-sizing: border-box;
 
-  /* Swatch-Animation */
-  .cfg-item.is-color .dot-ring {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: transform 140ms ease;
-    transform-origin: center;
+
+    min-width: 48px;
+    min-height: 58px;
+
+    cursor: pointer;
+    outline: none;
   }
 
+  /*
+ * Äußerer Ring:
+ * transparent im Normalzustand,
+ * schwarz bei Auswahl.
+ */
+  .cfg-item.is-color .dot-ring {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid transparent;
+
+    transition:
+      border-color 180ms ease,
+      transform 180ms ease;
+  }
+
+  /*
+ * Eigentliche Farbfläche
+ */
   .cfg-item.is-color .dot {
-    transition: transform 140ms ease;
-    transform-origin: center;
+    display: block;
+
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    transition: transform 180ms ease;
   }
 
-  /* Hover/Fokus: größer */
+  /*
+ * Ausgewählter Wert wie im Kunden-Mockup:
+ * klarer schwarzer Außenring.
+ */
+  .cfg-item.is-color.is-selected .dot-ring {
+    border-color: currentColor;
+  }
+
+  /*
+ * Dezenter Hover, ohne dass der Kreis stark springt.
+ */
   .cfg-item.is-color:hover .dot-ring,
   .cfg-item.is-color:focus-visible .dot-ring {
-    transform: scale(1.12);
+    transform: scale(1.05);
   }
 
   .cfg-item.is-color:hover .dot,
   .cfg-item.is-color:focus-visible .dot {
-    transform: scale(1.18);
+    transform: scale(1.03);
   }
 
-  /* Color buttons brauchen eigene Reset + Layout */
-  .cfg-item.is-color {
-    all: unset;
-    cursor: pointer;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-height: 44px; /* Touch target */
-    position: relative;
+  /*
+ * Nicht verfügbare Werte
+ */
+  .cfg-item.is-color:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
   }
 
-  /* Swatch-Größen (ansonsten sieht man nur den Button-Default) */
-  .cfg-item.is-color .dot-ring {
-    width: 34px;
-    height: 34px;
-    border-radius: 999px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  .cfg-item.is-color:disabled .dot-ring,
+  .cfg-item.is-color:disabled .dot {
+    transform: none;
   }
 
-  .cfg-item.is-color .dot {
-    width: 26px;
-    height: 26px;
-    border-radius: 999px;
-    display: block;
-  }
-
-  /* Optional: ausgewählt klar markieren */
-  .cfg-item.is-color.is-selected .dot-ring {
-    box-shadow: inset 0 0 0 2px currentColor;
-  }
-
-  /* Tooltip-Bubble */
+  /*
+ * Tooltip wie im PDF:
+ * weiß, schwarze Schrift, dünner Rand, unterhalb des Swatches.
+ */
   .cfg-item.is-color::after {
-    display: flex;
-    align-items: center;
     content: attr(data-tooltip);
+
     position: absolute;
     left: 50%;
-    top: -65%;
-    transform: translateX(-50%) translateY(4px);
-    white-space: nowrap;
-    border-radius: 50%;
+    top: calc(100% + 2px);
 
-    padding: 15px 7px;
+    transform: translateX(-50%) translateY(-3px);
 
-    background: rgba(25, 25, 25, 0.92);
-    color: #fff;
+    display: block;
+    width: max-content;
+    max-width: 180px;
+
+    padding: 2px 8px;
+
+    border: 1px solid #777;
+    border-radius: 999px;
+
+    background: #fff;
+    color: #111;
+
     font-size: 12px;
-    line-height: 1;
+    line-height: 1.2;
+    font-weight: 400;
+    white-space: nowrap;
 
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
+
     transition:
       opacity 140ms ease,
-      transform 140ms ease;
-    z-index: 999999;
-  }
+      transform 140ms ease,
+      visibility 140ms ease;
 
-  /* Tooltip sichtbar bei Hover und Tastaturfokus */
-  .cfg-item.is-color:hover::after,
-  .cfg-item.is-color:focus-visible::after,
-  .cfg-item.is-color:hover::before,
-  .cfg-item.is-color:focus-visible::before {
-    opacity: 1;
+    z-index: 20;
   }
 
   .cfg-item.is-color:hover::after,
   .cfg-item.is-color:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
     transform: translateX(-50%) translateY(0);
   }
 
-  /* Optional: Reduced Motion */
+  .cfg-item.is-color:focus-visible .dot-ring {
+    outline: 1px solid currentColor;
+    outline-offset: 3px;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .cfg-item.is-color .dot-ring,
     .cfg-item.is-color .dot,
-    .cfg-item.is-color::after,
-    .cfg-item.is-color::before {
+    .cfg-item.is-color::after {
       transition: none;
     }
+  }
+}
+
+@media (max-width: 767px) {
+  .cfg-values--color {
+    gap: 1.4rem;
   }
 }
