@@ -1,0 +1,127 @@
+.withdrawal-page {
+  min-height: calc(100vh - 160px);
+  padding: 8rem 2rem 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: #f6f6f6;
+}
+
+.withdrawal-card {
+  width: min(100%, 640px);
+  padding: 3rem;
+  background: #fff;
+  border: 1px solid #111;
+
+  h1 {
+    margin: 0 0 1rem;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1;
+    font-weight: 400;
+  }
+}
+
+.withdrawal-intro {
+  margin: 0 0 2.5rem;
+  line-height: 1.5;
+}
+
+.withdrawal-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.withdrawal-field {
+  display: grid;
+  gap: 0.5rem;
+
+  label {
+    font-size: 0.9rem;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 0.85rem 0;
+    border: 0;
+    border-bottom: 1px solid #111;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    outline: none;
+
+    &:focus {
+      border-bottom-width: 2px;
+    }
+
+    &[aria-invalid='true'] {
+      border-bottom-color: #b00020;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+.withdrawal-submit {
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background: #fff;
+    color: #111;
+  }
+
+  &:disabled {
+    cursor: wait;
+    opacity: 0.5;
+  }
+}
+
+.withdrawal-error,
+.withdrawal-form-error {
+  margin: 0;
+  color: #b00020;
+  font-size: 0.85rem;
+}
+
+.withdrawal-note {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.withdrawal-success {
+  p {
+    line-height: 1.5;
+  }
+}
+
+.withdrawal-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+@media (max-width: 600px) {
+  .withdrawal-page {
+    padding: 5rem 1rem 3rem;
+  }
+
+  .withdrawal-card {
+    padding: 2rem 1.25rem;
+  }
+}
