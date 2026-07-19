@@ -99,7 +99,7 @@ export function Configurator({
   driverOptions = [],
   selectedDriver,
   onDriverSelect,
-  seriesConfigurator,
+  seriesConfigurator,w
 }) {
   // Nur die Varianten-Sektion toggeln
   const [variantsOpen, setVariantsOpen] = useState(true);
