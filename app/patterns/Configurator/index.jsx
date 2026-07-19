@@ -99,6 +99,7 @@ export function Configurator({
   driverOptions = [],
   selectedDriver,
   onDriverSelect,
+  seriesConfigurator,
 }) {
   // Nur die Varianten-Sektion toggeln
   const [variantsOpen, setVariantsOpen] = useState(true);
@@ -111,6 +112,10 @@ export function Configurator({
     Array.isArray(seriesProducts) &&
     seriesProducts.length > 1 &&
     typeof onChangeSeriesProduct === 'function';
+
+  const hasStructuredSeriesOptions =
+    Array.isArray(seriesConfigurator?.axes) &&
+    seriesConfigurator.axes.length > 0;
 
   useEffect(() => {
     if (!variantsOpen) return;
@@ -239,7 +244,7 @@ export function Configurator({
         aria-hidden={!variantsOpen}
       >
         <div ref={panelRef} className="cfg-panel-scroll">
-          {hasSeriesOptions && (
+          {hasSeriesOptions && !hasStructuredSeriesOptions && (
             <div className="cfg-row cfg-row--model">
               <div className="cfg-values">
                 {seriesProducts.map((variants, index) => {
@@ -260,6 +265,49 @@ export function Configurator({
                   );
                 })}
               </div>
+            </div>
+          )}
+
+          {hasStructuredSeriesOptions && (
+            <div className="cfg-series-options">
+              {seriesConfigurator.axes.map((axis) => (
+                <div
+                  key={axis.label}
+                  className="cfg-row cfg-row--chip cfg-row--series"
+                >
+                  <div className="cfg-label">{axis.label}</div>
+
+                  <div
+                    className="cfg-values cfg-values--chip"
+                    data-option={axis.label.toLowerCase()}
+                    data-count={axis.values.length}
+                  >
+                    {axis.values.map(({value, available}) => {
+                      const selected =
+                        seriesConfigurator.selected?.[axis.label] === value;
+
+                      return (
+                        <button
+                          key={value}
+                          type="button"
+                          className={cx(
+                            'cfg-item',
+                            'is-chip',
+                            selected && 'is-selected',
+                          )}
+                          disabled={!available}
+                          aria-pressed={selected}
+                          onClick={() =>
+                            seriesConfigurator.onSelect?.(axis.label, value)
+                          }
+                        >
+                          <span className="chip-text">{value}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
           )}
 

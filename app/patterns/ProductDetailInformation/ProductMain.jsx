@@ -13,6 +13,7 @@ export function ProductMain({
   seriesProducts,
   seriesActiveIndex,
   onChangeSeriesProduct,
+  seriesConfigurator,
 }) {
   useSelectedOptionInUrlParam(selectedVariant.selectedOptions);
 
@@ -37,6 +38,7 @@ export function ProductMain({
           seriesProducts={seriesProducts}
           seriesActiveIndex={seriesActiveIndex}
           onChangeSeriesProduct={onChangeSeriesProduct}
+          seriesConfigurator={seriesConfigurator}
           onVariantReselect={handleVariantReselect}
         />
       </div>

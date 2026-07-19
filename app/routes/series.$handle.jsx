@@ -1,6 +1,6 @@
 // app/routes/series.$handle.jsx
 import {useLoaderData} from 'react-router';
-import {useState} from 'react';
+import {useMemo, useState} from 'react';
 import {ProductDetailInformation} from '../patterns/ProductDetailInformation';
 import {getSelectedProductOptions} from '@shopify/hydrogen';
 import metafieldDefs from '~/graphql/product/product-metafield-defs.json';
@@ -116,6 +116,50 @@ export async function loader({params, context, request}) {
   };
 }
 
+const SERIES_CONFIGURATOR_KEY = 'series_configurator_options';
+
+function getProductMetafield(product, key) {
+  return (product?.metafields || [])
+    .filter(Boolean)
+    .find(
+      (metafield) => metafield.namespace === 'custom' && metafield.key === key,
+    );
+}
+
+function parseMetafieldList(value) {
+  if (!value) return [];
+
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function getSeriesSelections(product) {
+  const type = getProductMetafield(
+    product,
+    'series_configurator_type',
+  )?.value?.trim();
+
+  const material = getProductMetafield(
+    product,
+    'series_configurator_material',
+  )?.value?.trim();
+
+  return {
+    ...(type ? {Type: type} : {}),
+    ...(material ? {Material: material} : {}),
+  };
+}
+
+function productMatchesSelections(productSelections, wantedSelections) {
+  return Object.entries(wantedSelections).every(
+    ([label, value]) => productSelections[label] === value,
+  );
+}
+
 export default function SeriesPage() {
   const {
     series,
@@ -125,11 +169,112 @@ export default function SeriesPage() {
   } = useLoaderData();
 
   const [activeIndex, setActiveIndex] = useState(initialIndex);
+
   const safeProducts = products ?? [];
   const activeProduct = safeProducts[activeIndex] ?? null;
 
-  const titleField = series.fields.find((f) => f.key === 'title');
+  const titleField = series.fields.find((field) => field.key === 'title');
   const title = titleField?.value ?? 'Series';
+
+  const seriesProductSelections = useMemo(
+    () =>
+      safeProducts.map((product) => ({
+        product,
+        selections: getSeriesSelections(product),
+      })),
+    [safeProducts],
+  );
+
+  const seriesAxes = useMemo(() => {
+    const axes = [];
+    const axisMap = new Map();
+
+    seriesProductSelections.forEach(({selections}) => {
+      Object.entries(selections).forEach(([label, value]) => {
+        if (!axisMap.has(label)) {
+          const axis = {
+            label,
+            values: [],
+          };
+
+          axisMap.set(label, axis);
+          axes.push(axis);
+        }
+
+        const axis = axisMap.get(label);
+
+        if (!axis.values.includes(value)) {
+          axis.values.push(value);
+        }
+      });
+    });
+
+    return axes;
+  }, [seriesProductSelections]);
+
+  const activeSelections =
+    seriesProductSelections[activeIndex]?.selections ?? {};
+
+  const hasStructuredSeriesConfigurator =
+    seriesAxes.length > 0 &&
+    seriesProductSelections.every(
+      ({selections}) => Object.keys(selections).length > 0,
+    );
+
+  const handleSeriesSelection = (label, value) => {
+    const nextSelections = {
+      ...activeSelections,
+      [label]: value,
+    };
+
+    const exactMatchIndex = seriesProductSelections.findIndex(({selections}) =>
+      productMatchesSelections(selections, nextSelections),
+    );
+
+    if (exactMatchIndex !== -1) {
+      setActiveIndex(exactMatchIndex);
+      return;
+    }
+
+    /*
+     * Falls eine Kombination nicht existiert:
+     * Suche das erste Produkt mit dem gerade angeklickten Wert.
+     */
+    const fallbackIndex = seriesProductSelections.findIndex(
+      ({selections}) => selections[label] === value,
+    );
+
+    if (fallbackIndex !== -1) {
+      setActiveIndex(fallbackIndex);
+    }
+  };
+
+  const structuredAxes = seriesAxes.map((axis) => ({
+    ...axis,
+    values: axis.values.map((value) => {
+      const wantedSelections = {
+        ...activeSelections,
+        [axis.label]: value,
+      };
+
+      const available = seriesProductSelections.some(({selections}) =>
+        productMatchesSelections(selections, wantedSelections),
+      );
+
+      return {
+        value,
+        available,
+      };
+    }),
+  }));
+
+  const seriesConfigurator = hasStructuredSeriesConfigurator
+    ? {
+        axes: structuredAxes,
+        selected: activeSelections,
+        onSelect: handleSeriesSelection,
+      }
+    : null;
 
   return (
     <div className="product">
@@ -142,6 +287,7 @@ export default function SeriesPage() {
           seriesProducts={safeProducts}
           seriesActiveIndex={activeIndex}
           onChangeSeriesProduct={setActiveIndex}
+          seriesConfigurator={seriesConfigurator}
           seriesMeta={seriesMeta}
         />
       ) : (

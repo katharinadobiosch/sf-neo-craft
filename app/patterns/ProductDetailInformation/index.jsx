@@ -32,6 +32,7 @@ export function ProductDetailInformation({
   seriesProducts,
   seriesActiveIndex,
   onChangeSeriesProduct,
+  seriesConfigurator,
   seriesMeta,
 }) {
   const selectedVariant = useOptimisticVariant(
@@ -144,6 +145,7 @@ export function ProductDetailInformation({
         seriesProducts={seriesProducts}
         seriesActiveIndex={seriesActiveIndex}
         onChangeSeriesProduct={onChangeSeriesProduct}
+        seriesConfigurator={seriesConfigurator}
         seriesMeta={seriesMeta}
       />
 

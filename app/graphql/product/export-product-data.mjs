@@ -1,5 +1,5 @@
 /* eslint-env node */
-import 'dotenv/config';
+// import 'dotenv/config';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 
@@ -28,7 +28,7 @@ const endpoint = `https://${SHOP_DOMAIN}/admin/api/${API_VERSION}/graphql.json`;
 
 const QUERY = `
   query productsPage($cursor: String) {
-    products(first: 20, after: $cursor) {
+    products(first: 250, after: $cursor) {
       edges {
         cursor
         node {
@@ -49,7 +49,7 @@ const QUERY = `
             }
           }
 
-          variants(first: 20) {
+          variants(first: 250) {
             nodes {
               id
               title
@@ -63,7 +63,7 @@ const QUERY = `
             }
           }
 
-          metafields(first: 40) {
+          metafields(first: 250) {
             nodes {
               namespace
               key

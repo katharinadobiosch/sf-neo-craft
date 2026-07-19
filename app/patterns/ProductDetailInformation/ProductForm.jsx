@@ -35,6 +35,7 @@ export function ProductForm({
   seriesProducts,
   seriesActiveIndex,
   onChangeSeriesProduct,
+  seriesConfigurator,
   onVariantReselect,
 }) {
   const {open: openAside} = useAside();
@@ -167,6 +168,7 @@ export function ProductForm({
           seriesProducts={seriesProducts}
           seriesActiveIndex={seriesActiveIndex}
           onChangeSeriesProduct={onChangeSeriesProduct}
+          seriesConfigurator={seriesConfigurator}
           product={activeProduct}
           onVariantReselect={onVariantReselect}
           driverOptions={driverOptions}

@@ -13,6 +13,30 @@
   },
   {
     "namespace": "custom",
+    "key": "series_configurator_type",
+    "name": "Series Configurator Type",
+    "type": {
+      "name": "single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "series_configurator_material",
+    "name": "Series Configurator Material",
+    "type": {
+      "name": "single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
     "key": "driver_options",
     "name": "Driver Options",
     "type": {
