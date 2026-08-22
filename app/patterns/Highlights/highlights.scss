@@ -1,7 +1,7 @@
 .collections.highlights {
   container-type: inline-size;
 
-  --caption-height: 8.7rem;
+  --caption-height: 11.5rem;
   --landscape-media-height: calc(50cqw * 519 / 778);
   --card-row-height: calc(
     var(--landscape-media-height) + var(--caption-height)
@@ -104,17 +104,24 @@
   .product-caption {
     flex: 0 0 var(--caption-height);
     height: var(--caption-height);
+    padding-top: 1.5rem;
+  }
+
+  .product-title,
+  .project-meta {
+    font-size: var(--nc-navigation-name-desktop-size);
+    line-height: 2.4rem;
+    font-weight: var(--nc-navigation-name-desktop-weight);
   }
 
   .product-title {
     position: relative;
     display: inline-block;
     margin: 0;
-    padding-top: 1.5rem;
+  }
 
-    font-size: var(--nc-navigation-name-desktop-size);
-    line-height: var(--nc-navigation-name-desktop-line);
-    font-weight: var(--nc-navigation-name-desktop-weight);
+  .project-meta {
+    margin: 0;
   }
 
   @media (min-width: 768px) {
@@ -134,10 +141,6 @@
       margin-left: 0;
     }
 
-    .collections-grid .product-item.product-item--right .product-title {
-      margin-left: 2rem;
-    }
-
     .product-title::after {
       content: '';
       position: absolute;
@@ -154,6 +157,30 @@
     .product-item:hover .product-title::after,
     .product-item:focus-within .product-title::after {
       transform: scaleX(1);
+    }
+  }
+}
+
+/* Final Projects layout adjustments */
+.collections.highlights {
+  @media (min-width: 768px) {
+    /* Mittellinie über die komplette Höhe */
+    .collections-grid::before {
+      top: 0;
+      bottom: 0;
+      height: auto;
+    }
+
+    /* rechte Textspalte nicht direkt an der Mittellinie */
+    .collections-grid .product-item--right .product-caption {
+      padding-left: 2rem;
+      box-sizing: border-box;
+    }
+
+    /* Projects sollen keinen Hover-Unterstrich haben */
+    .product-title::after {
+      content: none;
+      display: none;
     }
   }
 }
