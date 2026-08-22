@@ -154,7 +154,7 @@ export function MaterialForm({
               stroke="currentColor"
               strokeWidth="2"
             />
-          </svg>{' '}
+          </svg>
           <span className="cta-price">{money(price, currency)}</span>
           <AddToCartButton
             disabled={!currentVariant || !currentVariant.availableForSale}
