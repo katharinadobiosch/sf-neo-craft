@@ -252,7 +252,7 @@ export function ProductForm({
           type="button"
           className="cta-question"
           onClick={() => {
-            window.location.href = 'mailto:test@example.com';
+            window.location.href = 'mailto:info@neocraft.com';
           }}
         >
           Contact our Team
