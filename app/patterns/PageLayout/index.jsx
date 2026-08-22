@@ -37,13 +37,50 @@ export function PageLayout({
   }
   const bgHeaderColor = getHeaderVariant(location.pathname);
 
+  const isCollectionHomepage =
+    location.pathname === '/' ||
+    location.pathname === '/collections/main-collection';
+
+  const showLocationBar = !isCollectionHomepage;
+
+  const formatLocationPart = (value = '') =>
+    decodeURIComponent(value).replace(/-/g, ' ').toUpperCase();
+
+  function getLocationLabel(pathname) {
+    const parts = pathname.split('/').filter(Boolean);
+
+    if (!parts.length) return '';
+
+    if (parts[0] === 'products' || parts[0] === 'series') {
+      return `COLLECTION / ${formatLocationPart(parts[1])}`;
+    }
+
+    if (parts[0] === 'collections') {
+      return `COLLECTION / ${formatLocationPart(parts[1])}`;
+    }
+
+    const labels = {
+      bespoke: 'BESPOKE',
+      projects: 'PROJECTS',
+      downloads: 'DOWNLOADS',
+      dealers: 'DEALERS',
+      about: 'ABOUT',
+      materials: 'MATERIALS',
+      cart: 'CART',
+    };
+
+    return labels[parts[0]] || formatLocationPart(parts[0]);
+  }
+
+  const locationLabel = getLocationLabel(location.pathname);
+
   function getFooterVariant(pathname) {
     // footer purple: projects, products, materials
     // footer black: stockists, downloads
     // sonst footer und header weiß
     if (
       pathname.startsWith('/projects') ||
-      pathname.startsWith('/products') 
+      pathname.startsWith('/products')
       // pathname.startsWith('/materials')
     )
       return 'purple';
@@ -77,7 +114,25 @@ export function PageLayout({
           variant={bgHeaderColor}
         />
       )}
-      <main>{children}</main>
+
+      {showLocationBar && locationLabel && (
+        <div className="location-bar">
+          <span className="location-bar__arrow">→</span>
+          <span>{locationLabel}</span>
+        </div>
+      )}
+
+      <main className={showLocationBar ? 'main--with-location' : ''}>
+        {children}
+      </main>
+
+      {showLocationBar && locationLabel && (
+        <div className="location-bar">
+          <span className="location-bar__arrow">→</span>
+          <span>{locationLabel}</span>
+        </div>
+      )}
+
       <Footer
         footer={footer}
         header={header}
