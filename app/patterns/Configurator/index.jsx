@@ -43,39 +43,6 @@ const getSwatchStyle = (name) => {
 
   const hex = getHex(name);
 
-  const getOptionSwatchStyle = (value) => {
-    const key = norm(value?.name);
-    const localImage = SWATCH_IMAGES[key];
-
-    if (localImage) {
-      return {
-        backgroundImage: `url("${localImage}")`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      };
-    }
-
-    const shopifyImage = value?.swatch?.image?.previewImage?.url;
-
-    if (shopifyImage) {
-      return {
-        backgroundImage: `url("${shopifyImage}")`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      };
-    }
-
-    if (value?.swatch?.color) {
-      return {
-        backgroundColor: value.swatch.color,
-      };
-    }
-
-    return getSwatchStyle(value?.name);
-  };
-
   if (hex) {
     return needsChecker(hex)
       ? {
