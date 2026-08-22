@@ -17,6 +17,7 @@ type DownloadItem = {
   id: string;
   title: string;
   url: string;
+  position: number;
 };
 
 export async function loader({context}: LoaderFunctionArgs) {
@@ -37,10 +38,11 @@ export async function loader({context}: LoaderFunctionArgs) {
         id: node.id,
         title: getField('title')?.value?.trim() ?? '',
         url: getField('url')?.value?.trim() ?? '',
+        position: Number(getField('position')?.value ?? 0),
       };
     })
-    .filter((item) => item.title && item.url);
-
+    .filter((item) => item.title && item.url)
+    .sort((a, b) => a.position - b.position);
   return json<{items: DownloadItem[]}>({
     items,
   });
