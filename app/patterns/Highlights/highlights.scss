@@ -184,3 +184,28 @@
     }
   }
 }
+
+.collections.highlights {
+  @media (min-width: 768px) {
+    .collections-grid::before {
+      top: 0;
+      bottom: 0;
+      height: auto;
+    }
+
+    .collections-grid .product-item--right .product-caption {
+      padding-left: 2rem;
+      box-sizing: border-box;
+    }
+
+    /* MainCollection nth-of-type spacing neutralisieren */
+    .collections-grid .product-item .product-title {
+      margin-left: 0;
+    }
+
+    .product-title::after {
+      content: none;
+      display: none;
+    }
+  }
+}
