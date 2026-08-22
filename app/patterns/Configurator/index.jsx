@@ -1,5 +1,6 @@
 import {useRef, useState, useEffect} from 'react';
 import colors from './colors.json';
+import {SWATCH_IMAGES, SWATCH_ALIASES} from './swatches';
 
 const cx = (...classes) => classes.filter(Boolean).join(' ');
 
@@ -41,6 +42,40 @@ const getSwatchStyle = (name) => {
   }
 
   const hex = getHex(name);
+
+  const getOptionSwatchStyle = (value) => {
+    const key = norm(value?.name);
+    const localImage = SWATCH_IMAGES[key];
+
+    if (localImage) {
+      return {
+        backgroundImage: `url("${localImage}")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      };
+    }
+
+    const shopifyImage = value?.swatch?.image?.previewImage?.url;
+
+    if (shopifyImage) {
+      return {
+        backgroundImage: `url("${shopifyImage}")`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      };
+    }
+
+    if (value?.swatch?.color) {
+      return {
+        backgroundColor: value.swatch.color,
+      };
+    }
+
+    return getSwatchStyle(value?.name);
+  };
+
   if (hex) {
     return needsChecker(hex)
       ? {
@@ -62,6 +97,50 @@ const norm = (s = '') =>
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .trim();
+
+const getLocalSwatchImage = (name) => {
+  const key = norm(name);
+  const resolvedKey = SWATCH_ALIASES[key] || key;
+
+  return SWATCH_IMAGES[resolvedKey] || null;
+};
+
+const hasImageSwatch = (value) =>
+  Boolean(
+    value?.swatch?.image?.previewImage?.url || getLocalSwatchImage(value?.name),
+  );
+
+const getOptionSwatchStyle = (value) => {
+  const shopifyImage = value?.swatch?.image?.previewImage?.url;
+
+  if (shopifyImage) {
+    return {
+      backgroundImage: `url("${shopifyImage}")`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    };
+  }
+
+  const localImage = getLocalSwatchImage(value?.name);
+
+  if (localImage) {
+    return {
+      backgroundImage: `url("${localImage}")`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    };
+  }
+
+  if (value?.swatch?.color) {
+    return {
+      backgroundColor: value.swatch.color,
+    };
+  }
+
+  return getSwatchStyle(value?.name);
+};
 
 const isColorOption = (name) => {
   const n = norm(name);
@@ -99,7 +178,7 @@ export function Configurator({
   driverOptions = [],
   selectedDriver,
   onDriverSelect,
-  seriesConfigurator,w
+  seriesConfigurator,
 }) {
   // Nur die Varianten-Sektion toggeln
   const [variantsOpen, setVariantsOpen] = useState(true);
@@ -138,8 +217,11 @@ export function Configurator({
   }, [variantsOpen]);
 
   const renderOption = (option) => {
-    const colorish = isColorOption(option.name);
-
+    const colorish =
+      isColorOption(option.name) ||
+      option.optionValues.some(
+        (value) => hasImageSwatch(value) || Boolean(value?.swatch?.color),
+      );
     const label = option.name.charAt(0).toUpperCase() + option.name.slice(1); // 👈 hier
 
     const optionSlug = option.name.toLowerCase().trim();
@@ -202,7 +284,7 @@ export function Configurator({
                   <span className="dot-ring">
                     <span
                       className="dot"
-                      style={getSwatchStyle(value.name)}
+                      style={getOptionSwatchStyle(value)}
                       aria-label={value.name}
                     />
                   </span>
