@@ -36,7 +36,7 @@ export async function loader({context}: LoaderFunctionArgs) {
 
       return {
         id: node.id,
-        title: getField('title')?.value?.trim() ?? '',
+        title: getField('titel')?.value?.trim() ?? '',
         url: getField('url')?.value?.trim() ?? '',
         position: Number(getField('position')?.value ?? 0),
       };
