@@ -51,7 +51,23 @@ export function PageLayout({
 
     if (!parts.length) return '';
 
-    if (parts[0] === 'products' || parts[0] === 'series') {
+    const seriesLabels = {
+      fifty: 'FIFTY FINAL',
+      camo: 'CAMO FINAL',
+      dia: 'DIA FINAL',
+      'iris-globe': 'IRIS GLOBE FINAL',
+      'iris-tube': 'IRIS TUBE FINAL',
+    };
+
+    if (parts[0] === 'series') {
+      const seriesHandle = parts[1];
+
+      return `COLLECTION / ${
+        seriesLabels[seriesHandle] || formatLocationPart(seriesHandle)
+      }`;
+    }
+
+    if (parts[0] === 'products') {
       return `COLLECTION / ${formatLocationPart(parts[1])}`;
     }
 

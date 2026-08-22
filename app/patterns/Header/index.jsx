@@ -109,13 +109,13 @@ export function Header({
                 </div>
 
                 <div className="header__right">
-                  <NavLink to="/">C</NavLink>
-
                   {hasCart && (
                     <div className="header__cart">
                       <Link to="/cart">({count})</Link>
                     </div>
                   )}
+
+                  <NavLink to="/">C</NavLink>
                 </div>
               </div>
 
