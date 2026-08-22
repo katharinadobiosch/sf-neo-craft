@@ -295,7 +295,13 @@ export function Configurator({
         <div ref={panelRef} className="cfg-panel-scroll">
           {hasSeriesOptions && !hasStructuredSeriesOptions && (
             <div className="cfg-row cfg-row--model">
-              <div className="cfg-values">
+              <div className="cfg-label">Type</div>
+
+              <div
+                className="cfg-values cfg-values--chip"
+                data-option="type"
+                data-count={seriesProducts.length}
+              >
                 {seriesProducts.map((variants, index) => {
                   const label = variants.title;
                   const isActive = index === seriesActiveIndex;
@@ -331,7 +337,7 @@ export function Configurator({
                     data-option={axis.label.toLowerCase()}
                     data-count={axis.values.length}
                   >
-                    {axis.values.map(({value, available}) => {
+                    {axis.values.map(({value}) => {
                       const selected =
                         seriesConfigurator.selected?.[axis.label] === value;
 
@@ -344,7 +350,6 @@ export function Configurator({
                             'is-chip',
                             selected && 'is-selected',
                           )}
-                          disabled={!available}
                           aria-pressed={selected}
                           onClick={() =>
                             seriesConfigurator.onSelect?.(axis.label, value)

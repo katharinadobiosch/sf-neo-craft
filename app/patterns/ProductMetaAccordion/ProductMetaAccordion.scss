@@ -154,3 +154,52 @@
     padding: 0;
   }
 }
+
+/* Measurements keep their natural aspect ratio */
+.meta-accordion {
+  .acc-images.measurements {
+    .meta-accordion__images-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0;
+      width: 100%;
+      padding: 0;
+    }
+
+    .meta-accordion__images-figure {
+      width: 100%;
+      max-width: none;
+      min-width: 0;
+      margin: 0;
+    }
+
+    .meta-accordion__images-media {
+      width: 100%;
+      height: auto;
+      aspect-ratio: auto;
+      overflow: visible;
+      justify-content: flex-start;
+    }
+
+    .meta-accordion__images-figure img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      max-height: none;
+      object-fit: contain;
+      object-position: left top;
+    }
+
+    @media (min-width: 768px) {
+      .meta-accordion__images-grid {
+        padding: 0;
+      }
+
+      .meta-accordion__images-figure {
+        flex: none;
+        max-width: none;
+      }
+    }
+  }
+}

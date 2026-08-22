@@ -198,6 +198,25 @@
         padding: 0.5rem 0 1.5rem;
       }
     }
+
+    .cfg-head {
+      margin-bottom: 1.8rem;
+    }
+
+    .cfg-title {
+      font-size: var(--nc-fliesstext-desktop-size);
+      line-height: var(--nc-fliesstext-desktop-line);
+      font-weight: var(--nc-fliesstext-desktop-weight);
+    }
+
+    .cfg-row {
+      padding-top: 0;
+      padding-bottom: 1.8rem;
+    }
+
+    .cfg-label {
+      padding-bottom: 0;
+    }
   }
 
   @media (min-width: 992px) {
@@ -277,7 +296,7 @@
     align-items: center;
     justify-content: center;
 
-    border: 2px solid transparent;
+    border: 1px solid transparent;
 
     transition:
       border-color 180ms ease,
