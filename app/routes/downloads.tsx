@@ -1,3 +1,5 @@
+import Downloads from '~/patterns/Downloads';
+
 export default function DownloadsPage() {
-  return <div>Downloads Seite</div>;
+  return <Downloads />;
 }

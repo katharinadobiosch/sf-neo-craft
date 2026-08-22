@@ -1,12 +1,20 @@
 import {TeaserDuo} from '../TeaserDuo';
 import {HeroSplit_Poster} from '../HeroSplit';
+import {useRouteLoaderData} from 'react-router';
 
 import teaserDuoTopLeft from './aboutImageLeft.jpg';
 import teaserDuoTopRight from './aboutImageRight.jpg';
 import heroSplitRight from './aboutHero.jpg';
 
-const quote = `"GOBA is about simplicity with character—a piece that invites interaction and creates presence without overwhelming the space."`;
 export default function About() {
+  const rootData = useRouteLoaderData('root');
+  const language = String(rootData?.consent?.language || 'EN').toUpperCase();
+
+  const quote =
+    language === 'DE'
+      ? '„Gute Gestaltung ist für mich auch ein wenig Entertainment. Es muss nicht zwingend gefallen, aber es darf nicht langweilen.“'
+      : '"To me, good design is also a bit of entertainment. It doesn\'t necessarily have to be appealing, but it shouldn\'t be boring."';
+
   return (
     <div className="about">
       <TeaserDuo
