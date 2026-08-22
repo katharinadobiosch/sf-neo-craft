@@ -1,46 +1,84 @@
-const DOWNLOAD_ITEMS = [
-  {
-    label: 'Catalogue',
-    href: '',
-  },
-  {
-    label: 'Pricelists',
-    href: '',
-  },
-  {
-    label: '2D Files',
-    href: '',
-  },
-  {
-    label: '3D Files',
-    href: '',
-  },
-];
+import type {LoaderFunctionArgs} from '@shopify/remix-oxygen';
+import {json} from '@remix-run/server-runtime';
+import {useLoaderData} from 'react-router';
+import './downloads.scss';
+
+type MetaField = {
+  key: string;
+  value?: string | null;
+};
+
+type DownloadNode = {
+  id: string;
+  fields: MetaField[];
+};
+
+type DownloadItem = {
+  id: string;
+  title: string;
+  url: string;
+};
+
+export async function loader({context}: LoaderFunctionArgs) {
+  const data = await context.storefront.query(DOWNLOADS_QUERY, {
+    variables: {
+      first: 50,
+    },
+  });
+
+  const nodes = (data?.metaobjects?.nodes ?? []) as DownloadNode[];
+
+  const items: DownloadItem[] = nodes
+    .map((node) => {
+      const getField = (key: string) =>
+        node.fields.find((field) => field.key === key);
+
+      return {
+        id: node.id,
+        title: getField('title')?.value?.trim() ?? '',
+        url: getField('url')?.value?.trim() ?? '',
+      };
+    })
+    .filter((item) => item.title && item.url);
+
+  return json<{items: DownloadItem[]}>({
+    items,
+  });
+}
+
+const DOWNLOADS_QUERY = `#graphql
+  query Downloads($first: Int!) {
+    metaobjects(type: "downloads", first: $first) {
+      nodes {
+        id
+        fields {
+          key
+          value
+        }
+      }
+    }
+  }
+`;
 
 export default function Downloads() {
+  const {items = []} = useLoaderData() as {
+    items: DownloadItem[];
+  };
+
   return (
     <section className="downloads" aria-label="Downloads">
       <div className="downloads__list">
-        {DOWNLOAD_ITEMS.map((item) =>
-          item.href ? (
-            <a
-              key={item.label}
-              className="downloads__row"
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>{item.label}</span>
-            </a>
-          ) : (
-            <div
-              key={item.label}
-              className="downloads__row downloads__row--missing-link"
-            >
-              <span>{item.label}</span>
-            </div>
-          ),
-        )}
+        {items.map((item) => (
+          <a
+            key={item.id}
+            className="downloads__row"
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {item.title}
+          </a>
+        ))}
       </div>
     </section>
   );
