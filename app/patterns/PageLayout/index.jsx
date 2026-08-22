@@ -126,13 +126,6 @@ export function PageLayout({
         {children}
       </main>
 
-      {showLocationBar && locationLabel && (
-        <div className="location-bar">
-          <span className="location-bar__arrow">→</span>
-          <span>{locationLabel}</span>
-        </div>
-      )}
-
       <Footer
         footer={footer}
         header={header}
