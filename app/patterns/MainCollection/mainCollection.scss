@@ -88,6 +88,14 @@
           padding-left: 0;
         }
       }
+
+      &:nth-of-type(even) .product-title {
+        margin-left: 2rem;
+      }
+
+      &:nth-of-type(odd) .product-title {
+        margin-left: 0rem;
+      }
     }
   }
 }
