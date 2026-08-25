@@ -70,7 +70,6 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 2rem;
         width: 100%;
-        padding: 2rem;
       }
 
       .meta-accordion__images-figure {
@@ -120,7 +119,7 @@
 
       @media (min-width: 768px) {
         .meta-accordion__images-grid {
-          padding: 2rem 0;
+          // padding: 2rem 0;
           padding-inline: 2rem;
         }
 
@@ -155,51 +154,109 @@
   }
 }
 
-/* Measurements keep their natural aspect ratio */
+/* =========================================================
+   Measurements
+   - nutzt die komplette verfügbare Text-/Content-Spalte
+   - mehrere Zeichnungen nebeneinander
+   - nichts wird abgeschnitten
+   - natürliches Seitenverhältnis bleibt erhalten
+   ========================================================= */
+
 .meta-accordion {
   .acc-images.measurements {
+    width: 100%;
+    min-width: 0;
+
     .meta-accordion__images-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 0;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: end;
+      gap: 1.5rem;
+
       width: 100%;
-      padding: 0;
+      min-width: 0;
+
+      // padding: 1.5rem 0 0;
     }
 
+    /* Eine Zeichnung → komplette Content-Breite */
+    .meta-accordion__images-grid[data-count='1'] {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    /* Zwei Zeichnungen → 50 / 50 */
+    .meta-accordion__images-grid[data-count='2'] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /*
+     * Ab drei Zeichnungen:
+     * maximal drei pro Reihe – wie im Ziellayout.
+     */
     .meta-accordion__images-figure {
       width: 100%;
-      max-width: none;
       min-width: 0;
+      max-width: none;
       margin: 0;
     }
 
     .meta-accordion__images-media {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+
       width: 100%;
       height: auto;
+      min-width: 0;
+
+      /* Abstand zur oberen und seitlichen Kante */
+      // padding: 2rem 1rem 0;
+      box-sizing: border-box;
+
       aspect-ratio: auto;
       overflow: visible;
-      justify-content: flex-start;
     }
 
     .meta-accordion__images-figure img {
       display: block;
+
       width: 100%;
       max-width: 100%;
       height: auto;
       max-height: none;
+
       object-fit: contain;
-      object-position: left top;
+      object-position: center bottom;
     }
 
-    @media (min-width: 768px) {
+    .m-cap {
+      min-height: 0;
+      margin-top: 0.8rem;
+      text-align: center;
+    }
+
+    /* Mobile */
+    @media (max-width: 767px) {
       .meta-accordion__images-grid {
-        padding: 0;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
       }
 
-      .meta-accordion__images-figure {
-        flex: none;
-        max-width: none;
+      .meta-accordion__images-grid[data-count='1'] {
+        grid-template-columns: minmax(0, 1fr);
       }
     }
   }
+}
+
+/*
+ * Measurements dürfen nicht durch die normale
+ * Accordion-Maxhöhe abgeschnitten werden.
+ */
+.pdp
+  .product-form__sections
+  .pf-kv__row[data-open='true']:has(.acc-images.measurements)
+  .pf-kv__value-wrap {
+  max-height: none;
+  overflow: visible;
 }
