@@ -30,6 +30,64 @@ const ACCORDION_KEYS = new Set([
   'dichroic_glass',
 ]);
 
+const getMetaobjectField = (metaobject, key) =>
+  (metaobject?.fields || []).find((field) => field?.key === key);
+
+const getMetaobjectImageUrl = (field) => {
+  if (field?.reference?.__typename === 'MediaImage') {
+    return field.reference.image?.url || null;
+  }
+
+  const imageNode = field?.references?.nodes?.find(
+    (node) => node?.__typename === 'MediaImage',
+  );
+
+  return imageNode?.image?.url || null;
+};
+
+const getManagedSwatches = (product) => {
+  const metaobjects = [];
+
+  for (const metafield of product?.metafields || []) {
+    if (metafield?.reference?.__typename === 'Metaobject') {
+      metaobjects.push(metafield.reference);
+    }
+
+    for (const node of metafield?.references?.nodes || []) {
+      if (node?.__typename === 'Metaobject') {
+        metaobjects.push(node);
+      }
+    }
+  }
+
+  const uniqueMetaobjects = [
+    ...new Map(
+      metaobjects.map((metaobject) => [metaobject.id, metaobject]),
+    ).values(),
+  ];
+
+  return uniqueMetaobjects
+    .filter((metaobject) => metaobject.type === 'neo_color')
+    .map((metaobject) => {
+      const label =
+        getMetaobjectField(metaobject, 'label')?.value || metaobject.handle;
+
+      const hex = getMetaobjectField(metaobject, 'hex_code')?.value || null;
+
+      const image = getMetaobjectImageUrl(
+        getMetaobjectField(metaobject, 'image'),
+      );
+
+      return {
+        id: metaobject.id,
+        handle: metaobject.handle,
+        label,
+        hex,
+        image,
+      };
+    });
+};
+
 export function ProductForm({
   productOptions,
   product,
@@ -69,6 +127,11 @@ export function ProductForm({
     Array.isArray(seriesProducts) && seriesProducts.length > 0
       ? seriesProducts[seriesActiveIndex] || seriesProducts[0]
       : product;
+
+  const managedSwatches = useMemo(
+    () => getManagedSwatches(activeProduct),
+    [activeProduct],
+  );
 
   useEffect(() => {
     setSelectedDriver(null);
@@ -175,6 +238,7 @@ export function ProductForm({
           driverOptions={driverOptions}
           selectedDriver={selectedDriver}
           onDriverSelect={setSelectedDriver}
+          managedSwatches={managedSwatches}
         />
       </div>
 

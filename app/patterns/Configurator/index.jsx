@@ -65,6 +65,25 @@ const norm = (s = '') =>
     .toLowerCase()
     .trim();
 
+const canonicalSwatchKey = (value = '') => {
+  const key = norm(value);
+  const resolvedKey = SWATCH_ALIASES[key] || key;
+
+  return resolvedKey.replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim();
+};
+
+const getManagedSwatch = (name, managedSwatches = []) => {
+  const key = canonicalSwatchKey(name);
+
+  return (
+    managedSwatches.find((swatch) =>
+      [swatch?.label, swatch?.handle]
+        .filter(Boolean)
+        .some((candidate) => canonicalSwatchKey(candidate) === key),
+    ) || null
+  );
+};
+
 const getLocalSwatchImage = (name) => {
   const key = norm(name);
   const resolvedKey = SWATCH_ALIASES[key] || key;
@@ -72,12 +91,32 @@ const getLocalSwatchImage = (name) => {
   return SWATCH_IMAGES[resolvedKey] || null;
 };
 
-const hasImageSwatch = (value) =>
-  Boolean(
-    value?.swatch?.image?.previewImage?.url || getLocalSwatchImage(value?.name),
-  );
+const hasImageSwatch = (value, managedSwatches = []) => {
+  const managedSwatch = getManagedSwatch(value?.name, managedSwatches);
 
-const getOptionSwatchStyle = (value) => {
+  return Boolean(
+    managedSwatch?.image ||
+    managedSwatch?.hex ||
+    value?.swatch?.image?.previewImage?.url ||
+    getLocalSwatchImage(value?.name),
+  );
+};
+
+const getOptionSwatchStyle = (value, managedSwatches = []) => {
+  const managedSwatch = getManagedSwatch(value?.name, managedSwatches);
+
+  // 1. Shopify Metaobjekt "Neo Material Color"
+  // Das ist ab jetzt unsere Source of Truth.
+  if (managedSwatch?.image) {
+    return {
+      backgroundImage: `url("${managedSwatch.image}")`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    };
+  }
+
+  // 2. Native Shopify Product-Option-Swatches
   const shopifyImage = value?.swatch?.image?.previewImage?.url;
 
   if (shopifyImage) {
@@ -89,6 +128,7 @@ const getOptionSwatchStyle = (value) => {
     };
   }
 
+  // 3. Bisherige Bilder im Repo als Fallback
   const localImage = getLocalSwatchImage(value?.name);
 
   if (localImage) {
@@ -100,12 +140,27 @@ const getOptionSwatchStyle = (value) => {
     };
   }
 
+  // 4. Hex-Code aus Neo Material Color
+  if (managedSwatch?.hex) {
+    return needsChecker(managedSwatch.hex)
+      ? {
+          ...checkerBg,
+          backgroundColor: managedSwatch.hex,
+          boxShadow: 'inset 0 0 0 1px #cfcfcf',
+        }
+      : {
+          backgroundColor: managedSwatch.hex,
+        };
+  }
+
+  // 5. Native Shopify-Farbe
   if (value?.swatch?.color) {
     return {
       backgroundColor: value.swatch.color,
     };
   }
 
+  // 6. Alter colors.json-Fallback
   return getSwatchStyle(value?.name);
 };
 
@@ -145,6 +200,7 @@ export function Configurator({
   driverOptions = [],
   selectedDriver,
   onDriverSelect,
+  managedSwatches = [],
   seriesConfigurator,
 }) {
   // Nur die Varianten-Sektion toggeln
@@ -187,7 +243,9 @@ export function Configurator({
     const colorish =
       isColorOption(option.name) ||
       option.optionValues.some(
-        (value) => hasImageSwatch(value) || Boolean(value?.swatch?.color),
+        (value) =>
+          hasImageSwatch(value, managedSwatches) ||
+          Boolean(value?.swatch?.color),
       );
     const label = option.name.charAt(0).toUpperCase() + option.name.slice(1); // 👈 hier
 
@@ -251,7 +309,7 @@ export function Configurator({
                   <span className="dot-ring">
                     <span
                       className="dot"
-                      style={getOptionSwatchStyle(value)}
+                      style={getOptionSwatchStyle(value, managedSwatches)}
                       aria-label={value.name}
                     />
                   </span>

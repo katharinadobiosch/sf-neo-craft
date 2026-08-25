@@ -138,6 +138,46 @@ export default function Product() {
  * Wichtig: Das importierte Fragment MUSS hier VOR seinem Gebrauch stehen.
  */
 const PRODUCT_QUERY = `#graphql
+fragment NeoColorMetaobject on Metaobject {
+  id
+  type
+  handle
+
+  fields {
+    key
+    type
+    value
+
+    reference {
+      __typename
+
+      ... on MediaImage {
+        image {
+          url
+          altText
+          width
+          height
+        }
+      }
+    }
+
+    references(first: 5) {
+      nodes {
+        __typename
+
+        ... on MediaImage {
+          image {
+            url
+            altText
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+}
+
   fragment ProductVariantFragment on ProductVariant {
     availableForSale
     compareAtPrice { amount currencyCode }
@@ -193,7 +233,7 @@ const PRODUCT_QUERY = `#graphql
 
       reference {
         __typename
-        ... on Metaobject { id type handle fields { key type value } }
+        ...NeoColorMetaobject
         ... on MediaImage { image { url altText width height } }
         ... on Video { sources { url mimeType } }
         ... on Model3d { sources { url mimeType } }
@@ -203,7 +243,7 @@ const PRODUCT_QUERY = `#graphql
       references(first: 50) {
         nodes {
           __typename
-          ... on Metaobject { id type handle fields { key type value } }
+          ...NeoColorMetaobject
           ... on MediaImage { image { url altText width height } }
           ... on Video { sources { url mimeType } }
           ... on Model3d { sources { url mimeType } }
