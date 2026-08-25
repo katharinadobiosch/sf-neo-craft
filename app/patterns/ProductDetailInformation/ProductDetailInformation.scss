@@ -1086,10 +1086,21 @@
 .pdp {
   .cfg-title {
     display: block;
-    margin: 0 0 1.5rem;
+
+    margin: 0 0 2rem;
     padding: 0;
-    font: inherit;
+
+    font-size: var(--nc-fliesstext-mobil-size);
+    line-height: var(--nc-fliesstext-mobil-line);
+    font-weight: var(--nc-fliesstext-mobil-weight);
+
     color: inherit;
+
+    @media (min-width: 768px) {
+      font-size: var(--nc-fliesstext-desktop-size);
+      line-height: var(--nc-fliesstext-desktop-line);
+      font-weight: var(--nc-fliesstext-desktop-weight);
+    }
   }
 }
 
@@ -1245,5 +1256,98 @@
 @media (min-width: 768px) {
   .pdp > .hero-split > .hs-grid {
     margin-bottom: 0 !important;
+  }
+}
+
+/* =========================================================
+   CUSTOMER REVIEW – details / accordion
+   ========================================================= */
+
+@media (min-width: 768px) {
+  .pdp {
+    .product-form__sections {
+      /*
+       * Content etwas weiter nach links.
+       * Gleichzeitig gleiche Grundstruktur wie Configurator.
+       */
+      --details-label-col: clamp(160px, 28%, 220px);
+
+      .pf-kv__row {
+        grid-template-columns:
+          var(--details-label-col)
+          minmax(0, 1fr);
+
+        align-items: start;
+        min-height: 4.6rem;
+        padding: 0;
+      }
+
+      /*
+       * Measurements / Technical Specs etc.
+       * kleiner wie die Optionen im Configurator
+       */
+      .pf-kv__key {
+        padding: 0.9rem 0;
+
+        font-size: var(--nc-konfigurator-desktop-size);
+        line-height: var(--nc-konfigurator-desktop-line);
+        font-weight: var(--nc-konfigurator-desktop-weight);
+      }
+
+      .pf-kv__toggle {
+        min-height: auto;
+        align-items: flex-start;
+      }
+
+      /*
+       * Aufklapptext auf gleiche Höhe wie Rubrikname
+       */
+      .pf-kv__value-wrap,
+      .pf-kv__row[data-open='true'] .pf-kv__value-wrap {
+        grid-column: 2;
+      }
+
+      .pf-kv__value {
+        padding: 0.9rem 0 1.2rem;
+      }
+
+      .meta-accordion .acc-panel p {
+        margin: 0;
+
+        font-size: var(--nc-konfigurator-desktop-size);
+        line-height: var(--nc-konfigurator-desktop-line);
+        font-weight: var(--nc-konfigurator-desktop-weight);
+      }
+    }
+
+    /*
+     * KEINE Linie über Lead Time / Shipping
+     */
+    .shipping-item.pf-kv__row {
+      border-top: 0;
+    }
+
+    .product-form__shipping {
+      border-top: 0;
+    }
+
+    /*
+     * Lead Time benutzt dieselbe Spaltenbreite
+     */
+    .shipping-item.pf-kv__row {
+      grid-template-columns:
+        clamp(160px, 28%, 220px)
+        minmax(0, 1fr);
+    }
+
+    .shipping-item .pf-kv__key {
+      font-size: var(--nc-konfigurator-desktop-size);
+      line-height: var(--nc-konfigurator-desktop-line);
+      font-weight: var(--nc-konfigurator-desktop-weight);
+    }
+
+    .shipping-item .pf-kv__value {
+      padding-top: 0.9rem;
+    }
   }
 }
