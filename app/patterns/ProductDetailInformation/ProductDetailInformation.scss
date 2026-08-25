@@ -1351,3 +1351,55 @@
     }
   }
 }
+
+/* =========================================================
+   CUSTOMER REVIEW – equal spacing for detail titles
+   ========================================================= */
+
+@media (min-width: 768px) {
+  .pdp {
+    /*
+     * Einheitliche Höhe für:
+     * Measurements
+     * Technical Specs
+     * Downloads
+     * Lead Time / Shipping
+     */
+    .product-form__sections .pf-kv__row,
+    .shipping-item.pf-kv__row {
+      min-height: 5.6rem;
+      padding: 0;
+      margin: 0;
+      align-items: start;
+    }
+
+    .product-form__sections .pf-kv__toggle,
+    .shipping-item .pf-kv__toggle {
+      min-height: 5.6rem;
+      padding: 0;
+
+      display: flex;
+      align-items: center;
+    }
+
+    .product-form__sections .pf-kv__key,
+    .shipping-item .pf-kv__key {
+      padding: 0;
+
+      display: flex;
+      align-items: center;
+
+      min-height: 5.6rem;
+    }
+
+    /*
+     * Kein zusätzlicher Abstand vor Shipping,
+     * sonst wird der letzte Abstand wieder größer.
+     */
+    .product-form__shipping,
+    .shipping-item.pf-kv__row {
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+}
