@@ -83,14 +83,13 @@ export async function action({request, context}) {
   const env = context.env;
 
   const apiKey = env.RESEND_API_KEY;
-  const recipient = env.WITHDRAWAL_RECIPIENT_EMAIL;
+  const recipient = 'info@neocraft.com';
   const from =
     env.WITHDRAWAL_FROM_EMAIL || 'NEO/CRAFT <withdrawal@neocraft.com>';
 
-  if (!apiKey || !recipient) {
+  if (!apiKey) {
     console.error('Missing withdrawal email configuration', {
       hasApiKey: Boolean(apiKey),
-      hasRecipient: Boolean(recipient),
     });
 
     return Response.json(

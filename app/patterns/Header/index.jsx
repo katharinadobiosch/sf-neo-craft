@@ -4,6 +4,38 @@ import {useAside} from '~/patterns/Aside';
 import {normalizeMenuUrl} from 'utils/normalizeMenuUrl';
 import './header.scss';
 
+const EXTRA_MENU_ITEMS = [
+  {
+    id: 'neo-downloads',
+    title: 'DOWNLOADS',
+    url: '/downloads',
+  },
+  {
+    id: 'neo-dealers',
+    title: 'DEALER',
+    url: '/dealers',
+  },
+];
+
+const getMenuItems = (menu) => {
+  const items = [...((menu || FALLBACK_HEADER_MENU).items || [])];
+
+  EXTRA_MENU_ITEMS.forEach((extraItem) => {
+    const exists = items.some((item) => {
+      const title = item.title?.trim().toUpperCase();
+      const url = item.url?.toLowerCase() || '';
+
+      return title === extraItem.title || url.includes(extraItem.url);
+    });
+
+    if (!exists) {
+      items.push(extraItem);
+    }
+  });
+
+  return items;
+};
+
 export function Header({
   header,
   variant = 'default',
@@ -77,17 +109,19 @@ export function Header({
                 </div>
 
                 <div className="header__right">
-                  <NavLink to="/">C</NavLink>
+                  {hasCart && (
+                    <div className="header__cart">
+                      <Link to="/cart">({count})</Link>
+                    </div>
+                  )}
 
-                  <div className="header__cart">
-                    <Link to="/cart">{hasCart ? `(${count})` : null}</Link>
-                  </div>
+                  <NavLink to="/">C</NavLink>
                 </div>
               </div>
 
               <div className={`header__overlay ${isMenuOpen ? 'open' : ''}`}>
                 <nav className="header__overlay__menu">
-                  {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+                  {getMenuItems(menu).map((item) => {
                     const url = normalizeMenuUrl(
                       item.url,
                       publicStoreDomain,
@@ -176,7 +210,7 @@ export function HeaderMenu({
           Home
         </NavLink>
       )}
-      {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+      {getMenuItems(menu).map((item) => {
         if (!item.url) return null;
 
         // if the url is internal, we strip the domain

@@ -42,6 +42,29 @@ const LABEL_BY_KEY = Object.fromEntries(
   ]),
 );
 
+const DETAIL_ORDER = [
+  'material',
+  'measurements',
+  'technical_specs',
+  'photometric_specs',
+  'electric_specs',
+  'certification',
+  'mirror_glass_type',
+  'dichroic_glass',
+  'download',
+  'download_links',
+];
+
+function getOrderIndex(metafield: any) {
+  const key = String(metafield?.key || '')
+    .toLowerCase()
+    .trim();
+
+  const index = DETAIL_ORDER.indexOf(key);
+
+  return index === -1 ? DETAIL_ORDER.length : index;
+}
+
 function prettifyKey(key: string) {
   return String(key || '')
     .replace(/_/g, ' ')
@@ -69,7 +92,10 @@ export function ProductDetailsSection({
   onToggle,
 }: Props) {
   const items = useMemo(
-    () => [...mfMeasurements, ...mfOthers].filter(Boolean),
+    () =>
+      [...mfMeasurements, ...mfOthers]
+        .filter(Boolean)
+        .sort((a, b) => getOrderIndex(a) - getOrderIndex(b)),
     [mfMeasurements, mfOthers],
   );
 

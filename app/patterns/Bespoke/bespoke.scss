@@ -1,7 +1,7 @@
 .collections.bespoke {
   container-type: inline-size;
 
-  --caption-height: 8.7rem;
+  --caption-height: 11.5rem;
   --landscape-media-height: calc(50cqw * 519 / 778);
   --card-row-height: calc(
     var(--landscape-media-height) + var(--caption-height)
@@ -104,6 +104,41 @@
   .product-caption {
     flex: 0 0 var(--caption-height);
     height: var(--caption-height);
+    padding-top: 1.5rem;
+  }
+
+  .product-title,
+  .project-meta {
+    font-size: var(--nc-navigation-name-desktop-size);
+    line-height: 2.4rem;
+    font-weight: var(--nc-navigation-name-desktop-weight);
+  }
+
+  .product-title {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+  }
+
+  .project-meta {
+    margin: 0;
+  }
+
+  .product-title,
+  .project-meta {
+    font-size: var(--nc-navigation-name-desktop-size);
+    line-height: 2.4rem;
+    font-weight: var(--nc-navigation-name-desktop-weight);
+  }
+
+  .product-title {
+    position: relative;
+    display: inline-block;
+    margin: 0;
+  }
+
+  .project-meta {
+    margin: 0;
   }
 
   .product-title {
@@ -118,6 +153,12 @@
   }
 
   @media (min-width: 768px) {
+    .collections-grid::before {
+      top: 0;
+      bottom: 0;
+      height: auto;
+    }
+
     .collections-grid .product-item--left {
       grid-column: 1;
     }
@@ -126,34 +167,20 @@
       grid-column: 2;
     }
 
-    /*
-   * Überschreibt ausdrücklich die nth-of-type-Regeln
-   * aus mainCollection.scss.
-   */
-    .collections-grid .product-item.product-item--left .product-title {
+    .collections-grid .product-item--right .product-caption {
+      padding-left: 2rem;
+      box-sizing: border-box;
+    }
+
+    /* MainCollection nth-of-type spacing neutralisieren */
+    .collections-grid .product-item .product-title {
       margin-left: 0;
     }
 
-    .collections-grid .product-item.product-item--right .product-title {
-      margin-left: 2rem;
-    }
-
+    /* Bei Bespoke kein Hover-Unterstrich */
     .product-title::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 1px;
-      background: currentColor;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 180ms ease;
-    }
-
-    .product-item:hover .product-title::after,
-    .product-item:focus-within .product-title::after {
-      transform: scaleX(1);
+      content: none;
+      display: none;
     }
   }
 }

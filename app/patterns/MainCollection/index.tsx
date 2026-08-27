@@ -269,7 +269,6 @@ function ProductItem({product}: {product: ProductLike}) {
       ? (seriesRef as MetaobjectRef).seriesTitle?.value
       : product.seriesMeta?.title || product.title;
 
-
   return (
     <Link to={targetUrl} className="product-item" prefetch="intent">
       <div
@@ -362,7 +361,8 @@ function ProductItem({product}: {product: ProductLike}) {
 
 export function MainCollectionGrid({products}: {products: ProductLike[]}) {
   return (
-    <div className="collections">
+    <div className="collections main-collection">
+      {' '}
       <div className="collections-grid">
         {products?.map((product) => (
           <ProductItem key={product.id} product={product} />
@@ -376,7 +376,8 @@ export default function CollectionsIndex() {
   const {collection: _collection, products} = useLoaderData<typeof loader>();
 
   return (
-    <div className="collections">
+    <div className="collections main-collection">
+      {' '}
       <div className="collections-grid">
         {products?.map((product: ProductLike) => (
           <ProductItem key={product.id} product={product} />

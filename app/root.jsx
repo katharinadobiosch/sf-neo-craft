@@ -40,14 +40,11 @@ import dealersStyles from '~/patterns/Dealers/dealers.scss?url';
 import mainCollectionStyles from '~/patterns/MainCollection/mainCollection.scss?url';
 import aboutStyles from '~/patterns/About/about.scss?url';
 // import MaterialPDP from '~/patterns/MaterialsProductDetail/MaterialDetailInformation.scss?url';
-
 import appStyles from '~/styles/main.scss?url';
-
 import {PageLayout} from './patterns/PageLayout';
 import fontAwesomeCss from '@fortawesome/fontawesome-free/css/all.min.css?url';
-
 import introAnimationCss from '~/patterns/IntroAnimation/introAnimation.scss?url';
-import IntroAnimation from '~/patterns/IntroAnimation';
+import downloadsStyles from '~/patterns/Downloads/downloads.scss?url';
 
 /**
  * This is important to avoid re-fetching root queries on sub-navigations
@@ -107,6 +104,7 @@ export function links() {
     {rel: 'stylesheet', href: dealersStyles},
     {rel: 'stylesheet', href: mainCollectionStyles},
     {rel: 'stylesheet', href: aboutStyles},
+    {rel: 'stylesheet', href: downloadsStyles},
     // {rel: 'stylesheet', href: MaterialPDP},
     {rel: 'stylesheet', href: introAnimationCss},
     {rel: 'stylesheet', href: fontAwesomeCss},

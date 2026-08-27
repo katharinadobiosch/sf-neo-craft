@@ -94,6 +94,10 @@ body {
   margin: 0 1.5rem;
   padding-top: var(--header-h);
 
+  &.main--with-location {
+    padding-top: calc(var(--header-h) + 4rem);
+  }
+
   @media (min-width: 768px) {
     margin: 0 4.9rem;
   }
