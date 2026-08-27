@@ -426,6 +426,7 @@
 .cfg-row--series {
   padding-bottom: 1.5rem;
 }
+
 /* =========================================================
    CUSTOMER REVIEW – configurator alignment
    ========================================================= */
@@ -433,40 +434,47 @@
 @media (min-width: 768px) {
   .configurator {
     /*
-     * Einheitliches Raster:
-     * Label links, Values rechts.
-     *
-     * Der Abstand zwischen den Optionsgruppen kommt bewusst
-     * über padding-bottom und NICHT über min-height.
-     * Dadurch funktioniert er auch bei mehrzeiligen Swatches.
+     * Type / Height liegen außerhalb von cfg-panel-inner,
+     * die normalen Produktoptionen darin.
+     * Deshalb darf der Wrapper keinen eigenen vertikalen
+     * Abstand erzeugen.
+     */
+    .cfg-panel-inner {
+      padding-top: 0;
+      gap: 0;
+    }
+
+    /*
+     * Einheitlicher Abstand NACH jeder Optionsgruppe.
+     * margin-bottom funktioniert auch bei mehrzeiligen
+     * Swatch-Gruppen.
      */
     .cfg-row,
     .cfg-row--series {
       min-height: 0;
-      margin: 0;
-      padding: 0 0 2.4rem;
+      margin: 0 0 2.4rem;
+      padding: 0;
 
       align-items: start;
     }
 
     /*
-     * Letzte Configurator-Row bekommt ebenfalls Luft
-     * vor der horizontalen Trennlinie.
+     * Vor der Trennlinie etwas mehr Luft.
      */
-    .cfg-row:last-child,
-    .cfg-row--series:last-child {
-      padding-bottom: 2.8rem;
+    .cfg-panel-inner > .cfg-row:last-child {
+      margin-bottom: 2.8rem;
     }
 
-    /*
-     * Key und Value starten auf derselben Höhe.
-     */
     .cfg-label {
       display: flex;
       align-items: flex-start;
       align-self: start;
 
       padding: 0.5rem 0 0;
+      min-height: 42px;
+      padding-top: 0;
+
+      align-items: center;
 
       font-size: var(--nc-konfigurator-desktop-size);
       line-height: var(--nc-konfigurator-desktop-line);
@@ -480,10 +488,6 @@
       align-items: flex-start;
     }
 
-    /*
-     * Textoptionen:
-     * keine künstliche zusätzliche Höhe.
-     */
     .cfg-values--chip {
       align-items: flex-start;
     }
@@ -494,11 +498,7 @@
     }
 
     /*
-     * Swatches dürfen umbrechen.
-     *
-     * row-gap erzeugt den Abstand zwischen erster und zweiter
-     * Swatch-Zeile, padding-bottom der cfg-row den Abstand
-     * zur NÄCHSTEN Optionsgruppe.
+     * Abstand innerhalb einer mehrzeiligen Swatch-Gruppe.
      */
     .cfg-values--color {
       align-items: flex-start;
