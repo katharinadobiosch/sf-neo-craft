@@ -395,7 +395,7 @@ export function Configurator({
                     data-option={axis.label.toLowerCase()}
                     data-count={axis.values.length}
                   >
-                    {axis.values.map(({value}) => {
+                    {axis.values.map(({value, available}) => {
                       const selected =
                         seriesConfigurator.selected?.[axis.label] === value;
 
@@ -408,6 +408,8 @@ export function Configurator({
                             'is-chip',
                             selected && 'is-selected',
                           )}
+                          disabled={!available}
+                          aria-disabled={!available}
                           aria-pressed={selected}
                           onClick={() =>
                             seriesConfigurator.onSelect?.(axis.label, value)

@@ -433,70 +433,45 @@
 
 @media (min-width: 768px) {
   .configurator {
-    /* Produkttitel wie CTA-Typografie */
-    .cfg-title {
-      font-size: var(--nc-fliesstext-desktop-size);
-      line-height: var(--nc-fliesstext-desktop-line);
-      font-weight: var(--nc-fliesstext-desktop-weight);
-    }
-
-    .cfg-head {
-      margin-bottom: 2rem;
-    }
-
-    /*
-     * Type / Material / Glass:
-     * gleiche Zeilenhöhe + gleiche vertikale Abstände
-     */
     .cfg-row,
     .cfg-row--series {
       min-height: 5.8rem;
-      padding: 0;
       margin: 0;
-      align-items: center;
-    }
+      padding: 0;
 
-    .cfg-row:last-child {
-      padding-bottom: 0;
+      align-items: start;
     }
 
     .cfg-label {
       display: flex;
-      align-items: center;
-      align-self: stretch;
+      align-items: flex-start;
+      align-self: start;
 
       padding: 0;
+      padding-top: 0.5rem;
+
+      font-size: var(--nc-konfigurator-desktop-size);
       line-height: var(--nc-konfigurator-desktop-line);
+      font-weight: var(--nc-konfigurator-desktop-weight);
     }
 
     .cfg-values {
       min-height: 5.8rem;
-      align-items: center;
+      align-items: flex-start;
+      padding-top: 0.5rem;
     }
 
-    /* Glass exakt mittig zu den Swatches */
     .cfg-values--color {
-      align-items: center;
+      align-items: flex-start;
+    }
+
+    .cfg-item.is-chip {
+      align-items: flex-start;
     }
 
     .cfg-item.is-color {
-      min-height: 5.8rem;
-    }
-
-    /* Kundenwunsch: Ring genauso dünn wie Unterstreichung */
-    .cfg-item.is-color .dot-ring {
-      border-width: 1px;
-    }
-
-    .cfg-item.is-color.is-selected .dot-ring {
-      border-color: currentColor;
-    }
-
-    /* nicht verfügbare Kombinationen */
-    .cfg-item.is-chip:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-      pointer-events: none;
+      min-height: auto;
+      align-items: flex-start;
     }
   }
 }
