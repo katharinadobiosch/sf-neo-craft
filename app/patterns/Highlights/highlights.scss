@@ -1,7 +1,12 @@
 .collections.highlights {
   container-type: inline-size;
 
-  --caption-height: 11.5rem;
+  /*
+   * Landscape:
+   * Bild = 778 / 519
+   * Caption = gleiche Höhe wie bestehende Collection-Captions
+   */
+  --caption-height: 8.7rem;
   --landscape-media-height: calc(50cqw * 519 / 778);
   --card-row-height: calc(
     var(--landscape-media-height) + var(--caption-height)
@@ -10,70 +15,61 @@
   .collections-grid {
     position: relative;
     display: block;
+
     width: 100%;
     background: #fff;
-
-    @media (min-width: 768px) {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-auto-rows: var(--card-row-height);
-      grid-auto-flow: dense;
-      align-items: stretch;
-    }
   }
 
-  .collections-grid .product-item {
+  .product-item {
     display: block;
+
     width: 100%;
     min-width: 0;
     height: auto;
 
-    @media (min-width: 768px) {
-      width: auto;
-      height: 100%;
-    }
-  }
-
-  .collections-grid .product-item--portrait {
-    @media (min-width: 768px) {
-      grid-row: span 2;
-    }
+    color: inherit;
+    text-decoration: none;
   }
 
   .card {
     display: flex;
     flex-direction: column;
+
     width: 100%;
     height: 100%;
     margin: 0;
+
     overflow: hidden;
   }
+
+  /* =========================================================
+     Images
+     ========================================================= */
 
   .card__media {
     position: relative;
     flex: 0 0 auto;
+
     width: 100%;
     aspect-ratio: 778 / 519;
+
     overflow: hidden;
+
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
-  }
-
-  .product-item--portrait .card__media {
-    @media (min-width: 768px) {
-      flex: 1 1 auto;
-      min-height: 0;
-      aspect-ratio: auto;
-    }
   }
 
   .card__img {
     position: absolute;
     inset: 0;
+
     display: block;
+
     width: 100%;
     height: 100%;
+
     object-fit: cover;
+
     transition: opacity 250ms ease;
   }
 
@@ -85,6 +81,9 @@
     opacity: 0;
   }
 
+  /*
+   * 2. Projektbild beim Hover anzeigen.
+   */
   .product-item:hover .card__img--primary,
   .product-item:focus-within .card__img--primary {
     opacity: 0;
@@ -95,117 +94,167 @@
     opacity: 1;
   }
 
+  /*
+   * Hat ein Projekt nur ein Bild, darf es beim Hover
+   * natürlich nicht verschwinden.
+   */
   .product-item:not(:has(.card__img--secondary)):hover .card__img--primary,
   .product-item:not(:has(.card__img--secondary)):focus-within
     .card__img--primary {
     opacity: 1;
   }
 
+  /* =========================================================
+     Caption
+     ========================================================= */
+
   .product-caption {
     flex: 0 0 var(--caption-height);
+
     height: var(--caption-height);
     padding-top: 1.5rem;
+
+    box-sizing: border-box;
   }
 
   .product-title,
   .project-meta {
+    margin: 0;
+
     font-size: var(--nc-navigation-name-desktop-size);
-    line-height: 2.4rem;
+    line-height: var(--nc-navigation-name-desktop-line);
     font-weight: var(--nc-navigation-name-desktop-weight);
   }
 
   .product-title {
     position: relative;
     display: inline-block;
-    margin: 0;
   }
 
-  .project-meta {
-    margin: 0;
+  /*
+   * Wie im Kunden-Mockup:
+   * beim Hover Unterstrich unter dem Projekttitel.
+   */
+  .product-title::after {
+    content: '';
+
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    height: 1px;
+
+    background: currentColor;
+
+    transform: scaleX(0);
+    transform-origin: left;
+
+    transition: transform 180ms ease;
   }
+
+  .product-item:hover .product-title::after,
+  .product-item:focus-within .product-title::after {
+    transform: scaleX(1);
+  }
+
+  /* =========================================================
+     Desktop project grid
+     ========================================================= */
 
   @media (min-width: 768px) {
-    .collections-grid .product-item--left {
+    .collections-grid {
+      display: grid;
+
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: var(--card-row-height);
+      grid-auto-flow: dense;
+
+      align-items: stretch;
+    }
+
+    /*
+     * Durchgehende Mittellinie wie im Target.
+     */
+    .collections-grid::before {
+      content: '';
+
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      z-index: 2;
+
+      width: 1px;
+
+      background: #000;
+
+      transform: translateX(-0.5px);
+
+      pointer-events: none;
+    }
+
+    .product-item {
+      width: auto;
+      height: 100%;
+    }
+
+    .product-item--left {
       grid-column: 1;
     }
 
-    .collections-grid .product-item--right {
+    .product-item--right {
       grid-column: 2;
     }
 
     /*
-   * Überschreibt ausdrücklich die nth-of-type-Regeln
-   * aus mainCollection.scss.
-   */
-    .collections-grid .product-item.product-item--left .product-title {
+     * Hochformat nimmt zwei Landscape-Rows ein.
+     */
+    .product-item--portrait {
+      grid-row: span 2;
+    }
+
+    .product-item--portrait .card__media {
+      flex: 1 1 auto;
+
+      min-height: 0;
+      aspect-ratio: auto;
+    }
+
+    /*
+     * Rechte Caption bekommt Abstand von der Mittellinie.
+     * Linke Caption bleibt bündig zum Bild.
+     */
+    .product-item--right .product-caption {
+      padding-left: 2rem;
+    }
+
+    /*
+     * Alte MainCollection nth-of-type-Regeln neutralisieren.
+     */
+    .product-item .product-title {
       margin-left: 0;
     }
-
-    .product-title::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 1px;
-      background: currentColor;
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 180ms ease;
-    }
-
-    .product-item:hover .product-title::after,
-    .product-item:focus-within .product-title::after {
-      transform: scaleX(1);
-    }
   }
-}
 
-/* Final Projects layout adjustments */
-.collections.highlights {
-  @media (min-width: 768px) {
-    /* Mittellinie über die komplette Höhe */
-    .collections-grid::before {
-      top: 0;
-      bottom: 0;
+  /* =========================================================
+     Mobile
+     ========================================================= */
+
+  @media (max-width: 767px) {
+    --caption-height: auto;
+
+    .product-item {
+      margin-bottom: 2.4rem;
+    }
+
+    .product-caption {
       height: auto;
-    }
-
-    /* rechte Textspalte nicht direkt an der Mittellinie */
-    .collections-grid .product-item--right .product-caption {
-      padding-left: 2rem;
-      box-sizing: border-box;
-    }
-
-    /* Projects sollen keinen Hover-Unterstrich haben */
-    .product-title::after {
-      content: none;
-      display: none;
-    }
-  }
-}
-
-.collections.highlights {
-  @media (min-width: 768px) {
-    .collections-grid::before {
-      top: 0;
-      bottom: 0;
-      height: auto;
-    }
-
-    .collections-grid .product-item--right .product-caption {
-      padding-left: 2rem;
-      box-sizing: border-box;
-    }
-
-    /* MainCollection nth-of-type spacing neutralisieren */
-    .collections-grid .product-item .product-title {
-      margin-left: 0;
+      min-height: 8.7rem;
     }
 
     .product-title::after {
       content: none;
-      display: none;
     }
   }
 }
