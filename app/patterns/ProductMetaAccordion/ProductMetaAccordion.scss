@@ -181,7 +181,8 @@
 
     /* Eine Zeichnung → komplette Content-Breite */
     .meta-accordion__images-grid[data-count='1'] {
-      grid-template-columns: minmax(0, 1fr);
+      grid-template-columns: minmax(0, min(100%, 34rem));
+      justify-content: center;
     }
 
     /* Zwei Zeichnungen → 50 / 50 */
@@ -241,7 +242,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 1rem;
       }
-
       .meta-accordion__images-grid[data-count='1'] {
         grid-template-columns: minmax(0, 1fr);
       }
