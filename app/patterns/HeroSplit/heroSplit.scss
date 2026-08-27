@@ -43,7 +43,7 @@
   }
   .hs-right {
     grid-area: right;
-    aspect-ratio: var(--hs-right-aspect);
+    aspect-ratio: auto;
     width: 100%;
     height: auto;
     // border-left: 1px solid black;
