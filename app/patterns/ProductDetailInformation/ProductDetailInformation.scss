@@ -15,6 +15,11 @@
     gap: 0;
   }
 
+  .hero-split .hs-grid {
+    // border: 10px solid red;
+    border-bottom: 0;
+  }
+
   @media (min-width: 1200px) {
     &::before {
       content: '';

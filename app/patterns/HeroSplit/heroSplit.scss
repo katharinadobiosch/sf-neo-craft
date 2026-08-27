@@ -69,21 +69,31 @@
      Bild + Hover
      ========================= */
   .hs-img {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
     height: 100%;
 
+    overflow: hidden;
+
     & > img {
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    &__hover {
       position: absolute;
       inset: 0;
+
+      display: block;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+    &__hover {
       opacity: 0;
       transition: opacity 0.25s ease;
     }
+
     &:hover .hs-img__hover {
       opacity: 1;
     }
