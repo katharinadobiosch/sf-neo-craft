@@ -191,6 +191,7 @@ const getHex = (name) => {
 
 export function Configurator({
   productTitle,
+  product,
   productOptions,
   navigate,
   seriesProducts = [],
@@ -239,7 +240,113 @@ export function Configurator({
     return () => window.removeEventListener('resize', onResize);
   }, [variantsOpen]);
 
+  const renderDiaMetalRod = (option) => {
+    const parsedValues = option.optionValues
+      .map((item) => {
+        const match = /^H\s*(\d+)\s*cm\s+(Silver|Brass)$/i.exec(
+          item.name.trim(),
+        );
+
+        if (!match) return null;
+
+        return {
+          item,
+          height: match[1],
+          material: match[2].toLowerCase(),
+        };
+      })
+      .filter(Boolean);
+
+    // Bei unbekannten Shopify-Werten die Originaloption anzeigen.
+    if (parsedValues.length !== option.optionValues.length) return null;
+
+    const selected = parsedValues.find(({item}) => item.selected);
+    const current = selected || parsedValues[0];
+
+    const heights = [...new Set(parsedValues.map(({height}) => height))];
+    const materials = [...new Set(parsedValues.map(({material}) => material))];
+
+    const renderRow = (label, values, targetFor, displayFor) => (
+      <div className="cfg-row cfg-row--chip" key={label}>
+        <div className="cfg-label">{label}</div>
+        <div
+          className="cfg-values cfg-values--chip"
+          data-option={label.toLowerCase().replace(/\\s+/g, '-')}
+          data-count={values.length}
+        >
+          {values.map((value) => {
+            const target = targetFor(value);
+            const isSelected = Boolean(target?.item.selected);
+
+            return (
+              <button
+                key={value}
+                type="button"
+                className={cx(
+                  'cfg-item',
+                  'is-chip',
+                  isSelected && 'is-selected',
+                )}
+                disabled={!target?.item.exists}
+                aria-pressed={isSelected}
+                aria-label={displayFor(value)}
+                onClick={() => {
+                  if (!target || isSelected) return;
+                  onVariantReselect?.();
+                  navigate(`?${target.item.variantUriQuery}`, {
+                    replace: true,
+                    preventScrollReset: true,
+                  });
+                }}
+              >
+                <span className="chip-text">{displayFor(value)}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    );
+
+    return (
+      <>
+        {renderRow(
+          'Height',
+          heights,
+          (height) =>
+            parsedValues.find(
+              (entry) =>
+                entry.height === height &&
+                entry.material === current.material,
+            ),
+          (height) => `${height} cm`,
+        )}
+
+        {renderRow(
+          'Metal Rod',
+          materials,
+          (material) =>
+            parsedValues.find(
+              (entry) =>
+                entry.height === current.height &&
+                entry.material === material,
+            ),
+          (material) =>
+            material === 'silver' ? 'Stainless Steel' : 'Brass',
+        )}
+      </>
+    );
+  };
+
   const renderOption = (option) => {
+
+    if (
+      product?.handle === 'dia' &&
+      option.name.toLowerCase().trim() === 'metal rod'
+    ) {
+      const diaRows = renderDiaMetalRod(option);
+      if (diaRows) return <div key={option.name}>{diaRows}</div>;
+    }
+
     const colorish =
       isColorOption(option.name) ||
       option.optionValues.some(
