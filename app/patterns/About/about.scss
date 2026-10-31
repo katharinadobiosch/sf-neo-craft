@@ -37,12 +37,20 @@
   }
 
   .hs-leftTop {
-    @media (max-width: 767px) {
-      display: none;
-    }
-
     @media (min-width: 768px) {
       border-bottom: 1px solid black;
     }
+  }
+
+  .about__portrait-left {
+    width: 100%;
+    height: 100%;
+  }
+
+  .about__portrait-left img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }

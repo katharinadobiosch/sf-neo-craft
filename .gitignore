@@ -15,3 +15,6 @@ storefrontapi.generated.d.ts
 # generated router types / artifacts
 .react-router/
 package-lock.json
+
+# macOS resource fork files
+._*

@@ -33,6 +33,16 @@ type MediaImageRef = {
   } | null;
 };
 
+type ProjectItem = {
+  id: string;
+  images: Img[];
+  portrait: boolean;
+  title: string;
+  year: string;
+  products: string;
+  position: number;
+};
+
 function isMediaImageRef(value: unknown): value is MediaImageRef {
   return (
     typeof value === 'object' &&
@@ -41,13 +51,6 @@ function isMediaImageRef(value: unknown): value is MediaImageRef {
   );
 }
 
-type ProjectItem = {
-  id: string;
-  images: Img[];
-  portrait: boolean;
-  title: string;
-};
-
 export async function loader({context}: LoaderFunctionArgs) {
   const data = await context.storefront.query(PROJECTS_QUERY, {
     variables: {first: 50},
@@ -55,53 +58,51 @@ export async function loader({context}: LoaderFunctionArgs) {
 
   const nodes = (data?.metaobjects?.nodes ?? []) as ProjectNode[];
 
-  const items: ProjectItem[] = nodes.map((node) => {
-    const getField = (key: string) =>
-      node.fields.find((field) => field.key === key);
+  const items: ProjectItem[] = nodes
+    .map((node) => {
+      const getField = (key: string) =>
+        node.fields.find((field) => field.key === key);
 
-    const title = getField('title')?.value?.trim() ?? '';
-    const portrait = getField('portrait')?.value === 'true';
+      const title = getField('title')?.value?.trim() ?? '';
+      const year = getField('year')?.value?.trim() ?? '';
+      const products = getField('products')?.value?.trim() ?? '';
+      const portrait = getField('portrait')?.value === 'true';
 
-    const imageField = getField('image');
-    const imageReferences = imageField?.references?.nodes ?? [];
+      const rawPosition = getField('position')?.value;
+      const position = rawPosition
+        ? Number(rawPosition)
+        : Number.MAX_SAFE_INTEGER;
 
-    const images = imageReferences
-      .filter(isMediaImageRef)
-      .filter(
-        (
-          reference,
-        ): reference is MediaImageRef & {
-          image: NonNullable<MediaImageRef['image']> & {url: string};
-        } => Boolean(reference.image?.url),
-      )
-      .map((reference) => ({
-        url: reference.image.url,
-        width: reference.image.width,
-        height: reference.image.height,
-        altText: reference.image.altText ?? undefined,
-      }));
+      const imageField = getField('image');
+      const imageReferences = imageField?.references?.nodes ?? [];
 
-    return {
-      id: node.id,
-      images,
-      portrait,
-      title,
-    };
-  });
-  const portraitIndex = items.findIndex((item) => item.portrait);
+      const images = imageReferences
+        .filter(isMediaImageRef)
+        .filter(
+          (
+            reference,
+          ): reference is MediaImageRef & {
+            image: NonNullable<MediaImageRef['image']> & {url: string};
+          } => Boolean(reference.image?.url),
+        )
+        .map((reference) => ({
+          url: reference.image.url,
+          width: reference.image.width,
+          height: reference.image.height,
+          altText: reference.image.altText ?? undefined,
+        }));
 
-  if (portraitIndex > 1) {
-    const [portraitItem] = items.splice(portraitIndex, 1);
-    items.splice(1, 0, portraitItem);
-  }
-
-  console.table(
-    items.map((item, index) => ({
-      index,
-      title: item.title,
-      portrait: item.portrait,
-    })),
-  );
+      return {
+        id: node.id,
+        images,
+        portrait,
+        title,
+        year,
+        products,
+        position,
+      };
+    })
+    .sort((a, b) => a.position - b.position);
 
   return json<{items: ProjectItem[]}>({items});
 }
@@ -169,7 +170,12 @@ export default function ProjectsPage() {
               item.column === 2 ? 'product-item--right' : 'product-item--left',
             ].join(' ')}
           >
-            <FigureCard images={item.images} title={item.title} />
+            <FigureCard
+              images={item.images}
+              title={item.title}
+              year={item.year}
+              products={item.products}
+            />
           </div>
         ))}
       </div>
@@ -177,7 +183,17 @@ export default function ProjectsPage() {
   );
 }
 
-function FigureCard({images, title}: {images: Img[]; title: string}) {
+function FigureCard({
+  images,
+  title,
+  year,
+  products,
+}: {
+  images: Img[];
+  title: string;
+  year: string;
+  products: string;
+}) {
   const primaryImage = images[0];
   const hoverImage = images[1];
 
@@ -213,9 +229,13 @@ function FigureCard({images, title}: {images: Img[]; title: string}) {
         )}
       </div>
 
-      <div className="product-caption">
-        <h4 className="product-title">{title}</h4>
-      </div>
+      <figcaption className="product-caption">
+        {title && <div className="product-title">Projekt: {title}</div>}
+
+        {year && <div className="project-meta">Jahr: {year}</div>}
+
+        {products && <div className="project-meta">Produkte: {products}</div>}
+      </figcaption>
     </figure>
   );
 }

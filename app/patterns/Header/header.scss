@@ -222,7 +222,7 @@
 
   &__cart {
     font-size: 1.2rem;
-    padding: 0 0 8px 8px;
+    padding: 0 8px 8px 0;
   }
 
   &__container--has-cart {
@@ -252,4 +252,50 @@
 .header--black .burger span,
 .header--black .burger--inverted span {
   background: #fff !important;
+}
+
+.location-bar {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  z-index: 8;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  height: 4rem;
+  padding: 0 1.5rem;
+
+  background: var(--sf-white);
+  border-bottom: 1px solid var(--color-dark);
+
+  font-size: var(--nc-navigation-name-mobile-size);
+  line-height: var(--nc-navigation-name-mobile-line);
+  font-weight: var(--nc-navigation-name-mobile-weight);
+
+  @media (min-width: 768px) {
+    padding: 0 4.9rem;
+
+    font-size: var(--nc-navigation-name-desktop-size);
+    line-height: var(--nc-navigation-name-desktop-line);
+    font-weight: var(--nc-navigation-name-desktop-weight);
+  }
+
+  &__arrow {
+    flex: 0 0 auto;
+  }
+}
+/* Customer review: breadcrumb typography = CTA typography */
+.location-bar {
+  font-size: var(--nc-fliesstext-mobil-size);
+  line-height: var(--nc-fliesstext-mobil-line);
+  font-weight: var(--nc-fliesstext-mobil-weight);
+
+  @media (min-width: 768px) {
+    font-size: var(--nc-fliesstext-desktop-size);
+    line-height: var(--nc-fliesstext-desktop-line);
+    font-weight: var(--nc-fliesstext-desktop-weight);
+  }
 }

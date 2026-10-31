@@ -299,6 +299,46 @@ export default function SeriesPage() {
 
 // GraphQL Query
 const SERIES_QUERY = `#graphql
+fragment NeoColorMetaobject on Metaobject {
+  id
+  type
+  handle
+
+  fields {
+    key
+    type
+    value
+
+    reference {
+      __typename
+
+      ... on MediaImage {
+        image {
+          url
+          altText
+          width
+          height
+        }
+      }
+    }
+
+    references(first: 5) {
+      nodes {
+        __typename
+
+        ... on MediaImage {
+          image {
+            url
+            altText
+            width
+            height
+          }
+        }
+      }
+    }
+  }
+}
+
   fragment ProductVariant on ProductVariant {
     availableForSale
     compareAtPrice { amount currencyCode }
@@ -354,7 +394,7 @@ const SERIES_QUERY = `#graphql
 
       reference {
         __typename
-        ... on Metaobject { id type handle fields { key type value } }
+        ...NeoColorMetaobject
         ... on MediaImage { image { url altText width height } }
         ... on Video { sources { url mimeType } }
         ... on Model3d { sources { url mimeType } }
@@ -364,7 +404,7 @@ const SERIES_QUERY = `#graphql
       references(first: 50) {
         nodes {
           __typename
-          ... on Metaobject { id type handle fields { key type value } }
+          ...NeoColorMetaobject
           ... on MediaImage { image { url altText width height } }
           ... on Video { sources { url mimeType } }
           ... on Model3d { sources { url mimeType } }

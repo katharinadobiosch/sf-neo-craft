@@ -30,6 +30,64 @@ const ACCORDION_KEYS = new Set([
   'dichroic_glass',
 ]);
 
+const getMetaobjectField = (metaobject, key) =>
+  (metaobject?.fields || []).find((field) => field?.key === key);
+
+const getMetaobjectImageUrl = (field) => {
+  if (field?.reference?.__typename === 'MediaImage') {
+    return field.reference.image?.url || null;
+  }
+
+  const imageNode = field?.references?.nodes?.find(
+    (node) => node?.__typename === 'MediaImage',
+  );
+
+  return imageNode?.image?.url || null;
+};
+
+const getManagedSwatches = (product) => {
+  const metaobjects = [];
+
+  for (const metafield of product?.metafields || []) {
+    if (metafield?.reference?.__typename === 'Metaobject') {
+      metaobjects.push(metafield.reference);
+    }
+
+    for (const node of metafield?.references?.nodes || []) {
+      if (node?.__typename === 'Metaobject') {
+        metaobjects.push(node);
+      }
+    }
+  }
+
+  const uniqueMetaobjects = [
+    ...new Map(
+      metaobjects.map((metaobject) => [metaobject.id, metaobject]),
+    ).values(),
+  ];
+
+  return uniqueMetaobjects
+    .filter((metaobject) => metaobject.type === 'neo_color')
+    .map((metaobject) => {
+      const label =
+        getMetaobjectField(metaobject, 'label')?.value || metaobject.handle;
+
+      const hex = getMetaobjectField(metaobject, 'hex_code')?.value || null;
+
+      const image = getMetaobjectImageUrl(
+        getMetaobjectField(metaobject, 'image'),
+      );
+
+      return {
+        id: metaobject.id,
+        handle: metaobject.handle,
+        label,
+        hex,
+        image,
+      };
+    });
+};
+
 export function ProductForm({
   productOptions,
   product,
@@ -70,6 +128,11 @@ export function ProductForm({
       ? seriesProducts[seriesActiveIndex] || seriesProducts[0]
       : product;
 
+  const managedSwatches = useMemo(
+    () => getManagedSwatches(activeProduct),
+    [activeProduct],
+  );
+
   useEffect(() => {
     setSelectedDriver(null);
   }, [activeProduct?.id]);
@@ -79,10 +142,6 @@ export function ProductForm({
     : [];
 
   const allMetafields = allMetafieldsRaw.filter(Boolean);
-  console.log(
-    'download_links',
-    allMetafields.find((metafield) => metafield?.key === 'download_links'),
-  );
 
   const mfShipping =
     getMfByKey(allMetafields, 'lead_time_shipping') ||
@@ -179,6 +238,7 @@ export function ProductForm({
           driverOptions={driverOptions}
           selectedDriver={selectedDriver}
           onDriverSelect={setSelectedDriver}
+          managedSwatches={managedSwatches}
         />
       </div>
 
@@ -211,8 +271,21 @@ export function ProductForm({
 
       <div className="pdp__cta-container">
         <div className="cta-button">
-          <span className="cta-arrow">→</span>
-
+          <svg
+            className="cta-arrow"
+            width="32"
+            height="22"
+            viewBox="0 0 32 22"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M1 11H29M20 2L29 11L20 20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+          </svg>
           <span className="cta-price">{money(price, currency)}</span>
 
           <div
@@ -256,7 +329,7 @@ export function ProductForm({
           type="button"
           className="cta-question"
           onClick={() => {
-            window.location.href = 'mailto:test@example.com';
+            window.location.href = 'mailto:info@neocraft.com';
           }}
         >
           Contact our Team

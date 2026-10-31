@@ -140,7 +140,21 @@ export function MaterialForm({
       {/* 4) CTA */}
       <div className="pdp__cta-container">
         <div className="cta-button">
-          <span className="cta-arrow">→</span>
+          <svg
+            className="cta-arrow"
+            width="32"
+            height="22"
+            viewBox="0 0 32 22"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M1 11H29M20 2L29 11L20 20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+          </svg>
           <span className="cta-price">{money(price, currency)}</span>
           <AddToCartButton
             disabled={!currentVariant || !currentVariant.availableForSale}
@@ -156,7 +170,7 @@ export function MaterialForm({
         </div>
         <div
           className="cta-question"
-          onClick={() => (window.location = 'mailto:test@example.com')}
+          onClick={() => (window.location = 'mailto:info@neocraft.com')}
         >
           Further Questions?
         </div>

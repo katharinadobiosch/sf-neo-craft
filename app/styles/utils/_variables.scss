@@ -104,3 +104,9 @@
     --pf-col-gap: 1.5rem;
   }
 }
+
+@media (min-width: 768px) {
+  :root {
+    --header-h: 7rem;
+  }
+}

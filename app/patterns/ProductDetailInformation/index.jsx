@@ -83,11 +83,13 @@ export function ProductDetailInformation({
   const heroSplitRightHover =
     seriesMeta?.hero_right_images?.[1] ?? heroRight?.list?.[1]?.url ?? null;
 
-  const heroSplitText =
+  const rawHeroSplitText =
     seriesMeta?.hero_text ??
     metafields?.hero_split_text?.value ??
     metafields?.hero_text?.value ??
     '';
+
+  const heroSplitText = richTextJsonToPlainText(rawHeroSplitText);
 
   // ===== BOTTOM TeaserDuo =====
   const singleBottomLeft =
