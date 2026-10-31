@@ -43,8 +43,17 @@ export function PageLayout({
 
   const showLocationBar = !isCollectionHomepage;
 
-  const formatLocationPart = (value = '') =>
-    decodeURIComponent(value).replace(/-/g, ' ').toUpperCase();
+  const formatLocationPart = (value = '') => {
+    let decodedValue = value;
+
+    try {
+      decodedValue = decodeURIComponent(value);
+    } catch {
+      // Bei ungültiger Kodierung den ursprünglichen Wert verwenden.
+    }
+
+    return decodedValue.replace(/-/g, ' ').toUpperCase();
+  };
 
   function getLocationLabel(pathname) {
     const parts = pathname.split('/').filter(Boolean);
