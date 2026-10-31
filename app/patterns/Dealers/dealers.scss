@@ -1,4 +1,5 @@
 .dealers-page {
+  --dealers-line-inset: 24px;
   background: var(--sf-purple);
   width: 100vw;
   margin-left: calc(50% - 50vw);
@@ -8,8 +9,8 @@
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 768px) {
-    // --dealers-line-inset: 40px;
+  @media (min-width: 992px) {
+    --dealers-line-inset: 40px;
   }
 
   .dealers {

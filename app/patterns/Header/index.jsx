@@ -12,7 +12,7 @@ const EXTRA_MENU_ITEMS = [
   },
   {
     id: 'neo-dealers',
-    title: 'DEALER',
+    title: 'DEALERS',
     url: '/dealers',
   },
 ];
