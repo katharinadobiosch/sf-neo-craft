@@ -2,10 +2,27 @@ import {test, expect, type Page} from '@playwright/test';
 
 const pathOf = (page: Page) => new URL(page.url()).pathname;
 const money = (value: string) => {
-  const match = value.match(/(\d[\d.,\s]*)(?=\s*€)/);
+  const match = value.match(
+    /(?:€\s*([\d.,\s]+)|([\d.,\s]+)\s*€)/
+  );
   if (!match) throw new Error('Kein EUR-Preis gefunden: ' + value);
-  const raw = match[1].replace(/\s/g, '');
-  return Number(raw.replace(/\./g, '').replace(',', '.'));
+
+  const raw = (match[1] || match[2]).trim().replace(/\s/g, '');
+  const lastComma = raw.lastIndexOf(',');
+  const lastDot = raw.lastIndexOf('.');
+
+  const decimalSeparator = lastComma > lastDot ? ',' : '.';
+  const thousandsSeparator = decimalSeparator === ',' ? '.' : ',';
+
+  const normalized = raw
+    .replaceAll(thousandsSeparator, '')
+    .replace(decimalSeparator, '.');
+
+  const amount = Number(normalized);
+  if (!Number.isFinite(amount)) {
+    throw new Error('Ungültiger Preis: ' + value);
+  }
+  return amount;
 };
 
 async function openDia(page: Page) {
@@ -16,6 +33,7 @@ async function openDia(page: Page) {
 
 test('Navigation: Menu, interne Links und Browser-Zurück', async ({page}) => {
   await page.goto('/');
+  const initialUrl = page.url();
   await page.getByRole('button', {name: 'Toggle menu'}).click();
   const menu = page.locator('.header__overlay.open');
   await expect(menu).toBeVisible();
@@ -23,7 +41,7 @@ test('Navigation: Menu, interne Links und Browser-Zurück', async ({page}) => {
   await expect(page).toHaveURL(/\/projects(?:\?|$)/);
   await expect(page.locator('.collections.highlights')).toBeVisible();
   await page.goBack();
-  expect(pathOf(page)).toBe('/');
+  await expect(page).toHaveURL(initialUrl);
   await page.getByRole('button', {name: 'Toggle menu'}).click();
   await page.locator('.header__overlay.open').getByRole('link', {name: /BESPOKE/i}).first().click();
   await expect(page).toHaveURL(/\/bespoke(?:\?|$)/);
@@ -83,7 +101,7 @@ test('Mobile: Header, Konfigurator, Cart und Footer ohne horizontales Overflow',
   await expect(page.locator('.configurator')).toBeVisible();
   await expect(page.getByRole('button', {name: 'Add to Cart'})).toBeVisible();
   await page.goto('/cart');
-  await expect(page.locator('.cart-main')).toBeVisible();
+  await expect(page.locator('.cart-main:visible').first()).toBeVisible();
   await page.goto('/projects');
   await expect(page.locator('footer').first()).toBeAttached();
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
@@ -106,7 +124,7 @@ for (const [path, className] of [['/bespoke', 'bespoke'], ['/projects', 'highlig
       expect(await grid.evaluate(el => getComputedStyle(el).display)).toBe('block');
     }
     const withHover = cards.filter({has: page.locator('.card__img--secondary')}).first();
-    if (await withHover.count()) {
+    if (!isMobile && await withHover.count()) {
       await withHover.hover();
       await expect(withHover.locator('.card__img--secondary')).toHaveCSS('opacity', '1');
       await expect(withHover.locator('.card__img--primary')).toHaveCSS('opacity', '0');

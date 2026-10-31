@@ -8,7 +8,7 @@ export default defineConfig({
   retries: 1,
   reporter: [['list'], ['html', {open: 'never', outputFolder: 'playwright-report'}]],
   use: {
-    baseURL: process.env.E2E_BASE_URL || 'http://127.0.0.1:3000',
+    baseURL: process.env.E2E_BASE_URL || 'http://localhost:3000',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -17,12 +17,5 @@ export default defineConfig({
     {name: 'desktop-chromium', use: {...devices['Desktop Chrome']}},
     {name: 'mobile-chromium', use: {...devices['iPhone 13'], defaultBrowserType: 'chromium'}},
   ],
-  webServer: process.env.E2E_BASE_URL
-    ? undefined
-    : {
-        command: 'pnpm dev --host 127.0.0.1 --port 3000',
-        url: 'http://127.0.0.1:3000',
-        reuseExistingServer: true,
-        timeout: 180_000,
-      },
+  webServer: undefined,
 });
