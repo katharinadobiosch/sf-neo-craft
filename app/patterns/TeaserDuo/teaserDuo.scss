@@ -42,6 +42,33 @@
     }
   }
 
+  /* Shopify Rich Text */
+  .teaser-duo__content {
+    strong,
+    b {
+      font-weight: 700;
+    }
+
+    em,
+    i {
+      font-style: italic;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      line-height: 1.2;
+      margin: 1rem 0;
+    }
+
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.6em; }
+    h3 { font-size: 1.3em; }
+
+    p + p {
+      margin-top: 1em;
+    }
+  }
+
   .hover-wrap {
     position: relative;
     display: block;

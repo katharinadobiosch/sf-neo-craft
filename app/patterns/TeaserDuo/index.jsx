@@ -1,4 +1,5 @@
 import React from 'react';
+import {ShopifyRichText} from './ShopifyRichText';
 
 export function TeaserDuo({
   left,
@@ -8,6 +9,7 @@ export function TeaserDuo({
   altLeft = '',
   altRight = '',
   content,
+  richText,
   className,
   isSingle = false,
 }) {
@@ -51,7 +53,11 @@ export function TeaserDuo({
         ) : null}
       </div>
 
-      {content ? (
+      {richText ? (
+        <div className="teaser-duo__content">
+          <ShopifyRichText value={richText} />
+        </div>
+      ) : content ? (
         <div
           className="teaser-duo__content"
           dangerouslySetInnerHTML={{__html: content}}

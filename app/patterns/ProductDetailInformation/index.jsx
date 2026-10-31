@@ -51,9 +51,7 @@ export function ProductDetailInformation({
     seriesMeta && (seriesTopLeft || seriesTopRight),
   );
 
-  const seriesDescriptionText = richTextJsonToPlainText(
-    seriesMeta?.description,
-  );
+
 
   // ===== TOP (Square Variant): Series-Hero ODER Standard-Duo + Description =====
   // TODO: Remove fallback keys after Shopify exposes renamed metafields in Storefront API.
@@ -132,9 +130,10 @@ export function ProductDetailInformation({
             hasSeriesTopOverride ? seriesTopRightHover : topRightHover
           }
           isSingle={false}
+          richText={seriesMeta?.description || null}
           content={
-            hasSeriesTopOverride
-              ? seriesDescriptionText
+            seriesMeta?.description
+              ? null
               : product.descriptionHtml
           }
         />
