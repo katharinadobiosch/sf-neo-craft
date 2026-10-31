@@ -37,6 +37,27 @@ export const SWATCH_IMAGES = {
 };
 
 export const SWATCH_ALIASES = {
+  'satinglass bronze': 'satin glass bronze',
+  'satinglass black': 'satin glass black',
+  'satinglass blue': 'satin glass blue',
+  'satinglass green': 'satin glass green',
+  'satinglass multi': 'satin glass multi',
+  'satinglass white': 'satin glass white',
+  'satin glassbronze': 'satin glass bronze',
+  'dichroic glass blue-orange': 'blue-orange',
+  'dichroic glass cyan-magenta': 'cyan-magenta',
+  'dichroic glass gold-indigo': 'gold-indigo',
+  'dichroic glass pink green': 'pink-green',
+  'wood white stained ash': 'white ash',
+  'wood black stained ash': 'black ash',
+  'wood oak': 'oak',
+  'wood american walnut': 'walnut',
+  'marble arabescato corchia': 'arabescato corchia',
+  'marble marron emperador': 'marron emperador',
+  'stainless steel high gloss': 'stainless steel',
+  'stainless steel highgloss': 'stainless steel',
+  'brass matte brushed': 'matt brass',
+
   // Float Glas
   'clear blue': 'clear glass blue',
   'clear bronze': 'clear glass bronze',

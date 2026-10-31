@@ -337,7 +337,201 @@ export function Configurator({
     );
   };
 
+  const renderMaterialGroups = (option, mode) => {
+    const isCamo = mode === 'camo';
+
+    const categories = isCamo
+      ? [
+          'Stainless Steel',
+          'Brass',
+          'Dichroic Glass',
+          'Marble',
+          'Wood',
+        ]
+      : ['Clear Glass', 'Satin Glass'];
+
+    const getCategory = (name) => {
+      const normalized = String(name || '')
+        .trim()
+        .replace(/\s+/g, ' ')
+        .toLowerCase();
+
+      if (isCamo) {
+        return (
+          categories.find((category) =>
+            normalized.startsWith(category.toLowerCase() + ' '),
+          ) ||
+          categories.find(
+            (category) => normalized === category.toLowerCase(),
+          ) ||
+          null
+        );
+      }
+
+      if (/^clear\s*glass\b/i.test(normalized)) return 'Clear Glass';
+      if (/^satin\s*glass\b/i.test(normalized)) return 'Satin Glass';
+
+      return null;
+    };
+
+    const entries = option.optionValues.map((item) => ({
+      item,
+      category: getCategory(item.name),
+    }));
+
+    // Keine unbekannten Shopify-Optionen stillschweigend ausblenden.
+    if (
+      !entries.length ||
+      entries.some(({category}) => !category)
+    ) {
+      return null;
+    }
+
+    const selectedEntry =
+      entries.find(({item}) => item.selected) || entries[0];
+
+    const activeCategory = selectedEntry.category;
+
+    const activeEntries = entries.filter(
+      ({category}) => category === activeCategory,
+    );
+
+    const selectEntry = (entry) => {
+      if (!entry || !entry.item.exists || entry.item.selected) return;
+
+      onVariantReselect?.();
+
+      navigate(`?${entry.item.variantUriQuery}`, {
+        replace: true,
+        preventScrollReset: true,
+      });
+    };
+
+    const getDisplayName = (entry) => {
+      const raw = entry.item.name;
+
+      if (raw.toLowerCase() === entry.category.toLowerCase()) {
+        return entry.category;
+      }
+
+      return raw
+        .slice(entry.category.length)
+        .trim() || raw;
+    };
+
+    return (
+      <div className="cfg-grouped-option" key={option.name}>
+        <div className="cfg-row cfg-row--chip">
+          <div className="cfg-label">
+            {isCamo ? 'Material Table Top' : 'Glass'}
+          </div>
+
+          <div
+            className="cfg-values cfg-values--chip"
+            data-option="material-group"
+            data-count={categories.length}
+          >
+            {categories.map((category) => {
+              const groupEntries = entries.filter(
+                (entry) => entry.category === category,
+              );
+
+              const selected = category === activeCategory;
+
+              const firstAvailable = groupEntries.find(
+                ({item}) => item.exists,
+              );
+
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  className={cx(
+                    'cfg-item',
+                    'is-chip',
+                    selected && 'is-selected',
+                  )}
+                  disabled={!firstAvailable}
+                  aria-pressed={selected}
+                  onClick={() => {
+                    if (!selected) selectEntry(firstAvailable);
+                  }}
+                >
+                  <span className="chip-text">{category}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="cfg-row cfg-row--color">
+          <div className="cfg-label">
+            {isCamo ? 'Finish' : 'Colour'}
+          </div>
+
+          <div
+            className="cfg-values cfg-values--color"
+            data-option="material-finish"
+            data-count={activeEntries.length}
+          >
+            {activeEntries.map((entry) => {
+              const name = getDisplayName(entry);
+              const selected = Boolean(entry.item.selected);
+
+              return (
+                <button
+                  key={entry.item.name}
+                  type="button"
+                  className={cx(
+                    'cfg-item',
+                    'is-color',
+                    selected && 'is-selected',
+                  )}
+                  disabled={!entry.item.exists}
+                  data-tooltip={name}
+                  aria-label={entry.item.name}
+                  aria-pressed={selected}
+                  onClick={() => selectEntry(entry)}
+                >
+                  <span className="dot-ring">
+                    <span
+                      className="dot"
+                      style={getOptionSwatchStyle(
+                        entry.item,
+                        managedSwatches,
+                      )}
+                    />
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderOption = (option) => {
+    const handle = String(product?.handle || '').toLowerCase();
+    const optionName = option.name.toLowerCase().trim();
+
+    if (
+      ['camo-a-ffinal', 'camo-b-final', 'camo-c'].includes(handle) &&
+      optionName === 'material table top'
+    ) {
+      const grouped = renderMaterialGroups(option, 'camo');
+      if (grouped) return grouped;
+    }
+
+    if (
+      (handle.startsWith('isom-') || handle.startsWith('osom-')) &&
+      optionName === 'glass'
+    ) {
+      const grouped = renderMaterialGroups(option, 'glass');
+      if (grouped) return grouped;
+    }
+
+
 
     if (
       product?.handle === 'dia' &&
