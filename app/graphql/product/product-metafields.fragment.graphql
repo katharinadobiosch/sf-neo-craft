@@ -8,7 +8,8 @@ fragment ProductCustomMetafields on Product {
   # Liefert eine Liste von Metafeldern (Einträge können null sein,
   # wenn am Produkt kein Wert gesetzt ist)
   metafields(identifiers: [
-        {namespace: "custom", key: "material"}  # list.single_line_text_field
+        {namespace: "custom", key: "material"}
+        {namespace: "custom", key: "material_specs"}  # list.single_line_text_field
         {namespace: "custom", key: "size"}  # list.single_line_text_field
         {namespace: "custom", key: "length"}  # list.number_decimal
         {namespace: "custom", key: "width"}  # list.number_decimal

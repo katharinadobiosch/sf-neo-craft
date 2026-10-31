@@ -526,5 +526,17 @@
       "storefront": "PUBLIC_READ"
     },
     "ownerType": "PRODUCT"
+  },
+  {
+    "namespace": "custom",
+    "key": "material_specs",
+    "name": "Material Specs",
+    "type": {
+      "name": "single_line_text_field"
+    },
+    "access": {
+      "storefront": "PUBLIC_READ"
+    },
+    "ownerType": "PRODUCT"
   }
 ]

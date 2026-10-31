@@ -44,6 +44,7 @@ const LABEL_BY_KEY = Object.fromEntries(
 
 const DETAIL_ORDER = [
   'material',
+  'material_specs',
   'measurements',
   'technical_specs',
   'photometric_specs',

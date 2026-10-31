@@ -20,6 +20,7 @@ function getMfByKey(metafields, key) {
 const ACCORDION_KEYS = new Set([
   'measurements',
   'material',
+  'material_specs',
   'technical_specs',
   'photometric_specs',
   'electric_specs',
