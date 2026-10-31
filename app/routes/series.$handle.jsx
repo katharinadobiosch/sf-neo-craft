@@ -278,7 +278,6 @@ export default function SeriesPage() {
 
   return (
     <div className="product">
-      <h1>{title}</h1>
 
       {activeProduct ? (
         <ProductDetailInformation

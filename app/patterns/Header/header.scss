@@ -284,7 +284,10 @@
   }
 
   &__arrow {
+    display: block;
     flex: 0 0 auto;
+    width: 24px;
+    height: 16.5px;
   }
 }
 /* Customer review: breadcrumb typography = CTA typography */

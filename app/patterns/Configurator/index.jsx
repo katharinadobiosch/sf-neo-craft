@@ -332,11 +332,6 @@ export function Configurator({
 
   return (
     <div className="configurator" data-variants-open={variantsOpen}>
-      {/* Kopf: toggelt NUR Varianten */}
-      <div className="cfg-head">
-        <h1 className="cfg-title">{productTitle || 'Configurator'}</h1>{' '}
-      </div>
-
       {/* Container 1: Varianten */}
       <div
         id="cfg-variants"

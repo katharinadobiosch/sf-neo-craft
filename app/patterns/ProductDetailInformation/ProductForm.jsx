@@ -273,8 +273,8 @@ export function ProductForm({
         <div className="cta-button">
           <svg
             className="cta-arrow"
-            width="32"
-            height="22"
+            width="24"
+            height="16.5"
             viewBox="0 0 32 22"
             aria-hidden="true"
             focusable="false"

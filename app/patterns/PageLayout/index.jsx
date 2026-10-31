@@ -61,6 +61,9 @@ export function PageLayout({
     if (!parts.length) return '';
 
     const seriesLabels = {
+      isom: 'ISOM & OSOM',
+      'isom-osom': 'ISOM & OSOM',
+      'isom-and-osom': 'ISOM & OSOM',
       fifty: 'FIFTY FINAL',
       camo: 'CAMO FINAL',
       dia: 'DIA FINAL',
@@ -142,7 +145,19 @@ export function PageLayout({
 
       {showLocationBar && locationLabel && (
         <div className="location-bar">
-          <span className="location-bar__arrow">→</span>
+          <svg
+            className="location-bar__arrow"
+            viewBox="0 0 32 22"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M1 11H29M20 2L29 11L20 20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+          </svg>
           <span>{locationLabel}</span>
         </div>
       )}
