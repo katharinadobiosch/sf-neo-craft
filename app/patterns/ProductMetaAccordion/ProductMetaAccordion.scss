@@ -261,3 +261,21 @@
   max-height: none;
   overflow: visible;
 }
+
+
+/* Measurements: full product-details column */
+@media (min-width: 768px) {
+  .pdp .product-form__sections
+  .pf-kv__row:has(.acc-images.measurements) {
+    .pf-kv__toggle {
+      grid-column: 1 / -1;
+      grid-row: 1;
+    }
+
+    .pf-kv__value-wrap {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      min-width: 0;
+    }
+  }
+}
