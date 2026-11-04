@@ -399,8 +399,12 @@ export function Configurator({
         );
       }
 
-      if (/^clear\s*glass\b/i.test(normalized)) return 'Clear Glass';
-      if (/^satin\s*glass\b/i.test(normalized)) return 'Satin Glass';
+      if (/^(?:clear\s*glass|klarglas)\b/i.test(normalized)) {
+        return 'Clear Glass';
+      }
+      if (/^(?:satin\s*glass|satinglas)\b/i.test(normalized)) {
+        return 'Satin Glass';
+      }
 
       return null;
     };
@@ -443,6 +447,12 @@ export function Configurator({
 
       if (raw.toLowerCase() === entry.category.toLowerCase()) {
         return entry.category;
+      }
+
+      if (!isCamo) {
+        return raw
+          .replace(/^(?:clear\s*glass|satin\s*glass|klarglas|satinglas)\s*/i, '')
+          .trim() || raw;
       }
 
       return raw
@@ -554,14 +564,14 @@ export function Configurator({
       if (grouped) return grouped;
     }
 
-    if (optionName === 'glass') {
+    if (optionName === 'glass' || optionName === 'glas') {
       const names = option.optionValues.map(({name}) => norm(name));
 
       const hasClearGlass = names.some((name) =>
-        /^clear\s+glass\b/.test(name),
+        /^(?:clear\s+glass|klarglas)\b/.test(name),
       );
       const hasSatinGlass = names.some((name) =>
-        /^satin\s+glass\b/.test(name),
+        /^(?:satin\s+glass|satinglas)\b/.test(name),
       );
 
       if (hasClearGlass && hasSatinGlass) {

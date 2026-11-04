@@ -37,6 +37,18 @@ export const SWATCH_IMAGES = {
 };
 
 export const SWATCH_ALIASES = {
+  'klarglas schwarz': 'clear glass black',
+  'klarglas bronze': 'clear glass bronze',
+  'klarglas blau': 'clear glass blue',
+  'klarglas grun': 'clear glass green',
+  'klarglas bunt': 'clear glass multi',
+  'klarglas transparent': 'clear glass transparent',
+  'satinglas schwarz': 'satin glass black',
+  'satinglas bronze': 'satin glass bronze',
+  'satinglas blau': 'satin glass blue',
+  'satinglas grun': 'satin glass green',
+  'satinglas bunt': 'satin glass multi',
+  'satinglas weiß': 'satin glass white',
   'satinglass bronze': 'satin glass bronze',
   'satinglass black': 'satin glass black',
   'satinglass blue': 'satin glass blue',
