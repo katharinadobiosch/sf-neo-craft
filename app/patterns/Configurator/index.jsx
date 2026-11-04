@@ -211,6 +211,37 @@ export function Configurator({
 
   const variantOptions = productOptions || [];
 
+  const isIrisGlobe = /iris[-_\s]?globe/i.test(
+    String(product?.handle || productTitle || ''),
+  );
+
+  const orderedVariantOptions = isIrisGlobe
+    ? (() => {
+        let metalCount = 0;
+
+        return variantOptions
+          .map((option, index) => {
+            const name = norm(option.name);
+            let priority = 4;
+
+            if (/size|diameter|durchmesser|große|groesse/.test(name)) {
+              priority = 0;
+            } else if (/metal|metall/.test(name)) {
+              priority = metalCount++ === 0 ? 1 : 3;
+            } else if (/glass|glas/.test(name)) {
+              priority = 2;
+            }
+
+            return {option, index, priority};
+          })
+          .sort(
+            (a, b) =>
+              a.priority - b.priority || a.index - b.index,
+          )
+          .map(({option}) => option);
+      })()
+    : variantOptions;
+
   const hasSeriesOptions =
     Array.isArray(seriesProducts) &&
     seriesProducts.length > 1 &&
@@ -512,8 +543,8 @@ export function Configurator({
   };
 
   const renderOption = (option) => {
-    const handle = String(product?.handle || '').toLowerCase();
     const optionName = option.name.toLowerCase().trim();
+    const handle = String(product?.handle || '').toLowerCase();
 
     if (
       ['camo-a-ffinal', 'camo-b-final', 'camo-c'].includes(handle) &&
@@ -523,12 +554,20 @@ export function Configurator({
       if (grouped) return grouped;
     }
 
-    if (
-      (handle.startsWith('isom-') || handle.startsWith('osom-')) &&
-      optionName === 'glass'
-    ) {
-      const grouped = renderMaterialGroups(option, 'glass');
-      if (grouped) return grouped;
+    if (optionName === 'glass') {
+      const names = option.optionValues.map(({name}) => norm(name));
+
+      const hasClearGlass = names.some((name) =>
+        /^clear\s+glass\b/.test(name),
+      );
+      const hasSatinGlass = names.some((name) =>
+        /^satin\s+glass\b/.test(name),
+      );
+
+      if (hasClearGlass && hasSatinGlass) {
+        const grouped = renderMaterialGroups(option, 'glass');
+        if (grouped) return grouped;
+      }
     }
 
 
@@ -541,13 +580,17 @@ export function Configurator({
       if (diaRows) return <div key={option.name}>{diaRows}</div>;
     }
 
+    const isIrisMetal =
+      isIrisGlobe && /metal|metall/.test(optionName);
+
     const colorish =
-      isColorOption(option.name) ||
-      option.optionValues.some(
-        (value) =>
-          hasImageSwatch(value, managedSwatches) ||
-          Boolean(value?.swatch?.color),
-      );
+      !isIrisMetal &&
+      (isColorOption(option.name) ||
+        option.optionValues.some(
+          (value) =>
+            hasImageSwatch(value, managedSwatches) ||
+            Boolean(value?.swatch?.color),
+        ));
     const label = option.name.charAt(0).toUpperCase() + option.name.slice(1); // 👈 hier
 
     const optionSlug = option.name.toLowerCase().trim();
@@ -722,7 +765,7 @@ export function Configurator({
           )}
 
           <div className="cfg-panel-inner">
-            {variantOptions.map(renderOption)}
+            {orderedVariantOptions.map(renderOption)}
 
             {driverOptions.length > 0 && (
               <div className="cfg-row cfg-row--chip">

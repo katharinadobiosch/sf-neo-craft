@@ -181,8 +181,9 @@
 
     /* Eine Zeichnung → komplette Content-Breite */
     .meta-accordion__images-grid[data-count='1'] {
-      grid-template-columns: minmax(0, min(100%, 34rem));
-      justify-content: center;
+      grid-template-columns: minmax(0, 1fr);
+      justify-content: stretch;
+      padding-inline: 0;
     }
 
     /* Zwei Zeichnungen → 50 / 50 */

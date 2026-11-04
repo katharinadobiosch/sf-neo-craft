@@ -162,6 +162,18 @@ export function ProductForm({
       .trim();
 
     if (key === 'measurements') return false;
+
+    const isIrisGlobe = /iris[-_\s]?globe/i.test(
+      String(activeProduct?.handle || activeProduct?.title || ''),
+    );
+
+    if (
+      isIrisGlobe &&
+      (key === 'material' || key === 'dichroic_glass')
+    ) {
+      return false;
+    }
+
     if (!ACCORDION_KEYS.has(key)) return false;
     if (!hasContent(metafield)) return false;
 
