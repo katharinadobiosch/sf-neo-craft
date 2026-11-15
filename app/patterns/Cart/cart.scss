@@ -667,3 +667,29 @@
     }
   }
 }
+
+/* Cart summary typography refinements */
+.nc-cart-summary {
+  .nc-cart-summary__value {
+    font-size: 1.15rem;
+    line-height: 1.4;
+  }
+
+  .nc-cart-summary__shipping p {
+    font-size: inherit;
+    line-height: inherit;
+    margin: 0 0 1.2rem;
+  }
+
+  .nc-cart-summary__shipping p:last-child {
+    margin-bottom: 0;
+  }
+
+  .nc-cart-summary__notices a,
+  .nc-cart-summary__shipping a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 1px;
+  }
+}
