@@ -527,6 +527,16 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
   }
 
   &__shipping {

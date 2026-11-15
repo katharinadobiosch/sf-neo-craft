@@ -58,8 +58,20 @@ export function CartSummary({cart, layout}) {
         <div className="nc-cart-summary__row">
           <div className="nc-cart-summary__label">Notices</div>
           <div className="nc-cart-summary__value nc-cart-summary__notices">
-            <span>Electrical Appliances - Return &amp; Disposal</span>
-            <span>5-Year Manufacturer's Warranty</span>
+            <a
+              href="/pages/electrical-appliances-return-disposal"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Electrical Appliances - Return &amp; Disposal
+            </a>
+            <a
+              href="/pages/warranty"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              5-Year Manufacturer's Warranty
+            </a>
           </div>
         </div>
 
