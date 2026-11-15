@@ -7,7 +7,7 @@ import {CartMain} from '~/patterns/Cart/CartMain';
  * @type {MetaFunction}
  */
 export const meta = () => {
-  return [{title: `Hydrogen | Cart`}];
+  return [{title: `Cart | NEOCRAFT`}];
 };
 
 /**

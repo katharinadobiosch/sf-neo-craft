@@ -302,7 +302,7 @@ function ProductItem({product}: {product: ProductLike}) {
         {main && (main as any).__genericUrl && (
           <img
             src={(main as any).__genericUrl}
-            alt={title}
+            alt={title ?? ''}
             style={{
               position: 'absolute',
               inset: 0,
@@ -337,7 +337,7 @@ function ProductItem({product}: {product: ProductLike}) {
         {hover && (hover as any).__genericUrl && (
           <img
             src={(hover as any).__genericUrl}
-            alt={title}
+            alt={title ?? ''}
             style={{
               position: 'absolute',
               inset: 0,
