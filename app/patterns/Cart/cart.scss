@@ -475,3 +475,185 @@
     width: auto;
   }
 }
+
+/* ----------------------------------
+   NEOCRAFT cart summary
+---------------------------------- */
+
+.nc-cart-summary {
+  width: 100%;
+  min-width: 0;
+  color: #000;
+  background: #fff;
+
+  &__table {
+    border-top: 1px solid #000;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-bottom: 1px solid #000;
+  }
+
+  &__label,
+  &__value {
+    min-width: 0;
+    padding: 16px 0;
+  }
+
+  &__label {
+    font-weight: 500;
+  }
+
+  &__value {
+    font-size: 1.2rem;
+    line-height: 1.4;
+  }
+
+  &__note {
+    display: block;
+    width: 100%;
+    min-height: 70px;
+    border: 0;
+    padding: 0;
+    resize: vertical;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+  }
+
+  &__notices {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__shipping {
+    p {
+      margin: 0 0 14px;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+
+  &__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    cursor: pointer;
+
+    input {
+      flex: 0 0 auto;
+      margin: 3px 0 0;
+      accent-color: #000;
+    }
+  }
+
+  &__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid #000;
+    margin-top: -1px;
+  }
+
+  &__subtotal {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 22px;
+
+    strong {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    small {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+  }
+
+  &__arrow {
+    font-size: 2.6rem;
+    font-weight: 300;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 12px;
+    min-height: 65px;
+    color: #000;
+    background: #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: background 180ms ease, color 180ms ease;
+
+    &:hover,
+    &:focus-visible {
+      background: #000;
+      color: #fff;
+    }
+
+    &.is-disabled {
+      opacity: 0.45;
+      pointer-events: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    &__row {
+      grid-template-columns: 39% 61%;
+    }
+
+    &__label,
+    &__value {
+      padding: 20px 24px;
+    }
+
+    &__label {
+      border-right: 1px solid #000;
+    }
+
+    &__actions {
+      grid-template-columns: minmax(0, 1.3fr) 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 992px) {
+    &__label,
+    &__value {
+      padding: 22px 30px;
+    }
+
+    &__value {
+      font-size: 1.15rem;
+    }
+
+    &__notices {
+      gap: 10px;
+    }
+
+    &__actions {
+      margin-top: 0;
+    }
+
+    &__action {
+      font-size: 1.6rem;
+    }
+  }
+}
