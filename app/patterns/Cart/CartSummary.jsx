@@ -1,10 +1,15 @@
 import {Money} from '@shopify/hydrogen';
+import {useRouteLoaderData} from 'react-router';
 import './cart.scss';
 
 /**
  * @param {CartSummaryProps}
  */
 export function CartSummary({cart, layout}) {
+  const rootData = useRouteLoaderData('root');
+  const language = rootData?.consent?.language === 'EN' ? 'en' : 'de';
+  const legalGuaranteeImage = rootData?.legalGuaranteeImages?.[language];
+
   const subtotal = cart?.cost?.subtotalAmount;
   const checkoutUrl = cart?.checkoutUrl;
   const lines = cart?.lines?.nodes ?? [];
@@ -153,6 +158,20 @@ export function CartSummary({cart, layout}) {
           Contact our Team
         </a>
       </div>
+
+      {legalGuaranteeImage && (
+        <div className="nc-cart-summary__legal">
+          <img
+            src={legalGuaranteeImage}
+            alt={
+              language === 'de'
+                ? 'Informationen zur gesetzlichen Gewährleistung'
+                : 'Information about the legal guarantee'
+            }
+            loading="lazy"
+          />
+        </div>
+      )}
     </section>
   );
 }

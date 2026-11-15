@@ -152,17 +152,26 @@ export async function loader(args) {
 async function loadCriticalData({context}) {
   const {storefront} = context;
 
-  const [header] = await Promise.all([
+  const [header, legalGuaranteeData] = await Promise.all([
     storefront.query(HEADER_QUERY, {
       cache: storefront.CacheLong(),
       variables: {
-        headerMenuHandle: 'new-shop__main-menu', // Adjust to your header menu handle
+        headerMenuHandle: 'new-shop__main-menu',
       },
     }),
-    // Add other queries here, so that they are loaded in parallel
+    storefront.query(LEGAL_GUARANTEE_QUERY).catch((error) => {
+      console.error('Failed to load legal guarantee images', error);
+      return null;
+    }),
   ]);
 
-  return {header};
+  return {
+    header,
+    legalGuaranteeImages: {
+      de: legalGuaranteeData?.shop?.legalGuaranteeDe?.reference?.image?.url ?? null,
+      en: legalGuaranteeData?.shop?.legalGuaranteeEn?.reference?.image?.url ?? null,
+    },
+  };
 }
 
 /**
@@ -269,3 +278,35 @@ export function ErrorBoundary() {
 /** @typedef {import('@shopify/remix-oxygen').LoaderFunctionArgs} LoaderFunctionArgs */
 /** @typedef {import('react-router').ShouldRevalidateFunction} ShouldRevalidateFunction */
 /** @typedef {import('@shopify/remix-oxygen').SerializeFrom<typeof loader>} LoaderReturnData */
+
+
+const LEGAL_GUARANTEE_QUERY = `#graphql
+  query LegalGuaranteeImages {
+    shop {
+      legalGuaranteeDe: metafield(
+        namespace: "custom"
+        key: "legal_guarantee_de"
+      ) {
+        reference {
+          ... on MediaImage {
+            image {
+              url
+            }
+          }
+        }
+      }
+      legalGuaranteeEn: metafield(
+        namespace: "custom"
+        key: "legal_guarantee_en"
+      ) {
+        reference {
+          ... on MediaImage {
+            image {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+`;
