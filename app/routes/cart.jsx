@@ -66,6 +66,15 @@ export async function action({request, context}) {
       result = await cart.updateGiftCardCodes(giftCardCodes);
       break;
     }
+    case CartForm.ACTIONS.NoteUpdate: {
+      const note = String(formData.get('note') ?? '');
+      result = await cart.updateNote(note);
+      break;
+    }
+    case CartForm.ACTIONS.AttributesUpdateInput: {
+      result = await cart.updateAttributes(inputs.attributes);
+      break;
+    }
     case CartForm.ACTIONS.BuyerIdentityUpdate: {
       result = await cart.updateBuyerIdentity({
         ...inputs.buyerIdentity,

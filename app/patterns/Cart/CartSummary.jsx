@@ -1,4 +1,5 @@
-import {Money} from '@shopify/hydrogen';
+import {CartForm, Money} from '@shopify/hydrogen';
+import {useEffect, useRef, useState} from 'react';
 import {useRouteLoaderData} from 'react-router';
 import './cart.scss';
 
@@ -13,6 +14,56 @@ export function CartSummary({cart, layout}) {
   const subtotal = cart?.cost?.subtotalAmount;
   const checkoutUrl = cart?.checkoutUrl;
   const lines = cart?.lines?.nodes ?? [];
+
+  const [note, setNote] = useState(cart?.note ?? '');
+  const noteContainerRef = useRef(null);
+  const consentContainerRef = useRef(null);
+  const [shippingConsent, setShippingConsent] = useState(
+    cart?.attributes?.some(
+      ({key, value}) =>
+        key === 'Shipping Consent' && value === 'Yes',
+    ) ?? false,
+  );
+
+  const savedConsent =
+    cart?.attributes?.some(
+      ({key, value}) =>
+        key === 'Shipping Consent' && value === 'Yes',
+    ) ?? false;
+
+  const otherAttributes = (cart?.attributes ?? []).filter(
+    ({key}) => key !== 'Shipping Consent',
+  );
+
+  const consentAttributes = [
+    ...otherAttributes,
+    {
+      key: 'Shipping Consent',
+      value: shippingConsent ? 'Yes' : 'No',
+    },
+  ];
+
+  // Save message after the user stops typing.
+  useEffect(() => {
+    if (note === (cart?.note ?? '')) return;
+
+    const timeout = setTimeout(() => {
+      noteContainerRef.current
+        ?.querySelector('form')
+        ?.requestSubmit();
+    }, 800);
+
+    return () => clearTimeout(timeout);
+  }, [note, cart?.note]);
+
+  // Save consent immediately after a change.
+  useEffect(() => {
+    if (shippingConsent === savedConsent) return;
+
+    consentContainerRef.current
+      ?.querySelector('form')
+      ?.requestSubmit();
+  }, [shippingConsent, savedConsent]);
 
   const products = lines.map((line) => {
     const options = line.merchandise.selectedOptions
@@ -52,11 +103,21 @@ export function CartSummary({cart, layout}) {
         <div className="nc-cart-summary__row">
           <div className="nc-cart-summary__label">Message</div>
           <div className="nc-cart-summary__value">
-            <textarea
-              className="nc-cart-summary__note"
-              placeholder="Leave us a message"
-              aria-label="Order message"
-            />
+            <div ref={noteContainerRef}>
+              <CartForm
+                route="/cart"
+                action={CartForm.ACTIONS.NoteUpdate}
+              >
+              <textarea
+                className="nc-cart-summary__note"
+                name="note"
+                value={note}
+                onChange={(event) => setNote(event.target.value)}
+                placeholder="Leave us a message"
+                aria-label="Order message"
+              />
+              </CartForm>
+            </div>
           </div>
         </div>
 
@@ -114,19 +175,34 @@ export function CartSummary({cart, layout}) {
             Shipping Consent
           </div>
           <div className="nc-cart-summary__value">
-            <label className="nc-cart-summary__consent">
-              <input type="checkbox" name="shippingConsent" />
-              <span>
-                I agree that my e-mail address and telephone number
-                may be passed on to the transport company so that
-                the parcel or shipping company can contact me by
-                e-mail or telephone before delivery of the goods
-                for the purpose of coordinating a delivery date or
-                transmitting status information on the delivery of
-                the consignment. I can revoke the consent I have
-                given in this regard at any time.
-              </span>
-            </label>
+            <div ref={consentContainerRef}>
+              <CartForm
+                route="/cart"
+                action={CartForm.ACTIONS.AttributesUpdateInput}
+                inputs={{attributes: consentAttributes}}
+              >
+              <label className="nc-cart-summary__consent">
+                <input
+                  type="checkbox"
+                  name="shippingConsent"
+                  checked={shippingConsent}
+                  onChange={(event) =>
+                    setShippingConsent(event.target.checked)
+                  }
+                />
+                <span>
+                  I agree that my e-mail address and telephone number
+                  may be passed on to the transport company so that
+                  the parcel or shipping company can contact me by
+                  e-mail or telephone before delivery of the goods
+                  for the purpose of coordinating a delivery date or
+                  transmitting status information on the delivery of
+                  the consignment. I can revoke the consent I have
+                  given in this regard at any time.
+                </span>
+              </label>
+              </CartForm>
+            </div>
           </div>
         </div>
       </div>
